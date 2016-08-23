@@ -1,10 +1,10 @@
-# pt.stellar-framework.com
+# stellar-framework.com
 
-Este site é construido em [hexo](http://hexo.io/). O conteúdo do site é escrito no formato Markdown localizado na pasta `src`. Pull requestes são bem-vindos 😉
+This site is built with [hexo](http://hexo.io/). Site content is written in Markdown format in `src`. Pull requests welcome! 😉
 
-## Desenvolvimento
+## Developing
 
-Iniciar um servidor em `localhost:4000`
+Start a dev server at `localhost:4000`
 
 ```
 $ npm install -g hexo-cli
