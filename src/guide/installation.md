@@ -1,44 +1,43 @@
 ---
-title: Instalação
+title: Installation
 type: guide
 order: 2
 ---
 
-### Compatibilidade
+### Compatibility
 
-O Stellar faz uso de todo o potencial do [ECMAScript 6](http://es6-features.org/), por isso, versões do Node.js inferiores à 6 não são suportadas.
+Stellar makes use of the full potential of [ECMAScript 6](http://es6-features.org/), so Node.js versions lower than 6 are not supported.
 
 ### Release Notes
 
-Os detalhes das _releases_ para cada versão estão disponíveis no GitHub na aba [Releases](https://github.com/StellarFw/stellar/releases) e no ficheiro de [Changelog](https://github.com/StellarFw/stellar/blob/dev/CHANGELOG.md).
+Details of releases for each version are available on GitHub in the [Releases](https://github.com/StellarFw/stellar/releases) tab and in the [Changelog](https://github.com/StellarFw/stellar/blob/dev/CHANGELOG.md) file.
 
 ## NPM
 
-O NPM é o método recomendado para a instalação do Stellar, uma vez que este é usado para satisfazer as dependências não só do _core_ como dos módulos.
+NPM is the recommended method for installing Stellar, since it is used to satisfy not only the dependencies of the core but also the modules.
 
 ```bash
-# ultima versão estável
+# last stable release
 $ npm install -g stellar-fw
 ```
 
-## Versões de Desenvolvimento
+## Development Versions
 
-Para usar a versão de desenvolvimento do Stellar apenas tem que fazer o _clone_ do repositório do GitHub. O _branch_ `master` contem a ultima versão estável da framework, já a versão de desenvolvimento encontra-se no _branch_ `dev`.
+To use the development version of Stellar you just have to make the clone of GitHub repository. The `master` branch contains the latest stable release of the framework, and the development version are funded on `dev` branch.
 
 ```bash
-# faz o clone do repositório para a pasta stellar
+# clone the repository for the stellar folder
 $ git clone https://github.com/StellarFw/stellar stellar
 
-# entra na pasta stellar e instala as dependências
+# enters the stellar folder and install the dependencies
 $ cd stellar && npm install
 
-# faz o transpile do código da pasta ‘/src’ para ES5
+# does the code transpile from `/src` folder to ES5 code
 $ npm run build
 
-# faz o link pelo npm para adicionar a ferramenta de linha de comandos ao 
-# sistema
+# it makes the npm link to add the stellar command-line tool to the system
 $ npm link
 ```
 
-> Nota: O `npm link` pode necessitar de permissões de administrador.
+> Note: the `npm link` may require admin permissions.
 
