@@ -1,6 +1,6 @@
 ---
-title: "Olá mundo"
+title: "Hello World"
 date: 2016-08-18 18:27:00
 ---
 
-Bem-vindo ao Stellar, uma _framework_ baseada em ações.
+Welcome to Stellar, an web framework based in actions.
