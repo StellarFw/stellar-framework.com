@@ -1,50 +1,50 @@
 ---
-title: Sistema de Ficheiros
+title: File System
 type: guide
 order: 11
 ---
 
-## Visão Geral
+## Overview
 
-O Stellar está equipado com um sistema de ficheiros que permite aos clientes fazer pedidos de ficheiros estáticos.
+Stellar is equipped with a file system that allows clients make requests for static files.
 
-Se for pedido um diretório em vez de um ficheiro, o Stellar irá procurar pelo ficheiro definido em `api.config.general.directoryFileType` (que por defeito contem o valor `index.html`). Se falhar, por não encontrar o ficheiro será devolvido um erro.
+If is requested a directory instead of a file, Stellar will look for the file set in `api.config.general.directoryFileType` (which by default is set like `index.html`). If it fails, a not find error will be returned.
 
-Pode-se usar o método `api.staticFile.get(connection, next)` nas ações para obter um ficheiro (em que `next(connection, error, fileStream, mime, length)`), o ficheiro a ser procurado será o definido em `connection.params.file`. Note-se que o fileStream é um _stream_ que pode ser _pipe'd_ para um cliente.
+You can use the `api.staticFile.get(connection, next)` method in actions to get a file (where `next(connection, error, fileStream, mime, length)`), the file being sought is defined in `connection.params.file`. Note that the fileStream is a stream that can be piped to a client.
 
-> NOTA: Em sistema operativos *NIX os _links_ simbólicos para pastas e ficheiros são permitidos.
+> Note: In *NIX operative systems symbolic links to folders and files are allowed.
 
-## Clientes Web
+## Web Clients
 
-Nos clientes _web_ os _headers_ `Cache-Control` e `Expires` serão enviados, o valor destes encontra-se definido na configuração `api.config.general.flatFileCacheDuration`.
+In Web client the `Cache-Control` and `Expires` headers are sent, value of these is defined in `api.config.general.flatFileCacheDuration` configuration.
 
-Para o _header_ `Content-Type` será usado o pacote [mime](https://npmjs.org/package/mime) para determinar o _mime_ do ficheiro.
+For the `Content-Type` header will be used the [mime](https://npmjs.org/package/mime) to determine the file mime type.
 
-Os clientes podem pedir um ficheiro através do parâmetro `file` ao executar a chamada de uma ação que faça uso do método `api.sendFile`, ou então podem fazer um pedido para o URL definido em `api.config.servers.web.urlPathForFiles` (por defeito é `/public`), o Stellar irá procurar pelo ficheiro pedido na pasta `/public`.
+Web clients may request `connection.params.file` directly within an action which makes use of `api.sendFile` method, or if they are under the `api.config.servers.web.urlPathForFiles` route, the file will be looked up as if the route matches the directory structure under `/public` folder.
 
-Também é possível enviar o conteúdo de um ficheiro diretamente para um cliente, para isso basta usar o método `api.sendFile(connection, null, stream, 'text/html', length)`.
+You can also send the content of a file to a client just use the `server.sendFile(connection, null, stream, 'text/html', length)` method.
 
-## Outros Clientes
+## Other Clients
 
-No caso de estar a usar uma ligação que não seja _web_ deve usar o parâmetro `file` para fazer o pedido do ficheiro.
+In case you are using a connection that is not web must use the `file` parameter to request a file.
 
-O conteúdo do ficheiro é enviado em `raw`, que pode ser binário ou conter quebras de linha. Deve fazer o _parse_ de acordo com o tipo de pedido que fez.
+The file content is sent in `raw`, which can be binary or contain line breaks. Must parse according to the type of request you made.
 
-## Enviar Ficheiros pelas Ações
+## Send Files by Actions
 
-É possível enviar ficheiros através das ações usando o método `connection.sendFile()`. Abaixo encontra-se um exemplo de uma chamada de sucesso e outra de falha:
+You can send files through the actions using `connection.sendFile()` method. Bellow is an example of a successful call and another of a failure:
 
 ```javascript
-// ficheiro encontrado
+// success case
 action.connection.sendFile('/path/to/file.mkv')
 action.toRender = false
 next()
 
-// mensagem de erro
+// failure case
 action.connection.rawConnection.responseHttpCode = 404
 action.connection.sendFile('404.html')
 action.toRender = false
 next()
 ```
 
-> NOTA: Deve definir a propriedade `action.toRender = false` uma vez que já foi enviada uma resposta para o cliente.
+> Note: You must set the property `action.toRender = false` since it has already sent a reply to the client.
