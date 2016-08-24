@@ -1,14 +1,14 @@
 ---
-title: Modo de Desenvolvimento
+title: Development Mode
 type: guide
 order: 10
 ---
 
-## O que é?
+## What is?
 
-O modo de desenvolvimento, tal como o próprio nome diz, é um modo especial para facilitar o desenvolvimento dos módulos e aplicações no Stellar. Ao alterar os ficheiros de rotas, tarefas, ações e modelos, o servidor consegue substituir essa lógica em memória logo que seja detetada uma alteração no sistema de ficheiros. Deste modo não terá que estar constantemente a parar e a reexecutar o servidor a cada alteração feita. Alterações mais severas, como configurações e [Satellites](satellites.html) fazem com que o servidor reinicie por completo, tudo é feito de forma automática.
+The developer mode, as the name implies, is a special way to facilitate the development of modules and applications in Stellar. By changing the file routes, tasks, actions and models, the server can override this logic in memory as soon as it detected a change in the file system. Thus not have to be constantly stop and re-run the server every change made. More severe changes, such as settings and [Satellites](satellites.html) cause the server to restart completely, but everything is fone automatically.
 
-Para ativar o modo de desenvolvimento basta criar um ficheiro (caso ainda não tenha um) `config/api.js` e definir a opção `developmentMode` para `true`:
+To enable development mode you just need create a file (if you do not have one) `config/api.js` and set the `developmentMode` option to `true`:
 
 ```javascript
 'use strict'
@@ -22,14 +22,14 @@ exports.default = {
 }
 ```
 
-> Atenção: a propriedade `api.config.general.developmentMode` é diferente do `NODE_ENV`. O ambiente apenas informa o Stellar de qual configurações usar, por defeito é _development_, mas não tem nenhum efeito no `developmentMode`.
+> Warning: the `api.config.general.developmentMode` property is different from `NODE_ENV`. The environment only informs Stellar which settings must be used. By default is development, but no effect on `developmentMode`.
 
-## Efeitos
+## Effects
 
-Quando o modo de desenvolvimento está ativo o Stellar vai recarregar ações, tarefas, modelos, configurações e [Satellites](satellites.html) assim que eles forem modificados, tudo _on the fly_.
+When the development mode is active Stellar will re-load [actions](./actions.html), [tasks](./tasks.html), configurations, and [Satellites](satellites.html) as they are modified, all on the fly.
 
-- uma vez que o Stellar faz uso do método `fs.watchFile()` o recarregar pode não funcionar em todos os sistemas operativos / sistemas de ficheiros;
-- novos ficheiros não serão carregados, apenas os ficheiros com que a instância foi iniciada serão monitorizados;
-- apagar um ficheiro pode causar num _crash_ da aplicação, o Stellar não tenta recarregar ficheiros apagados;
-- se o valor da frequência em que uma tarefa periódica é executada (`task.frequency`) for alterado, será usado o valor antigo até que essa tarefa seja "disparada" de novo;
-- ao alterar configurações e ou [Satellites](satellites.html), será feito um _reboot_ total ao servidor e não apenas dos ficheiros alterados.
+- since Stellar makes use of `fs.watchFile()` function, the re-load may not work on all operative systems/file systems;
+- new files are not loaded, only files that the instance was started will be monitored;
+- delete a file could cause an application crash, Stellar does not attempt to re-load deleted files;
+- if the frequency value if a periodic task (`task.frequency`) is changed, it will use the old value until this task id "fired" again;
+- change settings and [Satellites](satellites.html), a full server restart will be made, and not only the changed files.
