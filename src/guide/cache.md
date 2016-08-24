@@ -4,200 +4,200 @@ type: guide
 order: 8
 ---
 
-## Geral
+## Introduction
 
-O Stellar já vem equipado com um sistema de _cache_, é permitido usar números, _strings_, _arrays_ e objetos. Trata-se de um sistema distribuído de chave-valor, faz uso de um servidor Redis e pode usar qualquer objeto que seja suportado pela função `JSON.stringify`.
+Stellar us already equipped with a cache system, is allowed to use numbers, strings, arrays and objects. This is a key-value distributed systems, makes use of a Redis server and can use any object that is supported by `JSON.stringify` function.
 
-## Usar a cache
+## Usage
 
-No sistema de _cache_ existem três métodos fundamentais para fazer a gestão dos objetivos guardados em _cache_. São estes os métodos `save`, `load` e `destroy`.
+In the cache system there are three basic methods to manage the cached objects. These are the methods `save`, `load` and `destroy`.
 
-### Adicionar uma entrada
+### Add a New Entry
 
-Para adicionar uma nova entrada na _cache_ usa-se o método `api.cache.save(chave, valor, msAteExpirar, callback)`, este método também permite atualizar uma entrada já existente. O `msAteExpirar` pode ser `null` no caso de não querer que o objeto expire. O (parâmetro) `callback` é uma função que recebe dois parâmetros `callback(callback, novoObjeto)`, em que o primeiro contem um erro caso exista e o segundo é o novo objeto criado na _cache_. No caso de estar a atualizar um objeto já existente o `novoObjeto` irá assumir o valor de `true`.
+To add a new entry to the cache you need use `api.cache.save(key, value, msToExpire, callback)`, this method also allows update an existing entry. The `msToExpire` can be `null` if you want the object not expire. The `callback` parameter is a function that takes two parameters `callback(error, newObject)`, the first parameter contains an error if there is one and the second is the new created object in the cache. In case you are updating an existent object the `newObject` will assume the `true` value.
 
 ```javascript
+// create a new cache entry
 api.cache.save('websiteTile', 'XPTO Website')
 ```
 
-> Atenção: Assim que o `msAteExpirar` for atingido a entrada será removida do sistema, mas pode não corresponder ao exato instante.
+> Warning: Once `msToExpire` is reached the entry is removed from the system, but may not match the exact moment.
 
-### Obter uma entrada
+### Get an Entry
 
-Para obter a entrada que se encontra em _cache_ usa-se o método `api.cache.load(cache, callback)` ou `api.cache.load(cache, opções, callback)`, as opções deve ser uma _hash_ que pode contem a propriedade `expireTimeMS `, que irá fazer o _reset_ do tempo de expiração do valor, assim que for lido.
+For get an entry who is cached uses the method `api.cache.load(cache, callback)` or `api.cache.load(cache, options, callback)`, the options must be a hash which can contain property `expireTimeMS` which will make the value of the expiration time of the reset, so it is read.
 
 ```javascript
 api.cache.load('webSiteTitle', (error, value, expireTime, createdAt, readAt) => {
-  // faz alguma coisa com o valor lido!
+  // do something with the value read...
 })
 ```
 
-A função _callback_ recebe os seguintes parâmetros:
+The `callback` function receive the follow parameters:
 
-- **`error`**: assume o valor de `null` caso não exista erro;
-- **`value`**: contem o valor correspondente à chave pedida, ou `null` caso o registo não exista na _cache_ ou tenha expirado;
-- **`expireTime`**: tempo em milissegundos em que o objeto irá expirar (tempo do sistema);
-- **`createdAt`**: tempo em milissegundos em que o objeto foi criado;
-- **`readAt`**: tempo em milissegundos em que o objeto foi lido pela ultima vez através do método `api.cache.load`, isto é útil para saber se o objeto foi consumido recentemente por outro _worker_.
+- **`error`**: takes the `null` if there is no error;
+- **`value`**: contains the value corresponding to the requested key, or `null` if the record does not exist in the cache or has expired;
+- **`expireTime`**: time in milliseconds that the object will expire (system time);
+- **`createdAt`**: time in milliseconds in which the object was created;
+- **`readAt`**: time in milliseconds that the object was read for the last time via the `api.cache.load`, it is useful to know if the object has recently been consumed by other worker.
 
-### Remove uma entrada
+### Remove an Entry
 
-Para remover uma entrada da _cache_ é tão fácil como chamar o método `api.cache.destroy(key, callback)`.
+To remove a cache entry is easy as calling the `api.cache.destroy(key, callback)` method.
 
-- **`key`**: nome o objeto a ser destruído;
-- **`callback(error, destroyed)`**: função de _callback_;
-  - **`error`**: contem a informação do erro, caso tenha ocorrido algum problema;
-  - **`destroyed`**: `true` no caso de o objeto ter sido destruído, `false` no caso do objeto não ter sido encontrado.
+- **`key`**: object name to be destroyed;
+- **`callback(error, destroyed)`**: callback function;
+  - **`error`**: contains the error information if there has been a problem;
+  - **`destroyed`**: `true` if the object has been destroyed, `false` if the object has not been found.
 
 
 ```javascript
 api.cache.destroy('webSiteTile', (error, destroyed) => {
-  // faz alguma coisa depois de destruir o objeto
+  // do something...
 })
 ```
 
-## Listas
+## Lists
 
-As listas têm um comportamento semelhante a uma _queue_, os elementos são inseridos na cauda e retirados na cabeça da estrutura. As listas são uma excelente forma de guardar objetos que necessitam de ser processados por ordem ou mais tarde.
+The lists have a similar behavior to a queue, the elements are inserted into the tail and removed from the head of the structure. This lists are a great way to store objects that need to be processed in order or later.
 
-### Inserir
+### Insert
 
-Para inserir um novo elemento na lista recorre-se ao método `api.cache.push(key, item, callback)`. Caso a lista exista o novo elemento será inserido no fim da lista, caso contrario uma nova lista será criada.
+To insert a new element in the list we resort to the `api.cache.push(key, item, callback)` method. If the list already exists the new element will be inserted at the end of the list, otherwise a new list will be created.
 
-- **`key`**: nome da lista onde pretende inserir o novo elemento;
-- **`item`**: item que pretende guardar na lista;
-- **`callback(error)`**: Função de _callback_:
-  - **`error`**: assume o valor de `null` caso não tenha ocorrido erro.
+- **`key`**: list name where you want insert the new element;
+- **`item`**: item you want save on the list;
+- **`callback(error)`**: callback function:
+  - **`error`**: takes the `null` value if no error occurred.
 
 ```javascript
 api.cache.push('commands', {player: 'xpto', command: 'exec:abc:param1'}, error => {
   if (error) {
-    // ocorreu um erro!
+    // An error occurs...
     return
   }
 
-  // elemento inserido
+  // do something...
 })
 ```
+> Warning: you can only save object who are supported by the `JSON.stringify` function.
 
-> Atenção: Apenas pode guardar objetos suportados pela função `JSON.stringify`.
+### Get
 
-### Obter
+To a element from the list you use the `api.cache.pop(key, callback)` method. If the list you are looking for does not exist, it returns the null value, otherwise will get the element present in the top of the list.
 
-Para obter um elemento da lista usa-se o método `api.cache.pop(key, callback)`. Caso a lista que procura não exista, será retornado o valor `null`, caso contrario será obtido o elemento presente na cabeça da lista.
-
-- **`key`**: nome da lista de onde obter o elemento;
-- **`callback(error, item)`**: função de _callback_:
-  - **`error`**: assume o valor de `null` caso não ocorra erro durante o pedido;
-  - **`item`**: item presente na cabeça da lista ou `null`  caso a lista não exista.
+- **`key`**: list name where to get the element;
+- **`callback(error, item)`**: callback function:
+  - **`error`**: takes the `null` value if there is no error in the request;
+  - **`item`**: item present on the head of the list or `null` if the list does not exist.
 
 ```javascript
 api.cache.pop('commands', (error, item) => {
   if (error) {
-    // ocorreu um erro!
+    // an error occurs...
     return
   }
 
-  // faz alguma coisa com o `item`
+  // do something with the item...
 })
 ```
 
-### Tamanho
+### Size
 
-O Stellar, também permite obter o tamanho de uma lista que esteja em _cache_. No caso de ser feito um pedido do tamanho de uma lista que não exista, será devolvido o valor de `0`. Para obter o tamanho usa-se a função `api.cache.listLength(key, callback)`:
+Stellar also gives the size of a list that is cached. In the case of being made a request of size to a list who not exist, the value returned is `0`. For the size you use the `api.cache.listLength(key, callback)` function.
 
-- **`key`**: nome da lista que se pretende obter o tamanho;
-- **`callback(error, size)`**: função de _callback_:
-  - **`error`**: `null` caso não ocorra erro com o pedido;
-  - **`size`**: tamanho da lista.
+- **`key`**: list name you want obtain the size;
+- **`callback(error, size)`**: callback function:
+  - **`error`**: `null` if there is no error with the request;
+  - **`size`**: list size.
 
 ```javascript
 api.cache.listLength('commands', (error, size) => {
   if (error) {
-    // ocorreu um erro!
+    // an error has occurred!
     return
   }
 
-  // faz alguma coisa com o tamanho da lista
+  // do something with the list size
 })
 ```
 
-## Métodos de Bloqueio
+## Locking Methods
 
-É possível, opcionalmente, usar métodos para bloquear a edição de objetos que se encontram na _cache_. Estes métodos são interessantes para cenários em que o Stellar se encontra a correr num _cluster_, corrigindo possíveis problemas de concorrência.
+It is possible, optionally, use methods to lock editing of object that are in the cache. These methods are interesting for scenarios where Stellar is running on a cluster, correcting possible concurrence problems.
 
-### Bloquear
+### Lock
 
-O método `api.cache.lock(key, expireTimeMS, callback)` permite bloquear um objeto presente na _cache_. Abaixo encontra-se uma lista que descreve os parâmetros deste método:
+The `api.cache.lock(key, expireTimeMS, callback)` method allows lock an existing cache object. Bellow is a list that describe the parameters of this method:
 
-- **`key`**: nome do objeto a ser bloqueado;
-- **`expireTimeMS`**: este parâmetro é opcional, por defeito irá ser usado o valor definido no ficheiro de configuração `api.config.general.lockDuration`;
-- **`callback(error, lockOK)`**: função de _callback_;
-  - **`error`**: objeto que contem as informações do erro, caso tenha ocorrido algum;
-  - **`lockOK`**: irá tomar o valor de `true` ou `false`, depende se o bloqueio foi feito.
+- **`key`**: object name to be locked;
+- **`expireTimeMS`**: this parameter is optional, by default will be used the value set in the configuration file `api.config.general.lockDuration`;
+- **`callback(error, lockOK)`**: callback function;
+  - **`error`**: object that contains the error information if occurred some;
+  - **`lockOK`**: will take the value of `true` or `false`, depending on whether the lock was made.
 
 ```javascript
 api.cache.lock('inTransaction', (error, lockOk) => {
   if (!lockOk) {
-    // Foi impossível obter o bloqueio!
+    // it was impossible to obtain the lock!
     return
   }
 
-  // Faz alguma coisa depois de obter o bloqueio!
+  // do something after getting the lock!
 })
 ```
 
-### Desbloquear
+### Unlock
 
-Para desbloquear um objeto basta fazer uso do método `api.cache.unlock(key, callback)`. A lista abaixo explica os parâmetros do método _unlock_:
+To unlock an object you just need use the `api.cache.unlock(key, callback)` method. The list below explains the parameters of the unlock method:
 
-* `key`: nome do objeto a desbloquear;
-* `callback(error, lockOK)`: função de _callback_;
-  * `error`: tem o valor de `null` caso não tenha ocorrido nenhum erro, caso contrario terá a informação do erro;
-  * `lockOK`: `true` no caso de o bloqueio ter sido removido, `false` caso contrario.
+* **`key`**: object name to unlock;
+* **`callback(error, lockOK)`**: callback function;
+  * **`error`**: it has the `null` value if there has been no error, otherwise you will have the error information;
+  * **`lockOK`**: `true` if the lock has been removed, `false` otherwise.
 
 ```javascript
 api.cache.unlock('inTransaction', (error, lockOl’) => {
   if (!lockOk) {
-    // foi impossível remover o bloqueio!
+    // it was impossible to remove the lock!
     return
   }
 
-  // o bloqueio foi removido!
+  // the lock has been removed!
 })
 ```
 
-### Verifica o Bloqueio
+### Check Lock
 
-Existe também um método que permite obter o estado de bloqueio de um determinado objeto, `api.cache.checkLock(key, retry, callback)`. A lista abaixo mostra a descrição dos parâmetros:
+There is also a method to obtain the lock status of a particular object, `api.cache.checkLock(key, retry, callback)`. The list bellow shows the description of the method parameters:
 
-* `key`: nome do objeto do qual se quer verificar o bloqueio;
-* `callback(error, lockOk)`: função de _callback_;
-  * `error`: `null` a não ser que tenha ocorrido um erro durante a ligação ao servidor Redis;
-  * `lockOk`: `true` ou `false` dependendo do estado do bloqueio.
+* **`key`**: object name which you want check the lock;
+* **`callback(error, lockOk)`**: callback function;
+  * **`error`**: `null` unless an error occurred when connecting to the Redis server;
+  * **`lockOk`**: `true` or `false` depending on the lock status.
 
 ```javascript
 api.cache.chechLock('inTransaction', (error, lockOk) => {
   if (!lockOk) {
-    // o objeto não contem um bloqueio!
+    // the object does not contain a lock!
     return
   }
 
-  // o objeto encontra-se bloqueado!
+  // the object is locked!
 })
 ```
 
-### Lista de Bloqueios
+### List of Locks
 
-O método `api.cache.locks(callback)` permite obter todos os bloqueios ativos na plataforma.
+The `api.cache.locks(callback)` method allows get all active locks on the platform.
 
-* `callback(error, locks)`: função de _callback_;
-  * `error`: `null` ou a informação de erro caso ocorra algum;
-  * `locks`: `array` com todos os bloqueios ativos.
+* **`callback(error, locks)`**: callback function;
+  * **`error`**: `null` or error information;
+  * **`locks`**: `array` of all active locks.
 
 ```javascript
 api.cache.locks((error, locks) => {
-  // a variável ‘locks’ é um array que contem todos
-  // os bloqueios ativos.
+  // the variable `locks` is an array that contains 
+  // all active locks
 })
 ```
