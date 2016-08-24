@@ -4,62 +4,63 @@ type: guide
 order: 7
 ---
 
-## Objetivo
+## Overview
 
-O Stellar pode ser executado num servidor único ou como parte de um _cluster_. O objetivo do _cluster_ é criar um conjunto de servidores que partilham o mesmo estado entre eles de forma a responderem a um maior numero de pedidos dos clientes e executar tarefas. Com este mecanismo, é possível adicionar e remover nós do _cluster_ sem haver perda de dados ou tarefas duplicadas. Também é possível executar múltiplas instâncias do Stellar na mesma máquina usando o comando `stellar startCluster`.
+Stellar may be executed on a single server or as part of a cluster. The aim of the cluster is create a set of servers that share the same state between them in order to respond to a greater number of customer orders, and perform tasks. With this mechanism, you can add and remove nodes from the cluster with no loss of data or duplicate tasks. You can also run multiple instances of Stellar on the same machine using the `stellar startCluster` command.
 
-O nome das instâncias do _cluster_ sequenciais, começando em `stellar-worker-1`. O nome da instância pode ser obtido chamando o `api.id`.
+The name of the cluster instances are sequential, starting in `stellar-worder-1`. The instance name can be obtained by `api.id` property.
 
 ## Cache
 
-Uma vez que o Stellar usa um _backend_ em Redis para reter informação das tarefas a serem executadas e objetos em _cache_, o _cluster_ tira partido desse sistema para partilhar a mesma informação através de todos os nós. Isto faz com que não seja necessário qualquer alteração no código para aplicação poder fazer _deploy_ num _cluster_.
+Once Stellar uses a Redis backend to retain information of tasks to be executed and cached objects, the cluster takes advantage of that same system to share information across all nodes. This makes not necessary any changes in the code to be able to deploy the application in a cluster.
 
-> Atenção: Outros clientes/servidores podem aceder à _cache_ em simultâneo. É necessário ter em atenção como se desenvolve as ações para não haver conflitos. Pode ler mais sobre [_cache_ aqui](cache.html).
+> Note: Other clients/servers can access the cache simultaneously. You must be aware of it when you develop actions to be no conflicts. You can read more about [cache here](cache.html).
 
 ## RPC
 
-O Stellar implementa um sistema de _Remote Procedure Calls_ (RPC), que permite executar um determinado comando em todos os nós do _cluster_ ou num nó especifico através do objeto _connection_. Para fazer uso deste sistema apenas tem que usar o método `api.redis.doCluster(metodo, argumentos, Id_da_conexao, callback)`, ao especificar um _callback_, irá receber a primeira resposta do _cluster_ (ou um erro de _timeout_).
+Stellar implements a Remote Procedure Call (RPC), which allows you to run a particular command on all cluster nodes or in a specific node by the connection object. To make use of this feature you only have to use the `api.redis.doCluster(metodo, argumentos, Id_da_conexao, callback)` method, when you specify a callback, will receive the first response from the cluster (or a timeout error).
 
-### Exemplo
+### Example
 
-O exemplo abaixo, faz com que todos os nós imprimam os seus ID para o ficheiro de logs.
+The example bellow causes all nodes print their IDs to the log file:
 
 ```javascript
-api.redis.doCluster('api.log', [`olá a partir do nó ${api.id}`])
+api.redis.doCluster('api.log', [`Hello from the node ${api.id}`])
 ```
 
-> Atenção: Este mecanismo permite executar qualquer método da API, incluindo a função de `stop()`.
+> Note: This mechanism allows you to run any method of the API, including the `stop()` function.
 
 ## Redis Pub/Sub
 
-Também está disponível um mecanismo de pub/sub, através do Redis, que permite comunicações entre os nós do _cluster_. É possível enviar mensagens em _broadcast_ e receber mensagens de outros nós do _cluster_ usando o método: `api.redis.publish(payload)`. O _payload_ deve conter as seguintes propriedades:
+There is also a pub/sub mechanism through Redis, which allows communications between the cluster nodes. YOu can send a broadcast message and receive messages from other cluster nodes using the `api.redis.publish(payload)` method. The `payload` must contain the following properties:
 
-- **`messageType`**: Nome to tipo de _payload_;
-- **`serverId`**: Id do servidor, `api.id`;
+- **`messageType`**: Name of payload type;
+- **`serverId`**: Server id, `api.id`;
 - **`serverToken`**: `api.config.general.serverToken`
 
+### Example
 
-### Exemplo
-
-O exemplo a seguir mostra como é possível subscrever a um determinado tipo de mensagem:
+The following example shows how you can subscribe to a particular message type.
 
 ```javascript
-api.redis.subscriptionHandlers['tipoDaMensagem'] = menssage => {
-  // faz alguma coisa!
+api.redis.subscriptionHandlers['messageType'] = menssage => {
+  // do something...
 }
 ```
 
-Para enviar uma mensagem deve ser usado um código parecido com o seguinte:
+To send a message you use a similar code like the following:
 
 ```javascript
+// build the payload
 let payload = {
-  messageType: 'tipoDaMensagem',
+  messageType: 'messageType',
   serverId: api.id,
   serverToken: api.config.general.serverToken,
-  message: 'Conteúdo da mensagem!'
+  message: 'Message content!'
 }
 
+// publish the message on Redis server
 api.redis.publish(payload)
 ```
 
-> O `api.config.general.serverToken` permite autenticar a mensagem no _cluster_.
+> Note: The `api.config.general.serverToken` allows authenticate the message in the cluster.
