@@ -1,38 +1,37 @@
 ---
-title: Eventos
+title: Events
 type: guide
 order: 13
 ---
 
-## O que é?
+## What is?
 
-O Stellar possui um sistema de eventos que permite subscrever e ficar à escuta por eventos na aplicação. Isto é util para manipular dados durante a execução ou estender funcionalidades adicionando novos comportamentos à lógica existente. Os _listeners_ devem estar armazenados na pasta `listeners` dos módulos.
+Stellar has an event system that allows you to subscribe and listening for events in the application. This is useful to manipulate data during the execution or extend features by adding new behaviors to the existing logic. Listeners must be stored in the modules `listeners` folder.
 
-## Gerar Listeners
+## Generate Listeners
 
-Claro que, criar manualmente os ficheiros para cada _listener_ é pesado. Em vez, os desenvolvedores podem recorrer à ferramenta de linha de comandos para o fazer de forma automática:
-
+Of course, manually create files for each listener is heavy. Instead, developers can use the command line tool to do this automatically:
 
 ```shell
-stellar generateEvent <nomeDoEvento> --module=<nomeDoModulo>
+$ stellar generateEvent <eventName> --module=<moduleName>
 ```
 
-## Definir um Listener
+## Define a Listener
 
-O código abaixo mostra a implementação de um _listener_, neste exemplo o _listener_ irá responder ao evento `social.newComment` e irá adicionar uma nova tarefa ao sistema para proceder ao envio de um email a cada comentário feito na aplicação.
+The code bellow shows the implementations of a listener, in this example the listener will respond to the `social.newComment` event and will add a new task to the system to process and sending an email every time a comment is made.
 
 ```javascript
-// Ficheiro: social/listeners/comments.js
+// File: social/listeners/comments.js
 
 'use strict'
 
 exports.default = [{
   event: 'social.newComment',
   run: (api, params, next) {
-    // envia um novo email notificando o novo comentário
+    // enqueue a task to send a notification email for the new comment
     api.tasks.enqueue('sendNewCommentEmail', params)
     
-    // cria uma nova propriedade chamada `emailSent` e define-a para `true`
+    // create a new property called `emailSent` and set it to `true`
     params.emailSent = true
 
     // next(error <Error>)
@@ -41,25 +40,25 @@ exports.default = [{
 }]
 ```
 
-## Disparar Eventos
+## Trigger Events
 
-O código abaixo mostra a forma de como um evento pode ser disparado. Neste caso o desenvolvedor quer disparar o evento `social.newComment` e dar aos _listeners_ uma variavel com os dados do novo comentário:
+The code bellow shows how an event can be triggered. In this case the developer wants to fire the `social.newComment` event and give listeners a variable with the new comment data:
 
 ```javascript
 api.events.fire('social.newComment', newComment, response => {
-  // faz alguma coisa com os dados modificados...
+  // do something with the modified data...
 })
 ```
 
-## Registar um Listener Manualmente
+## Register a Listener Manually
 
-Para registar um _listener_ manualmente o desenvolvedor pode usar a seguinte API:
+To register a listener manually the developer can use the following API:
 
 ```javascript
 api.events.listener('blog.newUser', (api, params, next) => {
-  // faz alguma coisa...
+  // do something...
 
-  // termina a execução do listener
+  // finish the listener execution
   next()
 })
 ```
