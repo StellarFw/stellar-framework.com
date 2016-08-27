@@ -4,11 +4,11 @@ type: guide
 order: 12
 ---
 
-O Stellar faz uso do fantástico pacote [Winston](https://www.npmjs.com/package/winston) para a gestão de _logs_. Usando o Winston é possível melhorar e tornar o sistema de _logs_ extremamente personalizável, devido à sua elevada flexibilidade.
+Stellar makes use of the fantastic [Winston](https://www.npmjs.com/package/winston) package for log management. Using Winston is possible to improve and make the system highly customizable logs, due to its high flexibility.
 
 ## Providers
 
-No ficheiro de configuração `config/logger.js` é possível definir os transportes que pretende usar no projeto. Se não for especificado nenhum _provider_, por defeito, os _logs_ serão impressos para o `stdout`. Na documentação do [Winston](https://www.npmjs.com/package/winston) é possível ver quais os _providers_ existentes, alguns deles são: consola, ficheiros, S3 e Riak.
+In your `config/logger.js` you can customize which `transports` you would like logger to use. If none are provided, a default logger which only will print stdout will be used. See Winston's documentation for all logger types, but know that they include console, file, S3, Riak and more.
 
 ```javascript
 'use strict'
@@ -33,9 +33,9 @@ exports.logger = {
 }
 ```
 
-## Níveis
+## Levels
 
-Existem 8 níveis de _logging_, estes níveis podem ser usados de forma individual por cada _transport_. O níveis são:
+Exists 8 levels of logging, such levels may be used individually by each transport. The levels are:
 
 - 0 = debug
 - 1 = info
@@ -46,32 +46,35 @@ Existem 8 níveis de _logging_, estes níveis podem ser usados de forma individu
 - 6 = alert
 - 7 = emerg
 
-> É possível personalizar, os níveis e as cores no ficheiro `config/logger.js`.
+> Note: you can customize the levels and colors in the `config/logger.js` file.
 
-Por exemplo, se o nível do _log_ for definido para _notice_, mensagens criticas serão visíveis, mas mensagens informativas e de _debug_ não.
+For example, if the log level is set to notice, critical messages are visible, but informational message and debug are not.
 
 ```javascript
-// por defeito é uma mensagem com nível informativo
+// will use the default, 'info' level
 api.log('hello!')
 
-// não irá aparecer a não ser que o NODE_ENV está definido para debug
+// will not show up unless tou have configured your logger in the NODE_ENV to be debug
 api.log('debug message', 'debug')
 
-// será mostrado em todos os níveis
+// will show up in all logger levels
 api.log('Bad things append :(', 'emerg') 
+
+// you can log object too
+api.log('the params were', 'info', action.params)
 ```
 
-## Métodos
+## Methods
 
-Os métodos `api.logger.log` e `api.logger[severity]` estão acessíveis através do objeto `api` e permitem modificar a instância do Winston diretamente. O método `api.log` passa a mensagem para todos os _transports_. Abaixo estão alguns exemplos da utilização do método `api.log(message, severity, metadata)`:
+The `api.logger.log` and `api.logger[severity]` methods are accessible via `api` object and allow you to modify the instance of Winston directly. The `api.log` method passes the message to all transports. Bellow are some examples of using the `api.log(message, severity, metadata)` method:
 
 ```javascript
-// este é o caso de uso mais simples, o severity por defeito é igual a 'info'
+// the most basic use. Will assume 'info' as the severity
 api.log('hello')
 
-// o segundo argumento é a severidade da mensagem
-api.log('Red Alert xD', 'emerg')
+// custom severity
+api.log('Hmm...', 'warning')
 
-// por ultimo, temos um grau de severidade personalizado e metadados
+// custom severity with a metadata object
 api.log('Red Alert xD', 'emerg', { error: new Error('Some additional information!') })
 ```
