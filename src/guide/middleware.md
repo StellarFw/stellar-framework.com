@@ -4,43 +4,44 @@ type: guide
 order: 5
 ---
 
-## O que é um middleware?
+## Overview
 
-Os desenvolvedores podem criar _middlewares_ que podem ser aplicados antes e depois da execução de uma ação. Existem dois tipos de _middlewares_, os globais, que são aplicados a todas as ações e os individuais que são aplicados de forma individual a cada ação utilizando a propriedade `action.middleware`. Cada _middleware_ tem um nome e opcionalmente pode conter uma prioridade que irá definir a ordem de execução dos _middleware_.
-Existem três tipos de _middlewares_, para ações, conexões e _chat_. Cada um é distinto dos outros e operam em diferentes partes do _lifecycle_ do cliente.
+Developers can create middlware that can be applied before and after the execution of an action. There are two types of middleware, global, that are applied to all actions and individual that are applied individually to each action using the `action.middleware` property. Each middleware has a priority that will set the execution order of the middleware. There are three types of middleware for actions, connections and chat. Each is distinct from the other and operate in different parts of the customer's lifecycle.
 
 ### Lifecycle
 
 ![Request Flow](/images/middleware_lifecycle.png)
 
-Como se pode verificar na imagem acima, existem diferentes locais onde pode ser executado um _middleware_. A lista a seguir mostra os diferentes _middlewares_ disponíveis no Stellar:
+As can be seen in the image above, there are different places where you can run an middleware. The following list shows the different middleware available on Stellar:
 
-- Quando um cliente se liga
-  - _Middleware_ de conexão, `create`
-- O cliente faz o pedido de uma ação
-  - _Middleware_ de ação, `preProcessor`
-  - _Middleware_ de ação, `postProcessor`
-- Um cliente se junta a uma sala de chat
+- When a client connect
+  - connection middleware, `create`
+- A client makes a request to an action
+  - action middleware, `preProcessor`
+  - action middleware, `postProcessor`
+- A client joins to a chat room
   - _Middleware_ de _chat_, `join`
-- O cliente envia uma mensagem para a sala de _chat_
-  - _Middleware_ de _chat_, `say`
-  - _Middleware_ de _chat_, `onSayReceive`
-- O cliente faz um pedido de desconexão (_quit_)
-  - _Middleware_ de _chat_, `leave`
-  - _Middleware_ de conexão, `destroy`
+- A client sends a message to a chat room
+  - action middleware, `say`
+  - action middleware, `onSayReceive`
+- A client make a request to disconnect (_quit_)
+  - action middleware, `leave`
+  - connection middleware, `destroy`
 
-## Tipos de middlewares
+## Types of Middleware
 
-### Middleware de Ação
+### Action Middleware
 
-O Stellar oferece _hooks_ para se executar código antes e depois de algumas ações, este é o local apropriado para adicionar lógica relacionada com a autenticação ou validar o estado de um determinado recurso.
+Stellar offers hooks to execute code before and after some actions, this is the appropriate place to add logic related to authentication or validate the state of a given resource.
 
-### Middleware de Conexão
+### Connection Middleware
 
-É possível criar _middlewares_ para reagir à criação e destruição de todas as conexões. Ao contrário dos _middleware_ de ações, estes não bloqueiam o pedido até ao fim da execução, são assíncronos.
+You can create middleware to react to the creation and destruction of all connections. Unlike action middleware, they do not block the request until the end of the run, are asynchronous.
 
-É preciso ter em atenção que algumas conexões persistem (TCP e WebSocket) e parte delas apenas existem durante um único pedido (HTTP), mas pode-se inspecionar o valor `connection.type` de forma a saber que tipo de ligação está a ser criada ou destruída.
+Keep in mind that some connections persist (WebSocket, TCP) and some only exist for the duration of a single request (web). You will likely want to inspect `connection.type` in this middleware. Again, if you not provide a priority, the default from `api.config.general.defaultProcessorPriority` will be used.
 
-### Middleware de Chat
+### Chat Middleware
 
-Por ultimo, existe os _middlewares_ para o _chat_. Este tipo de _middleware_ é ativado quando um cliente se junta ou sai de uma sala, ou comunica dentro de uma sala de _chat_. Existem quatro tipos de _middleware_ para cada etapa: `say`, `onSayReceive`, `join` e `leave.
+The last type of middleware is used to act when a connection joins, leaves, or communicate within a chat room. We have 4 types of middleware for each step: `say`, `onSayReceive`, `join` and `leave`.
+
+Priority is optional in all cases, but can be used to order you middleware. If an error is returned in any of these methods, it will be returned to the user, and the action/verb/message will not be sent.
