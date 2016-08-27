@@ -4,11 +4,11 @@ type: guide
 order: 16
 ---
 
-## Introdução
+## Overview
 
-O servidor HTTP permite executar [ações](./actions.html) e expor ficheiros sob o protocolo HTTP e HTTPS. A API pode ser acedida através de um browser, pelo comando Curl, etc. Através do endereço `<url>?action=<nome_da_ação>` ou `<url>/api/<nome_da_ação>` é onde pode aceder às ações. Por exemplo, se quiser aceder à ação 'getPosts' num servidor local que está à escuta na porta 8080, teria que fazer uma chamada para o URL `http://127.0.0.1/?action=getPosts`.
+The HTTP server allows you to perform actions and display files in HTTP and HTTPS protocols. The API can be accessed through a browser, CURL command, etc. Via `<url>?action=<action_name>` or `<url>/api/<action_name>` is where you can access the actions. For example, if you want to access the `getPost` action on a local server that is listening on port 8080, you would have to make a call to the URL `http://127.0.0.1/?action=getPosts`.
 
-O código JSON abaixo mostra uma exemplo de uma resposta do servidor.
+The JSON code below shows an example of a response from the server.
 
 ```json
 {
@@ -31,46 +31,44 @@ O código JSON abaixo mostra uma exemplo de uma resposta do servidor.
 }
 ```
 
-## Enviar Ficheiros
+## Send Files
 
-Stellar também pode servir ficheiros ao cliente. O Stellar não faz fazer _cache_ dos ficheiros, a cada pedido eles são lidos do disco. A seguir encontra-se um exemplo de como servir um ficheiro ao cliente a partir de uma ação.
+Stellar also can serve files to the client. The Stellar does not cache files, in each request files are read from disk. The following code is an example of how to serve a customer file from an action:
 
 ```javascript
-// especifica o ficheiro a enviar para o cliente
+// specifies the file to send to the client
 action.connection.sendFile('/path/to/file.txt')
 
-// informa que não é para fazer o render da resposta
+// informs that isn't to render the response
 action.toRender = false
 
-// termina a execução da ação
+// finish the action execution
 next()
 ```
 
-- A raiz do servidor _web_ `/` pode ser usada para servir ficheiros (`/files`) ou ações (`/api`). O seu comportamento pode ser alterado na configuração `api.config.servers.web.rootEndpointType`, por defeito serve ficheiros.
+- The root of web server `/` can be used to serve files (`/files`) or actions (`/api`). Their behavior can be changed in `api.config.servers.web.rootEndpointType`, by default serves files.
 
-- Quando um ficheiro não é encontrado o resultado é uma página com o erro HTTP 404.
+- When a file is not found the result is a page with the HTTP 404 error.
 
-- Sempre que possível será recorrido ao pacote [mime](https://www.npmjs.com/package/mime) para adicionar uma entrada no cabeçalho da resposta com o `mime-type` do ficheiro servido.
+- Whenever possible will be resorted to [mime](https://www.npmjs.com/package/mime) package to add an entry in the header of the answer to the `mime-type` type of the server file.
 
-> Nota: Na secção ["Sistema de Ficheiros"](./file_system.html) podem ser encontrado alguns _helpers_ que ajudam no envio de ficheiros.
+> Note: in the [File System](./file_system.html) section can be found some helpers for sending files.
 
-## Rotas
+## Routes
 
-Para os cliente _web_ (HTTP e HTTPS), é possível, opcionalmente, definir rotas RESTful para as ações. Se o cliente não especificar a ação via parâmetro e se o URL não se tratar de uma _named action_, o servidor irá tentar encontrar uma rota definida nos ficheiros `routes.json` que podem existir na raiz de cada módulo.
+For web client (HTTP and HTTPS), you can define an option RESTful mapping to help route requests to actions. If the client doesn't specify an action via a param, and the base route isn't a named action, the action will attempt to be discerned from the `routes.json` located in the modules root folder.
 
-Existem três formas dos clientes aceder a ações via servidor _web_:
+There are three ways to clients access actions via a web server:
 
--  sem nenhuma rota, recorrendo a parâmetros GET: `example.com/api?action=getPosts`
+- no route, using GET parameters: `example.com/api?action=getPosts`
 
-- através de _basic routing_, onde o nome das ações irão responder depois do caminho `/api`, por exemplo: `example.com/api/getPosts`
+- through basic routing, where the name of the action will respond after the path `/api`, for example: `example.com/api/getPosts`
 
-- ou através de rotas definidas pelos desenvolvedores, por exemplo, é possível servir uma ação com a seguinte rota `example.com/api/posts`
+- If `api.config.servers.web.rootEndpointType` setting has the value `'file'` it means that the routes will respond on the prefix `/api`. For the server responds on `example.com/posts` route, `api.config.servers.web.rootEndpointType` must be set to `'api'`.
 
-Se a configuração `api.config.servers.web.rootEndpointType` tiver o valor `'file'` isso quer dizer que as rotas irão responder sobre o prefixo `/api`. Para o servidor responder à rota `example.com/posts`, o `api.config.servers.web.rootEndpointType` deve estar definido como `'api'`.
+> Note: chaining the configuration `'file'` to `'api'` routes in `/api` still work
 
-> Nota: Ao alterar a configuração de `'file'` para `'api'` as rotas em `/api` continuam a funcionar.
-
-O JSON abaixo mostra um exemplo da declaração de rotas:
+The JSON below shows an example of the route declaration:
 
 ```json
 {
@@ -93,9 +91,9 @@ O JSON abaixo mostra um exemplo da declaração de rotas:
 }
 ```
 
-### Usar Versões
+### Use Versions
 
-Também é possível especificar a versão da ação a associar à rota, por defeito é executada a ultimação versão da ação. O exemplo abaixo mostra essa funcionalidade:
+Routes will match the newest version of `apiVersion`. If you want to have a specific route match a specific version of an action, you can provide the `apiVersion` parameter in your route definitions. The follow example shows that feature:
 
 ```json
 {
@@ -106,36 +104,51 @@ Também é possível especificar a versão da ação a associar à rota, por def
 }
 ```
 
-### Desativar os Acessos em /api
+This would create both `/api/actionName/old` and `/api/actionName/new`, mapping to apiVersion 1 and 2 respectively.
 
-Para desativas os acessos em `/api` e apenas seja possível aceder à ações através da raiz do servidor, apenas é necessário alterar o valor de `api.config.servers.web.urlPathForActions` para `null`.
+In your action and middleware, if a route was matched, you can see the details of the match by inspecting `action.connection.matchedRoute` which include `path` and `action`.
 
-> Nota: A parâmetro `api.config.servers.web.rootEndpointType` deve ser igual a `'api'`, caso contrario não será possível fazer chamadas às ações.
+### Disabling Access to `/api`
 
-## Parâmetros
+To disabling accessing in `/api` and is only able to access the actions by the server root, you must change the value of `api.config.servers.web.urlPathForActions` to `null`.
 
-Os parâmetros podem ser especificados através de parâmetros GET ou por POST. A ordem de carregamento dos parâmetros é: GET -> POST (normal) -> POST (multipart). Isto quer dizer que se for feito uma chamada ao URL `example.com/?key=getValue` e no post estiver uma variável definida `key=postValue`, o `postValue` será o valor usado.
+> Note: the `api.config.servers.web.rootEndpointType` parameter should be equal to `'api'`, otherwise you can not make calls to actions.
 
-Os ficheiros para _upload_ carregados através de um formulário também irão aparecer no objeto `connection.params`, mas será uma objeto com mais informação. Isto é, se for carregado um ficheiro chamado `'image'`, o objeto `connection.params.image` irá existir com as informações: `name` (nome original do ficheiro), `path` (caminho para o ficheiro), `type` (tipo do ficheiro).
+## Parameters
 
-## Upload de Ficheiros
+The parameters can be specified using GET or POST. Parameter are loaded in this order GET -> POST (normal) -> POST (multipart). This means that if you are `exmaple.com/key=getValue` and you post a variable `key=postValue` as well, the `postValue` will be the one used.
 
-O Stellar usa a biblioteca [formidable](https://www.npmjs.com/package/formidable) para fazer o _parse_ dos parâmetros da chamada dos clientes. É possível fazer o _uplaod_ de múltiplos ficheiros que irão estar disponíveis no objeto `connection.params`, como referências para um objeto **formidable**, que contem o nome original do ficheiro, a localização onde o ficheiro foi temporariamente guardado, etc.
+File uploads from forms will also appear in `connection.params`, but will be an object with more information. That is, if you uploaded a file called "image", you would have `connection.params.image.path`, `connection.params.image.name` (original file name), and `connection.params.image.type` available to you.
 
-## Biblioteca do Cliente
+> Note: you can post BODY json payloads to Stellar in the form of a hash or array.
 
-Por fim, o StellarClient é uma biblioteca _client-side_, maioritariamente em WebSockets, que permite interagir de forma simples com o servidor Stellar. Antes do método `connect` ser executado ou quando a ligação através de WebSocket é quebrada, é usada uma ligação HTTP.
+## Uploading Files
+
+Stellar uses the [formidable](https://www.npmjs.com/package/formidable) form parsing library. You can upload multiple files to an action and they will be available within `connection.params` as **formidable** response object containing references to the original file name, where the uploaded file was stores temporarily, etc.
+
+## Client Library
+
+Although the StellarClient client-side library is mostly for WebSockets, it can now be used to make HTTP actions when not connect (and WebSockets clients will fall back to HTTP actions when disconnected).
+
+```html
+<head>
+  <!-- (...) -->
+
+  <!-- import Stellar client library  -->
+  <script src="//server.example.com/client-lib">
+</head>
+```
 
 ```javascript
 'use strict'
 
-// cria um novo cliente
+// create a new client
 let stellar = new StellarClient({ url: 'server.example.com:8080' })
 
-// executa uma ação
-stellar.action('createPost', { title: 'Example!', content: 'Some content...' }, error, resposta => {
-  // faz alguma coisa...
+// call an action
+stellar.action('createPost', { title: 'Example!', content: 'Some content...' }, (error, response) => {
+  // do something...
 })
 ```
 
-> Nota: Uma vez que não foi chamado o método `connect` a chamada à ação é feita através de HTTP. Mais informação nos _docs_ do [WebSocket](./websocket.html).
+> Note: once we never called `stellar.connect` the request are make by HTTP action. More information can be found on the [WebSocket docs page](./websocket.html).
