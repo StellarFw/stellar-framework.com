@@ -4,94 +4,94 @@ type: guide
 order: 14
 ---
 
-## Visão Geral
+## Overview
 
-O Stellar usa o [Primus](http://primus.io) para trabalhar com _web sockets_. O Primus cria uma camada de abstração sobre o _engine_ do websocket, ele suporta: `ws`, `engine.io`, `socket.io`, entre outros. O _web socket_ encontra-se ligado ao servidor _web_, seja ele HTTP ou HTTPS.
+Stellar uses the [Primus](http://primus.io) to work with WebSockets. Primus creates an abstraction layer over the WebSocket engine, it supports: `ws`, `engine.io`, `socket.io`, among others. The WebSocket is connected to the web server, either HTTP or HTTPS.
 
-Quando o Stellar inicia é gerado um _script_ com algumas funções úteis para fazer a ligação entre o cliente e o servidor. Esse _script_ pode ser obtido através da chamada do URL `http(s)://stellar_domain.com/stellar-client`.
+When Stellar starts, a script is generated with some useful functions to make the connection between the client and the server. This script can be obtained by calling the URL: `http(s)://stellar_domain.com/stellar-client`
 
-## Métodos
+## Methods
 
-Abaixo estão expostos todos os métodos disponibilizados pelo cliente para que possa interagir com o servidor:
+Bellow are exposed all methods provided by the client so it can interact with the server:
 
-### Abrir ligação
+### Open Connection
 
-O método `client.connect(callback)` permite abrir uma ligação com o servidor:
+The `client.connect(callback)` method allows you open a connection with the server:
 
-- **`callback(error, detailsView)`**: função de _callback_
-  - **`error`**: objeto com o erro que ocorrido durante a chamada ao servidor, caso exista
-  - **`detailsView`**: o mesmo que o método `detailsView`
+- **`callback(error, detailsView)`**: callback function:
+  - **`error`**: object with the occurred error during the call, if exists;
+  - **`detailsView`**: the same as the `detailsView` method.
 
-### Chamar uma Ação
+### Call an Action
 
-O método `client.action(action, params, callback)` permite chamar uma ação:
+The `client.action(action, params, callback)` method allows call an action:
 
-- **`action`**: nome da ação a ser chamada, por exemplo: "auth.signin"
-- **`params`**: objeto com os parâmetros anexos à ação
-- **`callback(response)`**: função de _callback_
-  - **`response`**: contem a resposta do servidor.
+- **`action`**: action name to be called, for example: "auth.signin";
+- **`params`**: object with the action parameters;
+- **`callback(response)`**: callback function:
+  - **`response`**: server response.
 
-> NOTA: Quando não existe uma ligação aberta através de websocket, seja feito uma _fallback_ para HTTP.
+> Note: When does not exists an open connection through a WebSocket, the client will fallback to HTTP.
 
-### Enviar Mensagem
+### Send Messages
 
-O método `client.say(room, message, callback)` permite enviar uma mensagem para uma sala de _chat_:
+The `client.say(room, message, callback)` method allows you to send message to a chat room:
 
-- **`room`**: sala para onde a mensagem será enviada
-- **`message`**: mensagem a ser enviada
-- **`callback(error)`**: função de _callback_
-  - **`error`**: contem a informação do erro, caso tenha ocorrido algum.
+- **`room`**: room for the message will be sent;
+- **`message`**: message to be sent;
+- **`callback(error)`**: callback function:
+  - **`error`**: contains the error information, if that is the case.
 
-> NOTA: Tem que usar o método `roomAdd` antes de poder interagir com um sala.
+> Note: you need use the `roomAdd` method before you can interact with a chat room.
 
-### Detalhes
+### Details
 
-O método `client.detailsView(callback)` permite obter detalhes sobre a conexão do cliente:
+The `client.detailsView(callback)` method allows you get details about the client connection.
 
-- **`callback(error, response)`**: função de _callback_
-  - **`error`**: pode conter uma instância de `Error`
-  - **`response`**: contem um objeto com os detalhes da conexão
+- **`callback(error, response)`**: callback function:
+  - **`error`**: may contain an instance of `Error`
+  - **`response`**: contains an object with the connection details.
 
-> NOTA: A primeira resposta do `detailsView` é guardada para ser usado no futuro.
+> Note: the first answer of the `detailsView` are stored to be used on the future.
 
-### Estado de uma Sala
+### Chat Room State
 
-O método `client.roomView(room, callback)` permite obter alguns meta-dados da sala pedida.
+The `client.roomView(room, callback)` method allows you to obtain metadata from the request chat room.
 
-- **`room`**: nome da sala a obter os meta-dados
-- **`callback(response, error)`**: função de _callback_
-  - **`response`**: objeto com os meta-dados da sala de _chat_ pedida
-  - **`error`**: contem uma instância de `Error`, no caso de ter ocorrido um
+- **`room`**: chat room name;
+- **`callback(response, error)`**: callback function:
+  - **`response`**: Object with metadata from the requested chat room;
+  - **`error`**: contains an instance of `Error`, if is that the case.
 
-### Juntar-se a uma Sala
+### Joining a Room
 
-O método `client.roomAdd(room, callback)` permite juntar o cliente a uma sala de _chat_:
+The `client.roomAdd(room, callback)` method allows you joining to a chat room:
 
-- **`room`**: nome da sala onde juntar o cliente
-- **`callback(error)`**: função de _callback_
-  - **`error`**: pode conter uma instância de `Error`
+- **`room`**: chat room name;
+- **`callback(error)`**: callback function:
+  - **`error`**: can contains a instance of `Error`.
 
-### Sair de uma Sala de Chat
+### Leave a Chat Romm
 
-O método `client.roomLeave(room, callback)` permite um cliente abandonar uma sala de _chat_ de que faz parte:
+The `client.roomLeave(room, callback)` allows you to leave a chat room:
 
-- **`room`**: sala de onde o cliente deve ser removido
-- **`callback(error)`**: função de _callback_
-  - **`error`**: pode ter uma instância de `Error`, caso aconteça um
+- **`room`**: chat room name;
+- **`callback(error)`**: callback function:
+  - **`error`**: an instance of `Error`, if is that the case.
 
-### Pede um ficheiro
+### Request a File
 
-O método `client.file(file, callback)` permite um cliente pedir um ficheiro estático ao servidor.
+The `client.file(file, callback)` method allows you request a static file form to the server:
 
-- **`file`**: caminho para o ficheiro a ser pedido
-- **`callback(response, error)`**: função de _callback_
-  - **response**: objeto com o ficheiro pedido
+- **`file`**: path for the file to be requested;
+- **`callback(response, error)`**: callback function:
+  - **response**: object with the requested file.
 
-A resposta assemelha-se a estrutura abaixo:
+The answer looks like the follow structure:
 
 ```json
 {
-  "content": "Conteúdo do ficheiro",
+  "content": "File Content...",
   "context": "response",
   "error": null,
   "lenght" 20,
@@ -100,17 +100,17 @@ A resposta assemelha-se a estrutura abaixo:
 }
 ```
 
-### Desconectar o Cliente
+### Disconnect
 
-O método `client.disconnect()` permite desconectar o cliente do servidor.
+The `client.disconnect()` method allows you disconnect client from the server.
 
-## Eventos
+## Events
 
-A lista abaixo mostra os eventos disponibilizados pelo cliente.
+The follow list shows the available events by the client.
 
 ### Connected
 
-O evento `connected` acontece quando o cliente se conecta ao servidor.
+The `connected` event is triggered when the client connect with the server.
 
 ```javascript
 client.on('connected', () => { })
@@ -118,7 +118,7 @@ client.on('connected', () => { })
 
 ### Disconnected
 
-O evento `disconnected` acontece quando o cliente de desliga do servidor.
+The `disconnected` event is triggered when the client disconnect from the server.
 
 ```javascript
 client.on('disconnected', () => { })
@@ -126,7 +126,7 @@ client.on('disconnected', () => { })
 
 ### Error
 
-O evento `error` acontece quando ocorre um erro fora da execução de um evento ou _verb_.
+The `error` event is triggered when the an error occurs during a verb execution.
 
 ```javascript
 client.on('error', error => { })
@@ -134,17 +134,17 @@ client.on('error', error => { })
 
 ### Reconnect
 
-O evento `reconnect` acontece quando a ligação entre o servidor e o cliente é quebrada temporariamente.
+The `reconnect` event occurs when the connection between the server and the client are temporarily interrupted.
 
 ```javascript
 client.on('reconnect', () => { })
 ```
 
-> Nota: os detalhes da conexão podem-se ter alterado
+> Note: the connection details can be changed.
 
 ### Reconnecting
 
-O evento `reconnecting` acontece quando o cliente se tenta voltar a ligar ao servidor.
+The `reconnecting` event occurs when the client try reconnect with the server.
 
 ```javascript
 client.on('reconnecting', () => { })
@@ -152,17 +152,17 @@ client.on('reconnecting', () => { })
 
 ### Message
 
-O evento `message` acontece quando o cliente recebe uma nova mensagem.
+The `message` event occurs when the client receives a new message.
 
 ```javascript
 client.on('message', message => { })
 ```
 
-> Atenção: este evento acontece sempre que o cliente recebe uma nova mensagem, é um evento muito "barulhento"
+> Warning: this event occurs every time the client receive a new message, this is a very noisy event.
 
 ### Alert
 
-O evento `alert` acontece quando o cliente recebe uma mensagem do servidor com o contexto `alert`.
+The `alert` event occurs when the client receives a new message from the server with the `alert` context.
 
 ```javascript
 client.on('alert', message => { })
@@ -170,7 +170,7 @@ client.on('alert', message => { })
 
 ### API
 
-O evento `api` acontece quando o cliente recebe uma mensagem com um contexto desconhecido.
+The `api` event occurs when the client receives a new message with a unknown context.
 
 ```javascript
 client.on('api', message => { })
@@ -178,7 +178,7 @@ client.on('api', message => { })
 
 ### Welcome
 
-O evento `welcome` acontece quando o servidor envia a mensagem de boas vindas quando o cliente se liga.
+The `welcome` event occurs when the server send a welcome message to the new-connected client.
 
 ```javascript
 client.on('welcome', message => { })
@@ -186,10 +186,9 @@ client.on('welcome', message => { })
 
 ### Say
 
-O evento `say` acontece quando o cliente recebe mensagens de outros clientes em todas as salas.
+Finally, the `say` event occurs when the client receives a new message from the other client in the same room.
 
 ```javascript
 client.on('say', message => { })
 ```
-
-> Nota: A propriedade `message.room` permite saber a origem da mensagem
+> Note: the `message.room` property allows get the message origin.
