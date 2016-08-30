@@ -4,35 +4,38 @@ type: guide
 order: 15
 ---
 
-## Visão Geral
+## Overview
 
-Também é possível interagir com o Stellar usando uma ligação persistente através de um _socket_ TCP. Por defeito a porta usada é a `5000`, mas esta pode ser alterada através da propriedade `api.config.tcp.port`. Uma vez que se trata de uma ligação persistente a forma de funcionamento é semelhante à do [WebSocket](websocket.html), onde se utiliza _verbs_ para passar comandos ao servidor. A lista abaixo mostra os _verbs_ disponíveis:
+You can also interact with Stellar using a persistent connection through a TCP socket. By default is used the port 5000, but this can be changed setting the `api.config.tcp.port` property. Since this is a persistent connection verbs are used to send commands to the server. The list below shows all available verbs:
 
-- **`quit`**: termina a ligação com o servidor (a sessão é destruída)
-- **`paramAdd`**: guarda uma variável que fica anexada à conexão
-  - Exemplo: `addParam query=something`
-- **`paramView`**: devolve o valor de um parâmetro, caso este exista
-  - Exemplo: `paramView query`
-- **`paramDelete`**: remove um parâmetro
-  - Exemplo: `paramDelete query`
-- **`paramsView`**: devolve um objeto JSON com todos os parâmetros
-- **`paramsDelete`**: remove todos os parâmetros definidos
-- **`roomAdd`**: junta o cliente a uma sala de _chat_
-- **`roomLeave`**: faz o cliente deixar sala de _chat_
-- **`detailsView`**: obtém os detalhes da conexão do cliente, inclui o ID publico
-- **`say`**: envia uma mensagem para uma sala de _chat_.
+- **`quit`**: disconnect from the server (the session is destroyed);
+- **`paramAdd`**: save a single variable to your connection
+  - Example: `addParam query=something`
+- **`paramView`**: returns the details of a single param
+  - Example: `paramView query`
+- **`paramDelete`**: deletes a single a single param
+  - Example: `paramDelete query`
+- **`paramsView`**: returns a JSON object of all the params set to this connection
+- **`paramsDelete`**: deletes all params set to this session
+- **`detailsView`**: show you details about your connection, including about the members currently in that room
+- **`roomAdd`**: connect to a room
+- **`roomLeave <room>`**:  leave the room you are connected to
+- **`roomView <room>`**: show you the room you are connected to, and information about the members currently in that room
+- **`say <room,> <message>`**: send a message to a room
 
-> Nota: os parâmetros adicionados nas chamadas anteriores são fixados à conexão, isso quer dizer que é necessários remover os parâmetros antes de chamar novos _verbs_.
+> Note: the parameters added in previous calls are fixed to the connection, this means that it is necessary to remove the parameters before calling new verbs.
 
 ![Telnet TCP](/images/telnet_tcp.png)
 
-Uma das principais vantagens de utilizar uma ligação TCP é a possibilidade de poder chamar várias ações em simultâneo. O Stellar mantêm um contador das chamadas feitas, deste modo é possível manter a gestão das diferentes chamadas a decorrer.
+One of the main advantages of using a TCP connection is the possibility to call several actions simultaneously. Stellar keep a count of the calls, so you can keep the management of the different calls in progress.
 
 ## TLS
 
-O servidor TCP suporta ligações cifradas através de TLS, caso seja desejado. Para isso é necessário fazer algumas pequenas configurações no servidor:
+The TCP server supports encrypted connections via TLS, if desired. For this you need to make some small settings on the server:
 
 ```javascript
+'use strict'
+
 exports.default = {
   servers: {
     socket: api => {
@@ -44,13 +47,13 @@ exports.default = {
 }
 ```
 
-A ligação segura pode ser testada com o comando abaixo:
+The secure connection can be tested using the follow command:
 
 ```shell
 $ openssl s_client -connect 127.0.0.1:5000
 ```
 
-Ou então em outro processo node:
+Or, you can use another node process:
 
 ```javascript
 let fs = require('fs')
@@ -71,4 +74,4 @@ socket.on('data', data => console.log(data))
 
 ## JSON
 
-A forma por defeito para executar ações no Stellar através de uma ligação TCP é usando os _verbs_ disponíveis nas ligações persistentes. Contudo, é possível recorrer a JSON para escolher a ação a executar e enumerar os parâmetros a usar com essa ação. Por exemplo, `{"action": "actionName", "params": {"key": "some_value"}}`.
+The default way to execute actions on Stellar via a TCP connection is using the verbs available for persistent connections. However, it is possible to use JSON to choose the action to execute and pass a list of parameters. For example, `{"action": "actionName", "params": {"key": "some_value"}}`.
