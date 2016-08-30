@@ -1,71 +1,70 @@
 ---
-title: Tarefas
+title: Tasks
 type: guide
 order: 4
 ---
 
-## O que são e para que servem?
+## Overview
 
-As tarefas são trabalhos executados à parte dos pedidos dos clientes. Elas podem ser iniciadas por uma ação ou pelo próprio servidor. Com o Stellar, não existe a necessidade de executar um _deamon_ separadamente para processar os trabalhos. O Stellar usa o pacote `node-resque` para armazenar e processar as tarefas.
-No Stellar existem três modos de processar as tarefas: normal, com atraso e periodicamente. No processamento normal, as tarefas são inseridas na _queue_ e processadas uma a uma pelo `TaskProcessor`. Quando a tarefa é executada com um atraso, ela é inserida numa _queue_ especial para o efeito onde será processada num momento no futuro, o atraso é definido em milissegundos a partir da hora de inserção ou então através de um _timestamp_. Por último, as tarefas com execução periódica são semelhantes às tarefas com um atraso, mas são executas com uma determinada frequência. As tarefas periódicas não conseguem receber parâmetros de entrada.
-Por vezes os _workers_ podem _crashar_ de forma severa, não sendo possível notificar o servidor Redis de que vão sair da _poll_ (isto acontece inúmeras vezes em PAAS [Platform As A Service] como o Heroku). Quando isto acontece é necessário extrair a tarefa do _worker_ que morreu, inserida numa _queue_ especial para as tarefas que falharam, para serem reprocessados mais tarde e por fim remover o _worker_.
+Tasks are jobs performed apart of the client requests. They can be initialized by an action or by the server itself. With Stellar, there is no need of separately execute a daemon to process the work. Stellar uses the `node-resque` package for storing and processing tasks. In Stellar there are three ways of processing tasks: `normal`, `late` and `periodically`. In normal processing, the tasks are queued one by one by the `TaskProcessor`. When the task is executed with a delay, it is inserted in a special queue for the propose, which will be processed at a time in the future, the delay is set in milliseconds from the time of insertion or through a timestamp. Finally, periodic tasks are similar to tasks with delay, but are executed with a certain frequency.
 
-> NOTA: Recomenda-se o uso de tarefas para o envio de emails e outras operações que podem ser executadas de forma assíncrona, a fim de diminuir o tempo de resposta dos pedidos do cliente.
+> Note: It is recommended the use of task for sending emails and other operation that can be performed asynchronously in order to shorten the client responses.
 
-## Tipos de tarefas
+## Types of Tasks
 
-Nesta sub secção será falado um pouco mais dos tipos de tarefas que existem e se podem ser adicionadas ao sistema.
+This subsection sets out some more of the types of tasks that exist and how they can be used.
 
-Em primeiro, temos as tarefas normais. Este tipo de tarefas é adicionado numa _queue_ e processadas por ordem de chegada logo que existirem _workers_ livres.
+First, we have the `normal` tasks. This type of task is added to a queue and processed in order of arrival as soon as there are free workers.
 
 ```javascript
-// api.tasks.enqueue(nomeDaTarefa, argumentos, queue, callback)
+// api.tasks.enqueue(taskName, args, queue, callback)
 api.tasks.enqueue('sendResetPasswordEmail', { to: 'gil00mendes@gmail.com' }, 'default', (error, toRun) => {
-  // tarefa inserida!
+  // task enqueued!
 })
 ```
 
-Em seguida, temos as tarefas com atraso. Estas tarefas são inseridas no momento, mas numa _queue_ especial em que serão processadas num dado _timestamp_ ou num atraso de milissegundos. Podem ser executadas quando um determinado _timestamp_ for atingido:
+Then we have the `delayed` tasks. These tasks are enqueued in a special 'delayed' queue to only be processed at some time in the future (defined either by a timestamp in ms or miliseconds-from-now):
 
 ```javascript
-// api.tasks.enqueueAt(timestamp, nomeDaTarefa, argumentos, queue, callback)
+// api.tasks.enqueueAt(timestamp, taskName, args, queue, callback)
 api.tasks.enqueueAt(1591629508, 'sendNotificationEmail', { to: 'gil00mendes@gmail.com' }, 'default', (error, toRun) => {
-  // tarefa inserida!
+  // task enqueued!
 })
 ```
 
-Ou, quando um determinado numero de milissegundos t passado:
+Finally, `periodic` tasks are like delayed tasks, but they run on a set frequency (ex. every 5 minutes):
 
 
 ```javascript
-// api.tasks.enqueueIn(atrazo, nomeDaTarefa, argumentos, queue, callback)
+// api.tasks.enqueueIn(delay, taskName, args, queue, callback)
 api.tasks.enqueueIn(60000, 'sendNotificationEmail', { to: 'gil00mendes@gmail.com' }, 'default', (error, toRun) => {
-  // tarefa inserida!
+  // task enqueued!
 })
 ```
 
-## Criar uma ação
+> Note: Periodic tasks can take no input parameters.
 
-As ações estão contidas na pasta `/tasks` dentro de cada módulo. Para gerar uma nova tarefa pode ser usada a ferramenta de linha de comandos, executando o comando `stellar makeTask <nome_da_tarefa> --module=<nome_do_modulo>`. As tarefas têm algumas propriedades obrigatórias, pode encontrar mais informação sobre este assunto no subcapítulo a seguir.
+## Create an Task
 
-### Propriedades
+The actions are stored in the `/tasks` folder inside of each module. To generate a new task you can use the command line tool by running the command: `stellar makeTask <task_name> --module=<module_name>`. The tasks has some mandatory properties, you can find more information on this subject in the following subchapter.
 
-A lista abaixo encontram-se listadas as propriedades suportadas pelas tarefas. A propriedade `name`, `description` e `run`, são obrigatórias.
+### Properties
 
-* `name`: Nome da tarefa, este deve ser único;
-* `description`: Deve conter uma pequena descrição da finalidade da tarefa;
-* `queue`: `Queue` onde irá correr a tarefa, por defeito esta propriedade assume o valor de `default`. Este valor pode ser substituído quando é usado o método `api.tasks.enqueue`;
-* `frequency`: Caso o valor seja superior a zero, será considerada uma tarefa periódica e será executada a cada passar dos milissegundos definidos nesta propriedade;
-* `plugins`: Nesta propriedade pode ser declarado um _array_ de _plugins_ resque, estes plugins modificam a forma como a tarefa é inserida na _queue_. Pode ler mais sobre isto na página do [node-resque](https://github.com/taskrabbit/node-resque);
-* `pluginOptions`: Trata-se de uma _hash_ com opções para os _plugins_;
-* `run(api, params, next)`: Função que contem as operações a serem realizadas pela tarefa.
+The list below are the properties supported by the tasks. The property, `name`, `description`, and `run` are mandatory.
 
-> NOTA: Para a declaração dos nomes das tarefas é recomendado que seja usado um _namespace_, como por exemplo `auth.sessionValidation`.
+- **`name`**: Name of the task, it must me unique;
+- **`description`**: Must contain a short description of the purpose of the task;
+- **`queue`**: `Queue` which will run the task, by default this property is set to `default`. This value can be replaced when using the `api.tasks.enqueue` methods;
+- **`frequency`**: If the value is greater than zero, will be considered a periodic tasks and runs every passing milliseconds defined in this property;
+- **`plugins`**: In this property you can defined an array of resque plugins, these plugins modify how the task are inserted in the queue. Toy can read more about this in the [node-resque](https://github.com/taskrabbit/node-resque) docs;
+- **`pluginOptions`**: This is a hash with options for plugins;
+- **`run(api, params, next)`**: functions that contains the operations to be performed by the task.
 
+> Note: for the task names declaration is recommended using a namespace, for example `auth.sessionValidation`.
 
-### Exemplo
+### Example
 
-O exemplo a baixo mostra a estrutura de uma tarefa, esta regista uma mensagem "Hello!!!" a cada 1 segundo:
+The example below shows the structure of a task, it records a message "Hello!!!" every 1 second:
 
 ```javascript
 exports.sayHello = {
@@ -75,102 +74,108 @@ exports.sayHello = {
   frequency: 1000,
 
   run: (api, params, next) => {
-    // regista uma mensagem
+    // log a new message
     api.log('Hello!!!')
 
-    // finaliza a execução da tarefa
+    // finish the task execution
     next()
   }
 }
 ```
-## Gestão das Tarefas
+## Task Management
 
-O Stellar disponibiliza alguns métodos que permitem fazer a gestão e verificar o estado das _queues_. Abaixo são apresentados alguns métodos que permitem fazer a gestão das tarefas.
+Stellar has some methods who allow you manage and verify the queues states. Down bellow are some methods to manage the tasks.
 
-### Remover Tarefas
+### Remove a Task
 
-Remove todas as tarefas que correspondem aos parâmetros passados na função `api.tasks.del(queue, taskName, args, count, callback)`:
+Remove all tasks who match with the given parameters `api.tasks.del(queue, taskName, args, count, callback)`:
+
+- **`queue`**: name of the queue where the command must be executed;
+- **`taskName`**: task name to be removed;
+- **`args`**: search arguments (to more information on this you can read the `node-resq` docs);
+- **`count`**: number of task instances who most be removed.
+
+### Remote a Task with Delay
+
+Remove all tasks with delay who match with the given parameters `api.tasks.delDelayed(queue, taskName, args, count, callback)`:
   
-- **`queue`**: nome da _queue_  onde o comando deve ser executado
-- **`taskName`**: nome da tarefa a eliminar
-- **`args`**: argumentos de pesquisa (mais informação ver a documentação do `node-resq`)
-- **`count`**: numero de instâncias da tarefa que devem ser removidas.
+- **`queue`**: name of the queue where the command must be executed;
+- **`taskName`**: task name to be deleted;
+- **`args`**: search arguments (more information about this can be found on the `node-resq` documentation)
 
-### Remover Tarefas com Atraso
+### Clean a Queue
 
-Remove todas as tarefas com atraso que correspondem aos parâmetros passados na função `api.tasks.delDelayed(queue, taskName, args, count, callback)`:
-  
-- **`queue`**: nome da _queue_  onde o comando deve ser executado
-- **`taskName`**: nome da tarefa a eliminar
-- **`args`**: argumentos de pesquisa (mais informação ver a documentação do `node-resq`)
+The `api.tasks.delQueue(queue, callback)` method remove all the task in a queue:
 
-### Limpar uma Queue
+- **`queue`**: queue name where the task must be all removed.
 
-O método `api.tasks.delQueue(queue, callback)` remove todas as tarefas de uma _queue_:
+### Recurrent Jobs
 
-- **`queue`**: nome da _queue_ de onde as tarefas serão removidas.
+The `api.tasks.enqueueRecurrentJob(taskName, callback)` method allows you add a new recurrent job:
 
-### Trabalhos Recorrentes
+- **`taskName`**: task name to be added.
 
-O método `api.tasks.enqueueRecurrentJob(taskName, callback)`, permite adicionar trabalho a uma _queue_ como recorrente:
+### Stop Recurrent Jobs
 
-- **`taskName`**: nome da tarefa a ser adicionada.
+The `api.tasks.stopRecurrentJob(taskName, callback)` method allows you stop a recurrent job:
 
-### Parar Trabalhos Recorrentes
+- **`taskName`**: task name to be removed from the recurrent queue.
 
-O método `api.tasks.stopRecurrentJob(taskName, callback)`, permite parar um trabalho recorrente:
+### Tasks with Timestamps
 
-- **`taskName`**: nome da tarefa a ser removida.
+The `api.tasks.timestamps(callback)` method allows you get an array with all tasks with an associated timestamp.
 
-### Timestamps com Tarefas
+### Statistics
 
-O método `api.tasks.timestamps(callback)` permite obter um _array_ com todos os _timestamps_ com pelo menos uma tarefa associada.
-
-### Estatísticas
-
-O método `api.tasks.stats(callback)` permite obter um _array_ com todas as estatísticas do _cluster_ do resque.
+The `api.tasks.stats(callback)` method allows you to get an array with all statistics of the reques cluster.
 
 ### Locks
 
-O método `api.tasks.locks(callback)` permite obter um _array_ com todos os _locks_ presentes no _cluster_.
+The `api.tasks.locks(callback)` method allows you to get an array with all existing locks in the cluster.
 
-### Remover um Lock
+### Remove a Lock
 
-O método `api.tasks.delLock(lockName, callback)` permite remove um _lock_ do _cluster_:
+The `api.tasks.delLock(lockName, callback)` method allows you to remove a lock from the cluster:
 
-- **`lockName`**: nome do _lock_ a ser removido
-- **`callback(removed, error)`**
-  - **`removed`**: definido como `1` se o _lock_ for removido
-  - **`error`**: instância de `Error` no caso de ter ocorrido um problema durante o pedido.
+- **`lockName`**: lock name to be removed;
+- **`callback(removed, error)`**: callback function:
+  - **`removed`**: set to `1` if the lock as been removed;
+  - **`error`**: `Error` instance in the case of an error occurs during the request.
 
-### Remove as Tarefas de um Timestamp
+### Remove Tasks on a Timestamp
 
-O método `api.tasks.delDelayesAt(timestamp, callback)` permite remover todas as tarefas do _timestamp_ pedido:
+O `api.tasks.delDelayesAt(timestamp, callback)` method remove all tasks on the requested timestamp:
 
-- **`timestamp`**: _timestamp_ de onde as tarefas serão removidas.
+- **`timestamp`**: timestamp where the tasks must be removed.
 
-### Remove Todas as tarefas com Atraso
+### Remove all Tasks with Delay
 
-O método `api.tasks.allDelayed(callback)` permite remover todas as tarefas com atraso.
+The `api.tasks.allDelayed(callback)` allows you to remove all tasks with delay.
 
-### Obter os Workers
+### Get Workers
 
-O método `api.tasks.workers(callback)` permite obter uma lista com todos os `TaskProcessors` da instância.
+The `api.tasks.workers(callback)` method allows you to get all `TaskProcessors` instances.
 
-### Detalhes
+### Details
 
-O método `api.tasks.details(callback)` permite obter uma lista com informação das _queue_ da instância.
+The `api.tasks.details(callback)` method allows you to get a list of informations about the existing queues.
 
-### Numero de Falhas
+### Failed Count
 
-O método `api.tasks.failedCount(callback)` devolve o numero de tarefas na _queue_ de operações falhadas.
+The `api.tasks.failedCount(callback)` method allows you to get the number of failed jobs.
 
-### Remover uma Tarefa Falhada
+### Removes a Failed Job
 
-O método `api.tasks.removeFailed(failedJob, callback)` permite remover uma tarefas da _queue_ de operações falhadas.
+The `api.tasks.removeFailed(failedJob, callback)` method allows you remove a tasks from the failed jobs queue.
 
-### Tenta Voltar a Executar uma Tarefa que Falhou
+### Try Execute a Failed Job, Again
 
-O método `api.tasks.retryAndRemoveFailed(failedJob, callback)` permite voltar a tentar executar uma tarefas falhada e remove essa tarefas da _queue_ de operações falhadas.
+The `api.tasks.retryAndRemoveFailed(failedJob, callback)` method allows you back trying to run a failed task and remove that from the queue who contains the failed jobs.
 
-- **`failedJob`**: nome da tarefa a voltar executar.
+- **`failedJob`**: task name.
+
+## Failed Job Management
+
+Periodic tasks can not receive input parameters. Sometimes workers crashes is a severe way, and it doesn't get the time/chance to notify Redis that it is leaving the poll (this happens all the time on PASS like Heroku). When this happens, you will not only need to extract the job from the now-dead worker's "working on" status, but also remove the stuck worker. To aid you in these edges cases, `api.tasks.cleanOldWorkers(age, callback)` is available.
+
+Because there are no 'heartbeats' in resque, it is impossible for the application to know if a worker has been working on a long job or it is dead.
