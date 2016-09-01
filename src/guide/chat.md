@@ -4,38 +4,38 @@ type: guide
 order: 9
 ---
 
-## Para que serve?
+## Overview
 
-O Stellar vem equipado com uma solução de salas de _chat_, que pode ser usada com todas as conexões persistentes (socket ou websocket). Existem métodos para criar e gerir as salas de _chat_ e os utilizadores dessas salas. Este sistema pode ser usado para diferentes finalidades, como por exemplo: atualização de dados em tempo real, propagação de informação de forma rápida entre clientes que estejam ligados e até mesmo para criação de jogos _multiplayer_ (uma vez que estes necessitam de constante partilha de informação entre todos os jogadores).
+Stellar ships with a chat framework which may be used by all persistent connections (TCP and WebSocket). There are methods to create and manage chat rooms and control the users in those rooms. Chat does not have to be peer-to-peer communications, and is a metaphor used for many things, including game state in multiplayer games.
 
-Os clientes comunicam com as salas através de _verbs_. Os _verbs_ são comandos curtos que permitem alterar o estado da conexão, como juntar-se ou sair de uma sala. Os clientes podem estar em diferentes salas ao mesmo tempo. Os _verbs_ mais relevantes são:
+Clients themselves interact with rooms via `verbs`. Verbs are short-form commands that will attempt to modify the connection's state, either joining or leaving a room. Clients can be in many rooms ate once. The must relevant chat verbs are:
 
-- roomAdd
-- roomLeave
-- roomView
-- say
+- `roomAdd`
+- `roomLeave`
+- `roomView`
+- `say`
 
-Esta funcionalidade pode ser usada _out-of-the-box_ sem que seja necessária qualquer instalação de pacotes adicionais, configuração ou programação. Por defeito, é criada uma sala com o nome "defaultRoom". Quando o servidor de websocket está ativo é gerado um _script_ de cliente que pode ser usado em aplicações _web_ para facilitar a chamada de ações e a comunicação com as salas de _chat_.
+This feature can be used out-of-the-box without any installation of additional packages, configurations or programming. By default, a room named "defaultRoom" is created on the framework starts. When WebSocket server is active it generates a client script that can be used in web applications to facilitate the call to actions and communications with the chat rooms.
 
-Não existe limite de salas que a ser criadas, mas é necessário ter em mente que cada sala guarda informação no Redis, assim existe carga por cada ligação criada.
+> Warning: There is no limit on the number of rooms which can be created, but keep in mind that each room stores informations in Redis, and there load created for each connection.
 
-## Métodos
+## Methods
 
-Existem métodos que permitem gerir as salas de _chat_ e os seus membros. Estes métodos não estão disponíveis diretamente para o cliente, mas podem ficar caso crie uma ação.
+These methods are to be used within your server (perhaps an action or satellite). They are not exposed directly to clients, but they can be within an action.
 
 ### Broadcast
 
-O método `api.chatRoom.broadcast(connection, room, message, callback)` permite emitir uma mensagem para todos os membros de uma determinada sala. O parâmetro `connection` pode ser uma conexão real de uma mensagem a chegar de um cliente, ou pode ser uma conexão construída manualmente. As conexões construídas deve por menos conter a propriedade `{room: 'umaOutraRoom'}`, quando não é especificado um `id` é assumido o valor de `0`.
+The `api.chatRoom.broadcast(connection, room, message, callback)` method allows send a message to all members in a room. The connection parameter can be a real connection (a message coming from a client), or a mockConnection. A mockConnection at the very least has the form `{room: 'someRoom'}`. When an id is not specified the id will be assigned to 0.
 
 ```javascript
 api.chatRoom.broadcast({room: 'general'}, 'general', 'Olá!', error => {
-  // faz alguma coisa depois da mensagem ser enviada!
+  // do something after send the message!
 })
 ```
 
-### Lista das rooms
+### List of Rooms
 
-O método `api.chatRoom.list(callback)` permite obter a lista de _rooms_ existentes. O código de exemplo abaixo lista todas as _rooms_ existentes na consola.
+The `api.chatRoom.list(callback)` allows get a list of existing rooms. The follow example code list all room in the console (`stdout`):
 
 ```javascript
 api.chatRoom.list((error, rooms) => {
@@ -43,64 +43,63 @@ api.chatRoom.list((error, rooms) => {
 })
 ```
 
-### Criar uma room
+### Create a Room
 
-Para criar uma _room_ usa-se o método `api.chatRoom.add(room, callback)`. A função _callback_ recebe um parâmetro que assume o valor de `0` quando a _room_ já existe e de `1` caso ela tenha sido criada. O código abaixo mostra a criação de uma nova _room_ com o nome de "labs":
+To create a room you use the `api.chatRoom.add(room, callback)` method. The callback function receives a parameter that value of `0` when the room already exists and `1` if it has been created. The following code shows the creation oh a new room named "labs":
 
 ```javascript
 api.chatRoom.add('labs', res => {
   if (res === 0) {
-    // a room já existe!
+    // the room already exists!
     return
   }
 
-  // a room foi criada!
+  // the room has been created!
 })
 ```
 
-### Remover uma room
+###  Remove a Room
 
-Usando o método `api.chatRoom.destroy(room, callback)` pode-se remover uma _room_. A função _callback_ não recebe  parâmetros, a _room_ é sempre removida, o código a seguir mostra como a remoção pode ser feita:
+Using the `api.chatRoom.destroy(room, callback)` method you can remove a room. The callback function do not receives any parameter, the room is always removed. The follow code shows who you can remove a room:
 
 ```javascript
 api.chatRoom.destroy('labs', () => {
-  // a room foi removida!
+  // room removed!
 })
 ```
 
-### Verifica se uma room existe
+### Check if the Room Exists
 
-Pode-se usar o método `api.chatRoom.exists(room, callback)` para verificar se uma _room_ existe na instância do Stellar. A função `callback(error, found)` recebe dois parâmetros:
+You can use the `api.chatRoom.exists(room, callback)` method to check if the room exists in the Stellar instance. The `callback(error, found)` receives two parameters:
 
-* `error`: assume o valor de `null` no caso se não ocorrer nenhum problema;
-* `found`: `true` no caso da _room_ ter sido encontrada, `false` caso contrario.
+- **`error`**: assumes the `null` value in case of any problems not occurs;
+- **`found`**: `true` if the room has been removed, `false` otherwise.
 
-O código abaixo mostra a verificação da existência da _room_ "coffeTable":
+The follow code checks the existence of the chat room named "coffeTable":
 
 ```javascript
 api.chatRoom.exists('coffeTable', (error, found) => {
   if (!found) {
-    // a room não existe!
+    // the room not exists!
     return
   }
 
-  // a room existe!
+  // the room exists!
 })
 ```
 
-### Obter o estado de uma room
+### Gets the Room State
 
-Através do método `api.chatRoom.roomStatus(room, callback)` é possível obter informações do estado da _room_. A função `callback(error, state)`, recebe dois parâmetros:
+Trough `api.chatRoom.roomStatus(room, callback)` method you can get room status information. The `callback(error, state)` function, takes two parameters:
 
-* `error`: `null` no caso de não ocorrer um erro durante a chamada do método;
-* `state`: é uma _hash_ que contem informação sobre a _room_, nome, número de membros inscritos e a lista desses membros.
+- **`error`**: `null` if no error occurs during the method call;
+- **`state`**: is a hash containing information about the room: name, number of registered members, and the list of such members.
 
-
-O código abaixo mostra como essa informação pode ser obtida e em seguida uma possível resposta:
+The code below shows how this information can be obtained and then a possible answer:
 
 ```javascript
 api.chatRoom.roomStatus('Random', (error, status) => {
-  // faz alguma coisa com a informação da room!
+  // do something with the room information!
 })
 ```
 
@@ -116,17 +115,17 @@ api.chatRoom.roomStatus('Random', (error, status) => {
 }
 ```
 
-### Adicionar um membro
+### Add a Member
 
-Para adicionar um novo membro usa-se o método `api.chatRoom.addMember(connectionId, room, callback)`, é necessário o ID da conexão do cliente e o nome da _room_ onde se quer adicionar o novo membro. A função `callback(error, wasAdded)` recebe dois parâmetros:
+To add a new member uses the `api.chatRoom.addMember(connectionId, room, callback)` method, the client connection ID and the name of the room where you want to add the new member is needed. The `callback(error, wasAdded)` function takes two parameters:
 
-* `error`: `null` no caso de não ocorrer erro durante a chamada;
-* `wasAdded`: pode assumir o valor de `true` ou `false` dependendo se o membro foi adicionado ou não.
+- **`error`**: `null` if no error occurs during the call;
+- **`wasAdded`**: can assume the value of true or false depending on whether the member was added or not.
 
 ```javascript
 api.chatRoom.addMember(idDaConexao, 'newUsers', (error, wasAdded) => {
   if (!wasAdded) {
-    // não foi possível adicionar o novo membro!
+    // could not add the new member!
     return
   }
 
@@ -134,39 +133,39 @@ api.chatRoom.addMember(idDaConexao, 'newUsers', (error, wasAdded) => {
 })
 ```
 
-> É possível adicionar conexões do servidor atual ou de outro qualquer que faça parte do _cluster_.
+> Note: you can add connections from this or any other server in the cluster.
 
-### Remover um membro
+### Remove a Member
 
-O método `api.chatRoom.removeMember(connectionId, room, callback)` permite remover um membro de uma dada _room_. Para isso é necessário o ID da conexão do membro a ser removido da _room_ de onde se pretende remover. A função `callback(error wasRemoved)` recebe dois parâmetros:
+The `api.chatRoom.removeMember(connectionId, room, callback)` method allows remove one member of a given room. This required the member's connection ID to be removed from the room where you want to remove. The `callback(error wasRemoved)` function takes two parameter:
 
-* `error`: `null` no caso de não ocorrer erro durante a operação;
-* `wasRemoved`: `true` no caso do membro ter sido removido, `false` caso contrário.
+- **`error`**: `null` if no error occurs during operation;
+- **`wasRemoved`**: `true` if the member has been removed, `false` otherwise.
 
 ```javascript
 api.chatRoom.removeMember(idDaConexao, 'heaven', (error, wasRemoved) => {
   if (!wasRemoved) {
-    // o membro não foi removido!
+    // the member has not been removed!
   }
 
-  // o membro foi removido da room!
+  // the member was removed from room!
 })
 ```
 
-> É possível remover conexões do servidor atual ou de qualquer outro servidor do _cluster_.
+> Note: you can remove connections from this or any other server in the cluster.
 
 ## Middleware
 
-Existem quatro tipos diferentes de _middleware_ que podem ser instalados no sistema de _chat_: `say`, `onSayReceive`, `join` e `leave`. Toda a documentação sobre os _middlewares_ está disponível na [secção](./middleware.html) criada especificamente para esse tema.
+There are 4 types of middleware you can install for the chat system: `say`, `onSayReceive`, `join`, and `leave`. All documentation about _middlewares_ are available in the created [section](./middleware.html) for the effect.
 
-## Comunicar para um cliente especifico
+## Chatting to Specific Clients
 
-Cada objeto de conexão contém o método `connection.sendMessage(message)`, este método está acessível diretamente através do servidor.
+Every connection object also has a `connection.sendMessage(message)` methods which you can call directly from the server.
 
 ```javascript
-connectionObj.sendMessage('Bem-Vindo ao Stellar :)')
+connectionObj.sendMessage('Welcome to Stellar :)')
 ```
 
-## Funções do Cliente
+## Client Functions
 
-A forma como é possível comunicar através do cliente encontra-se descrita na sub-secção de cada tipo de servidor bidirecional [websocket](websocket.html) e [TCP](tcp.html).
+The way it is possible to communicate through the client is described in sub-sections of each kind of bidirectional servers, [websocket](websocket.html) and [TCP](tcp.html).
