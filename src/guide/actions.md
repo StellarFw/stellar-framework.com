@@ -1,14 +1,16 @@
 ---
-title: Ações
+title: Actions
 type: guide
 order: 3
 ---
 
-## O que é uma ação?
+## What is an Action?
 
-As ações são os _building blocks_ do Stellar, esta é a unidade básica da _Framework_. Sendo o Stellar uma _Framework_ baseada em ações, isto significa que existe um repositório com todas as ações registadas no projeto. Uma ação representa uma pequena funcionalidade do projeto, elas podem ser chamadas diretamente pelo cliente ou então internamente por outras ações. As ações podem receber um conjunto de _inputs_ que depois de processados devolvem um conjunto de _outputs_. Estas ações podem ser privadas, podendo apenas serem chamadas por outras ações e não pelo cliente e também podem ser sobrescritas por outros módulos, a menos que se encontrem protegidas.
-Os desenvolvedores podem criar as suas próprias ações através da criação de um novo ficheiro na pasta `actions` do módulo em que está a trabalhar, ou então faz uso da ferramenta de linha de comandos para gerar o ficheiro e a estrutura de forma automática (`stellar makeAction <nome_da_action> --module=<modulo_onde_criar_a_ação>`).
-As ações são carregadas para o _Engine_ quando este é iniciado, as ações podem ser chamadas em qualquer zona da aplicação, incluindo em outros módulos.
+Actions are the building blocks of Stellar, this is the basic unit of the Framework. Stellar being an actions base framework that means there is a repository with all actions registered in the project. An action is a small feature of the project, they can be called directly by the client or internally by other actions. The actions can receive a set of inputs who after processing return a set of outputs. These action can be private and can only be called by other actions and not by the client and can also be overridden by other modules, unless they are protected.
+
+The developers can create their own actions by creating a new file in the module's `actions` folder where you are working, or makes use of the command-line tool to generate the file and the structure automatically (`stellar makeAction <nome_da_action> --module=<modulo_onde_criar_a_ação>`).
+
+The actions are loaded to the Engine when it starts, the actions can be called in any place, including in other modules.
 
 ```javascript
 exports.randomNumber = {
@@ -19,71 +21,73 @@ exports.randomNumber = {
   },
 
   run: (api, action, next) => {
-    // gera um numero aleatório
+    // generate a random number
     var number = Math.random()
 
-    // guarda o numero gerado como um parâmetro de saída
+    // save the generated number like an output parameter
     action.response.number = number
 
-    // devolve uma string formatada
+    // returns a formated string
     action.response.formatedNumber = `Your random number is ${number}`
 
-    // termina a execução da ação
+    // finish the action execution
     next()
   }
 }
 ```
 
-As ações são compostas por duas propriedades obrigatórias, uma é a identificação da ação (`name`), a outra é a lógica da ação (`run`), mas estas pode conter muitas mais informações adicionais tal como uma descrição, restrições aos valores de _input_, _middleware_ e um exemplo de _output_. Com esta meta informação o Stellar é capaz de gerar documentação de forma totalmente automática sem intervenção humana. Isto é excelente para grandes equipas uma vez que todos os elementos podem de forma fácil ficar a conhecer todas as funcionalidades do projeto sem terem que estar constantemente a perguntar a outros elementos da equipa. No excerto de código acima pode-se ver a estrutura de uma ação, esta ação é responsável por gerar um numero aleatório.
+The actions are composed of two mandatory properties, one is the identification of the action (`name`), the other is the action logic (`run(api, action, next)`), but these can contain a lot more additional information such as a description, restrictions to the input values, middleware, and an output example. With this metadata Stellar is able to generate gully automatic documentation without human interaction. This is excellent to bug teams since all elements can easily get to know all the project's features without having to constantly be asking to other team members.
 
-As ações são assíncronas e recebem uma referencia para a API (funções partilhadas do _Engine_), o objeto com o a ação e a função de _callback_. Para completar a execução de uma ação basta chamar a função `next(error)`. Se existir um erro, tem que se assegurar que se passa uma instância de `Error` e não uma `String` como argumento da função `next`, isto fará com que seja gerada uma mensagem de erro que será enviada ao cliente.
+On the code snippet above you can see the structure of an action, this action is responsible to generate a random number.
 
-Por causa da anatomia das ações estas podem ser chamadas internamente pelo cliente ou através de outras ações sem a necessidade de alterações ou escrever código especifico para cada cenário de utilização.
+The actions are asynchronous and receive a reference for the API (shared functions of the Engine), an object with the actions, and a callback function. To complete the execution of an action simply call the `next(error)` function. If exist an error, you have to ensure that it passes an instance of `Error` and not a `String` as the argument of the `next` function, an error message will be generated that will be sent to the client.
 
-## Propriedades
+Because of the anatomy of actions, these can be called by the client or internally by other actions, without the need to change or write specific code for each usage scenario.
 
-Existe um conjunto de opções que podem ser adicionadas as ações, abaixo encontram-se enumeradas e descritas todas as opções disponíveis.
+## Properties
 
-- **`name`**: Identificador único da ação. É recomendado que se use um _namespace_ para eliminar a possibilidade de colisões, por exemplo: `auth::login`;
-- **`description`**: Descreve de forma extensa a ação, esta informação é importante para obter a documentação automática;
-- **`inputs`**: Enumera os parâmetros de entrada da ação. Também é possível aplicar restrições aos valores de _input_;
-- **`middleware`**: Indica os _middlewares_ a serem aplicados antes e depois da execução da ação. Os _middlewares_ globais são automaticamente aplicados;
-- **`outputExample`**: Contem um exemplo de uma resposta da ação. Este exemplo será anexado automaticamente à documentação gerada pelo Stellar;
-- **`blockedConnectionTypes`**: Permite bloquear tipos de conexões para a ação;
-- **`logLevel`**: Permite definir como a ação deve ser registada;
-- **`protected`**: Quando `true` impede que a ação seja subscrita por um módulo de maior prioridade;
-- **`private`**: A ação apenas pode ser chamada internamente;
-- **`toDocument`**: Por defeito esta opção está definida para `true`, caso contrario não será gerada documentação para esta ação;
-- **`run`**: Por fim, a lógica da ação, trata-se de uma função composta por três parâmetros de _input_ `(api, action, next)`.
+There is a set of options who can be added  to actions, below are listed and described all the options available:
 
-> Alguns dos meta dados, como o caso do `outputExample` e o `description`, são usados para alimentar a documentação automática.
+- **`name`**: unique action identifier. It is recommended to use a namespace to eliminate  the possibility of collision, for example: `auth::login`;
+- **`description`**: Describes extensively the action, this information is important for automatic documentation;
+- **`inputs`**: Enumerates the action input parameters. You can also apply restrictions on input values;
+- **`middleware`**: Indicates the middleware to be applied before and after the execution of the action. Global middleware are automatically applied;
+- **`outputExample`**: It contains an example of an action response. This example will be automatically attached to the documentation generated by Stellar;
+- **`blockedConnectionTypes`**: Allows block types of connections;
+- **`logLevel`**: It allows you define how the action should be logged;
+- **`protected`**: When `true` prevents the action to be overwrite by a higher priority module;
+- **`private`**: The action can only be called internally;
+- **`toDocument`**: By default, this option is set to `true`, otherwise will not be generated documentation for this action;
+- **`run`**: Finally, the logic of action, it is a function who receives three input parameters `(api, action, next)`.
 
-## Versões
+> Note: Some of the metadata, as the case of `outputExample` and `description`, are used to feed the automatic documentation.
 
-O Stellar suporta múltiplas versões da mesma ação- Isto permite suportar ações com o mesmo nome, mas com funcionalidades melhoradas. Esta funcionalidade é bastante útil quando existem muitas aplicações cliente a se alimentar da API e pode-se assim atualizar cada aplicação individualmente para a nova API sem interrupção do serviço nas demais aplicações.
+## Versions
 
-As ações podem conter opcionalmente o parâmetro `version` para definir a versão da mesma. Aquando do pedido do cliente pode-se usar o parâmetro `apiVersion` para pedir uma versão especifica da ação.
+Stellar supports multiple versions if the same action. This allows support actions with the same name, but with improved features. This feature is useful when there are many client applications that are feed from the API, in this cases you can update your applications without fear of break outdated version and individually update to the new API without service interruption in other applications.
 
-> Note-se que, quando não é especificado o parâmetro `apiVersion` o Stellar irá responder com a ultimas versão da ação.
+Actions can optionally contain the `version` parameter to define the version of it. When a client para a request he can set the `apiversion` parameter to ask for a specific version of the action.
 
-## Declaração de Inputs
+> Note: When no `apiVersion` parameter is defined, Stellar will respond with the latest version of the action.
 
-Na declaração das ações podem ser indicados os campos de _input_ recorrendo à propriedade `inputs`, isto fará com que sejam aplicadas restrições aos dados de entrada. Estas restrições podem ser _validators_ já existentes no sistema, uma expressão regular ou uma função que retorna um _boolean_ (em que `true` indica que o valor de _input_ é valido). Por fim, também é possível converter o valor de _input_ para um dado tipo especifico (_integer_, _float_ e _string_) ou usar uma função para formatar o valor.
+##  Input Declaration
 
-A lista a baixo mostra as opções disponíveis para a declaração dos _inputs_:
+In the action declaration you can give the input specify the input fields using the `inputs` property, this will apply restrictions to the inputed valued. These restrictions can be validators already defined in the system, a regular expression or a function who returns an `boolean` (where `true` indicates that the input value is valid). Finally, you can also convert input values to a specific data type (integer, float, and string) or use a function to format the value.
 
-- **`required`**: Este campo informa se o parâmetro é obrigatório;
-- **`convert`**: Permite converter o parâmetro para um dado tipo de dados ou formato;
-- **`default`**: Valor por defeito, caso o parâmetro não esteja presente no conjunto de _inputs_ na chamada do cliente;
-- **`validator`**: Valida o parâmetro, conta uma, ou um conjunto de restrições.
+The list below shows all available options to use on the input declaration:
 
-## Converter Parametros
+- **`required`**: this fields indicated if the parameter is required;
+- **`convert`**: allows you to convert the parameter to a specific data type or format;
+- **`default`**: default value if the parameter is not present in the set of inputs on the client call;
+- **`validator`**: validates the parameter, it has one or a set of constraints.
 
-Para remover a necessidade dos desenvolvedores converterem manualmente os parâmetros, o Stellar implementa uma forma de o fazer automaticamente antes da execução da ação. A propriedade `convert` pode ser uma _string_ com os valores (string, integer ou float) ou uma função.
+## Converter Parameters
 
-### Exemplo
+To remove the need for developers to manually convert the parameters, Stellar implements a way to automatically do before performing the action. The `convert` property can be a string with the values (`string`, `integer` or `float`) or a function (`(api, value)`).
 
-O exemplo abaixo mostra a convenção de um parâmetro para o tipo _integer_:
+### Example
+
+The example below shows the conversion of a parameter to the integer type:
 
 ```javascript
 exports.giveAge = {
@@ -113,35 +117,33 @@ exports.giveAge = {
 }
 ```
 
-## Parâmetro action
+## Action Parameter
 
-O segundo parâmetro da função run, o objeto `data`, guarda o estado da conexão no momento em que a ação é chamada, neste momento os _midlewares_ de pré processamento já foram executados e os valores de _input_ validados. A imagem abaixo mostra algumas propriedade do objeto `action`.
+The second parameter of the `run` function is the `action` object. This object passes into the action captures the state of the connection at the time the action was stated. Middleware preProcessors have already fired, and input formatting and validation has occurred. The image bellow show some of the properties of the `action` object:
 
 ![Propriedades do Objeto Action](/images/action_obj.png)
 
-O objetivo da maioria das ações é realizar uma série de operações e alterar os dados de resposta `data.response`, que posteriormente serão enviados para o cliente. É possível modificar as propriedades da conexão acedendo à `data.connection`, como por exemplo alterar os _headers_ do pedido HTTP.
-Caso o desenvolvedor não queira que o _Engine_ envie uma resposta para o cliente (por exemplo, já foi enviado um erro), apenas tem que definir a propriedade `data.toRender` para `false`.
+The goal of most actions is to perform a series of operations and change the `data.response` property, which will later be sent to the client. You can modify the connection properties by accessing `data.connection`, and change, for example, the HTTP headers. If you do not want the Engine to send a response to the client (for example, it has already sent a file), just have to set the `data.toRender` para `false`.
 
-## Chamadas Internas
+## Internal Calls
 
-Com vista a melhorar o reaproveitamento de código e fazer uma melhor separação das ações que partilham parte da mesma lógica, o Stellar implementa um mecanismo que permite fazer chamadas internas a ações. Isso quer dizer que se pode extrair parte da lógica de uma (ou mais) ações para ações mais simples, podendo essa mesma lógica ser usada por outras ações. Assim, a partir da composição de ações simples pode-se criar ações mais complexas sem tornar a leitura do código mais difícil ou principalment dificultar a mantenabilidade das aplicações e módulos.
+In order to improve the reuse of code and do a better separation of the actions that share part of same logic, the Stellar implements a mechanism to make internal calls to actions. This means that you can extract part of the logic of one (or more) actions for simple actions, which may be the same logic used by other actions. So, from the composition of simple actions you can create more complex actions without making the code readability more complex or difficult to maintain both applications and modules.
 
+The call an action internally you can use the `api.actions.call(actionName, params, callback)` method:
 
-Para chamar uma ação internamente recorresse ao método `api.actions.call(actionName, params, callback)`:
+- **`actionName`**: action name to call;
+- **`params`**: parameter to be passed to the action that will be performed;
+- **`callback(**error, response)`: callback function:
+  - **`error`**: error returned by the action call;
+  - **`response`**: object with the action response.
 
-- **`actionName`**: Nome da ação a ser chamada;
-- **`params`**: Parâmetros a serem passados à ação que vai ser executada;
-- **`callback(**error, response)`: função de __callback__:
-  - **`error`**: erro devolvido pela ação chamada;
-  - **`response`**: objeto com a resposta da ação chamada.
+### Private Actions
 
-### Ações Privadas
+Sometimes actions will be create actions do you not want to be called by clients, because they are for internal use only. They don't provide useful operations to the clients, are simple actions or critical who should not have public exposure. For that Stellar allows you to define an action as private, so this can only be called internally. To make a private action just add the `private: true` property in the target action.
 
-Por vezes serão criadas ações que os desenvolvedores não querem que sejam chamadas pelos clientes, porque são apenas para uso interno, não realizam nenhuma operação relevante para o cliente ou são ações mais simples ou criticas que não devem ter exposição publica. Para isso o Stellar permite definir uma ação como privada, fazendo com que esta apenas possa ser chamada internamente. Para tornar uma ação privada basta adicionar a propriedade `private: true` na ação em questão.
+### Example
 
-### Exemplo
-
-O exemplo abaixo mostra a chamada interna da ação `sumANumber`, após a execução da ação é apresentado o resultado na consola. O exemplo completo pode ser encontrado [aqui](https://github.com/gil0mendes/stellar/blob/dev/example/modules/test/actions/internalCalls.js).
+The example bellow shows an internal call to an action called `sumANumber`, after the execution the result is printed out to the console. The complete example can be found [here](https://github.com/gil0mendes/stellar/blob/dev/example/modules/test/actions/internalCalls.js).
 
 ```javascript
 api.actions.call('sumANumber', {a: 3, b: 3}, (error, response) => {
@@ -149,25 +151,25 @@ api.actions.call('sumANumber', {a: 3, b: 3}, (error, response) => {
 })
 ```
 
-> NOTA: Também é possível chamar ações nas tarefas.
+> Note: you can also call actions on tasks or listeners.
 
-## Documentação Automática
+## Automatic Documentation
 
-O Stellar permite gerar documentação das ações de forma completamente automática. A informação necessária é extraída através da declaração das propriedades das ações. Para fazer com que não seja gerada uma página de documentação para uma dada ação adiciona-se a propriedade `toDocument: false` na ação em questão, caso queira desativar para todas as ações define-se a configuração `api.config.general.generateDocumentation` para `false`. Para aceder à documentação basta visitar o endereço `docs/index.html` no endereço do servidor HTTP.
+Stellar can generate documentation fully automatically. The required information is extracted through the declaration of the actions properties. To make it not generate documentation you must add the `toDocument: false` on the action in question, if you want disable to all actions you need set the `api.config.general.generateDocumentation` to `false`. To access the documentation just visit the address `docs/index.html` in the HTTP server address.
 
-![Documentação Automática](/images/auto_docs.png)
+![Automatic Documentation](/images/auto_docs.png)
 
-A imagem acima mostra o exemplo de uma documentação gerada automaticamente. Na barra lateral encontram-se todas as ações existentes na plataforma, inclusivamente as ações privadas. Já na secção à direita podemos ver os detalhes da ação selecionada, como por exemplo: nome, descrição, campos de _input_ e as suas restrições e bem como um exemplo de _output_. Quando as ações têm múltiplas versões todas elas são apresentadas.
+The image above shows an example of an automatically generated documentation. In the sidebar are all existing actions in the platform, including private actions. In the section on the right you can see the action selected details such as name, description, input fields and their restrictions ans as well an output example. When actions have multiple versions all of them are displayed.
 
-## Middlewares
+## Middleware
 
-É possível aplicar _middleware_ nas ações (antes e depois da execução das mesmas). Os _middleware_ podem ser globais (aplicados a todas as ações) ou locais, especificamente para cada ação através da propriedade `middleware`, fornecendo o nome de cada _middleware_ a serem aplicados aquela ação.
+You can apply middleware in the actions (before and after the implementation thereof). The middleware can be global (applied to all actions) or sites specifically for each action through the middleware property, providing the name of each middleware to apply to that action.
 
-Pode aprender mais sobre os [_middleware_ aqui](middleware.html).
+You can learn more about [middleware here](middleware.html).
 
-### Exemplo
+### Example
 
-O exemplo abaixo mostra a declaração de uma ação que contem dois middlewares:
+The following example shows the declaration of an action that contains two middleware:
 
 ```javascript
 exports.getAllAccounts = {

@@ -6,7 +6,7 @@ order: 8
 
 ## Introduction
 
-Stellar us already equipped with a cache system, is allowed to use numbers, strings, arrays and objects. This is a key-value distributed systems, makes use of a Redis server and can use any object that is supported by `JSON.stringify` function.
+Stellar comes already equipped with a cache system, is allowed to use numbers, strings, arrays and objects. This is a key-value distributed systems, makes use of a Redis server and can use any object that is supported by `JSON.stringify` function.
 
 ## Usage
 
