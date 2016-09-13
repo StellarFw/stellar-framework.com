@@ -4,13 +4,13 @@ type: guide
 order: 13
 ---
 
-## What is?
+## Overview
 
-Stellar has an event system that allows you to subscribe and listening for events in the application. This is useful to manipulate data during the execution or extend features by adding new behaviors to the existing logic. Listeners must be stored in the modules `listeners` folder.
+Stellar has an event system that allows you to subscribe to and listen for events in the application. This is useful to manipulate data during the execution or extend features by adding new behaviors to the existing logic. Listeners must be stored in a module's `listeners` folder.
 
 ## Generate Listeners
 
-Of course, manually create files for each listener is heavy. Instead, developers can use the command line tool to do this automatically:
+Instead of manually creating a file for each listener, developers can use the `stellar` command line tool to do this automatically:
 
 ```shell
 $ stellar generateEvent <eventName> --module=<moduleName>
@@ -18,10 +18,10 @@ $ stellar generateEvent <eventName> --module=<moduleName>
 
 ## Define a Listener
 
-The code bellow shows the implementations of a listener, in this example the listener will respond to the `social.newComment` event and will add a new task to the system to process and sending an email every time a comment is made.
+The code below shows the implementation of a listener.  In this example the listener will respond to the `social.newComment` event and will add a new task to the system to send an email every time a comment is made.
 
 ```javascript
-// File: social/listeners/comments.js
+// File: modules/social/listeners/comments.js
 
 'use strict'
 
@@ -42,7 +42,7 @@ exports.default = [{
 
 ## Trigger Events
 
-The code bellow shows how an event can be triggered. In this case the developer wants to fire the `social.newComment` event and give listeners a variable with the new comment data:
+The code below shows how an event can be triggered. In this case the developer wants to fire the `social.newComment` event and give listeners a variable with the new comment data:
 
 ```javascript
 api.events.fire('social.newComment', newComment, response => {

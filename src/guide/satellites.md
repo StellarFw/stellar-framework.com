@@ -6,25 +6,25 @@ order: 6
 
 ## Overview
 
-The engine itself does nothing, the only logic that has is that soon as the instance of Stellar is started, is to look for Satellites and load them into memory and execute it.
+The Stellar Engine itself does nothing.  The only logic it has is as follows: as soon as an instance of Stellar is started, the Engine looks for Satellites, loads them into memory, and executes them.
 
-Satellites are the name given to components that allow you to extend and overwrite Stellar' features. Through this mechanism is possible to isolate the features by area, facilitating the core maintenance, make the framework extremely extensible, and allow developers create modules that can extend features not only from Stellar core but also from other modules.
+Satellites are components that can extend and override Stellar's features. This mechanism organizes Stellar's functionality, facilitates maintenance of the core, makes the framework extremely extensible, and allows developers to create modules that can extend features not only from Stellar's core but also from other modules.
 
-The entire Stellar core is created by Satellites these loads the basic features of the framework, but the core is not the only place where these components may exist. The modules can also make use of them to load new features, overwrite existing ones, and perform tasks as soon as the framework beings or ends its execution.
+The entire Stellar core is created by Satellites - these load the basic features of the framework, but the core is not the only place where Satellites may exist. Modules can also make use of Satellites to load new features, override existing ones, and perform tasks as soon as the framework begins or ends its execution.
 
 ## Lifecycle
 
-All Satellites go through a series of stages during the execution of Stellar. Bellow is explained this process and what is done in each of the three stages.
+All Satellites go through a series of stages during the execution of Stellar. This process, and what occurs in each of the three stages, is explained below.
 
 ![Satellite Stages](/images/satellite_stages.png)
 
-As can be seen, the picture above shows the three phases of loading a Satellite, they are _load_, _start_, and _stop_. The loading stage is required, while the start and the stop are optional. In the case of being initiated an operation with on end on the start stage, it is recommended you stop that task on the third stage (stop), this because Stellar can restart the server without the process has to finish.
+The picture above shows the three phases of loading a Satellite: _load_, _start_, and _stop_. The loading stage is required, while the start and the stop are optional. If an operation is initiated in the start stage, it is recommended that the operation be stopped in the third stage (stop).
 
-In Satellite loading phase, all the logic must be loading into the API object in order to make the features public, any complex operation should be carried out at this stage, the load must be done as soon as possible. In the initialization phase should begin all continuous tasks, such as servers or some other type of listener. Finally, the stop step all uncompleted pending tasks must be completed, and all servers stopped.
+In the Satellite load phase, all the logic of a Satellite must be loaded into the API object in order to make its features public; any complex operations should be carried out at this stage, and the load must be completed as soon as possible. In the start phase, all continuous tasks should begin, including servers or other types of listener. Finally, in the stop phase, all uncompleted pending tasks must be completed, and all servers must be stopped.
 
 ## Format
 
-A Satellite should be a class written following the [ES6](http://www.ecma-international.org/ecma-262/6.0/index.html) standard. The only requirement for the Satellite be loaded by Stellar is contains a `load(api, next)` method. There are other properties which are described below:
+A Satellite should be a class written following the [ES6](http://www.ecma-international.org/ecma-262/6.0/index.html) standard. The only requirement for the Satellite is that it must contain a `load(api, next)` method. There are other properties which are described below:
 
 - **`loadPriority`**: Allows you change the satellite load order, the default value is 100;
 - **`startPriority`**: Allows you change the satellite start order, the default value is 100;
@@ -42,7 +42,7 @@ A Satellite should be a class written following the [ES6](http://www.ecma-intern
  * Satellite class.
  *
  * It is recommended to use this class only to specify the functions 
- * of the satellite, any other logic must be written in a class apart.
+ * of the satellite, any other logic should be contained in a separate class.
  */
 exports.default = class {
 
@@ -60,7 +60,7 @@ exports.default = class {
     /**
      * Loading function.
      *
-     * @param  {{}}}      api  Reference for the API object.
+     * @param  {{}}       api  Reference for the API object.
      * @param  {Function} next Callback function.
      */
     load (api, next) {

@@ -6,9 +6,9 @@ order: 16
 
 ## Overview
 
-The HTTP server allows you to perform actions and display files in HTTP and HTTPS protocols. The API can be accessed through a browser, CURL command, etc. Via `<url>?action=<action_name>` or `<url>/api/<action_name>` is where you can access the actions. For example, if you want to access the `getPost` action on a local server that is listening on port 8080, you would have to make a call to the URL `http://127.0.0.1/?action=getPosts`.
+The HTTP server allows you to perform actions and display files using HTTP and HTTPS protocols. The API can be accessed through a browser, cURL command, etc. You can access actions using URLs of the form `<url>?action=<action_name>` or `<url>/api/<action_name>`. For example, if you want to access the `getPost` action on a local server that is listening on port 8080, you would have to make a call to the URL `http://127.0.0.1/?action=getPosts`.
 
-The JSON code below shows an example of a response from the server.
+The JSON below shows an example of a response from the server.
 
 ```json
 {
@@ -33,7 +33,7 @@ The JSON code below shows an example of a response from the server.
 
 ## Send Files
 
-Stellar also can serve files to the client. The Stellar does not cache files, in each request files are read from disk. The following code is an example of how to serve a customer file from an action:
+Stellar also can serve files to the client. Stellar does not cache files; in each request files are read from disk. The following code is an example of how to send a file to the client from within an action:
 
 ```javascript
 // specifies the file to send to the client
@@ -46,29 +46,29 @@ action.toRender = false
 next()
 ```
 
-- The root of web server `/` can be used to serve files (`/files`) or actions (`/api`). Their behavior can be changed in `api.config.servers.web.rootEndpointType`, by default serves files.
+- The root of web server `/` can be used to serve files (`/files`) or actions (`/api`). Their behavior can be changed using the configuration setting `api.config.servers.web.rootEndpointType` (the default is to serve files).
 
-- When a file is not found the result is a page with the HTTP 404 error.
+- When a file is not found the result is a page with an HTTP 404 error.
 
-- Whenever possible will be resorted to [mime](https://www.npmjs.com/package/mime) package to add an entry in the header of the answer to the `mime-type` type of the server file.
+- Whenever possible the [mime](https://www.npmjs.com/package/mime) package will be used to add a `Content-Type` header in the response.
 
-> Note: in the [File System](./file_system.html) section can be found some helpers for sending files.
+> Note: see the [File System](./file_system.html) section for more information about sending files.
 
 ## Routes
 
-For web client (HTTP and HTTPS), you can define an option RESTful mapping to help route requests to actions. If the client doesn't specify an action via a param, and the base route isn't a named action, the action will attempt to be discerned from the `routes.json` located in the modules root folder.
+For web clients (HTTP and HTTPS), you can define an optional RESTful mapping to help route requests to actions. If the client doesn't specify an action via a parameter, and the base route isn't a named action, Stellar will attempt to determine the action using the `routes.json` file located in the module's root folder.
 
-There are three ways to clients access actions via a web server:
+There are three ways clients can access actions via a web server:
 
-- no route, using GET parameters: `example.com/api?action=getPosts`
+- No route, using GET parameters: `example.com/api?action=getPosts`
 
-- through basic routing, where the name of the action will respond after the path `/api`, for example: `example.com/api/getPosts`
+- Through basic routing, where the name of the action is found in the path after `/api`, for example: `example.com/api/getPosts`
 
-- If `api.config.servers.web.rootEndpointType` setting has the value `'file'` it means that the routes will respond on the prefix `/api`. For the server responds on `example.com/posts` route, `api.config.servers.web.rootEndpointType` must be set to `'api'`.
+- If the `api.config.servers.web.rootEndpointType` setting has the value `'file'` it means that actions must be accessed using the prefix `/api`. For the server to respond to an `example.com/posts` route, `api.config.servers.web.rootEndpointType` must be set to `'api'`.
 
-> Note: chaining the configuration `'file'` to `'api'` routes in `/api` still work
+> Note: when `api.config.servers.web.rootEndpointType` is set to `'api'`, routes starting with `/api` still work.
 
-The JSON below shows an example of the route declaration:
+The JSON below shows an example of a route declaration:
 
 ```json
 {
@@ -93,7 +93,7 @@ The JSON below shows an example of the route declaration:
 
 ### Use Versions
 
-Routes will match the newest version of `apiVersion`. If you want to have a specific route match a specific version of an action, you can provide the `apiVersion` parameter in your route definitions. The follow example shows that feature:
+Routes will match the newest version of `apiVersion`. If you want to have a specific route match a specific version of an action, you can provide the `apiVersion` parameter in your route definitions. The following example shows this feature:
 
 ```json
 {
@@ -104,31 +104,31 @@ Routes will match the newest version of `apiVersion`. If you want to have a spec
 }
 ```
 
-This would create both `/api/actionName/old` and `/api/actionName/new`, mapping to apiVersion 1 and 2 respectively.
+This would create both `/api/actionName/old` and `/api/actionName/new`, mapping to `apiVersion` 1 and 2 respectively.
 
-In your action and middleware, if a route was matched, you can see the details of the match by inspecting `action.connection.matchedRoute` which include `path` and `action`.
+In your action and middleware, if a route was matched, you can see the details of the match by inspecting `action.connection.matchedRoute` which includes `path` and `action`.
 
 ### Disabling Access to `/api`
 
-To disabling accessing in `/api` and is only able to access the actions by the server root, you must change the value of `api.config.servers.web.urlPathForActions` to `null`.
+To disabling access to actions using `/api` and only allow access the actions via the server root, you must change the value of `api.config.servers.web.urlPathForActions` to `null`.
 
-> Note: the `api.config.servers.web.rootEndpointType` parameter should be equal to `'api'`, otherwise you can not make calls to actions.
+> Note: if you do this, the `api.config.servers.web.rootEndpointType` setting must be set to `'api'`, otherwise there will be no way to make calls to actions.
 
 ## Parameters
 
-The parameters can be specified using GET or POST. Parameter are loaded in this order GET -> POST (normal) -> POST (multipart). This means that if you are `exmaple.com/key=getValue` and you post a variable `key=postValue` as well, the `postValue` will be the one used.
+The parameters can be specified using GET or POST. Parameters are loaded in this order: GET -> POST (normal) -> POST (multipart). This means that if you access URL `example.com/?key=getValue` and you post a variable `key=postValue` as well, `postValue` will be the value used.
 
-File uploads from forms will also appear in `connection.params`, but will be an object with more information. That is, if you uploaded a file called "image", you would have `connection.params.image.path`, `connection.params.image.name` (original file name), and `connection.params.image.type` available to you.
+File uploads from forms will also appear in `connection.params`, but will be represented as an object with more information. That is, if you uploaded a file called "image", you would have `connection.params.image.path`, `connection.params.image.name` (original file name), and `connection.params.image.type` available to you.
 
-> Note: you can post BODY json payloads to Stellar in the form of a hash or array.
+> Note: you can post BODY JSON payloads to Stellar in the form of an object or array.
 
 ## Uploading Files
 
-Stellar uses the [formidable](https://www.npmjs.com/package/formidable) form parsing library. You can upload multiple files to an action and they will be available within `connection.params` as **formidable** response object containing references to the original file name, where the uploaded file was stores temporarily, etc.
+Stellar uses the [formidable](https://www.npmjs.com/package/formidable) form parsing library. You can upload multiple files to an action and they will be available within `connection.params` as a **formidable** response object containing references to the original file name, where the uploaded file was stored temporarily, etc.
 
 ## Client Library
 
-Although the StellarClient client-side library is mostly for WebSockets, it can now be used to make HTTP actions when not connect (and WebSockets clients will fall back to HTTP actions when disconnected).
+Although the Stellar client-side JavaScript library is mostly for WebSockets, it can also be used to make HTTP actions when not connected to a WebSocket (and WebSocket clients will fall back to HTTP requests when disconnected).
 
 ```html
 <head>
@@ -151,4 +151,4 @@ stellar.action('createPost', { title: 'Example!', content: 'Some content...' }, 
 })
 ```
 
-> Note: once we never called `stellar.connect` the request are make by HTTP action. More information can be found on the [WebSocket docs page](./websocket.html).
+> Note: since we never called `stellar.connect` the request is made via HTTP. More information can be found in the [WebSocket section](./websocket.html).
