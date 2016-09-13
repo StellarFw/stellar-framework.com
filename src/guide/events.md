@@ -13,7 +13,7 @@ Stellar has an event system that allows you to subscribe to and listen for event
 Instead of manually creating a file for each listener, developers can use the `stellar` command line tool to do this automatically:
 
 ```shell
-$ stellar generateEvent <eventName> --module=<moduleName>
+$ stellar makeListener <eventName> --module=<moduleName>
 ```
 
 ## Define a Listener
