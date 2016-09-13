@@ -135,7 +135,7 @@ Although the Stellar client-side JavaScript library is mostly for WebSockets, it
   <!-- (...) -->
 
   <!-- import Stellar client library  -->
-  <script src="//server.example.com/client-lib">
+  <script src="//server.example.com/stellar-client">
 </head>
 ```
 
