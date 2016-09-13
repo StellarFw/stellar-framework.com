@@ -6,40 +6,44 @@ order: 11
 
 ## Overview
 
-Stellar is equipped with a file system that allows clients make requests for static files.
+Stellar is equipped with file system functionality that allows clients to make requests for static files.
 
-If is requested a directory instead of a file, Stellar will look for the file set in `api.config.general.directoryFileType` (which by default is set like `index.html`). If it fails, a not find error will be returned.
+If a directory is requested instead of a file, Stellar will look for the file set in `api.config.general.directoryFileType` (which by default is `index.html`). If this file does not exist, a "not found" error will be returned.
 
-You can use the `api.staticFile.get(connection, next)` method in actions to get a file (where `next(connection, error, fileStream, mime, length)`), the file being sought is defined in `connection.params.file`. Note that the fileStream is a stream that can be piped to a client.
+You can use the `api.staticFile.get(connection, next)` method in actions to retrieve a file (where the callback parameter has the form `next(connection, error, fileStream, mime, length)`). The file being requested is defined in `connection.params.file`. Note that `fileStream` is a stream that can be piped to a client.
 
-> Note: In *NIX operative systems symbolic links to folders and files are allowed.
+> Note: In \*NIX operating systems symbolic links to folders and files are allowed.
 
 ## Web Clients
 
-In Web client the `Cache-Control` and `Expires` headers are sent, value of these is defined in `api.config.general.flatFileCacheDuration` configuration.
+For Web clients, the `Cache-Control` and `Expires` headers are sent; the value of these is determined by the `api.config.general.flatFileCacheDuration` configuration setting.
 
-For the `Content-Type` header will be used the [mime](https://npmjs.org/package/mime) to determine the file mime type.
+For the `Content-Type` header, the [mime](https://npmjs.org/package/mime) package is used to determine the file type.
 
-Web clients may request `connection.params.file` directly within an action which makes use of `api.sendFile` method, or if they are under the `api.config.servers.web.urlPathForFiles` route, the file will be looked up as if the route matches the directory structure under `/public` folder.
+An action which makes use of the `api.sendFile` method can use `connection.params.file` to find out which file was requested by the client.  If the request falls under the `api.config.servers.web.urlPathForFiles` route, the file will be looked up within the `/public` folder.
 
-You can also send the content of a file to a client just use the `server.sendFile(connection, null, stream, 'text/html', length)` method.
+You can also send the contents of a file to a client by calling `server.sendFile(connection, null, fileStream, 'text/html', length)`.
 
 ## Other Clients
 
-In case you are using a connection that is not web must use the `file` parameter to request a file.
+A client using a non-HTTP connection must use the `file` parameter to request a file.
 
-The file content is sent in `raw`, which can be binary or contain line breaks. Must parse according to the type of request you made.
+The file content is sent "raw," which can be binary or contain line breaks. The file must be parsed according to the type of request made.
 
 ## Send Files by Actions
 
-You can send files through the actions using `connection.sendFile()` method. Bellow is an example of a successful call and another of a failure:
+You can send files from within actions using the `connection.sendFile()` method. Below is an example of a successful call:
 
 ```javascript
 // success case
 action.connection.sendFile('/path/to/file.mkv')
 action.toRender = false
 next()
+```
 
+The following example shows a failure:
+
+```javascript
 // failure case
 action.connection.rawConnection.responseHttpCode = 404
 action.connection.sendFile('404.html')
@@ -47,4 +51,4 @@ action.toRender = false
 next()
 ```
 
-> Note: You must set the property `action.toRender = false` since it has already sent a reply to the client.
+> Note: You must set the property `action.toRender = false` after sending a file to prevent Stellar from automatically generating a response, since the response has already been sent to the client.

@@ -6,95 +6,95 @@ order: 14
 
 ## Overview
 
-Stellar uses the [Primus](http://primus.io) to work with WebSockets. Primus creates an abstraction layer over the WebSocket engine, it supports: `ws`, `engine.io`, `socket.io`, among others. The WebSocket is connected to the web server, either HTTP or HTTPS.
+Stellar uses [Primus](http://primus.io) to work with WebSockets. Primus provides an abstraction layer over a WebSocket engine; it supports `ws`, `engine.io`, and `socket.io`, among others. WebSockets can use HTTP or HTTPS to connect to the server (HTTPS is recommended).
 
-When Stellar starts, a script is generated with some useful functions to make the connection between the client and the server. This script can be obtained by calling the URL: `http(s)://stellar_domain.com/stellar-client`
+When Stellar starts, a script is generated with some useful functions to make the connection between the client and the server. This script can be obtained by accessing the URL `http(s)://stellar_domain.com/stellar-client`
 
 ## Methods
 
-Bellow are exposed all methods provided by the client so it can interact with the server:
+The following methods are provided to the client to interact with the server:
 
 ### Open Connection
 
-The `client.connect(callback)` method allows you open a connection with the server:
+The `client.connect(callback)` method allows a client to open a connection with the server:
 
-- **`callback(error, detailsView)`**: callback function:
-  - **`error`**: object with the occurred error during the call, if exists;
-  - **`detailsView`**: the same as the `detailsView` method.
+- **`callback(error, detailsView)`**: Callback function:
+  - **`error`**: Object with the error that occurred during the call, if any.
+  - **`detailsView`**: The same as for the `detailsView` method (see below).
 
 ### Call an Action
 
-The `client.action(action, params, callback)` method allows call an action:
+The `client.action(action, params, callback)` method allows a client to invoke an action:
 
-- **`action`**: action name to be called, for example: "auth.signin";
-- **`params`**: object with the action parameters;
-- **`callback(response)`**: callback function:
-  - **`response`**: server response.
+- **`action`**: Action name to be called, e.g., "auth.signin".
+- **`params`**: Object with the action parameters.
+- **`callback(response)`**: Callback function:
+  - **`response`**: Server response.
 
-> Note: When does not exists an open connection through a WebSocket, the client will fallback to HTTP.
+> Note: When an open WebSocket connection does not exist, the client will fall back to HTTP.
 
 ### Send Messages
 
-The `client.say(room, message, callback)` method allows you to send message to a chat room:
+The `client.say(room, message, callback)` method allows a client to send message to a chat room:
 
-- **`room`**: room for the message will be sent;
-- **`message`**: message to be sent;
-- **`callback(error)`**: callback function:
-  - **`error`**: contains the error information, if that is the case.
+- **`room`**: Room where the message will be sent.
+- **`message`**: Message to be sent.
+- **`callback(error)`**: Callback function:
+  - **`error`**: Contains the error information, if an error occurred.
 
 > Note: you need use the `roomAdd` method before you can interact with a chat room.
 
 ### Details
 
-The `client.detailsView(callback)` method allows you get details about the client connection.
+The `client.detailsView(callback)` method allows you to get details about the client connection.
 
-- **`callback(error, response)`**: callback function:
-  - **`error`**: may contain an instance of `Error`
-  - **`response`**: contains an object with the connection details.
+- **`callback(error, response)`**: Callback function:
+  - **`error`**: May contain an instance of `Error`.
+  - **`response`**: Contains an object with the connection details.
 
-> Note: the first answer of the `detailsView` are stored to be used on the future.
+> Note: the first response of the `detailsView` method is stored to be used in the future.
 
 ### Chat Room State
 
-The `client.roomView(room, callback)` method allows you to obtain metadata from the request chat room.
+The `client.roomView(room, callback)` method allows you to obtain metadata for the requested chat room.
 
-- **`room`**: chat room name;
-- **`callback(response, error)`**: callback function:
-  - **`response`**: Object with metadata from the requested chat room;
-  - **`error`**: contains an instance of `Error`, if is that the case.
+- **`room`**: Chat room name.
+- **`callback(response, error)`**: Callback function.
+  - **`response`**: Object with metadata for the requested chat room.
+  - **`error`**: Contains an instance of `Error`, if an error occurred.
 
-### Joining a Room
+### Join a Chat Room
 
-The `client.roomAdd(room, callback)` method allows you joining to a chat room:
+The `client.roomAdd(room, callback)` method allows you to join to a chat room:
 
-- **`room`**: chat room name;
-- **`callback(error)`**: callback function:
-  - **`error`**: can contains a instance of `Error`.
+- **`room`**: Chat room name;
+- **`callback(error)`**: Callback function:
+  - **`error`**: Can contain an instance of `Error`.
 
-### Leave a Chat Romm
+### Leave a Chat Room
 
 The `client.roomLeave(room, callback)` allows you to leave a chat room:
 
-- **`room`**: chat room name;
-- **`callback(error)`**: callback function:
-  - **`error`**: an instance of `Error`, if is that the case.
+- **`room`**: Chat room name;
+- **`callback(error)`**: Callback function:
+  - **`error`**: Can contain an instance of `Error`.
 
 ### Request a File
 
-The `client.file(file, callback)` method allows you request a static file form to the server:
+The `client.file(file, callback)` method allows you request a static file from the server:
 
-- **`file`**: path for the file to be requested;
-- **`callback(response, error)`**: callback function:
-  - **response**: object with the requested file.
+- **`file`**: Path for the file to be requested.
+- **`callback(response, error)`**: Callback function.
+  - **response**: Object with the requested file.
 
-The answer looks like the follow structure:
+The response object has the following structure:
 
 ```json
 {
   "content": "File Content...",
   "context": "response",
   "error": null,
-  "lenght" 20,
+  "length" 20,
   "messageCount" : 3,
   "mime": "text/txt"
 }
@@ -102,15 +102,15 @@ The answer looks like the follow structure:
 
 ### Disconnect
 
-The `client.disconnect()` method allows you disconnect client from the server.
+The `client.disconnect()` method allows you to disconnect the client from the server.
 
 ## Events
 
-The follow list shows the available events by the client.
+The following list shows the events which are available to the client.
 
 ### Connected
 
-The `connected` event is triggered when the client connect with the server.
+The `connected` event is triggered when the client connects to the server.
 
 ```javascript
 client.on('connected', () => { })
@@ -118,7 +118,7 @@ client.on('connected', () => { })
 
 ### Disconnected
 
-The `disconnected` event is triggered when the client disconnect from the server.
+The `disconnected` event is triggered when the client disconnects from the server.
 
 ```javascript
 client.on('disconnected', () => { })
@@ -126,7 +126,7 @@ client.on('disconnected', () => { })
 
 ### Error
 
-The `error` event is triggered when the an error occurs during a verb execution.
+The `error` event is triggered when an error occurs during a verb execution.
 
 ```javascript
 client.on('error', error => { })
@@ -134,17 +134,17 @@ client.on('error', error => { })
 
 ### Reconnect
 
-The `reconnect` event occurs when the connection between the server and the client are temporarily interrupted.
+The `reconnect` event occurs when the connection between the server and the client is temporarily interrupted.
 
 ```javascript
 client.on('reconnect', () => { })
 ```
 
-> Note: the connection details can be changed.
+> Note: the connection details can be changed when a reconnect occurs.
 
 ### Reconnecting
 
-The `reconnecting` event occurs when the client try reconnect with the server.
+The `reconnecting` event occurs when the client tries to reconnect with the server.
 
 ```javascript
 client.on('reconnecting', () => { })
@@ -158,7 +158,7 @@ The `message` event occurs when the client receives a new message.
 client.on('message', message => { })
 ```
 
-> Warning: this event occurs every time the client receive a new message, this is a very noisy event.
+> Warning: this event occurs every time the client receives a new message - this is a very noisy event.
 
 ### Alert
 
@@ -170,7 +170,7 @@ client.on('alert', message => { })
 
 ### API
 
-The `api` event occurs when the client receives a new message with a unknown context.
+The `api` event occurs when the client receives a new message with an unknown context.
 
 ```javascript
 client.on('api', message => { })
@@ -178,7 +178,7 @@ client.on('api', message => { })
 
 ### Welcome
 
-The `welcome` event occurs when the server send a welcome message to the new-connected client.
+The `welcome` event occurs when the server sends a welcome message to the new-connected client.
 
 ```javascript
 client.on('welcome', message => { })
@@ -186,9 +186,9 @@ client.on('welcome', message => { })
 
 ### Say
 
-Finally, the `say` event occurs when the client receives a new message from the other client in the same room.
+Finally, the `say` event occurs when the client receives a new message from another client in the same room.
 
 ```javascript
 client.on('say', message => { })
 ```
-> Note: the `message.room` property allows get the message origin.
+> Note: the `message.room` property allows you to get the message origin.

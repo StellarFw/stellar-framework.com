@@ -6,11 +6,11 @@ order: 17
 
 # Introduction
 
-Stellar comes equipped with a hashing system, which makes use of [bcrypt](https://www.npmjs.com/package/bcrypt) library. This system allows to compute hashes and compare them with clear text data to validate them.
+Stellar comes equipped with a hashing system, which makes use of the [bcrypt](https://www.npmjs.com/package/bcrypt) library. This allows you to compute hashes and compare them with clear text data to validate them.
 
 ## Compute Hashes
 
-The `api.hash.hash` and `api.hash.hasSync` allows generate a hash from a string asynchronously and synchronously, respectively.
+The `api.hash.hash` and `api.hash.hashSync` methods allow you to generate a hash from a string asynchronously and synchronously, respectively.
 
 ```javascript
 // generate a hash synchronously
@@ -24,7 +24,7 @@ api.hash.hash(plainData).then(hash => {
 
 ## Compare Hashes
 
-The `api.hash.compare` and `api.hash.compareSync` allows compare a string with a hash to validate if they match.
+The `api.hash.compare` and `api.hash.compareSync` methods allow you to compare a string with a hash to check whether they match.
 
 ```javascript
 // compare a hash synchronously
