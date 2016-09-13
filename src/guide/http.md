@@ -6,7 +6,7 @@ order: 16
 
 ## Overview
 
-The HTTP server allows you to perform actions and display files using HTTP and HTTPS protocols. The API can be accessed through a browser, cURL command, etc. You can access actions using URLs of the form `<url>?action=<action_name>` or `<url>/api/<action_name>`. For example, if you want to access the `getPost` action on a local server that is listening on port 8080, you would have to make a call to the URL `http://127.0.0.1/?action=getPosts`.
+The HTTP server allows you to perform actions and display files using HTTP and HTTPS protocols. The API can be accessed through a browser, cURL command, etc. You can access actions using URLs of the form `<url>?action=<action_name>` or `<url>/api/<action_name>`. For example, if you want to access the `getPost` action on a local server that is listening on port 8080, you would have to make a call to the URL `http://127.0.0.1:8080/api?action=getPosts`.
 
 The JSON below shows an example of a response from the server.
 
