@@ -6,7 +6,7 @@ order: 4
 
 ## Overview
 
-Tasks are jobs performed separately from client requests. They can be initialized by an action or by the server itself. With Stellar, there is no need to separately execute a daemon to process the work. Stellar uses the `node-resque` package for storing and processing tasks. In Stellar there are three ways of processing tasks: `normal`, `late` and `periodically`. In `normal` processing, the tasks are queued one by one by the `TaskProcessor`. When the task is executed with a delay, it is inserted in a special queue which will be processed at a certain time in the future; the delay is set in milliseconds from the time of insertion or through a timestamp. Finally, periodic tasks are similar to tasks with delay, but are executed repeatedly with a certain frequency.
+Tasks are jobs performed separately from client requests. They can be initialized by an action or by the server itself. With Stellar, there is no need to separately execute a daemon to process the work. Stellar uses the `node-resque` package for storing and processing tasks. In Stellar there are three ways of processing tasks: `normal`, `delayed` and `periodic`. In `normal` processing, the tasks are queued one by one by the `TaskProcessor`. When the task is `delayed`, it is inserted in a special queue which will be processed at a certain time in the future; the delay is set in milliseconds from the time of insertion or through a timestamp. Finally, `periodic` tasks are similar to `delayed` tasks, but `periodic` tasks are executed repeatedly with a certain frequency.
 
 > Note: It is recommended to use tasks for sending emails and other operations that can be performed asynchronously in order to shorten client responses.
 
@@ -32,7 +32,7 @@ api.tasks.enqueueAt(1591629508, 'sendNotificationEmail', { to: 'gil00mendes@gmai
 })
 ```
 
-Finally, `periodic` tasks are like delayed tasks, but they run on a set frequency (e.g., every 5 minutes):
+Finally, `periodic` tasks are like `delayed` tasks, but they run on a set frequency (e.g., every 5 minutes):
 
 
 ```javascript
