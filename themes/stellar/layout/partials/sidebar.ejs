@@ -3,6 +3,14 @@
     <%- partial('partials/main_menu') %>
   </ul>
   <div class="list">
+    <div class="list">
+      <div id="donate" style="margin-bottom: 20px">
+        <span class="wrapper" style="width: 110px">
+          <img src="/images/patreon.png">
+          <a href="/support-stellar">Support Stellar</a>
+        </span>
+      </div>
+    </div>
     <ul class="menu-root">
       <% type !== 'api' && site.pages.find({type: type}).sort('order').each(function (p) { %>
         <li>
