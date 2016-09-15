@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
   <head>
     <title>Chat - Stellar</title>
 
@@ -50,9 +50,15 @@
         <span>Stellar</span>
     </a>
     <ul id="nav">
-        <li><a href="/guide/" class="nav-link current">Guia</a></li>
+        <li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
-
+<li class="nav-dropdown-container">
+  <a class="nav-link">Community</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://github.com/stellarFw/stellar" class="nav-link" target="_blank">GitHub</a></li>
+    <li><a href="https://twitter.com/gil0mendes" class="nav-link" target="_blank">Twitter</a></li>
+  </ul>
+</li>
     </ul>
 </div>
 
@@ -61,27 +67,41 @@
           
   <div class="sidebar">
   <ul class="main-menu">
-    <li><a href="/guide/" class="nav-link current">Guia</a></li>
+    <li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
-
+<li class="nav-dropdown-container">
+  <a class="nav-link">Community</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://github.com/stellarFw/stellar" class="nav-link" target="_blank">GitHub</a></li>
+    <li><a href="https://twitter.com/gil0mendes" class="nav-link" target="_blank">Twitter</a></li>
+  </ul>
+</li>
   </ul>
   <div class="list">
+    <div class="list">
+      <div id="donate" style="margin-bottom: 20px">
+        <span class="wrapper" style="width: 110px">
+          <img src="/images/patreon.png">
+          <a href="/support-stellar">Support Stellar</a>
+        </span>
+      </div>
+    </div>
     <ul class="menu-root">
       
         <li>
-          <a href="/guide/index.html" class="sidebar-link">Visão Geral</a>
+          <a href="/guide/index.html" class="sidebar-link">Overview</a>
         </li>
       
         <li>
-          <a href="/guide/installation.html" class="sidebar-link">Instalação</a>
+          <a href="/guide/installation.html" class="sidebar-link">Installation</a>
         </li>
       
         <li>
-          <a href="/guide/actions.html" class="sidebar-link">Ações</a>
+          <a href="/guide/actions.html" class="sidebar-link">Actions</a>
         </li>
       
         <li>
-          <a href="/guide/tasks.html" class="sidebar-link">Tarefas</a>
+          <a href="/guide/tasks.html" class="sidebar-link">Tasks</a>
         </li>
       
         <li>
@@ -89,7 +109,7 @@
         </li>
       
         <li>
-          <a href="/guide/satellites.html" class="sidebar-link">Satélites</a>
+          <a href="/guide/satellites.html" class="sidebar-link">Satellites</a>
         </li>
       
         <li>
@@ -105,11 +125,11 @@
         </li>
       
         <li>
-          <a href="/guide/development_mode.html" class="sidebar-link">Modo de Desenvolvimento</a>
+          <a href="/guide/development_mode.html" class="sidebar-link">Development Mode</a>
         </li>
       
         <li>
-          <a href="/guide/file_system.html" class="sidebar-link">Sistema de Ficheiros</a>
+          <a href="/guide/file_system.html" class="sidebar-link">File System</a>
         </li>
       
         <li>
@@ -117,7 +137,7 @@
         </li>
       
         <li>
-          <a href="/guide/events.html" class="sidebar-link">Eventos</a>
+          <a href="/guide/events.html" class="sidebar-link">Events</a>
         </li>
       
         <li>
@@ -133,7 +153,7 @@
         </li>
       
         <li>
-          <a href="/guide/security.html" class="sidebar-link">Segurança</a>
+          <a href="/guide/security.html" class="sidebar-link">Security</a>
         </li>
       
     </ul>
@@ -144,62 +164,64 @@
 
 <div class="content guide with-sidebar">
   <h1>Chat</h1>
-  <h2 id="Para-que-serve"><a href="#Para-que-serve" class="headerlink" title="Para que serve?"></a>Para que serve?</h2><p>O Stellar vem equipado com uma solução de salas de <em>chat</em>, que pode ser usada com todas as conexões persistentes (socket ou websocket). Existem métodos para criar e gerir as salas de <em>chat</em> e os utilizadores dessas salas. Este sistema pode ser usado para diferentes finalidades, como por exemplo: atualização de dados em tempo real, propagação de informação de forma rápida entre clientes que estejam ligados e até mesmo para criação de jogos <em>multiplayer</em> (uma vez que estes necessitam de constante partilha de informação entre todos os jogadores).</p>
-<p>Os clientes comunicam com as salas através de <em>verbs</em>. Os <em>verbs</em> são comandos curtos que permitem alterar o estado da conexão, como juntar-se ou sair de uma sala. Os clientes podem estar em diferentes salas ao mesmo tempo. Os <em>verbs</em> mais relevantes são:</p>
+  <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>Stellar ships with a chat framework which may be used by all persistent connections (TCP and WebSocket). There are methods to create and manage chat rooms and control the users in those rooms. Chat does not have to represent peer-to-peer communications - it is a metaphor used for many things, including game state in multiplayer games.</p>
+<p>Clients themselves interact with rooms via <code>verbs</code>. Verbs are short-form commands that will attempt to modify the connection’s state, either joining or leaving a room. Clients can be in many rooms ate once. The most relevant chat verbs are:</p>
 <ul>
-<li>roomAdd</li>
-<li>roomLeave</li>
-<li>roomView</li>
-<li>say</li>
+<li><code>roomAdd</code></li>
+<li><code>roomLeave</code></li>
+<li><code>roomView</code></li>
+<li><code>say</code></li>
 </ul>
-<p>Esta funcionalidade pode ser usada <em>out-of-the-box</em> sem que seja necessária qualquer instalação de pacotes adicionais, configuração ou programação. Por defeito, é criada uma sala com o nome “defaultRoom”. Quando o servidor de websocket está ativo é gerado um <em>script</em> de cliente que pode ser usado em aplicações <em>web</em> para facilitar a chamada de ações e a comunicação com as salas de <em>chat</em>.</p>
-<p>Não existe limite de salas que a ser criadas, mas é necessário ter em mente que cada sala guarda informação no Redis, assim existe carga por cada ligação criada.</p>
-<h2 id="Metodos"><a href="#Metodos" class="headerlink" title="Métodos"></a>Métodos</h2><p>Existem métodos que permitem gerir as salas de <em>chat</em> e os seus membros. Estes métodos não estão disponíveis diretamente para o cliente, mas podem ficar caso crie uma ação.</p>
-<h3 id="Broadcast"><a href="#Broadcast" class="headerlink" title="Broadcast"></a>Broadcast</h3><p>O método <code>api.chatRoom.broadcast(connection, room, message, callback)</code> permite emitir uma mensagem para todos os membros de uma determinada sala. O parâmetro <code>connection</code> pode ser uma conexão real de uma mensagem a chegar de um cliente, ou pode ser uma conexão construída manualmente. As conexões construídas deve por menos conter a propriedade <code>{room: &#39;umaOutraRoom&#39;}</code>, quando não é especificado um <code>id</code> é assumido o valor de <code>0</code>.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.chatRoom.broadcast(&#123;room: <span class="string">'general'</span>&#125;, <span class="string">'general'</span>, <span class="string">'Olá!'</span>, error =&gt; &#123;</span><br><span class="line">  <span class="comment">// faz alguma coisa depois da mensagem ser enviada!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="Lista-das-rooms"><a href="#Lista-das-rooms" class="headerlink" title="Lista das rooms"></a>Lista das rooms</h3><p>O método <code>api.chatRoom.list(callback)</code> permite obter a lista de <em>rooms</em> existentes. O código de exemplo abaixo lista todas as <em>rooms</em> existentes na consola.</p>
+<p>This feature can be used out-of-the-box without any additional packages, configuration or programming. By default, a room named “defaultRoom” is created when the framework starts. When the WebSocket server is active it generates a client script that can be used in web applications to facilitate calling actions and communicating with the chat rooms.</p>
+<blockquote>
+<p>Warning: There is no limit on the number of rooms which can be created, but keep in mind that each room stores information in Redis, and each connection requires additional resources as well.</p>
+</blockquote>
+<h2 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h2><p>These methods can be used within your server. They are not exposed directly to clients, but they can be used within an action or a satellite.</p>
+<h3 id="Broadcast"><a href="#Broadcast" class="headerlink" title="Broadcast"></a>Broadcast</h3><p>The <code>api.chatRoom.broadcast(connection, room, message, callback)</code> method allows you to send a message to all members in a room. The connection parameter can be a real connection (a message coming from a client), or a mockConnection. A mockConnection at the very least has the form <code>{room: &#39;someRoom&#39;}</code>. When an ID is not specified the ID will be assigned to 0.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.chatRoom.broadcast(&#123;room: <span class="string">'general'</span>&#125;, <span class="string">'general'</span>, <span class="string">'Hello!'</span>, error =&gt; &#123;</span><br><span class="line">  <span class="comment">// do something after sending the message!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="List-of-Rooms"><a href="#List-of-Rooms" class="headerlink" title="List of Rooms"></a>List of Rooms</h3><p>The <code>api.chatRoom.list(callback)</code> allows you to get a list of existing rooms. The following example code lists all rooms in the console (<code>stdout</code>):</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.chatRoom.list((error, rooms) =&gt; &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> k <span class="keyword">in</span> rooms) &#123; <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;k&#125;</span> =&gt; <span class="subst">$&#123;rooms[k]&#125;</span>`</span>) &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="Criar-uma-room"><a href="#Criar-uma-room" class="headerlink" title="Criar uma room"></a>Criar uma room</h3><p>Para criar uma <em>room</em> usa-se o método <code>api.chatRoom.add(room, callback)</code>. A função <em>callback</em> recebe um parâmetro que assume o valor de <code>0</code> quando a <em>room</em> já existe e de <code>1</code> caso ela tenha sido criada. O código abaixo mostra a criação de uma nova <em>room</em> com o nome de “labs”:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.chatRoom.add(<span class="string">'labs'</span>, res =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (res === <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="comment">// a room já existe!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// a room foi criada!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="Remover-uma-room"><a href="#Remover-uma-room" class="headerlink" title="Remover uma room"></a>Remover uma room</h3><p>Usando o método <code>api.chatRoom.destroy(room, callback)</code> pode-se remover uma <em>room</em>. A função <em>callback</em> não recebe  parâmetros, a <em>room</em> é sempre removida, o código a seguir mostra como a remoção pode ser feita:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.chatRoom.destroy(<span class="string">'labs'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="comment">// a room foi removida!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="Verifica-se-uma-room-existe"><a href="#Verifica-se-uma-room-existe" class="headerlink" title="Verifica se uma room existe"></a>Verifica se uma room existe</h3><p>Pode-se usar o método <code>api.chatRoom.exists(room, callback)</code> para verificar se uma <em>room</em> existe na instância do Stellar. A função <code>callback(error, found)</code> recebe dois parâmetros:</p>
+<h3 id="Create-a-Room"><a href="#Create-a-Room" class="headerlink" title="Create a Room"></a>Create a Room</h3><p>To create a room you use the <code>api.chatRoom.add(room, callback)</code> method. The callback function receives a parameter that has a value of <code>0</code> when the room already exists and <code>1</code> if it has just been created. The following code shows the creation of a new room named “labs”:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.chatRoom.add(<span class="string">'labs'</span>, res =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (res === <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="comment">// the room already exists!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// the room has been created!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Remove-a-Room"><a href="#Remove-a-Room" class="headerlink" title="Remove a Room"></a>Remove a Room</h3><p>Using the <code>api.chatRoom.destroy(room, callback)</code> method, you can remove a room. The callback function does not receive any parameters; the room is always removed. The following code shows how you can remove a room:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.chatRoom.destroy(<span class="string">'labs'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="comment">// room removed!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Check-if-the-Room-Exists"><a href="#Check-if-the-Room-Exists" class="headerlink" title="Check if the Room Exists"></a>Check if the Room Exists</h3><p>You can use the <code>api.chatRoom.exists(room, callback)</code> method to check if the room exists in the Stellar instance. The <code>callback(error, found)</code> receives two parameters:</p>
 <ul>
-<li><code>error</code>: assume o valor de <code>null</code> no caso se não ocorrer nenhum problema;</li>
-<li><code>found</code>: <code>true</code> no caso da <em>room</em> ter sido encontrada, <code>false</code> caso contrario.</li>
+<li><strong><code>error</code></strong>: Assumes the <code>null</code> value if there are no problems.</li>
+<li><strong><code>found</code></strong>: <code>true</code> if the room exists, <code>false</code> otherwise.</li>
 </ul>
-<p>O código abaixo mostra a verificação da existência da <em>room</em> “coffeTable”:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.chatRoom.exists(<span class="string">'coffeTable'</span>, (error, found) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!found) &#123;</span><br><span class="line">    <span class="comment">// a room não existe!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// a room existe!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="Obter-o-estado-de-uma-room"><a href="#Obter-o-estado-de-uma-room" class="headerlink" title="Obter o estado de uma room"></a>Obter o estado de uma room</h3><p>Através do método <code>api.chatRoom.roomStatus(room, callback)</code> é possível obter informações do estado da <em>room</em>. A função <code>callback(error, state)</code>, recebe dois parâmetros:</p>
+<p>The following code checks the existence of the chat room named “coffeeTable”:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.chatRoom.exists(<span class="string">'coffeeTable'</span>, (error, found) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!found) &#123;</span><br><span class="line">    <span class="comment">// the room does not exist!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// the room exists!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Gets-the-Room-State"><a href="#Gets-the-Room-State" class="headerlink" title="Gets the Room State"></a>Gets the Room State</h3><p>With the <code>api.chatRoom.roomStatus(room, callback)</code> method you can get room status information. The <code>callback(error, state)</code> function takes two parameters:</p>
 <ul>
-<li><code>error</code>: <code>null</code> no caso de não ocorrer um erro durante a chamada do método;</li>
-<li><code>state</code>: é uma <em>hash</em> que contem informação sobre a <em>room</em>, nome, número de membros inscritos e a lista desses membros.</li>
+<li><strong><code>error</code></strong>: <code>null</code> if no error occurs during the method call.</li>
+<li><strong><code>state</code></strong>: An object containing information about the room: name, number of registered members, and the list of such members.</li>
 </ul>
-<p>O código abaixo mostra como essa informação pode ser obtida e em seguida uma possível resposta:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.chatRoom.roomStatus(<span class="string">'Random'</span>, (error, status) =&gt; &#123;</span><br><span class="line">  <span class="comment">// faz alguma coisa com a informação da room!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>The code below shows how this information can be obtained and then a possible result:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.chatRoom.roomStatus(<span class="string">'Random'</span>, (error, status) =&gt; &#123;</span><br><span class="line">  <span class="comment">// do something with the room information!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  room: <span class="string">'Random'</span>,</span><br><span class="line">  membersCount: <span class="number">3</span>,</span><br><span class="line">  members: &#123;</span><br><span class="line">    g0m: &#123;id: <span class="string">'g0m'</span>, joinedAt: <span class="number">1465829955</span>&#125;,</span><br><span class="line">    afls: &#123;id: <span class="string">'afls'</span>, joinedAt: <span class="number">1465829985</span>&#125;,</span><br><span class="line">    amg: &#123;id: <span class="string">'amg'</span>, joinedAt: <span class="number">1465830011</span>&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Adicionar-um-membro"><a href="#Adicionar-um-membro" class="headerlink" title="Adicionar um membro"></a>Adicionar um membro</h3><p>Para adicionar um novo membro usa-se o método <code>api.chatRoom.addMember(connectionId, room, callback)</code>, é necessário o ID da conexão do cliente e o nome da <em>room</em> onde se quer adicionar o novo membro. A função <code>callback(error, wasAdded)</code> recebe dois parâmetros:</p>
+<h3 id="Add-a-Member"><a href="#Add-a-Member" class="headerlink" title="Add a Member"></a>Add a Member</h3><p>To add a new member, use the <code>api.chatRoom.addMember(connectionId, room, callback)</code> method.  The client connection ID and the name of the room are needed. The <code>callback(error, wasAdded)</code> function takes two parameters:</p>
 <ul>
-<li><code>error</code>: <code>null</code> no caso de não ocorrer erro durante a chamada;</li>
-<li><code>wasAdded</code>: pode assumir o valor de <code>true</code> ou <code>false</code> dependendo se o membro foi adicionado ou não.</li>
+<li><strong><code>error</code></strong>: <code>null</code> if no error occurs during the call.</li>
+<li><strong><code>wasAdded</code></strong>: Can be <code>true</code> or <code>false</code> depending on whether the member was added or not.</li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.chatRoom.addMember(idDaConexao, <span class="string">'newUsers'</span>, (error, wasAdded) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!wasAdded) &#123;</span><br><span class="line">    <span class="comment">// não foi possível adicionar o novo membro!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// cliente adicionado como novo membro!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.chatRoom.addMember(connectionId, <span class="string">'newUsers'</span>, (error, wasAdded) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!wasAdded) &#123;</span><br><span class="line">    <span class="comment">// could not add the new member!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// client added as a new member!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>É possível adicionar conexões do servidor atual ou de outro qualquer que faça parte do <em>cluster</em>.</p>
+<p>Note: you can add connections from the current server or any other server in the cluster.</p>
 </blockquote>
-<h3 id="Remover-um-membro"><a href="#Remover-um-membro" class="headerlink" title="Remover um membro"></a>Remover um membro</h3><p>O método <code>api.chatRoom.removeMember(connectionId, room, callback)</code> permite remover um membro de uma dada <em>room</em>. Para isso é necessário o ID da conexão do membro a ser removido da <em>room</em> de onde se pretende remover. A função <code>callback(error wasRemoved)</code> recebe dois parâmetros:</p>
+<h3 id="Remove-a-Member"><a href="#Remove-a-Member" class="headerlink" title="Remove a Member"></a>Remove a Member</h3><p>The <code>api.chatRoom.removeMember(connectionId, room, callback)</code> method allows you to remove a member of a given room. This requires the member’s connection ID and the name of the room. The <code>callback(error wasRemoved)</code> function takes two parameters:</p>
 <ul>
-<li><code>error</code>: <code>null</code> no caso de não ocorrer erro durante a operação;</li>
-<li><code>wasRemoved</code>: <code>true</code> no caso do membro ter sido removido, <code>false</code> caso contrário.</li>
+<li><strong><code>error</code></strong>: <code>null</code> if no error occurs during the operation.</li>
+<li><strong><code>wasRemoved</code></strong>: <code>true</code> if the member has been removed, <code>false</code> otherwise.</li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.chatRoom.removeMember(idDaConexao, <span class="string">'heaven'</span>, (error, wasRemoved) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!wasRemoved) &#123;</span><br><span class="line">    <span class="comment">// o membro não foi removido!</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// o membro foi removido da room!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.chatRoom.removeMember(connectionId, <span class="string">'heaven'</span>, (error, wasRemoved) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!wasRemoved) &#123;</span><br><span class="line">    <span class="comment">// the member has not been removed!</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// the member was removed from the room!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>É possível remover conexões do servidor atual ou de qualquer outro servidor do <em>cluster</em>.</p>
+<p>Note: you can remove connections from the current server or any other server in the cluster.</p>
 </blockquote>
-<h2 id="Middleware"><a href="#Middleware" class="headerlink" title="Middleware"></a>Middleware</h2><p>Existem quatro tipos diferentes de <em>middleware</em> que podem ser instalados no sistema de <em>chat</em>: <code>say</code>, <code>onSayReceive</code>, <code>join</code> e <code>leave</code>. Toda a documentação sobre os <em>middlewares</em> está disponível na <a href="./middleware.html">secção</a> criada especificamente para esse tema.</p>
-<h2 id="Comunicar-para-um-cliente-especifico"><a href="#Comunicar-para-um-cliente-especifico" class="headerlink" title="Comunicar para um cliente especifico"></a>Comunicar para um cliente especifico</h2><p>Cada objeto de conexão contém o método <code>connection.sendMessage(message)</code>, este método está acessível diretamente através do servidor.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">connectionObj.sendMessage(<span class="string">'Bem-Vindo ao Stellar :)'</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="Funcoes-do-Cliente"><a href="#Funcoes-do-Cliente" class="headerlink" title="Funções do Cliente"></a>Funções do Cliente</h2><p>A forma como é possível comunicar através do cliente encontra-se descrita na sub-secção de cada tipo de servidor bidirecional <a href="websocket.html">websocket</a> e <a href="tcp.html">TCP</a>.</p>
+<h2 id="Middleware"><a href="#Middleware" class="headerlink" title="Middleware"></a>Middleware</h2><p>There are 4 types of middleware you can install for the chat system: <code>say</code>, <code>onSayReceive</code>, <code>join</code>, and <code>leave</code>. All documentation about <em>middleware</em> is available in the <a href="./middleware.html">middleware section</a>.</p>
+<h2 id="Chatting-to-Specific-Clients"><a href="#Chatting-to-Specific-Clients" class="headerlink" title="Chatting to Specific Clients"></a>Chatting to Specific Clients</h2><p>Every connection object also has a <code>connection.sendMessage(message)</code> method which you can call directly from the server.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">connectionObj.sendMessage(<span class="string">'Welcome to Stellar :)'</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="Client-Functions"><a href="#Client-Functions" class="headerlink" title="Client Functions"></a>Client Functions</h2><p>The ways it is possible to communicate with the client are described in the sections documenting the types of bidirectional servers, <a href="websocket.html">websocket</a> and <a href="tcp.html">TCP</a>.</p>
 
 
   
@@ -208,15 +230,15 @@
           <span>← <a href="/guide/cache.html">Cache</a></span>
         
         
-          <span style="float:right"><a href="/guide/development_mode.html">Modo de Desenvolvimento</a> →</span>
+          <span style="float:right"><a href="/guide/development_mode.html">Development Mode</a> →</span>
         
       </div>
     
 
     <div class="footer">
-      Encontrou um erro ou quer contribuir para a documentação?
+      Caught a mistake or want to contribute to documentation?
       <a href="https://github.com/gil0mendes/pt.stellar-framework.com/tree/master/src/guide/chat.md" target="_blank">
-        Edite esta página no Github!
+        Edit this page on Github!
       </a>
     </div>
 </div>

@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
   <head>
     <title>Cache - Stellar</title>
 
@@ -50,9 +50,15 @@
         <span>Stellar</span>
     </a>
     <ul id="nav">
-        <li><a href="/guide/" class="nav-link current">Guia</a></li>
+        <li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
-
+<li class="nav-dropdown-container">
+  <a class="nav-link">Community</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://github.com/stellarFw/stellar" class="nav-link" target="_blank">GitHub</a></li>
+    <li><a href="https://twitter.com/gil0mendes" class="nav-link" target="_blank">Twitter</a></li>
+  </ul>
+</li>
     </ul>
 </div>
 
@@ -61,27 +67,41 @@
           
   <div class="sidebar">
   <ul class="main-menu">
-    <li><a href="/guide/" class="nav-link current">Guia</a></li>
+    <li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
-
+<li class="nav-dropdown-container">
+  <a class="nav-link">Community</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://github.com/stellarFw/stellar" class="nav-link" target="_blank">GitHub</a></li>
+    <li><a href="https://twitter.com/gil0mendes" class="nav-link" target="_blank">Twitter</a></li>
+  </ul>
+</li>
   </ul>
   <div class="list">
+    <div class="list">
+      <div id="donate" style="margin-bottom: 20px">
+        <span class="wrapper" style="width: 110px">
+          <img src="/images/patreon.png">
+          <a href="/support-stellar">Support Stellar</a>
+        </span>
+      </div>
+    </div>
     <ul class="menu-root">
       
         <li>
-          <a href="/guide/index.html" class="sidebar-link">Visão Geral</a>
+          <a href="/guide/index.html" class="sidebar-link">Overview</a>
         </li>
       
         <li>
-          <a href="/guide/installation.html" class="sidebar-link">Instalação</a>
+          <a href="/guide/installation.html" class="sidebar-link">Installation</a>
         </li>
       
         <li>
-          <a href="/guide/actions.html" class="sidebar-link">Ações</a>
+          <a href="/guide/actions.html" class="sidebar-link">Actions</a>
         </li>
       
         <li>
-          <a href="/guide/tasks.html" class="sidebar-link">Tarefas</a>
+          <a href="/guide/tasks.html" class="sidebar-link">Tasks</a>
         </li>
       
         <li>
@@ -89,7 +109,7 @@
         </li>
       
         <li>
-          <a href="/guide/satellites.html" class="sidebar-link">Satélites</a>
+          <a href="/guide/satellites.html" class="sidebar-link">Satellites</a>
         </li>
       
         <li>
@@ -105,11 +125,11 @@
         </li>
       
         <li>
-          <a href="/guide/development_mode.html" class="sidebar-link">Modo de Desenvolvimento</a>
+          <a href="/guide/development_mode.html" class="sidebar-link">Development Mode</a>
         </li>
       
         <li>
-          <a href="/guide/file_system.html" class="sidebar-link">Sistema de Ficheiros</a>
+          <a href="/guide/file_system.html" class="sidebar-link">File System</a>
         </li>
       
         <li>
@@ -117,7 +137,7 @@
         </li>
       
         <li>
-          <a href="/guide/events.html" class="sidebar-link">Eventos</a>
+          <a href="/guide/events.html" class="sidebar-link">Events</a>
         </li>
       
         <li>
@@ -133,7 +153,7 @@
         </li>
       
         <li>
-          <a href="/guide/security.html" class="sidebar-link">Segurança</a>
+          <a href="/guide/security.html" class="sidebar-link">Security</a>
         </li>
       
     </ul>
@@ -144,108 +164,108 @@
 
 <div class="content guide with-sidebar">
   <h1>Cache</h1>
-  <h2 id="Geral"><a href="#Geral" class="headerlink" title="Geral"></a>Geral</h2><p>O Stellar já vem equipado com um sistema de <em>cache</em>, é permitido usar números, <em>strings</em>, <em>arrays</em> e objetos. Trata-se de um sistema distribuído de chave-valor, faz uso de um servidor Redis e pode usar qualquer objeto que seja suportado pela função <code>JSON.stringify</code>.</p>
-<h2 id="Usar-a-cache"><a href="#Usar-a-cache" class="headerlink" title="Usar a cache"></a>Usar a cache</h2><p>No sistema de <em>cache</em> existem três métodos fundamentais para fazer a gestão dos objetivos guardados em <em>cache</em>. São estes os métodos <code>save</code>, <code>load</code> e <code>destroy</code>.</p>
-<h3 id="Adicionar-uma-entrada"><a href="#Adicionar-uma-entrada" class="headerlink" title="Adicionar uma entrada"></a>Adicionar uma entrada</h3><p>Para adicionar uma nova entrada na <em>cache</em> usa-se o método <code>api.cache.save(chave, valor, msAteExpirar, callback)</code>, este método também permite atualizar uma entrada já existente. O <code>msAteExpirar</code> pode ser <code>null</code> no caso de não querer que o objeto expire. O (parâmetro) <code>callback</code> é uma função que recebe dois parâmetros <code>callback(callback, novoObjeto)</code>, em que o primeiro contem um erro caso exista e o segundo é o novo objeto criado na <em>cache</em>. No caso de estar a atualizar um objeto já existente o <code>novoObjeto</code> irá assumir o valor de <code>true</code>.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.save(<span class="string">'websiteTile'</span>, <span class="string">'XPTO Website'</span>)</span><br></pre></td></tr></table></figure>
+  <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Stellar comes equipped with a cache system, which is allowed to use numbers, strings, arrays and objects. This is a key-value distributed system which makes use of a Redis server and can use any object that is supported by the <code>JSON.stringify</code> function.</p>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>In the cache system there are three basic methods to manage the cached objects. These are the methods <code>save</code>, <code>load</code> and <code>destroy</code>.</p>
+<h3 id="Add-a-New-Entry"><a href="#Add-a-New-Entry" class="headerlink" title="Add a New Entry"></a>Add a New Entry</h3><p>To add a new entry to the cache, you need to use <code>api.cache.save(key, value, msToExpire, callback)</code>; this method also allows you to update an existing entry. The <code>msToExpire</code> can be <code>null</code> if you don’t want the object to expire. The <code>callback</code> parameter is a function that takes two parameters - <code>callback(error, newObject)</code>; the first parameter contains an error if there is one and the second is the newly created object in the cache. If you are updating an existing object, the <code>newObject</code> will assume the <code>true</code> value.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// create a new cache entry</span></span><br><span class="line">api.cache.save(<span class="string">'websiteTitle'</span>, <span class="string">'XPTO Website'</span>)</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>Atenção: Assim que o <code>msAteExpirar</code> for atingido a entrada será removida do sistema, mas pode não corresponder ao exato instante.</p>
+<p>Warning: Once <code>msToExpire</code> is reached the entry will be removed from the system, but possibly not at that exact moment.</p>
 </blockquote>
-<h3 id="Obter-uma-entrada"><a href="#Obter-uma-entrada" class="headerlink" title="Obter uma entrada"></a>Obter uma entrada</h3><p>Para obter a entrada que se encontra em <em>cache</em> usa-se o método <code>api.cache.load(cache, callback)</code> ou <code>api.cache.load(cache, opções, callback)</code>, as opções deve ser uma <em>hash</em> que pode contem a propriedade <code>expireTimeMS</code>, que irá fazer o <em>reset</em> do tempo de expiração do valor, assim que for lido.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.load(<span class="string">'webSiteTitle'</span>, (error, value, expireTime, createdAt, readAt) =&gt; &#123;</span><br><span class="line">  <span class="comment">// faz alguma coisa com o valor lido!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>A função <em>callback</em> recebe os seguintes parâmetros:</p>
+<h3 id="Get-an-Entry"><a href="#Get-an-Entry" class="headerlink" title="Get an Entry"></a>Get an Entry</h3><p>To retrieve an entry which is cached, use the method <code>api.cache.load(cache, callback)</code> or <code>api.cache.load(cache, options, callback)</code>; <code>options</code> must be an object which can contain the property <code>expireTimeMS</code> which will reset the expiration time of the cached value when it is read.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.load(<span class="string">'webSiteTitle'</span>, (error, value, expireTime, createdAt, readAt) =&gt; &#123;</span><br><span class="line">  <span class="comment">// do something with the value read...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>The <code>callback</code> function receive the following parameters:</p>
 <ul>
-<li><strong><code>error</code></strong>: assume o valor de <code>null</code> caso não exista erro;</li>
-<li><strong><code>value</code></strong>: contem o valor correspondente à chave pedida, ou <code>null</code> caso o registo não exista na <em>cache</em> ou tenha expirado;</li>
-<li><strong><code>expireTime</code></strong>: tempo em milissegundos em que o objeto irá expirar (tempo do sistema);</li>
-<li><strong><code>createdAt</code></strong>: tempo em milissegundos em que o objeto foi criado;</li>
-<li><strong><code>readAt</code></strong>: tempo em milissegundos em que o objeto foi lido pela ultima vez através do método <code>api.cache.load</code>, isto é útil para saber se o objeto foi consumido recentemente por outro <em>worker</em>.</li>
+<li><strong><code>error</code></strong>: Takes the value <code>null</code> if there is no error.</li>
+<li><strong><code>value</code></strong>: Contains the value corresponding to the requested key, or <code>null</code> if the record does not exist in the cache or has expired.</li>
+<li><strong><code>expireTime</code></strong>: Time in milliseconds that the object will expire (system time).</li>
+<li><strong><code>createdAt</code></strong>: Time in milliseconds in which the object was created.</li>
+<li><strong><code>readAt</code></strong>: Time in milliseconds that the object was read for the last time via the <code>api.cache.load</code> method; it is useful to know if the object has recently been read by another worker.</li>
 </ul>
-<h3 id="Remove-uma-entrada"><a href="#Remove-uma-entrada" class="headerlink" title="Remove uma entrada"></a>Remove uma entrada</h3><p>Para remover uma entrada da <em>cache</em> é tão fácil como chamar o método <code>api.cache.destroy(key, callback)</code>.</p>
+<h3 id="Remove-an-Entry"><a href="#Remove-an-Entry" class="headerlink" title="Remove an Entry"></a>Remove an Entry</h3><p>To remove a cache entry is as easy as calling the <code>api.cache.destroy(key, callback)</code> method.</p>
 <ul>
-<li><strong><code>key</code></strong>: nome o objeto a ser destruído;</li>
-<li><strong><code>callback(error, destroyed)</code></strong>: função de <em>callback</em>;<ul>
-<li><strong><code>error</code></strong>: contem a informação do erro, caso tenha ocorrido algum problema;</li>
-<li><strong><code>destroyed</code></strong>: <code>true</code> no caso de o objeto ter sido destruído, <code>false</code> no caso do objeto não ter sido encontrado.</li>
+<li><strong><code>key</code></strong>: Object name to be destroyed.</li>
+<li><strong><code>callback(error, destroyed)</code></strong>: Callback function.<ul>
+<li><strong><code>error</code></strong>: Contains the error information if there has been a problem.</li>
+<li><strong><code>destroyed</code></strong>: <code>true</code> if the object has been destroyed, <code>false</code> if the object was not found.</li>
 </ul>
 </li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.destroy(<span class="string">'webSiteTile'</span>, (error, destroyed) =&gt; &#123;</span><br><span class="line">  <span class="comment">// faz alguma coisa depois de destruir o objeto</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h2 id="Listas"><a href="#Listas" class="headerlink" title="Listas"></a>Listas</h2><p>As listas têm um comportamento semelhante a uma <em>queue</em>, os elementos são inseridos na cauda e retirados na cabeça da estrutura. As listas são uma excelente forma de guardar objetos que necessitam de ser processados por ordem ou mais tarde.</p>
-<h3 id="Inserir"><a href="#Inserir" class="headerlink" title="Inserir"></a>Inserir</h3><p>Para inserir um novo elemento na lista recorre-se ao método <code>api.cache.push(key, item, callback)</code>. Caso a lista exista o novo elemento será inserido no fim da lista, caso contrario uma nova lista será criada.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.destroy(<span class="string">'webSiteTitle'</span>, (error, destroyed) =&gt; &#123;</span><br><span class="line">  <span class="comment">// do something...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="Lists"><a href="#Lists" class="headerlink" title="Lists"></a>Lists</h2><p>Cache lists have a similar behavior to a queue, the elements are inserted into the tail and removed from the head of the structure. These lists are a great way to store objects that need to be processed in order.</p>
+<h3 id="Insert"><a href="#Insert" class="headerlink" title="Insert"></a>Insert</h3><p>To insert a new element in the list we use the <code>api.cache.push(key, item, callback)</code> method. If the list already exists the new element will be inserted at the end of the list, otherwise a new list will be created.</p>
 <ul>
-<li><strong><code>key</code></strong>: nome da lista onde pretende inserir o novo elemento;</li>
-<li><strong><code>item</code></strong>: item que pretende guardar na lista;</li>
-<li><strong><code>callback(error)</code></strong>: Função de <em>callback</em>:<ul>
-<li><strong><code>error</code></strong>: assume o valor de <code>null</code> caso não tenha ocorrido erro.</li>
+<li><strong><code>key</code></strong>: Name of the list where you want to insert the new element.</li>
+<li><strong><code>item</code></strong>: Item you want save on the list.</li>
+<li><strong><code>callback(error)</code></strong>: Callback function:<ul>
+<li><strong><code>error</code></strong>: Takes the <code>null</code> value if no error occurred.</li>
 </ul>
 </li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.push(<span class="string">'commands'</span>, &#123;player: <span class="string">'xpto'</span>, command: <span class="string">'exec:abc:param1'</span>&#125;, error =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (error) &#123;</span><br><span class="line">    <span class="comment">// ocorreu um erro!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// elemento inserido</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.push(<span class="string">'commands'</span>, &#123;player: <span class="string">'xpto'</span>, command: <span class="string">'exec:abc:param1'</span>&#125;, error =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (error) &#123;</span><br><span class="line">    <span class="comment">// An error occurs...</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// do something...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>Atenção: Apenas pode guardar objetos suportados pela função <code>JSON.stringify</code>.</p>
+<p>Warning: you can only save objects which are supported by the <code>JSON.stringify</code> function.</p>
 </blockquote>
-<h3 id="Obter"><a href="#Obter" class="headerlink" title="Obter"></a>Obter</h3><p>Para obter um elemento da lista usa-se o método <code>api.cache.pop(key, callback)</code>. Caso a lista que procura não exista, será retornado o valor <code>null</code>, caso contrario será obtido o elemento presente na cabeça da lista.</p>
+<h3 id="Get"><a href="#Get" class="headerlink" title="Get"></a>Get</h3><p>To retrieve an element from the list, you can use the <code>api.cache.pop(key, callback)</code> method. If the list you are looking for does not exist, it returns the null value, otherwise will get the element present at the head of the list.</p>
 <ul>
-<li><strong><code>key</code></strong>: nome da lista de onde obter o elemento;</li>
-<li><strong><code>callback(error, item)</code></strong>: função de <em>callback</em>:<ul>
-<li><strong><code>error</code></strong>: assume o valor de <code>null</code> caso não ocorra erro durante o pedido;</li>
-<li><strong><code>item</code></strong>: item presente na cabeça da lista ou <code>null</code>  caso a lista não exista.</li>
+<li><strong><code>key</code></strong>: Name of the list from which to get the element.</li>
+<li><strong><code>callback(error, item)</code></strong>: Callback function:<ul>
+<li><strong><code>error</code></strong>: Takes the <code>null</code> value if there is no error in the request.</li>
+<li><strong><code>item</code></strong>: Item present at the head of the list or <code>null</code> if the list does not exist.</li>
 </ul>
 </li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.pop(<span class="string">'commands'</span>, (error, item) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (error) &#123;</span><br><span class="line">    <span class="comment">// ocorreu um erro!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// faz alguma coisa com o `item`</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="Tamanho"><a href="#Tamanho" class="headerlink" title="Tamanho"></a>Tamanho</h3><p>O Stellar, também permite obter o tamanho de uma lista que esteja em <em>cache</em>. No caso de ser feito um pedido do tamanho de uma lista que não exista, será devolvido o valor de <code>0</code>. Para obter o tamanho usa-se a função <code>api.cache.listLength(key, callback)</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.pop(<span class="string">'commands'</span>, (error, item) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (error) &#123;</span><br><span class="line">    <span class="comment">// an error occurs...</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// do something with the item...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Size"><a href="#Size" class="headerlink" title="Size"></a>Size</h3><p>Stellar also allows you to get the size of a list that is cached. If the list does not exist, the value returned is <code>0</code>. For the size you use the <code>api.cache.listLength(key, callback)</code> function.</p>
 <ul>
-<li><strong><code>key</code></strong>: nome da lista que se pretende obter o tamanho;</li>
-<li><strong><code>callback(error, size)</code></strong>: função de <em>callback</em>:<ul>
-<li><strong><code>error</code></strong>: <code>null</code> caso não ocorra erro com o pedido;</li>
-<li><strong><code>size</code></strong>: tamanho da lista.</li>
+<li><strong><code>key</code></strong>: Name of the list for which you want to obtain the size.</li>
+<li><strong><code>callback(error, size)</code></strong>: Callback function:<ul>
+<li><strong><code>error</code></strong>: <code>null</code> if there is no error with the request.</li>
+<li><strong><code>size</code></strong>: List size.</li>
 </ul>
 </li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.listLength(<span class="string">'commands'</span>, (error, size) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (error) &#123;</span><br><span class="line">    <span class="comment">// ocorreu um erro!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// faz alguma coisa com o tamanho da lista</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h2 id="Metodos-de-Bloqueio"><a href="#Metodos-de-Bloqueio" class="headerlink" title="Métodos de Bloqueio"></a>Métodos de Bloqueio</h2><p>É possível, opcionalmente, usar métodos para bloquear a edição de objetos que se encontram na <em>cache</em>. Estes métodos são interessantes para cenários em que o Stellar se encontra a correr num <em>cluster</em>, corrigindo possíveis problemas de concorrência.</p>
-<h3 id="Bloquear"><a href="#Bloquear" class="headerlink" title="Bloquear"></a>Bloquear</h3><p>O método <code>api.cache.lock(key, expireTimeMS, callback)</code> permite bloquear um objeto presente na <em>cache</em>. Abaixo encontra-se uma lista que descreve os parâmetros deste método:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.listLength(<span class="string">'commands'</span>, (error, size) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (error) &#123;</span><br><span class="line">    <span class="comment">// an error has occurred!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// do something with the list size</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="Locking-Methods"><a href="#Locking-Methods" class="headerlink" title="Locking Methods"></a>Locking Methods</h2><p>It is possible, optionally, to use methods to lock editing of objects that are in the cache. These methods are interesting for scenarios where Stellar is running on a cluster, correcting possible concurrency problems.</p>
+<h3 id="Lock"><a href="#Lock" class="headerlink" title="Lock"></a>Lock</h3><p>The <code>api.cache.lock(key, expireTimeMS, callback)</code> method allows you to lock an existing cached object. The list below describes the parameters of the <code>lock</code> method:</p>
 <ul>
-<li><strong><code>key</code></strong>: nome do objeto a ser bloqueado;</li>
-<li><strong><code>expireTimeMS</code></strong>: este parâmetro é opcional, por defeito irá ser usado o valor definido no ficheiro de configuração <code>api.config.general.lockDuration</code>;</li>
-<li><strong><code>callback(error, lockOK)</code></strong>: função de <em>callback</em>;<ul>
-<li><strong><code>error</code></strong>: objeto que contem as informações do erro, caso tenha ocorrido algum;</li>
-<li><strong><code>lockOK</code></strong>: irá tomar o valor de <code>true</code> ou <code>false</code>, depende se o bloqueio foi feito.</li>
+<li><strong><code>key</code></strong>: Object name to lock.</li>
+<li><strong><code>expireTimeMS</code></strong>: This parameter is optional; by default the value set in the configuration setting <code>api.config.general.lockDuration</code> will be used.</li>
+<li><strong><code>callback(error, lockOK)</code></strong>: Callback function:<ul>
+<li><strong><code>error</code></strong>: Object that contains the error information if an error occurred.</li>
+<li><strong><code>lockOK</code></strong>: Will take the value of <code>true</code> or <code>false</code>, depending on whether the lock was obtained.</li>
 </ul>
 </li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.lock(<span class="string">'inTransaction'</span>, (error, lockOk) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!lockOk) &#123;</span><br><span class="line">    <span class="comment">// Foi impossível obter o bloqueio!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Faz alguma coisa depois de obter o bloqueio!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="Desbloquear"><a href="#Desbloquear" class="headerlink" title="Desbloquear"></a>Desbloquear</h3><p>Para desbloquear um objeto basta fazer uso do método <code>api.cache.unlock(key, callback)</code>. A lista abaixo explica os parâmetros do método <em>unlock</em>:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.lock(<span class="string">'inTransaction'</span>, (error, lockOk) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!lockOk) &#123;</span><br><span class="line">    <span class="comment">// it was impossible to obtain the lock!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// do something after getting the lock!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Unlock"><a href="#Unlock" class="headerlink" title="Unlock"></a>Unlock</h3><p>To unlock an object you just need use the <code>api.cache.unlock(key, callback)</code> method. The list below describes the parameters of the <code>unlock</code> method:</p>
 <ul>
-<li><code>key</code>: nome do objeto a desbloquear;</li>
-<li><code>callback(error, lockOK)</code>: função de <em>callback</em>;<ul>
-<li><code>error</code>: tem o valor de <code>null</code> caso não tenha ocorrido nenhum erro, caso contrario terá a informação do erro;</li>
-<li><code>lockOK</code>: <code>true</code> no caso de o bloqueio ter sido removido, <code>false</code> caso contrario.</li>
+<li><strong><code>key</code></strong>: Object name to unlock.</li>
+<li><strong><code>callback(error, lockOK)</code></strong>: Callback function:<ul>
+<li><strong><code>error</code></strong>: <code>null</code> if there has been no error, otherwise an object containing the error information.</li>
+<li><strong><code>lockOK</code></strong>: <code>true</code> if the lock has been removed, <code>false</code> otherwise.</li>
 </ul>
 </li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.unlock(<span class="string">'inTransaction'</span>, (error, lockOl’) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!lockOk) &#123;</span><br><span class="line">    <span class="comment">// foi impossível remover o bloqueio!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// o bloqueio foi removido!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="Verifica-o-Bloqueio"><a href="#Verifica-o-Bloqueio" class="headerlink" title="Verifica o Bloqueio"></a>Verifica o Bloqueio</h3><p>Existe também um método que permite obter o estado de bloqueio de um determinado objeto, <code>api.cache.checkLock(key, retry, callback)</code>. A lista abaixo mostra a descrição dos parâmetros:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.unlock(<span class="string">'inTransaction'</span>, (error, lockOk’) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!lockOk) &#123;</span><br><span class="line">    <span class="comment">// it was impossible to remove the lock!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// the lock has been removed!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Check-Lock"><a href="#Check-Lock" class="headerlink" title="Check Lock"></a>Check Lock</h3><p>There is also a method to obtain the lock status of a particular object, <code>api.cache.checkLock(key, retry, callback)</code>. The list below shows the description of the method parameters:</p>
 <ul>
-<li><code>key</code>: nome do objeto do qual se quer verificar o bloqueio;</li>
-<li><code>callback(error, lockOk)</code>: função de <em>callback</em>;<ul>
-<li><code>error</code>: <code>null</code> a não ser que tenha ocorrido um erro durante a ligação ao servidor Redis;</li>
-<li><code>lockOk</code>: <code>true</code> ou <code>false</code> dependendo do estado do bloqueio.</li>
+<li><strong><code>key</code></strong>: Object name for which you want check the lock.</li>
+<li><strong><code>callback(error, lockOk)</code></strong>: Callback function:<ul>
+<li><strong><code>error</code></strong>: <code>null</code> unless an error occurred when connecting to the Redis server.</li>
+<li><strong><code>lockOk</code></strong>: <code>true</code> or <code>false</code> depending on the lock status.</li>
 </ul>
 </li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.chechLock(<span class="string">'inTransaction'</span>, (error, lockOk) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!lockOk) &#123;</span><br><span class="line">    <span class="comment">// o objeto não contem um bloqueio!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// o objeto encontra-se bloqueado!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="Lista-de-Bloqueios"><a href="#Lista-de-Bloqueios" class="headerlink" title="Lista de Bloqueios"></a>Lista de Bloqueios</h3><p>O método <code>api.cache.locks(callback)</code> permite obter todos os bloqueios ativos na plataforma.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.checkLock(<span class="string">'inTransaction'</span>, (error, lockOk) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!lockOk) &#123;</span><br><span class="line">    <span class="comment">// the object does not contain a lock!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// the object is locked!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="List-of-Locks"><a href="#List-of-Locks" class="headerlink" title="List of Locks"></a>List of Locks</h3><p>The <code>api.cache.locks(callback)</code> method allows you get all active locks:</p>
 <ul>
-<li><code>callback(error, locks)</code>: função de <em>callback</em>;<ul>
-<li><code>error</code>: <code>null</code> ou a informação de erro caso ocorra algum;</li>
-<li><code>locks</code>: <code>array</code> com todos os bloqueios ativos.</li>
+<li><strong><code>callback(error, locks)</code></strong>: Callback function:<ul>
+<li><strong><code>error</code></strong>: <code>null</code> or error information.</li>
+<li><strong><code>locks</code></strong>: Array of all active locks.</li>
 </ul>
 </li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.locks((error, locks) =&gt; &#123;</span><br><span class="line">  <span class="comment">// a variável ‘locks’ é um array que contem todos</span></span><br><span class="line">  <span class="comment">// os bloqueios ativos.</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.locks((error, locks) =&gt; &#123;</span><br><span class="line">  <span class="comment">// the variable `locks` is an array that contains </span></span><br><span class="line">  <span class="comment">// all active locks</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 
   
@@ -260,9 +280,9 @@
     
 
     <div class="footer">
-      Encontrou um erro ou quer contribuir para a documentação?
+      Caught a mistake or want to contribute to documentation?
       <a href="https://github.com/gil0mendes/pt.stellar-framework.com/tree/master/src/guide/cache.md" target="_blank">
-        Edite esta página no Github!
+        Edit this page on Github!
       </a>
     </div>
 </div>

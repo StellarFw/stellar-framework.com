@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
   <head>
     <title>HTTP - Stellar</title>
 
@@ -50,9 +50,15 @@
         <span>Stellar</span>
     </a>
     <ul id="nav">
-        <li><a href="/guide/" class="nav-link current">Guia</a></li>
+        <li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
-
+<li class="nav-dropdown-container">
+  <a class="nav-link">Community</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://github.com/stellarFw/stellar" class="nav-link" target="_blank">GitHub</a></li>
+    <li><a href="https://twitter.com/gil0mendes" class="nav-link" target="_blank">Twitter</a></li>
+  </ul>
+</li>
     </ul>
 </div>
 
@@ -61,27 +67,41 @@
           
   <div class="sidebar">
   <ul class="main-menu">
-    <li><a href="/guide/" class="nav-link current">Guia</a></li>
+    <li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
-
+<li class="nav-dropdown-container">
+  <a class="nav-link">Community</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://github.com/stellarFw/stellar" class="nav-link" target="_blank">GitHub</a></li>
+    <li><a href="https://twitter.com/gil0mendes" class="nav-link" target="_blank">Twitter</a></li>
+  </ul>
+</li>
   </ul>
   <div class="list">
+    <div class="list">
+      <div id="donate" style="margin-bottom: 20px">
+        <span class="wrapper" style="width: 110px">
+          <img src="/images/patreon.png">
+          <a href="/support-stellar">Support Stellar</a>
+        </span>
+      </div>
+    </div>
     <ul class="menu-root">
       
         <li>
-          <a href="/guide/index.html" class="sidebar-link">Visão Geral</a>
+          <a href="/guide/index.html" class="sidebar-link">Overview</a>
         </li>
       
         <li>
-          <a href="/guide/installation.html" class="sidebar-link">Instalação</a>
+          <a href="/guide/installation.html" class="sidebar-link">Installation</a>
         </li>
       
         <li>
-          <a href="/guide/actions.html" class="sidebar-link">Ações</a>
+          <a href="/guide/actions.html" class="sidebar-link">Actions</a>
         </li>
       
         <li>
-          <a href="/guide/tasks.html" class="sidebar-link">Tarefas</a>
+          <a href="/guide/tasks.html" class="sidebar-link">Tasks</a>
         </li>
       
         <li>
@@ -89,7 +109,7 @@
         </li>
       
         <li>
-          <a href="/guide/satellites.html" class="sidebar-link">Satélites</a>
+          <a href="/guide/satellites.html" class="sidebar-link">Satellites</a>
         </li>
       
         <li>
@@ -105,11 +125,11 @@
         </li>
       
         <li>
-          <a href="/guide/development_mode.html" class="sidebar-link">Modo de Desenvolvimento</a>
+          <a href="/guide/development_mode.html" class="sidebar-link">Development Mode</a>
         </li>
       
         <li>
-          <a href="/guide/file_system.html" class="sidebar-link">Sistema de Ficheiros</a>
+          <a href="/guide/file_system.html" class="sidebar-link">File System</a>
         </li>
       
         <li>
@@ -117,7 +137,7 @@
         </li>
       
         <li>
-          <a href="/guide/events.html" class="sidebar-link">Eventos</a>
+          <a href="/guide/events.html" class="sidebar-link">Events</a>
         </li>
       
         <li>
@@ -133,7 +153,7 @@
         </li>
       
         <li>
-          <a href="/guide/security.html" class="sidebar-link">Segurança</a>
+          <a href="/guide/security.html" class="sidebar-link">Security</a>
         </li>
       
     </ul>
@@ -144,51 +164,56 @@
 
 <div class="content guide with-sidebar">
   <h1>HTTP</h1>
-  <h2 id="Introducao"><a href="#Introducao" class="headerlink" title="Introdução"></a>Introdução</h2><p>O servidor HTTP permite executar <a href="./actions.html">ações</a> e expor ficheiros sob o protocolo HTTP e HTTPS. A API pode ser acedida através de um browser, pelo comando Curl, etc. Através do endereço <code>&lt;url&gt;?action=&lt;nome_da_ação&gt;</code> ou <code>&lt;url&gt;/api/&lt;nome_da_ação&gt;</code> é onde pode aceder às ações. Por exemplo, se quiser aceder à ação ‘getPosts’ num servidor local que está à escuta na porta 8080, teria que fazer uma chamada para o URL <code>http://127.0.0.1/?action=getPosts</code>.</p>
-<p>O código JSON abaixo mostra uma exemplo de uma resposta do servidor.</p>
+  <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>The HTTP server allows you to perform actions and display files using HTTP and HTTPS protocols. The API can be accessed through a browser, cURL command, etc. You can access actions using URLs of the form <code>&lt;url&gt;?action=&lt;action_name&gt;</code> or <code>&lt;url&gt;/api/&lt;action_name&gt;</code>. For example, if you want to access the <code>getPost</code> action on a local server that is listening on port 8080, you would have to make a call to the URL <code>http://127.0.0.1:8080/api?action=getPosts</code>.</p>
+<p>The JSON below shows an example of a response from the server.</p>
 <figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"questions"</span>: [ ],</span><br><span class="line">  <span class="attr">"serverInformation"</span>: &#123;</span><br><span class="line">    <span class="attr">"serverName"</span>: <span class="string">"Stellar API"</span>,</span><br><span class="line">    <span class="attr">"apiVersion"</span>: <span class="string">"0.0.1"</span>,</span><br><span class="line">    <span class="attr">"requestDuration"</span>: <span class="number">194</span>,</span><br><span class="line">    <span class="attr">"currentTime"</span>: <span class="number">1471702323600</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"requesterInformation"</span>: &#123;</span><br><span class="line">    <span class="attr">"id"</span>: <span class="string">"6f9e36f49e49dd7ac30348a0d9826e367ac747d7-cec5fb6e-2b0b-416e-8529-f897ea666d39"</span>,</span><br><span class="line">    <span class="attr">"fingerprint"</span>: <span class="string">"6f9e36f49e49dd7ac30348a0d9826e367ac747d7"</span>,</span><br><span class="line">    <span class="attr">"remoteIP"</span>: <span class="string">"127.0.0.1"</span>,</span><br><span class="line">    <span class="attr">"receivedParams"</span>: &#123;</span><br><span class="line">      <span class="attr">"action"</span>: <span class="string">"getQuestions"</span>,</span><br><span class="line">      <span class="attr">"apiVersion"</span>: <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Enviar-Ficheiros"><a href="#Enviar-Ficheiros" class="headerlink" title="Enviar Ficheiros"></a>Enviar Ficheiros</h2><p>Stellar também pode servir ficheiros ao cliente. O Stellar não faz fazer <em>cache</em> dos ficheiros, a cada pedido eles são lidos do disco. A seguir encontra-se um exemplo de como servir um ficheiro ao cliente a partir de uma ação.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// especifica o ficheiro a enviar para o cliente</span></span><br><span class="line">action.connection.sendFile(<span class="string">'/path/to/file.txt'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// informa que não é para fazer o render da resposta</span></span><br><span class="line">action.toRender = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// termina a execução da ação</span></span><br><span class="line">next()</span><br></pre></td></tr></table></figure>
+<h2 id="Send-Files"><a href="#Send-Files" class="headerlink" title="Send Files"></a>Send Files</h2><p>Stellar also can serve files to the client. Stellar does not cache files; in each request files are read from disk. The following code is an example of how to send a file to the client from within an action:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// specifies the file to send to the client</span></span><br><span class="line">action.connection.sendFile(<span class="string">'/path/to/file.txt'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// informs that isn't to render the response</span></span><br><span class="line">action.toRender = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// finish the action execution</span></span><br><span class="line">next()</span><br></pre></td></tr></table></figure>
 <ul>
-<li><p>A raiz do servidor <em>web</em> <code>/</code> pode ser usada para servir ficheiros (<code>/files</code>) ou ações (<code>/api</code>). O seu comportamento pode ser alterado na configuração <code>api.config.servers.web.rootEndpointType</code>, por defeito serve ficheiros.</p>
+<li><p>The root of web server <code>/</code> can be used to serve files (<code>/files</code>) or actions (<code>/api</code>). Their behavior can be changed using the configuration setting <code>api.config.servers.web.rootEndpointType</code> (the default is to serve files).</p>
 </li>
-<li><p>Quando um ficheiro não é encontrado o resultado é uma página com o erro HTTP 404.</p>
+<li><p>When a file is not found the result is a page with an HTTP 404 error.</p>
 </li>
-<li><p>Sempre que possível será recorrido ao pacote <a href="https://www.npmjs.com/package/mime" target="_blank" rel="external">mime</a> para adicionar uma entrada no cabeçalho da resposta com o <code>mime-type</code> do ficheiro servido.</p>
+<li><p>Whenever possible the <a href="https://www.npmjs.com/package/mime" target="_blank" rel="external">mime</a> package will be used to add a <code>Content-Type</code> header in the response.</p>
 </li>
 </ul>
 <blockquote>
-<p>Nota: Na secção <a href="./file_system.html">“Sistema de Ficheiros”</a> podem ser encontrado alguns <em>helpers</em> que ajudam no envio de ficheiros.</p>
+<p>Note: see the <a href="./file_system.html">File System</a> section for more information about sending files.</p>
 </blockquote>
-<h2 id="Rotas"><a href="#Rotas" class="headerlink" title="Rotas"></a>Rotas</h2><p>Para os cliente <em>web</em> (HTTP e HTTPS), é possível, opcionalmente, definir rotas RESTful para as ações. Se o cliente não especificar a ação via parâmetro e se o URL não se tratar de uma <em>named action</em>, o servidor irá tentar encontrar uma rota definida nos ficheiros <code>routes.json</code> que podem existir na raiz de cada módulo.</p>
-<p>Existem três formas dos clientes aceder a ações via servidor <em>web</em>:</p>
+<h2 id="Routes"><a href="#Routes" class="headerlink" title="Routes"></a>Routes</h2><p>For web clients (HTTP and HTTPS), you can define an optional RESTful mapping to help route requests to actions. If the client doesn’t specify an action via a parameter, and the base route isn’t a named action, Stellar will attempt to determine the action using the <code>routes.json</code> file located in the module’s root folder.</p>
+<p>There are three ways clients can access actions via a web server:</p>
 <ul>
-<li><p>sem nenhuma rota, recorrendo a parâmetros GET: <code>example.com/api?action=getPosts</code></p>
+<li><p>No route, using GET parameters: <code>example.com/api?action=getPosts</code></p>
 </li>
-<li><p>através de <em>basic routing</em>, onde o nome das ações irão responder depois do caminho <code>/api</code>, por exemplo: <code>example.com/api/getPosts</code></p>
+<li><p>Through basic routing, where the name of the action is found in the path after <code>/api</code>, for example: <code>example.com/api/getPosts</code></p>
 </li>
-<li><p>ou através de rotas definidas pelos desenvolvedores, por exemplo, é possível servir uma ação com a seguinte rota <code>example.com/api/posts</code></p>
+<li><p>If the <code>api.config.servers.web.rootEndpointType</code> setting has the value <code>&#39;file&#39;</code> it means that actions must be accessed using the prefix <code>/api</code>. For the server to respond to an <code>example.com/posts</code> route, <code>api.config.servers.web.rootEndpointType</code> must be set to <code>&#39;api&#39;</code>.</p>
 </li>
 </ul>
-<p>Se a configuração <code>api.config.servers.web.rootEndpointType</code> tiver o valor <code>&#39;file&#39;</code> isso quer dizer que as rotas irão responder sobre o prefixo <code>/api</code>. Para o servidor responder à rota <code>example.com/posts</code>, o <code>api.config.servers.web.rootEndpointType</code> deve estar definido como <code>&#39;api&#39;</code>.</p>
 <blockquote>
-<p>Nota: Ao alterar a configuração de <code>&#39;file&#39;</code> para <code>&#39;api&#39;</code> as rotas em <code>/api</code> continuam a funcionar.</p>
+<p>Note: when <code>api.config.servers.web.rootEndpointType</code> is set to <code>&#39;api&#39;</code>, routes starting with <code>/api</code> still work.</p>
 </blockquote>
-<p>O JSON abaixo mostra um exemplo da declaração de rotas:</p>
+<p>The JSON below shows an example of a route declaration:</p>
 <figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"all"</span>: [</span><br><span class="line">    &#123; <span class="attr">"path"</span>: <span class="string">"/cache/:key/:value"</span>, <span class="attr">"action"</span>: <span class="string">"setCache"</span> &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"get"</span>: [</span><br><span class="line">    &#123; <span class="attr">"path"</span>: <span class="string">"/question"</span>,      <span class="attr">"action"</span>: <span class="string">"getQuestions"</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">"path"</span>: <span class="string">"/question/:id"</span>,  <span class="attr">"action"</span>: <span class="string">"getQuestion"</span> &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"post"</span>: [</span><br><span class="line">    &#123; <span class="attr">"path"</span>: <span class="string">"/question"</span>, <span class="attr">"action"</span>: <span class="string">"createQuestion"</span> &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"put"</span>: [</span><br><span class="line">    &#123; <span class="attr">"path"</span>: <span class="string">"/question/:id"</span>, <span class="attr">"action"</span>: <span class="string">"editQuestion"</span> &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"delete"</span>: [</span><br><span class="line">    &#123; <span class="attr">"path"</span>: <span class="string">"/question/:id"</span>, <span class="attr">"action"</span>: <span class="string">"removeQuestion"</span> &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Usar-Versoes"><a href="#Usar-Versoes" class="headerlink" title="Usar Versões"></a>Usar Versões</h3><p>Também é possível especificar a versão da ação a associar à rota, por defeito é executada a ultimação versão da ação. O exemplo abaixo mostra essa funcionalidade:</p>
+<h3 id="Use-Versions"><a href="#Use-Versions" class="headerlink" title="Use Versions"></a>Use Versions</h3><p>Routes will match the newest version of <code>apiVersion</code>. If you want to have a specific route match a specific version of an action, you can provide the <code>apiVersion</code> parameter in your route definitions. The following example shows this feature:</p>
 <figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"all"</span>: [</span><br><span class="line">    &#123; <span class="attr">"path"</span>: <span class="string">"/actionName/old"</span>, <span class="attr">"action"</span>: <span class="string">"actionName"</span>, <span class="attr">"apiVersion"</span>: <span class="number">1</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">"path"</span>: <span class="string">"/actionName/new"</span>, <span class="attr">"action"</span>: <span class="string">"actionName"</span>, <span class="attr">"apiVersion"</span>: <span class="number">2</span> &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Desativar-os-Acessos-em-api"><a href="#Desativar-os-Acessos-em-api" class="headerlink" title="Desativar os Acessos em /api"></a>Desativar os Acessos em /api</h3><p>Para desativas os acessos em <code>/api</code> e apenas seja possível aceder à ações através da raiz do servidor, apenas é necessário alterar o valor de <code>api.config.servers.web.urlPathForActions</code> para <code>null</code>.</p>
+<p>This would create both <code>/api/actionName/old</code> and <code>/api/actionName/new</code>, mapping to <code>apiVersion</code> 1 and 2 respectively.</p>
+<p>In your action and middleware, if a route was matched, you can see the details of the match by inspecting <code>action.connection.matchedRoute</code> which includes <code>path</code> and <code>action</code>.</p>
+<h3 id="Disabling-Access-to-api"><a href="#Disabling-Access-to-api" class="headerlink" title="Disabling Access to /api"></a>Disabling Access to <code>/api</code></h3><p>To disabling access to actions using <code>/api</code> and only allow access the actions via the server root, you must change the value of <code>api.config.servers.web.urlPathForActions</code> to <code>null</code>.</p>
 <blockquote>
-<p>Nota: A parâmetro <code>api.config.servers.web.rootEndpointType</code> deve ser igual a <code>&#39;api&#39;</code>, caso contrario não será possível fazer chamadas às ações.</p>
+<p>Note: if you do this, the <code>api.config.servers.web.rootEndpointType</code> setting must be set to <code>&#39;api&#39;</code>, otherwise there will be no way to make calls to actions.</p>
 </blockquote>
-<h2 id="Parametros"><a href="#Parametros" class="headerlink" title="Parâmetros"></a>Parâmetros</h2><p>Os parâmetros podem ser especificados através de parâmetros GET ou por POST. A ordem de carregamento dos parâmetros é: GET -&gt; POST (normal) -&gt; POST (multipart). Isto quer dizer que se for feito uma chamada ao URL <code>example.com/?key=getValue</code> e no post estiver uma variável definida <code>key=postValue</code>, o <code>postValue</code> será o valor usado.</p>
-<p>Os ficheiros para <em>upload</em> carregados através de um formulário também irão aparecer no objeto <code>connection.params</code>, mas será uma objeto com mais informação. Isto é, se for carregado um ficheiro chamado <code>&#39;image&#39;</code>, o objeto <code>connection.params.image</code> irá existir com as informações: <code>name</code> (nome original do ficheiro), <code>path</code> (caminho para o ficheiro), <code>type</code> (tipo do ficheiro).</p>
-<h2 id="Upload-de-Ficheiros"><a href="#Upload-de-Ficheiros" class="headerlink" title="Upload de Ficheiros"></a>Upload de Ficheiros</h2><p>O Stellar usa a biblioteca <a href="https://www.npmjs.com/package/formidable" target="_blank" rel="external">formidable</a> para fazer o <em>parse</em> dos parâmetros da chamada dos clientes. É possível fazer o <em>uplaod</em> de múltiplos ficheiros que irão estar disponíveis no objeto <code>connection.params</code>, como referências para um objeto <strong>formidable</strong>, que contem o nome original do ficheiro, a localização onde o ficheiro foi temporariamente guardado, etc.</p>
-<h2 id="Biblioteca-do-Cliente"><a href="#Biblioteca-do-Cliente" class="headerlink" title="Biblioteca do Cliente"></a>Biblioteca do Cliente</h2><p>Por fim, o StellarClient é uma biblioteca <em>client-side</em>, maioritariamente em WebSockets, que permite interagir de forma simples com o servidor Stellar. Antes do método <code>connect</code> ser executado ou quando a ligação através de WebSocket é quebrada, é usada uma ligação HTTP.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="meta">'use strict'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// cria um novo cliente</span></span><br><span class="line"><span class="keyword">let</span> stellar = <span class="keyword">new</span> StellarClient(&#123; url: <span class="string">'server.example.com:8080'</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// executa uma ação</span></span><br><span class="line">stellar.action(<span class="string">'createPost'</span>, &#123; title: <span class="string">'Example!'</span>, content: <span class="string">'Some content...'</span> &#125;, error, resposta =&gt; &#123;</span><br><span class="line">  <span class="comment">// faz alguma coisa...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="Parameters"><a href="#Parameters" class="headerlink" title="Parameters"></a>Parameters</h2><p>The parameters can be specified using GET or POST. Parameters are loaded in this order: GET -&gt; POST (normal) -&gt; POST (multipart). This means that if you access URL <code>example.com/?key=getValue</code> and you post a variable <code>key=postValue</code> as well, <code>postValue</code> will be the value used.</p>
+<p>File uploads from forms will also appear in <code>connection.params</code>, but will be represented as an object with more information. That is, if you uploaded a file called “image”, you would have <code>connection.params.image.path</code>, <code>connection.params.image.name</code> (original file name), and <code>connection.params.image.type</code> available to you.</p>
 <blockquote>
-<p>Nota: Uma vez que não foi chamado o método <code>connect</code> a chamada à ação é feita através de HTTP. Mais informação nos <em>docs</em> do <a href="./websocket.html">WebSocket</a>.</p>
+<p>Note: you can post BODY JSON payloads to Stellar in the form of an object or array.</p>
+</blockquote>
+<h2 id="Uploading-Files"><a href="#Uploading-Files" class="headerlink" title="Uploading Files"></a>Uploading Files</h2><p>Stellar uses the <a href="https://www.npmjs.com/package/formidable" target="_blank" rel="external">formidable</a> form parsing library. You can upload multiple files to an action and they will be available within <code>connection.params</code> as a <strong>formidable</strong> response object containing references to the original file name, where the uploaded file was stored temporarily, etc.</p>
+<h2 id="Client-Library"><a href="#Client-Library" class="headerlink" title="Client Library"></a>Client Library</h2><p>Although the Stellar client-side JavaScript library is mostly for WebSockets, it can also be used to make HTTP actions when not connected to a WebSocket (and WebSocket clients will fall back to HTTP requests when disconnected).</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- (...) --&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- import Stellar client library  --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"//server.example.com/stellar-client"</span>&gt;</span><span class="xml"></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="meta">'use strict'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// create a new client</span></span><br><span class="line"><span class="keyword">let</span> stellar = <span class="keyword">new</span> StellarClient(&#123; url: <span class="string">'server.example.com:8080'</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// call an action</span></span><br><span class="line">stellar.action(<span class="string">'createPost'</span>, &#123; title: <span class="string">'Example!'</span>, content: <span class="string">'Some content...'</span> &#125;, (error, response) =&gt; &#123;</span><br><span class="line">  <span class="comment">// do something...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Note: since we never called <code>stellar.connect</code> the request is made via HTTP. More information can be found in the <a href="./websocket.html">WebSocket section</a>.</p>
 </blockquote>
 
 
@@ -198,15 +223,15 @@
           <span>← <a href="/guide/tcp.html">TCP</a></span>
         
         
-          <span style="float:right"><a href="/guide/security.html">Segurança</a> →</span>
+          <span style="float:right"><a href="/guide/security.html">Security</a> →</span>
         
       </div>
     
 
     <div class="footer">
-      Encontrou um erro ou quer contribuir para a documentação?
+      Caught a mistake or want to contribute to documentation?
       <a href="https://github.com/gil0mendes/pt.stellar-framework.com/tree/master/src/guide/http.md" target="_blank">
-        Edite esta página no Github!
+        Edit this page on Github!
       </a>
     </div>
 </div>

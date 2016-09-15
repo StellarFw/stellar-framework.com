@@ -1,8 +1,8 @@
 
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
   <head>
-    <title>Visão Geral - Stellar</title>
+    <title>Overview - Stellar</title>
 
     <!-- charset -->
     <meta charset="utf-8">
@@ -50,9 +50,15 @@
         <span>Stellar</span>
     </a>
     <ul id="nav">
-        <li><a href="/guide/" class="nav-link current">Guia</a></li>
+        <li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
-
+<li class="nav-dropdown-container">
+  <a class="nav-link">Community</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://github.com/stellarFw/stellar" class="nav-link" target="_blank">GitHub</a></li>
+    <li><a href="https://twitter.com/gil0mendes" class="nav-link" target="_blank">Twitter</a></li>
+  </ul>
+</li>
     </ul>
 </div>
 
@@ -61,27 +67,41 @@
           
   <div class="sidebar">
   <ul class="main-menu">
-    <li><a href="/guide/" class="nav-link current">Guia</a></li>
+    <li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
-
+<li class="nav-dropdown-container">
+  <a class="nav-link">Community</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://github.com/stellarFw/stellar" class="nav-link" target="_blank">GitHub</a></li>
+    <li><a href="https://twitter.com/gil0mendes" class="nav-link" target="_blank">Twitter</a></li>
+  </ul>
+</li>
   </ul>
   <div class="list">
+    <div class="list">
+      <div id="donate" style="margin-bottom: 20px">
+        <span class="wrapper" style="width: 110px">
+          <img src="/images/patreon.png">
+          <a href="/support-stellar">Support Stellar</a>
+        </span>
+      </div>
+    </div>
     <ul class="menu-root">
       
         <li>
-          <a href="/guide/index.html" class="sidebar-link current">Visão Geral</a>
+          <a href="/guide/index.html" class="sidebar-link current">Overview</a>
         </li>
       
         <li>
-          <a href="/guide/installation.html" class="sidebar-link">Instalação</a>
+          <a href="/guide/installation.html" class="sidebar-link">Installation</a>
         </li>
       
         <li>
-          <a href="/guide/actions.html" class="sidebar-link">Ações</a>
+          <a href="/guide/actions.html" class="sidebar-link">Actions</a>
         </li>
       
         <li>
-          <a href="/guide/tasks.html" class="sidebar-link">Tarefas</a>
+          <a href="/guide/tasks.html" class="sidebar-link">Tasks</a>
         </li>
       
         <li>
@@ -89,7 +109,7 @@
         </li>
       
         <li>
-          <a href="/guide/satellites.html" class="sidebar-link">Satélites</a>
+          <a href="/guide/satellites.html" class="sidebar-link">Satellites</a>
         </li>
       
         <li>
@@ -105,11 +125,11 @@
         </li>
       
         <li>
-          <a href="/guide/development_mode.html" class="sidebar-link">Modo de Desenvolvimento</a>
+          <a href="/guide/development_mode.html" class="sidebar-link">Development Mode</a>
         </li>
       
         <li>
-          <a href="/guide/file_system.html" class="sidebar-link">Sistema de Ficheiros</a>
+          <a href="/guide/file_system.html" class="sidebar-link">File System</a>
         </li>
       
         <li>
@@ -117,7 +137,7 @@
         </li>
       
         <li>
-          <a href="/guide/events.html" class="sidebar-link">Eventos</a>
+          <a href="/guide/events.html" class="sidebar-link">Events</a>
         </li>
       
         <li>
@@ -133,7 +153,7 @@
         </li>
       
         <li>
-          <a href="/guide/security.html" class="sidebar-link">Segurança</a>
+          <a href="/guide/security.html" class="sidebar-link">Security</a>
         </li>
       
     </ul>
@@ -143,66 +163,66 @@
 
 
 <div class="content guide with-sidebar">
-  <h1>Visão Geral</h1>
-  <h2 id="O-que-e"><a href="#O-que-e" class="headerlink" title="O que é?"></a>O que é?</h2><p>O Stellar é uma <em>Framework web</em> baseada em ações e focada no desenvolvimento de APIs. Cada instância de execução do Stellar pode responder a pedidos de múltiplos protocolos em simultâneo, sendo desta forma possível usar a mesma API em diferentes cenários de utilização. A <em>Framework</em> é escrita em JavaScript ES6 usando <a href="https://nodejs.org/en/" target="_blank" rel="external">Node.JS</a>. O objetivo do Stellar é criar um ambiente de desenvolvimento de usabilidade fácil, reutilizável e escalavél, tornando o Stellar uma excelente solução tanto para pequenos como para projetos de dimensões empresariais.</p>
-<p>É usado um sistema baseados em ações. Isto quer dizer que todas as funcionalidades são representadas como ações, pode ler mais sobre ações na <a href="actions.html">secção</a> dedicada às mesmas.</p>
-<p>Uma instância de execução é capaz de responder tanto a pedidos dos clientes, como processar tarefas - operações que são executadas de forma concorrente em <em>background</em>. Ex: envio de um email.</p>
-<h2 id="Protocolos-Suportados"><a href="#Protocolos-Suportados" class="headerlink" title="Protocolos Suportados"></a>Protocolos Suportados</h2><ul>
+  <h1>Overview</h1>
+  <h2 id="What-is-Stellar"><a href="#What-is-Stellar" class="headerlink" title="What is Stellar?"></a>What is Stellar?</h2><p>Stellar is an action based web framework that focuses on developing APIs. Each Stellar execution instance can respond to requests from multiple protocols simultaneously, making it possible to use the same API in different usage scenarios. The framework is written in JavaScript ES6 using <a href="https://nodejs.org/en/" target="_blank" rel="external">Node.JS</a>. The objective of Stellar is to create an easy-to-use development environment that is reusable and scalable, making Stellar an excellent solution not only for small projects but also for enterprise-scale projects.</p>
+<p>Stellar uses a system based on actions. This means that all features are represented as actions; you can read more about actions in a <a href="actions.html">section</a> dedicated to them.</p>
+<p>A Stellar execution instance is able to both respond to client requests and process tasks - operations that are performed concurrently in background (e.g., sending an email).</p>
+<h2 id="Supported-Protocols"><a href="#Supported-Protocols" class="headerlink" title="Supported Protocols"></a>Supported Protocols</h2><ul>
 <li>HTTP</li>
 <li>WebSocket</li>
 <li>TCP</li>
 </ul>
-<h2 id="Arquitetura"><a href="#Arquitetura" class="headerlink" title="Arquitetura"></a>Arquitetura</h2><p>O <em>core</em> do Stellar é composto por um <em>Engine</em>, um conjunto de <em>Satellites</em> e por três servidores. O <em>Engine</em> é resposavel por carregar os módulos e fornecer mecanismos que permitam aos <em>Satellites</em> expor as suas APIs para o resto da plataforma, isto, para que a sua lógica possa ser usada por outros componentes. Os módulos são a forma de agrupar as funcionalidades de uma determinada área a fim de serem mais facilmente portadas para outros projetos ou para partilhar com a comunidade <em>Open Soure</em>.</p>
-<p><img src="/images/core_arch.png" alt="Arquitetura do Core"></p>
-<h2 id="Como-Contribuir"><a href="#Como-Contribuir" class="headerlink" title="Como Contribuir"></a>Como Contribuir</h2><p>Tanto a <a href="https://github.com/StellarFw/pt.stellar-framework.com" target="_blank" rel="external">documentação</a> deste <em>website</em> como o código do <a href="https://github.com/StellarFw/stellar" target="_blank" rel="external">Stellar</a> estão disponíveis no GitHub. Pode submeter <em>pull requests</em> para o <em>branch</em> <code>dev</code>, mas antes, por favor, lei-a atentamente o <a href="https://github.com/StellarFw/stellar/blob/dev/CONTRIBUTING.md" target="_blank" rel="external">guia de contribuição</a>. Toda a ajuda é bem-vinda! 😉</p>
-<p>Também pode ajudar ao usar o gestor de <a href="https://github.com/StellarFw/stellar/issues" target="_blank" rel="external"><em>issues</em></a> para reportar <em>bugs</em>, fazer sugestões ou mesmo pedidos de funcionalidades.</p>
-<h2 id="Estrutura-de-uma-Aplicacao"><a href="#Estrutura-de-uma-Aplicacao" class="headerlink" title="Estrutura de uma Aplicação"></a>Estrutura de uma Aplicação</h2><p>Abaixo está representada a estrutura de pastas típica de um projeto Stellar. Neste exemplo é uma API simples que implementa as funcionalidades de um blog.</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">├── config</span><br><span class="line">│   └── (configurações a nível do projeto)</span><br><span class="line">├── manifest.json</span><br><span class="line">├── modules</span><br><span class="line">│   ├── private</span><br><span class="line">│   └── blog</span><br><span class="line">│       ├── actions</span><br><span class="line">│       │   ├── posts.js</span><br><span class="line">│       │   └── comments.js</span><br><span class="line">│       ├── config</span><br><span class="line">│       │   └── comments.js</span><br><span class="line">│       ├── listeners</span><br><span class="line">│       │   ├── del_post.js</span><br><span class="line">│       │   └── new_post.js</span><br><span class="line">│       ├── manifest.json</span><br><span class="line">│       ├── middleware</span><br><span class="line">│       │   └── edit_permission.js</span><br><span class="line">│       ├── models</span><br><span class="line">│       │   ├── post.js</span><br><span class="line">│       │   └── comment.js</span><br><span class="line">│       ├── satellites</span><br><span class="line">│       │   └── something.js</span><br><span class="line">│       └── tasks</span><br><span class="line">│           └── rss.js</span><br><span class="line">└── temp</span><br><span class="line">    └── (ficheiros temporários)</span><br></pre></td></tr></table></figure>
+<h2 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h2><p>The Stellar core is composed of the <em>Engine</em>, a set of <em>Satellites</em>, and three different types of servers. The <em>Engine</em> is responsible for loading modules and providing mechanisms that allow <em>Satellites</em> to expose their APIs to the rest of the platform so that their functionality can be used by other components.  The modular design allows features of a given area to be more easily ported to other projects or shared with the Open Source community.</p>
+<p><img src="/images/core_arch.png" alt="Core Architecture"></p>
+<h2 id="How-to-Contribute"><a href="#How-to-Contribute" class="headerlink" title="How to Contribute"></a>How to Contribute</h2><p>Both the <a href="https://github.com/StellarFw/stellar-framework.com" target="_blank" rel="external">documentation</a> of this website and the <a href="https://github.com/StellarFw/stellar" target="_blank" rel="external">Stellar</a> source code are available on GitHub. You can submit pull requests for the <code>dev</code> branch, but first, please read the <a href="https://github.com/StellarFw/stellar/blob/dev/CONTRIBUTING.md" target="_blank" rel="external">contribution guide</a> carefully. All help is welcome! 😉</p>
+<p>You can also help using the <a href="https://github.com/StellarFw/stellar/issues" target="_blank" rel="external">issue tracker</a> to report bugs, make suggestions, or submit feature requests.</p>
+<h2 id="Structure-of-an-Application"><a href="#Structure-of-an-Application" class="headerlink" title="Structure of an Application"></a>Structure of an Application</h2><p>The typical directory structure of a Stellar project is shown below. This example is a simple API that implements the functionality of a blog.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">├── config</span><br><span class="line">│   └── (project-level settings)</span><br><span class="line">├── manifest.json</span><br><span class="line">├── modules</span><br><span class="line">│   ├── private</span><br><span class="line">│   └── blog</span><br><span class="line">│       ├── actions</span><br><span class="line">│       │   ├── posts.js</span><br><span class="line">│       │   └── comments.js</span><br><span class="line">│       ├── config</span><br><span class="line">│       │   └── comments.js</span><br><span class="line">│       ├── listeners</span><br><span class="line">│       │   ├── del_post.js</span><br><span class="line">│       │   └── new_post.js</span><br><span class="line">│       ├── manifest.json</span><br><span class="line">│       ├── middleware</span><br><span class="line">│       │   └── edit_permission.js</span><br><span class="line">│       ├── models</span><br><span class="line">│       │   ├── post.js</span><br><span class="line">│       │   └── comment.js</span><br><span class="line">│       ├── satellites</span><br><span class="line">│       │   └── something.js</span><br><span class="line">│       └── tasks</span><br><span class="line">│           └── rss.js</span><br><span class="line">└── temp</span><br><span class="line">    └── (temporary files)</span><br></pre></td></tr></table></figure>
 <ul>
-<li><p><strong><code>config</code></strong>: Contêm configurações a nível do projeto. Estas configurações sobrepõem-se não só às configurações de sistema, mas também às dos módulos. Assim, mostra-se uma funcionalidade muito útil para configurar as aplicações aos requisitos do seu cenário de utilização sem que seja necessário alterar a lógica dos componentes já desenvolvidos, tornando-os assim reutilizáveis para outros projetos.</p>
+<li><p><strong><code>config</code></strong>: Contains project-level settings. These settings override not only the system settings but also the settings configured in the project modules. This allows you to reuse modules from other projects and still configure the application for your usage scenario without having to modify the module code.</p>
 </li>
-<li><p><strong><code>manifest.json</code></strong>: Este ficheiro contêm a descrição do projeto, composto por três propriedades: nome, versão e módulos ativos.</p>
+<li><p><strong><code>manifest.json</code></strong>: This file contains the project manifest, consisting of four properties: name, version, description, and active modules.</p>
 </li>
-<li><p><strong><code>modules</code></strong>: Contêm todos os módulos que compõem a aplicação, que podem ser ou não usados, conforme a propriedade <code>modules</code> do ficheiro <code>manifest.json</code>.</p>
+<li><p><strong><code>modules</code></strong>: Contains all the modules that compose the application, which may or may not be used, according to the <code>modules</code> property of the <code>manifest.json</code> file.</p>
 <ul>
-<li><p><strong><code>actions</code></strong>: Contêm os ficheiros com a implementação das ações dos módulos. Estes ficheiros podem ser uma ação única ou então uma coleção de ações.</p>
+<li><p><strong><code>actions</code></strong>: Contains files which implement the actions of a module. A file can implement a single action or a collection of actions.</p>
 </li>
-<li><p><strong><code>config</code></strong>: Contém as configurações do módulo. Estas configurações são carregadas de acordo com o nível de prioridade do módulo, assim sobrepõem-se às do <em>core</em> e às configurações dos módulos de menor prioridade. Também pode conter novas configurações para controlar o comportamento das novas funcionalidades adicionadas pelo módulo.</p>
+<li><p><strong><code>config</code></strong>: Contains the module settings. These can include settings which are specific to this module, as well as core settings or even settings for other modules.  Configuration files are loaded in order according to module priority; higher-priority modules can override settings specified by modules of lower priority.</p>
 </li>
-<li><p><strong><code>listeners</code></strong>: Contém os <em>listeners</em> dos eventos que podem ocorrer ao longo do tempo de execução.</p>
+<li><p><strong><code>listeners</code></strong>: Contains listeners of events that can occur during execution.</p>
 </li>
-<li><p><strong><code>manifest.json</code></strong>: Este ficheiro contêm a descrição do módulo através da descrição de: <code>id</code>, <code>name</code>, <code>version</code>, <code>description</code>, <code>npmDependencies</code>.</p>
+<li><p><strong><code>manifest.json</code></strong>: This file contains the module manifest, consisting of the following properties: <code>id</code>, <code>name</code>, <code>version</code>, <code>description</code>, and <code>npmDependencies</code>.</p>
 </li>
-<li><p><strong><code>middleware</code></strong>: Contêm a declaração de <code>middleware</code>, que poderá ser utilizada em outros módulos.</p>
+<li><p><strong><code>middleware</code></strong>: Contains the <code>middleware</code> declaration, which can be used in other modules.</p>
 </li>
-<li><p><strong><code>models</code></strong>: Contêm a declaração dos modelos de dados, correspondentes à <em>syntax</em> do <a href="http://mongoosejs.com" target="_blank" rel="external">Mongoose</a>.</p>
+<li><p><strong><code>models</code></strong>: Contains the data model declarations, using <a href="http://mongoosejs.com" target="_blank" rel="external">Mongoose</a> syntax.</p>
 </li>
-<li><p><strong><code>satellites</code></strong>: Contêm os <a href="satellites.html">Satellites</a>.</p>
+<li><p><strong><code>satellites</code></strong>: Contains <a href="satellites.html">Satellites</a>.</p>
 </li>
-<li><p><strong><code>tasks</code></strong>: Contêm a declaração das tarefas, são trabalhos a ser executados em <em>background</em> de forma assíncrona.</p>
+<li><p><strong><code>tasks</code></strong>: Contains the task declarations.  These are jobs to be run in the background asynchronously.</p>
 </li>
 </ul>
 </li>
-<li><p><strong><code>temp</code></strong>: Por fim, esta pasta contem ficheiros temporários e <em>logs</em> gerados pelo Stellar.</p>
+<li><p><strong><code>temp</code></strong>: Finally, this folder contains temporary files and logs generated by Stellar.</p>
 </li>
 </ul>
-<h3 id="manifest-json"><a href="#manifest-json" class="headerlink" title="manifest.json"></a>manifest.json</h3><p>O ficheiro <strong>manifest.json</strong> permite descrever o projeto através do nome, versão e módulos ativos. Abaixo encontra-se um exemplo com o formato deste ficheiro:</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"blog"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="attr">"description"</span>: <span class="string">"Um sistema simples de blog com suporte a autenticação"</span>,</span><br><span class="line">  <span class="attr">"modules"</span>: [</span><br><span class="line">    <span class="string">"authentication"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="manifest-json"><a href="#manifest-json" class="headerlink" title="manifest.json"></a>manifest.json</h3><p>The <strong>manifest.json</strong> file defines the project’s name, version, description, and active modules. Below is an example of the format of this file:</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"blog"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="attr">"description"</span>: <span class="string">"A simple blog system that supports authentication"</span>,</span><br><span class="line">  <span class="attr">"modules"</span>: [</span><br><span class="line">    <span class="string">"authentication"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
   
       <div class="guide-links">
         
         
-          <span style="float:right"><a href="/guide/installation.html">Instalação</a> →</span>
+          <span style="float:right"><a href="/guide/installation.html">Installation</a> →</span>
         
       </div>
     
 
     <div class="footer">
-      Encontrou um erro ou quer contribuir para a documentação?
+      Caught a mistake or want to contribute to documentation?
       <a href="https://github.com/gil0mendes/pt.stellar-framework.com/tree/master/src/guide/index.md" target="_blank">
-        Edite esta página no Github!
+        Edit this page on Github!
       </a>
     </div>
 </div>

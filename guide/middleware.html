@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
   <head>
     <title>Middleware - Stellar</title>
 
@@ -50,9 +50,15 @@
         <span>Stellar</span>
     </a>
     <ul id="nav">
-        <li><a href="/guide/" class="nav-link current">Guia</a></li>
+        <li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
-
+<li class="nav-dropdown-container">
+  <a class="nav-link">Community</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://github.com/stellarFw/stellar" class="nav-link" target="_blank">GitHub</a></li>
+    <li><a href="https://twitter.com/gil0mendes" class="nav-link" target="_blank">Twitter</a></li>
+  </ul>
+</li>
     </ul>
 </div>
 
@@ -61,27 +67,41 @@
           
   <div class="sidebar">
   <ul class="main-menu">
-    <li><a href="/guide/" class="nav-link current">Guia</a></li>
+    <li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
-
+<li class="nav-dropdown-container">
+  <a class="nav-link">Community</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://github.com/stellarFw/stellar" class="nav-link" target="_blank">GitHub</a></li>
+    <li><a href="https://twitter.com/gil0mendes" class="nav-link" target="_blank">Twitter</a></li>
+  </ul>
+</li>
   </ul>
   <div class="list">
+    <div class="list">
+      <div id="donate" style="margin-bottom: 20px">
+        <span class="wrapper" style="width: 110px">
+          <img src="/images/patreon.png">
+          <a href="/support-stellar">Support Stellar</a>
+        </span>
+      </div>
+    </div>
     <ul class="menu-root">
       
         <li>
-          <a href="/guide/index.html" class="sidebar-link">Visão Geral</a>
+          <a href="/guide/index.html" class="sidebar-link">Overview</a>
         </li>
       
         <li>
-          <a href="/guide/installation.html" class="sidebar-link">Instalação</a>
+          <a href="/guide/installation.html" class="sidebar-link">Installation</a>
         </li>
       
         <li>
-          <a href="/guide/actions.html" class="sidebar-link">Ações</a>
+          <a href="/guide/actions.html" class="sidebar-link">Actions</a>
         </li>
       
         <li>
-          <a href="/guide/tasks.html" class="sidebar-link">Tarefas</a>
+          <a href="/guide/tasks.html" class="sidebar-link">Tasks</a>
         </li>
       
         <li>
@@ -89,7 +109,7 @@
         </li>
       
         <li>
-          <a href="/guide/satellites.html" class="sidebar-link">Satélites</a>
+          <a href="/guide/satellites.html" class="sidebar-link">Satellites</a>
         </li>
       
         <li>
@@ -105,11 +125,11 @@
         </li>
       
         <li>
-          <a href="/guide/development_mode.html" class="sidebar-link">Modo de Desenvolvimento</a>
+          <a href="/guide/development_mode.html" class="sidebar-link">Development Mode</a>
         </li>
       
         <li>
-          <a href="/guide/file_system.html" class="sidebar-link">Sistema de Ficheiros</a>
+          <a href="/guide/file_system.html" class="sidebar-link">File System</a>
         </li>
       
         <li>
@@ -117,7 +137,7 @@
         </li>
       
         <li>
-          <a href="/guide/events.html" class="sidebar-link">Eventos</a>
+          <a href="/guide/events.html" class="sidebar-link">Events</a>
         </li>
       
         <li>
@@ -133,7 +153,7 @@
         </li>
       
         <li>
-          <a href="/guide/security.html" class="sidebar-link">Segurança</a>
+          <a href="/guide/security.html" class="sidebar-link">Security</a>
         </li>
       
     </ul>
@@ -144,55 +164,56 @@
 
 <div class="content guide with-sidebar">
   <h1>Middleware</h1>
-  <h2 id="O-que-e-um-middleware"><a href="#O-que-e-um-middleware" class="headerlink" title="O que é um middleware?"></a>O que é um middleware?</h2><p>Os desenvolvedores podem criar <em>middlewares</em> que podem ser aplicados antes e depois da execução de uma ação. Existem dois tipos de <em>middlewares</em>, os globais, que são aplicados a todas as ações e os individuais que são aplicados de forma individual a cada ação utilizando a propriedade <code>action.middleware</code>. Cada <em>middleware</em> tem um nome e opcionalmente pode conter uma prioridade que irá definir a ordem de execução dos <em>middleware</em>.<br>Existem três tipos de <em>middlewares</em>, para ações, conexões e <em>chat</em>. Cada um é distinto dos outros e operam em diferentes partes do <em>lifecycle</em> do cliente.</p>
+  <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>Developers can create middleware that can be applied before and after the execution of an action. There are two types of middleware: global middleware, which is applied to all actions, and individual middleware, which is applied individually to each action using the <code>middleware</code> property. Each middleware component has a priority that will set the execution order of the middleware.  Middleware can also be classified as <em>Action Middleware</em>, <em>Connection Middleware</em>, or <em>Chat Middleware</em>.  Each is distinct from the other and operates in different parts of the connection lifecycle.</p>
 <h3 id="Lifecycle"><a href="#Lifecycle" class="headerlink" title="Lifecycle"></a>Lifecycle</h3><p><img src="/images/middleware_lifecycle.png" alt="Request Flow"></p>
-<p>Como se pode verificar na imagem acima, existem diferentes locais onde pode ser executado um <em>middleware</em>. A lista a seguir mostra os diferentes <em>middlewares</em> disponíveis no Stellar:</p>
+<p>As can be seen in the image above, there are a number of different places where you can run middleware. The following list shows the different middleware available on Stellar:</p>
 <ul>
-<li>Quando um cliente se liga<ul>
-<li><em>Middleware</em> de conexão, <code>create</code></li>
+<li>When a client connects<ul>
+<li>connection middleware, <code>create</code></li>
 </ul>
 </li>
-<li>O cliente faz o pedido de uma ação<ul>
-<li><em>Middleware</em> de ação, <code>preProcessor</code></li>
-<li><em>Middleware</em> de ação, <code>postProcessor</code></li>
+<li>When a client makes a request to an action<ul>
+<li>action middleware, <code>preProcessor</code></li>
+<li>action middleware, <code>postProcessor</code></li>
 </ul>
 </li>
-<li>Um cliente se junta a uma sala de chat<ul>
-<li><em>Middleware</em> de <em>chat</em>, <code>join</code></li>
+<li>When a client joins to a chat room<ul>
+<li>chat middleware, <code>join</code></li>
 </ul>
 </li>
-<li>O cliente envia uma mensagem para a sala de <em>chat</em><ul>
-<li><em>Middleware</em> de <em>chat</em>, <code>say</code></li>
-<li><em>Middleware</em> de <em>chat</em>, <code>onSayReceive</code></li>
+<li>When a client sends a message to a chat room<ul>
+<li>chat middleware, <code>say</code></li>
+<li>chat middleware, <code>onSayReceive</code></li>
 </ul>
 </li>
-<li>O cliente faz um pedido de desconexão (<em>quit</em>)<ul>
-<li><em>Middleware</em> de <em>chat</em>, <code>leave</code></li>
-<li><em>Middleware</em> de conexão, <code>destroy</code></li>
+<li>When a client makes a request to disconnect (<em>quit</em>)<ul>
+<li>chat middleware, <code>leave</code></li>
+<li>connection middleware, <code>destroy</code></li>
 </ul>
 </li>
 </ul>
-<h2 id="Tipos-de-middlewares"><a href="#Tipos-de-middlewares" class="headerlink" title="Tipos de middlewares"></a>Tipos de middlewares</h2><h3 id="Middleware-de-Acao"><a href="#Middleware-de-Acao" class="headerlink" title="Middleware de Ação"></a>Middleware de Ação</h3><p>O Stellar oferece <em>hooks</em> para se executar código antes e depois de algumas ações, este é o local apropriado para adicionar lógica relacionada com a autenticação ou validar o estado de um determinado recurso.</p>
-<h3 id="Middleware-de-Conexao"><a href="#Middleware-de-Conexao" class="headerlink" title="Middleware de Conexão"></a>Middleware de Conexão</h3><p>É possível criar <em>middlewares</em> para reagir à criação e destruição de todas as conexões. Ao contrário dos <em>middleware</em> de ações, estes não bloqueiam o pedido até ao fim da execução, são assíncronos.</p>
-<p>É preciso ter em atenção que algumas conexões persistem (TCP e WebSocket) e parte delas apenas existem durante um único pedido (HTTP), mas pode-se inspecionar o valor <code>connection.type</code> de forma a saber que tipo de ligação está a ser criada ou destruída.</p>
-<h3 id="Middleware-de-Chat"><a href="#Middleware-de-Chat" class="headerlink" title="Middleware de Chat"></a>Middleware de Chat</h3><p>Por ultimo, existe os <em>middlewares</em> para o <em>chat</em>. Este tipo de <em>middleware</em> é ativado quando um cliente se junta ou sai de uma sala, ou comunica dentro de uma sala de <em>chat</em>. Existem quatro tipos de <em>middleware</em> para cada etapa: <code>say</code>, <code>onSayReceive</code>, <code>join</code> e `leave.</p>
+<h2 id="Types-of-Middleware"><a href="#Types-of-Middleware" class="headerlink" title="Types of Middleware"></a>Types of Middleware</h2><h3 id="Action-Middleware"><a href="#Action-Middleware" class="headerlink" title="Action Middleware"></a>Action Middleware</h3><p>Stellar offers hooks to execute code before and after specified actions; this is the appropriate place to add logic related to authentication or to validate the state of a given resource.</p>
+<h3 id="Connection-Middleware"><a href="#Connection-Middleware" class="headerlink" title="Connection Middleware"></a>Connection Middleware</h3><p>You can create middleware to react to the creation and destruction of all connections. Unlike action middleware, they are asynchronous and do not block the request until they finish executing.</p>
+<p>Keep in mind that some connections persist (WebSocket, TCP) and some only exist for the duration of a single request (web). You will likely want to inspect <code>connection.type</code> in this middleware. If you do not provide a priority, the default from <code>api.config.general.defaultProcessorPriority</code> will be used.</p>
+<h3 id="Chat-Middleware"><a href="#Chat-Middleware" class="headerlink" title="Chat Middleware"></a>Chat Middleware</h3><p>The last type of middleware is used to act when a connection joins, leaves, or communicates within a chat room. We have 4 types of middleware for each step: <code>say</code>, <code>onSayReceive</code>, <code>join</code> and <code>leave</code>.</p>
+<p>Priority is optional in all cases, but can be used to order your middleware. If an error is returned by any of these methods, it will be returned to the user, and the action/message will not be sent.</p>
 
 
   
       <div class="guide-links">
         
-          <span>← <a href="/guide/tasks.html">Tarefas</a></span>
+          <span>← <a href="/guide/tasks.html">Tasks</a></span>
         
         
-          <span style="float:right"><a href="/guide/satellites.html">Satélites</a> →</span>
+          <span style="float:right"><a href="/guide/satellites.html">Satellites</a> →</span>
         
       </div>
     
 
     <div class="footer">
-      Encontrou um erro ou quer contribuir para a documentação?
+      Caught a mistake or want to contribute to documentation?
       <a href="https://github.com/gil0mendes/pt.stellar-framework.com/tree/master/src/guide/middleware.md" target="_blank">
-        Edite esta página no Github!
+        Edit this page on Github!
       </a>
     </div>
 </div>

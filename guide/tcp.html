@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
   <head>
     <title>TCP - Stellar</title>
 
@@ -50,9 +50,15 @@
         <span>Stellar</span>
     </a>
     <ul id="nav">
-        <li><a href="/guide/" class="nav-link current">Guia</a></li>
+        <li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
-
+<li class="nav-dropdown-container">
+  <a class="nav-link">Community</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://github.com/stellarFw/stellar" class="nav-link" target="_blank">GitHub</a></li>
+    <li><a href="https://twitter.com/gil0mendes" class="nav-link" target="_blank">Twitter</a></li>
+  </ul>
+</li>
     </ul>
 </div>
 
@@ -61,27 +67,41 @@
           
   <div class="sidebar">
   <ul class="main-menu">
-    <li><a href="/guide/" class="nav-link current">Guia</a></li>
+    <li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
-
+<li class="nav-dropdown-container">
+  <a class="nav-link">Community</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://github.com/stellarFw/stellar" class="nav-link" target="_blank">GitHub</a></li>
+    <li><a href="https://twitter.com/gil0mendes" class="nav-link" target="_blank">Twitter</a></li>
+  </ul>
+</li>
   </ul>
   <div class="list">
+    <div class="list">
+      <div id="donate" style="margin-bottom: 20px">
+        <span class="wrapper" style="width: 110px">
+          <img src="/images/patreon.png">
+          <a href="/support-stellar">Support Stellar</a>
+        </span>
+      </div>
+    </div>
     <ul class="menu-root">
       
         <li>
-          <a href="/guide/index.html" class="sidebar-link">Visão Geral</a>
+          <a href="/guide/index.html" class="sidebar-link">Overview</a>
         </li>
       
         <li>
-          <a href="/guide/installation.html" class="sidebar-link">Instalação</a>
+          <a href="/guide/installation.html" class="sidebar-link">Installation</a>
         </li>
       
         <li>
-          <a href="/guide/actions.html" class="sidebar-link">Ações</a>
+          <a href="/guide/actions.html" class="sidebar-link">Actions</a>
         </li>
       
         <li>
-          <a href="/guide/tasks.html" class="sidebar-link">Tarefas</a>
+          <a href="/guide/tasks.html" class="sidebar-link">Tasks</a>
         </li>
       
         <li>
@@ -89,7 +109,7 @@
         </li>
       
         <li>
-          <a href="/guide/satellites.html" class="sidebar-link">Satélites</a>
+          <a href="/guide/satellites.html" class="sidebar-link">Satellites</a>
         </li>
       
         <li>
@@ -105,11 +125,11 @@
         </li>
       
         <li>
-          <a href="/guide/development_mode.html" class="sidebar-link">Modo de Desenvolvimento</a>
+          <a href="/guide/development_mode.html" class="sidebar-link">Development Mode</a>
         </li>
       
         <li>
-          <a href="/guide/file_system.html" class="sidebar-link">Sistema de Ficheiros</a>
+          <a href="/guide/file_system.html" class="sidebar-link">File System</a>
         </li>
       
         <li>
@@ -117,7 +137,7 @@
         </li>
       
         <li>
-          <a href="/guide/events.html" class="sidebar-link">Eventos</a>
+          <a href="/guide/events.html" class="sidebar-link">Events</a>
         </li>
       
         <li>
@@ -133,7 +153,7 @@
         </li>
       
         <li>
-          <a href="/guide/security.html" class="sidebar-link">Segurança</a>
+          <a href="/guide/security.html" class="sidebar-link">Security</a>
         </li>
       
     </ul>
@@ -144,40 +164,41 @@
 
 <div class="content guide with-sidebar">
   <h1>TCP</h1>
-  <h2 id="Visao-Geral"><a href="#Visao-Geral" class="headerlink" title="Visão Geral"></a>Visão Geral</h2><p>Também é possível interagir com o Stellar usando uma ligação persistente através de um <em>socket</em> TCP. Por defeito a porta usada é a <code>5000</code>, mas esta pode ser alterada através da propriedade <code>api.config.tcp.port</code>. Uma vez que se trata de uma ligação persistente a forma de funcionamento é semelhante à do <a href="websocket.html">WebSocket</a>, onde se utiliza <em>verbs</em> para passar comandos ao servidor. A lista abaixo mostra os <em>verbs</em> disponíveis:</p>
+  <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>You can also interact with Stellar using a persistent connection through a TCP socket. By default port 5000 is used, but this can be changed by setting the <code>api.config.tcp.port</code> property. Since this is a persistent connection verbs are used to send commands to the server. The list below shows all available verbs:</p>
 <ul>
-<li><strong><code>quit</code></strong>: termina a ligação com o servidor (a sessão é destruída)</li>
-<li><strong><code>paramAdd</code></strong>: guarda uma variável que fica anexada à conexão<ul>
-<li>Exemplo: <code>addParam query=something</code></li>
+<li><strong><code>quit</code></strong>: disconnects from the server (the session is destroyed)</li>
+<li><strong><code>paramAdd</code></strong>: saves a single variable to your connection<ul>
+<li>Example: <code>paramAdd query=something</code></li>
 </ul>
 </li>
-<li><strong><code>paramView</code></strong>: devolve o valor de um parâmetro, caso este exista<ul>
-<li>Exemplo: <code>paramView query</code></li>
+<li><strong><code>paramView</code></strong>: returns the details of a single param<ul>
+<li>Example: <code>paramView query</code></li>
 </ul>
 </li>
-<li><strong><code>paramDelete</code></strong>: remove um parâmetro<ul>
-<li>Exemplo: <code>paramDelete query</code></li>
+<li><strong><code>paramDelete</code></strong>: deletes a single param<ul>
+<li>Example: <code>paramDelete query</code></li>
 </ul>
 </li>
-<li><strong><code>paramsView</code></strong>: devolve um objeto JSON com todos os parâmetros</li>
-<li><strong><code>paramsDelete</code></strong>: remove todos os parâmetros definidos</li>
-<li><strong><code>roomAdd</code></strong>: junta o cliente a uma sala de <em>chat</em></li>
-<li><strong><code>roomLeave</code></strong>: faz o cliente deixar sala de <em>chat</em></li>
-<li><strong><code>detailsView</code></strong>: obtém os detalhes da conexão do cliente, inclui o ID publico</li>
-<li><strong><code>say</code></strong>: envia uma mensagem para uma sala de <em>chat</em>.</li>
+<li><strong><code>paramsView</code></strong>: returns a JSON object of all the params set in this connection</li>
+<li><strong><code>paramsDelete</code></strong>: deletes all params set in this session</li>
+<li><strong><code>detailsView</code></strong>: shows you details about your connection, including about the members currently in the room</li>
+<li><strong><code>roomAdd</code></strong>: connects to a room</li>
+<li><strong><code>roomLeave &lt;room&gt;</code></strong>:  leaves the room you are connected to</li>
+<li><strong><code>roomView &lt;room&gt;</code></strong>: shows you the room you are connected to, and information about the members currently in that room</li>
+<li><strong><code>say &lt;room,&gt; &lt;message&gt;</code></strong>: sends a message to a room</li>
 </ul>
 <blockquote>
-<p>Nota: os parâmetros adicionados nas chamadas anteriores são fixados à conexão, isso quer dizer que é necessários remover os parâmetros antes de chamar novos <em>verbs</em>.</p>
+<p>Note: the parameters added in previous calls are fixed to the connection; this means that it is necessary to remove the parameters before calling new verbs.</p>
 </blockquote>
 <p><img src="/images/telnet_tcp.png" alt="Telnet TCP"></p>
-<p>Uma das principais vantagens de utilizar uma ligação TCP é a possibilidade de poder chamar várias ações em simultâneo. O Stellar mantêm um contador das chamadas feitas, deste modo é possível manter a gestão das diferentes chamadas a decorrer.</p>
-<h2 id="TLS"><a href="#TLS" class="headerlink" title="TLS"></a>TLS</h2><p>O servidor TCP suporta ligações cifradas através de TLS, caso seja desejado. Para isso é necessário fazer algumas pequenas configurações no servidor:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">exports.default = &#123;</span><br><span class="line">  servers: &#123;</span><br><span class="line">    socket: api =&gt; &#123;</span><br><span class="line">      secure: <span class="literal">true</span>,</span><br><span class="line">      key: fs.readFileSync(<span class="string">'certs/server-key.pem'</span>),</span><br><span class="line">      cert: fs.readFileSync(<span class="string">'certs/server-cert.pem'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>A ligação segura pode ser testada com o comando abaixo:</p>
+<p>One of the main advantages of using a TCP connection is the possibility to call several actions simultaneously. Stellar keeps a count of the calls, so you can keep track of the different calls in progress.</p>
+<h2 id="TLS"><a href="#TLS" class="headerlink" title="TLS"></a>TLS</h2><p>The TCP server supports encrypted connections via TLS, if desired. For this you need to configure some settings on the server:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="meta">'use strict'</span></span><br><span class="line"></span><br><span class="line">exports.default = &#123;</span><br><span class="line">  servers: &#123;</span><br><span class="line">    socket: api =&gt; &#123;</span><br><span class="line">      secure: <span class="literal">true</span>,</span><br><span class="line">      key: fs.readFileSync(<span class="string">'certs/server-key.pem'</span>),</span><br><span class="line">      cert: fs.readFileSync(<span class="string">'certs/server-cert.pem'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The secure connection can be tested using the following command:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ openssl s_client -connect 127.0.0.1:5000</span><br></pre></td></tr></table></figure>
-<p>Ou então em outro processo node:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"><span class="keyword">let</span> tls = <span class="built_in">require</span>(<span class="string">'tls'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> options = &#123;</span><br><span class="line">  key: fs.readFileSync(<span class="string">'certs/server-key.pem'</span>),</span><br><span class="line">  cert: fs.readFileSync(<span class="string">'certs/server-cert.pem'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> socket = tls.connect(<span class="number">5000</span>, options, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'cliente'</span>, socket.authorized ? <span class="string">'autorizado'</span> : <span class="string">'não autorizado'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">socket.setEnconding(<span class="string">'utf8'</span>)</span><br><span class="line">socket.on(<span class="string">'data'</span>, data =&gt; <span class="built_in">console</span>.log(data))</span><br></pre></td></tr></table></figure>
-<h2 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h2><p>A forma por defeito para executar ações no Stellar através de uma ligação TCP é usando os <em>verbs</em> disponíveis nas ligações persistentes. Contudo, é possível recorrer a JSON para escolher a ação a executar e enumerar os parâmetros a usar com essa ação. Por exemplo, <code>{&quot;action&quot;: &quot;actionName&quot;, &quot;params&quot;: {&quot;key&quot;: &quot;some_value&quot;}}</code>.</p>
+<p>Or, you can use another node process:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"><span class="keyword">let</span> tls = <span class="built_in">require</span>(<span class="string">'tls'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> options = &#123;</span><br><span class="line">  key: fs.readFileSync(<span class="string">'certs/server-key.pem'</span>),</span><br><span class="line">  cert: fs.readFileSync(<span class="string">'certs/server-cert.pem'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> socket = tls.connect(<span class="number">5000</span>, options, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'client'</span>, socket.authorized ? <span class="string">'authorized'</span> : <span class="string">'not authorized'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">socket.setEnconding(<span class="string">'utf8'</span>)</span><br><span class="line">socket.on(<span class="string">'data'</span>, data =&gt; <span class="built_in">console</span>.log(data))</span><br></pre></td></tr></table></figure>
+<h2 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h2><p>The default way to execute actions on Stellar via a TCP connection is using the verbs available for persistent connections. However, it is also possible to use JSON to choose the action to execute and pass a list of parameters. For example, <code>{&quot;action&quot;: &quot;actionName&quot;, &quot;params&quot;: {&quot;key&quot;: &quot;some_value&quot;}}</code>.</p>
 
 
   
@@ -192,9 +213,9 @@
     
 
     <div class="footer">
-      Encontrou um erro ou quer contribuir para a documentação?
+      Caught a mistake or want to contribute to documentation?
       <a href="https://github.com/gil0mendes/pt.stellar-framework.com/tree/master/src/guide/tcp.md" target="_blank">
-        Edite esta página no Github!
+        Edit this page on Github!
       </a>
     </div>
 </div>

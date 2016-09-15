@@ -1,8 +1,8 @@
 
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
   <head>
-    <title>Tarefas - Stellar</title>
+    <title>Tasks - Stellar</title>
 
     <!-- charset -->
     <meta charset="utf-8">
@@ -50,9 +50,15 @@
         <span>Stellar</span>
     </a>
     <ul id="nav">
-        <li><a href="/guide/" class="nav-link current">Guia</a></li>
+        <li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
-
+<li class="nav-dropdown-container">
+  <a class="nav-link">Community</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://github.com/stellarFw/stellar" class="nav-link" target="_blank">GitHub</a></li>
+    <li><a href="https://twitter.com/gil0mendes" class="nav-link" target="_blank">Twitter</a></li>
+  </ul>
+</li>
     </ul>
 </div>
 
@@ -61,27 +67,41 @@
           
   <div class="sidebar">
   <ul class="main-menu">
-    <li><a href="/guide/" class="nav-link current">Guia</a></li>
+    <li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
-
+<li class="nav-dropdown-container">
+  <a class="nav-link">Community</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://github.com/stellarFw/stellar" class="nav-link" target="_blank">GitHub</a></li>
+    <li><a href="https://twitter.com/gil0mendes" class="nav-link" target="_blank">Twitter</a></li>
+  </ul>
+</li>
   </ul>
   <div class="list">
+    <div class="list">
+      <div id="donate" style="margin-bottom: 20px">
+        <span class="wrapper" style="width: 110px">
+          <img src="/images/patreon.png">
+          <a href="/support-stellar">Support Stellar</a>
+        </span>
+      </div>
+    </div>
     <ul class="menu-root">
       
         <li>
-          <a href="/guide/index.html" class="sidebar-link">Visão Geral</a>
+          <a href="/guide/index.html" class="sidebar-link">Overview</a>
         </li>
       
         <li>
-          <a href="/guide/installation.html" class="sidebar-link">Instalação</a>
+          <a href="/guide/installation.html" class="sidebar-link">Installation</a>
         </li>
       
         <li>
-          <a href="/guide/actions.html" class="sidebar-link">Ações</a>
+          <a href="/guide/actions.html" class="sidebar-link">Actions</a>
         </li>
       
         <li>
-          <a href="/guide/tasks.html" class="sidebar-link current">Tarefas</a>
+          <a href="/guide/tasks.html" class="sidebar-link current">Tasks</a>
         </li>
       
         <li>
@@ -89,7 +109,7 @@
         </li>
       
         <li>
-          <a href="/guide/satellites.html" class="sidebar-link">Satélites</a>
+          <a href="/guide/satellites.html" class="sidebar-link">Satellites</a>
         </li>
       
         <li>
@@ -105,11 +125,11 @@
         </li>
       
         <li>
-          <a href="/guide/development_mode.html" class="sidebar-link">Modo de Desenvolvimento</a>
+          <a href="/guide/development_mode.html" class="sidebar-link">Development Mode</a>
         </li>
       
         <li>
-          <a href="/guide/file_system.html" class="sidebar-link">Sistema de Ficheiros</a>
+          <a href="/guide/file_system.html" class="sidebar-link">File System</a>
         </li>
       
         <li>
@@ -117,7 +137,7 @@
         </li>
       
         <li>
-          <a href="/guide/events.html" class="sidebar-link">Eventos</a>
+          <a href="/guide/events.html" class="sidebar-link">Events</a>
         </li>
       
         <li>
@@ -133,7 +153,7 @@
         </li>
       
         <li>
-          <a href="/guide/security.html" class="sidebar-link">Segurança</a>
+          <a href="/guide/security.html" class="sidebar-link">Security</a>
         </li>
       
     </ul>
@@ -143,91 +163,96 @@
 
 
 <div class="content guide with-sidebar">
-  <h1>Tarefas</h1>
-  <h2 id="O-que-sao-e-para-que-servem"><a href="#O-que-sao-e-para-que-servem" class="headerlink" title="O que são e para que servem?"></a>O que são e para que servem?</h2><p>As tarefas são trabalhos executados à parte dos pedidos dos clientes. Elas podem ser iniciadas por uma ação ou pelo próprio servidor. Com o Stellar, não existe a necessidade de executar um <em>deamon</em> separadamente para processar os trabalhos. O Stellar usa o pacote <code>node-resque</code> para armazenar e processar as tarefas.<br>No Stellar existem três modos de processar as tarefas: normal, com atraso e periodicamente. No processamento normal, as tarefas são inseridas na <em>queue</em> e processadas uma a uma pelo <code>TaskProcessor</code>. Quando a tarefa é executada com um atraso, ela é inserida numa <em>queue</em> especial para o efeito onde será processada num momento no futuro, o atraso é definido em milissegundos a partir da hora de inserção ou então através de um <em>timestamp</em>. Por último, as tarefas com execução periódica são semelhantes às tarefas com um atraso, mas são executas com uma determinada frequência. As tarefas periódicas não conseguem receber parâmetros de entrada.<br>Por vezes os <em>workers</em> podem <em>crashar</em> de forma severa, não sendo possível notificar o servidor Redis de que vão sair da <em>poll</em> (isto acontece inúmeras vezes em PAAS [Platform As A Service] como o Heroku). Quando isto acontece é necessário extrair a tarefa do <em>worker</em> que morreu, inserida numa <em>queue</em> especial para as tarefas que falharam, para serem reprocessados mais tarde e por fim remover o <em>worker</em>.</p>
+  <h1>Tasks</h1>
+  <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>Tasks are jobs performed separately from client requests. They can be initialized by an action or by the server itself. With Stellar, there is no need to separately execute a daemon to process the work. Stellar uses the <code>node-resque</code> package for storing and processing tasks. In Stellar there are three ways of processing tasks: <code>normal</code>, <code>delayed</code> and <code>periodic</code>. In <code>normal</code> processing, the tasks are queued one by one by the <code>TaskProcessor</code>. When the task is <code>delayed</code>, it is inserted in a special queue which will be processed at a certain time in the future; the delay is set in milliseconds from the time of insertion or through a timestamp. Finally, <code>periodic</code> tasks are similar to <code>delayed</code> tasks, but <code>periodic</code> tasks are executed repeatedly with a certain frequency.</p>
 <blockquote>
-<p>NOTA: Recomenda-se o uso de tarefas para o envio de emails e outras operações que podem ser executadas de forma assíncrona, a fim de diminuir o tempo de resposta dos pedidos do cliente.</p>
+<p>Note: It is recommended to use tasks for sending emails and other operations that can be performed asynchronously in order to shorten client responses.</p>
 </blockquote>
-<h2 id="Tipos-de-tarefas"><a href="#Tipos-de-tarefas" class="headerlink" title="Tipos de tarefas"></a>Tipos de tarefas</h2><p>Nesta sub secção será falado um pouco mais dos tipos de tarefas que existem e se podem ser adicionadas ao sistema.</p>
-<p>Em primeiro, temos as tarefas normais. Este tipo de tarefas é adicionado numa <em>queue</em> e processadas por ordem de chegada logo que existirem <em>workers</em> livres.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// api.tasks.enqueue(nomeDaTarefa, argumentos, queue, callback)</span></span><br><span class="line">api.tasks.enqueue(<span class="string">'sendResetPasswordEmail'</span>, &#123; to: <span class="string">'gil00mendes@gmail.com'</span> &#125;, <span class="string">'default'</span>, (error, toRun) =&gt; &#123;</span><br><span class="line">  <span class="comment">// tarefa inserida!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>Em seguida, temos as tarefas com atraso. Estas tarefas são inseridas no momento, mas numa <em>queue</em> especial em que serão processadas num dado <em>timestamp</em> ou num atraso de milissegundos. Podem ser executadas quando um determinado <em>timestamp</em> for atingido:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// api.tasks.enqueueAt(timestamp, nomeDaTarefa, argumentos, queue, callback)</span></span><br><span class="line">api.tasks.enqueueAt(<span class="number">1591629508</span>, <span class="string">'sendNotificationEmail'</span>, &#123; to: <span class="string">'gil00mendes@gmail.com'</span> &#125;, <span class="string">'default'</span>, (error, toRun) =&gt; &#123;</span><br><span class="line">  <span class="comment">// tarefa inserida!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>Ou, quando um determinado numero de milissegundos t passado:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// api.tasks.enqueueIn(atrazo, nomeDaTarefa, argumentos, queue, callback)</span></span><br><span class="line">api.tasks.enqueueIn(<span class="number">60000</span>, <span class="string">'sendNotificationEmail'</span>, &#123; to: <span class="string">'gil00mendes@gmail.com'</span> &#125;, <span class="string">'default'</span>, (error, toRun) =&gt; &#123;</span><br><span class="line">  <span class="comment">// tarefa inserida!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h2 id="Criar-uma-acao"><a href="#Criar-uma-acao" class="headerlink" title="Criar uma ação"></a>Criar uma ação</h2><p>As ações estão contidas na pasta <code>/tasks</code> dentro de cada módulo. Para gerar uma nova tarefa pode ser usada a ferramenta de linha de comandos, executando o comando <code>stellar makeTask &lt;nome_da_tarefa&gt; --module=&lt;nome_do_modulo&gt;</code>. As tarefas têm algumas propriedades obrigatórias, pode encontrar mais informação sobre este assunto no subcapítulo a seguir.</p>
-<h3 id="Propriedades"><a href="#Propriedades" class="headerlink" title="Propriedades"></a>Propriedades</h3><p>A lista abaixo encontram-se listadas as propriedades suportadas pelas tarefas. A propriedade <code>name</code>, <code>description</code> e <code>run</code>, são obrigatórias.</p>
+<h2 id="Types-of-Tasks"><a href="#Types-of-Tasks" class="headerlink" title="Types of Tasks"></a>Types of Tasks</h2><p>This subsection demonstrates the types of tasks that exist and how they can be used.</p>
+<p>First, we have the <code>normal</code> tasks. Tasks of this type are added to a queue and processed in order of arrival as soon as there are free workers.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// api.tasks.enqueue(taskName, args, queue, callback)</span></span><br><span class="line">api.tasks.enqueue(<span class="string">'sendResetPasswordEmail'</span>, &#123; to: <span class="string">'gil00mendes@gmail.com'</span> &#125;, <span class="string">'default'</span>, (error, toRun) =&gt; &#123;</span><br><span class="line">  <span class="comment">// task enqueued!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>Then we have the <code>delayed</code> tasks. These tasks are enqueued in a special ‘delayed’ queue to be processed at some time in the future (defined either by a timestamp or a number of milliseconds from the time the task is created):</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// api.tasks.enqueueAt(timestamp, taskName, args, queue, callback)</span></span><br><span class="line">api.tasks.enqueueAt(<span class="number">1591629508</span>, <span class="string">'sendNotificationEmail'</span>, &#123; to: <span class="string">'gil00mendes@gmail.com'</span> &#125;, <span class="string">'default'</span>, (error, toRun) =&gt; &#123;</span><br><span class="line">  <span class="comment">// task enqueued!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>Finally, <code>periodic</code> tasks are like <code>delayed</code> tasks, but they run on a set frequency (e.g., every 5 minutes):</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// api.tasks.enqueueIn(delay, taskName, args, queue, callback)</span></span><br><span class="line">api.tasks.enqueueIn(<span class="number">60000</span>, <span class="string">'sendNotificationEmail'</span>, &#123; to: <span class="string">'gil00mendes@gmail.com'</span> &#125;, <span class="string">'default'</span>, (error, toRun) =&gt; &#123;</span><br><span class="line">  <span class="comment">// task enqueued!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Note: Periodic tasks can take no input parameters.</p>
+</blockquote>
+<h2 id="Create-an-Task"><a href="#Create-an-Task" class="headerlink" title="Create an Task"></a>Create an Task</h2><p>The actions are stored in the <code>/tasks</code> folder inside each module. To generate a new task you can run the command: <code>stellar makeTask &lt;task_name&gt; --module=&lt;module_name&gt;</code>. A task has some mandatory properties, which are described in the next section.</p>
+<h3 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h3><p>The list below are the properties supported by the tasks. The properties <code>name</code>, <code>description</code>, and <code>run</code> are mandatory.</p>
 <ul>
-<li><code>name</code>: Nome da tarefa, este deve ser único;</li>
-<li><code>description</code>: Deve conter uma pequena descrição da finalidade da tarefa;</li>
-<li><code>queue</code>: <code>Queue</code> onde irá correr a tarefa, por defeito esta propriedade assume o valor de <code>default</code>. Este valor pode ser substituído quando é usado o método <code>api.tasks.enqueue</code>;</li>
-<li><code>frequency</code>: Caso o valor seja superior a zero, será considerada uma tarefa periódica e será executada a cada passar dos milissegundos definidos nesta propriedade;</li>
-<li><code>plugins</code>: Nesta propriedade pode ser declarado um <em>array</em> de <em>plugins</em> resque, estes plugins modificam a forma como a tarefa é inserida na <em>queue</em>. Pode ler mais sobre isto na página do <a href="https://github.com/taskrabbit/node-resque" target="_blank" rel="external">node-resque</a>;</li>
-<li><code>pluginOptions</code>: Trata-se de uma <em>hash</em> com opções para os <em>plugins</em>;</li>
-<li><code>run(api, params, next)</code>: Função que contem as operações a serem realizadas pela tarefa.</li>
+<li><strong><code>name</code></strong>: Name of the task, which must be unique.</li>
+<li><strong><code>description</code></strong>: Must contain a short description of the purpose of the task.</li>
+<li><strong><code>queue</code></strong>: <code>Queue</code> which will run the task, by default this property is set to <code>default</code>. This value can be replaced when using the <code>api.tasks.enqueue</code> methods.</li>
+<li><strong><code>frequency</code></strong>: If the value is greater than zero, the task will be considered a periodic task and will run once every interval specified by the number of milliseconds defined in this property.</li>
+<li><strong><code>plugins</code></strong>: In this property you can define an array of resque plugins; these plugins modify how tasks are inserted in the queue. You can read more about this in the <a href="https://github.com/taskrabbit/node-resque" target="_blank" rel="external">node-resque</a> docs.</li>
+<li><strong><code>pluginOptions</code></strong>: This is an object with options for plugins.</li>
+<li><strong><code>run(api, params, next)</code></strong>: A function that implements the operations to be performed by the task.</li>
 </ul>
 <blockquote>
-<p>NOTA: Para a declaração dos nomes das tarefas é recomendado que seja usado um <em>namespace</em>, como por exemplo <code>auth.sessionValidation</code>.</p>
+<p>Note: for the task name it is recommended to use a namespace; e.g., <code>auth.sessionValidation</code>.</p>
 </blockquote>
-<h3 id="Exemplo"><a href="#Exemplo" class="headerlink" title="Exemplo"></a>Exemplo</h3><p>O exemplo a baixo mostra a estrutura de uma tarefa, esta regista uma mensagem “Hello!!!” a cada 1 segundo:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">exports.sayHello = &#123;</span><br><span class="line">  name: <span class="string">'sayHello'</span>,</span><br><span class="line">  description: <span class="string">'I say hello'</span>,</span><br><span class="line">  queue: <span class="string">'default'</span>,</span><br><span class="line">  frequency: <span class="number">1000</span>,</span><br><span class="line"></span><br><span class="line">  run: (api, params, next) =&gt; &#123;</span><br><span class="line">    <span class="comment">// regista uma mensagem</span></span><br><span class="line">    api.log(<span class="string">'Hello!!!'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// finaliza a execução da tarefa</span></span><br><span class="line">    next()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Gestao-das-Tarefas"><a href="#Gestao-das-Tarefas" class="headerlink" title="Gestão das Tarefas"></a>Gestão das Tarefas</h2><p>O Stellar disponibiliza alguns métodos que permitem fazer a gestão e verificar o estado das <em>queues</em>. Abaixo são apresentados alguns métodos que permitem fazer a gestão das tarefas.</p>
-<h3 id="Remover-Tarefas"><a href="#Remover-Tarefas" class="headerlink" title="Remover Tarefas"></a>Remover Tarefas</h3><p>Remove todas as tarefas que correspondem aos parâmetros passados na função <code>api.tasks.del(queue, taskName, args, count, callback)</code>:</p>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>The example below shows the structure of a task which records a message “Hello!!!” every second:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">exports.sayHello = &#123;</span><br><span class="line">  name: <span class="string">'sayHello'</span>,</span><br><span class="line">  description: <span class="string">'I say hello'</span>,</span><br><span class="line">  queue: <span class="string">'default'</span>,</span><br><span class="line">  frequency: <span class="number">1000</span>,</span><br><span class="line"></span><br><span class="line">  run: (api, params, next) =&gt; &#123;</span><br><span class="line">    <span class="comment">// log a new message</span></span><br><span class="line">    api.log(<span class="string">'Hello!!!'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// finish the task execution</span></span><br><span class="line">    next()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Task-Management"><a href="#Task-Management" class="headerlink" title="Task Management"></a>Task Management</h2><p>Stellar has a number methods which allow you to manage and query the state of the task queues.</p>
+<h3 id="Remove-a-Task"><a href="#Remove-a-Task" class="headerlink" title="Remove a Task"></a>Remove a Task</h3><p>Remove all tasks which match the given parameters - <code>api.tasks.del(queue, taskName, args, count, callback)</code>:</p>
 <ul>
-<li><strong><code>queue</code></strong>: nome da <em>queue</em>  onde o comando deve ser executado</li>
-<li><strong><code>taskName</code></strong>: nome da tarefa a eliminar</li>
-<li><strong><code>args</code></strong>: argumentos de pesquisa (mais informação ver a documentação do <code>node-resq</code>)</li>
-<li><strong><code>count</code></strong>: numero de instâncias da tarefa que devem ser removidas.</li>
+<li><strong><code>queue</code></strong>: Name of the queue from which the task(s) must be removed.</li>
+<li><strong><code>taskName</code></strong>: Task name to be removed.</li>
+<li><strong><code>args</code></strong>: Search arguments (for more information on this you can read the <code>node-resque</code> documentation).</li>
+<li><strong><code>count</code></strong>: Number of task instances which must be removed.</li>
 </ul>
-<h3 id="Remover-Tarefas-com-Atraso"><a href="#Remover-Tarefas-com-Atraso" class="headerlink" title="Remover Tarefas com Atraso"></a>Remover Tarefas com Atraso</h3><p>Remove todas as tarefas com atraso que correspondem aos parâmetros passados na função <code>api.tasks.delDelayed(queue, taskName, args, count, callback)</code>:</p>
+<h3 id="Remove-a-Task-with-Delay"><a href="#Remove-a-Task-with-Delay" class="headerlink" title="Remove a Task with Delay"></a>Remove a Task with Delay</h3><p>Remove all tasks with delay which match the given parameters - <code>api.tasks.delDelayed(queue, taskName, args, callback)</code>:</p>
 <ul>
-<li><strong><code>queue</code></strong>: nome da <em>queue</em>  onde o comando deve ser executado</li>
-<li><strong><code>taskName</code></strong>: nome da tarefa a eliminar</li>
-<li><strong><code>args</code></strong>: argumentos de pesquisa (mais informação ver a documentação do <code>node-resq</code>)</li>
+<li><strong><code>queue</code></strong>: Name of the queue from which the task(s) must be removed.</li>
+<li><strong><code>taskName</code></strong>: Task name to be removed.</li>
+<li><strong><code>args</code></strong>: Search arguments (more information about this can be found in the <code>node-resque</code> documentation).</li>
 </ul>
-<h3 id="Limpar-uma-Queue"><a href="#Limpar-uma-Queue" class="headerlink" title="Limpar uma Queue"></a>Limpar uma Queue</h3><p>O método <code>api.tasks.delQueue(queue, callback)</code> remove todas as tarefas de uma <em>queue</em>:</p>
+<h3 id="Clean-a-Queue"><a href="#Clean-a-Queue" class="headerlink" title="Clean a Queue"></a>Clean a Queue</h3><p>The <code>api.tasks.delQueue(queue, callback)</code> method removes all the tasks in a queue:</p>
 <ul>
-<li><strong><code>queue</code></strong>: nome da <em>queue</em> de onde as tarefas serão removidas.</li>
+<li><strong><code>queue</code></strong>: Queue name where the tasks must be all removed.</li>
 </ul>
-<h3 id="Trabalhos-Recorrentes"><a href="#Trabalhos-Recorrentes" class="headerlink" title="Trabalhos Recorrentes"></a>Trabalhos Recorrentes</h3><p>O método <code>api.tasks.enqueueRecurrentJob(taskName, callback)</code>, permite adicionar trabalho a uma <em>queue</em> como recorrente:</p>
+<h3 id="Recurrent-Jobs"><a href="#Recurrent-Jobs" class="headerlink" title="Recurrent Jobs"></a>Recurrent Jobs</h3><p>The <code>api.tasks.enqueueRecurrentJob(taskName, callback)</code> method allows you add a new recurrent job:</p>
 <ul>
-<li><strong><code>taskName</code></strong>: nome da tarefa a ser adicionada.</li>
+<li><strong><code>taskName</code></strong>: Task name to be added.</li>
 </ul>
-<h3 id="Parar-Trabalhos-Recorrentes"><a href="#Parar-Trabalhos-Recorrentes" class="headerlink" title="Parar Trabalhos Recorrentes"></a>Parar Trabalhos Recorrentes</h3><p>O método <code>api.tasks.stopRecurrentJob(taskName, callback)</code>, permite parar um trabalho recorrente:</p>
+<h3 id="Stop-Recurrent-Jobs"><a href="#Stop-Recurrent-Jobs" class="headerlink" title="Stop Recurrent Jobs"></a>Stop Recurrent Jobs</h3><p>The <code>api.tasks.stopRecurrentJob(taskName, callback)</code> method allows you stop a recurrent job:</p>
 <ul>
-<li><strong><code>taskName</code></strong>: nome da tarefa a ser removida.</li>
+<li><strong><code>taskName</code></strong>: Task name to be removed from the recurrent queue.</li>
 </ul>
-<h3 id="Timestamps-com-Tarefas"><a href="#Timestamps-com-Tarefas" class="headerlink" title="Timestamps com Tarefas"></a>Timestamps com Tarefas</h3><p>O método <code>api.tasks.timestamps(callback)</code> permite obter um <em>array</em> com todos os <em>timestamps</em> com pelo menos uma tarefa associada.</p>
-<h3 id="Estatisticas"><a href="#Estatisticas" class="headerlink" title="Estatísticas"></a>Estatísticas</h3><p>O método <code>api.tasks.stats(callback)</code> permite obter um <em>array</em> com todas as estatísticas do <em>cluster</em> do resque.</p>
-<h3 id="Locks"><a href="#Locks" class="headerlink" title="Locks"></a>Locks</h3><p>O método <code>api.tasks.locks(callback)</code> permite obter um <em>array</em> com todos os <em>locks</em> presentes no <em>cluster</em>.</p>
-<h3 id="Remover-um-Lock"><a href="#Remover-um-Lock" class="headerlink" title="Remover um Lock"></a>Remover um Lock</h3><p>O método <code>api.tasks.delLock(lockName, callback)</code> permite remove um <em>lock</em> do <em>cluster</em>:</p>
+<h3 id="Tasks-with-Timestamps"><a href="#Tasks-with-Timestamps" class="headerlink" title="Tasks with Timestamps"></a>Tasks with Timestamps</h3><p>The <code>api.tasks.timestamps(callback)</code> method allows you get an array with all tasks with an associated timestamp.</p>
+<h3 id="Statistics"><a href="#Statistics" class="headerlink" title="Statistics"></a>Statistics</h3><p>The <code>api.tasks.stats(callback)</code> method allows you to get an array with all statistics of the resque cluster.</p>
+<h3 id="Locks"><a href="#Locks" class="headerlink" title="Locks"></a>Locks</h3><p>The <code>api.tasks.locks(callback)</code> method allows you to get an array with all existing locks in the cluster.</p>
+<h3 id="Remove-a-Lock"><a href="#Remove-a-Lock" class="headerlink" title="Remove a Lock"></a>Remove a Lock</h3><p>The <code>api.tasks.delLock(lockName, callback)</code> method allows you to remove a lock from the cluster:</p>
 <ul>
-<li><strong><code>lockName</code></strong>: nome do <em>lock</em> a ser removido</li>
-<li><strong><code>callback(removed, error)</code></strong><ul>
-<li><strong><code>removed</code></strong>: definido como <code>1</code> se o <em>lock</em> for removido</li>
-<li><strong><code>error</code></strong>: instância de <code>Error</code> no caso de ter ocorrido um problema durante o pedido.</li>
+<li><strong><code>lockName</code></strong>: Lock name to be removed.</li>
+<li><strong><code>callback(removed, error)</code></strong>: Callback function.<ul>
+<li><strong><code>removed</code></strong>: Set to <code>1</code> if the lock as been removed.</li>
+<li><strong><code>error</code></strong>: <code>Error</code> instance if an error occurs during the request.</li>
 </ul>
 </li>
 </ul>
-<h3 id="Remove-as-Tarefas-de-um-Timestamp"><a href="#Remove-as-Tarefas-de-um-Timestamp" class="headerlink" title="Remove as Tarefas de um Timestamp"></a>Remove as Tarefas de um Timestamp</h3><p>O método <code>api.tasks.delDelayesAt(timestamp, callback)</code> permite remover todas as tarefas do <em>timestamp</em> pedido:</p>
+<h3 id="Remove-Tasks-on-a-Timestamp"><a href="#Remove-Tasks-on-a-Timestamp" class="headerlink" title="Remove Tasks on a Timestamp"></a>Remove Tasks on a Timestamp</h3><p>The <code>api.tasks.delDelayesAt(timestamp, callback)</code> method removes all tasks on the requested timestamp:</p>
 <ul>
-<li><strong><code>timestamp</code></strong>: <em>timestamp</em> de onde as tarefas serão removidas.</li>
+<li><strong><code>timestamp</code></strong>: Timestamp for the tasks that must be removed.</li>
 </ul>
-<h3 id="Remove-Todas-as-tarefas-com-Atraso"><a href="#Remove-Todas-as-tarefas-com-Atraso" class="headerlink" title="Remove Todas as tarefas com Atraso"></a>Remove Todas as tarefas com Atraso</h3><p>O método <code>api.tasks.allDelayed(callback)</code> permite remover todas as tarefas com atraso.</p>
-<h3 id="Obter-os-Workers"><a href="#Obter-os-Workers" class="headerlink" title="Obter os Workers"></a>Obter os Workers</h3><p>O método <code>api.tasks.workers(callback)</code> permite obter uma lista com todos os <code>TaskProcessors</code> da instância.</p>
-<h3 id="Detalhes"><a href="#Detalhes" class="headerlink" title="Detalhes"></a>Detalhes</h3><p>O método <code>api.tasks.details(callback)</code> permite obter uma lista com informação das <em>queue</em> da instância.</p>
-<h3 id="Numero-de-Falhas"><a href="#Numero-de-Falhas" class="headerlink" title="Numero de Falhas"></a>Numero de Falhas</h3><p>O método <code>api.tasks.failedCount(callback)</code> devolve o numero de tarefas na <em>queue</em> de operações falhadas.</p>
-<h3 id="Remover-uma-Tarefa-Falhada"><a href="#Remover-uma-Tarefa-Falhada" class="headerlink" title="Remover uma Tarefa Falhada"></a>Remover uma Tarefa Falhada</h3><p>O método <code>api.tasks.removeFailed(failedJob, callback)</code> permite remover uma tarefas da <em>queue</em> de operações falhadas.</p>
-<h3 id="Tenta-Voltar-a-Executar-uma-Tarefa-que-Falhou"><a href="#Tenta-Voltar-a-Executar-uma-Tarefa-que-Falhou" class="headerlink" title="Tenta Voltar a Executar uma Tarefa que Falhou"></a>Tenta Voltar a Executar uma Tarefa que Falhou</h3><p>O método <code>api.tasks.retryAndRemoveFailed(failedJob, callback)</code> permite voltar a tentar executar uma tarefas falhada e remove essa tarefas da <em>queue</em> de operações falhadas.</p>
+<h3 id="Remove-all-Tasks-with-Delay"><a href="#Remove-all-Tasks-with-Delay" class="headerlink" title="Remove all Tasks with Delay"></a>Remove all Tasks with Delay</h3><p>The <code>api.tasks.allDelayed(callback)</code> method allows you to remove all tasks with delay.</p>
+<h3 id="Get-Workers"><a href="#Get-Workers" class="headerlink" title="Get Workers"></a>Get Workers</h3><p>The <code>api.tasks.workers(callback)</code> method allows you to get all <code>TaskProcessors</code> instances.</p>
+<h3 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h3><p>The <code>api.tasks.details(callback)</code> method allows you to get information about the existing queues.</p>
+<h3 id="Failed-Count"><a href="#Failed-Count" class="headerlink" title="Failed Count"></a>Failed Count</h3><p>The <code>api.tasks.failedCount(callback)</code> method allows you to get the number of failed jobs.</p>
+<h3 id="Remove-a-Failed-Job"><a href="#Remove-a-Failed-Job" class="headerlink" title="Remove a Failed Job"></a>Remove a Failed Job</h3><p>The <code>api.tasks.removeFailed(failedJob, callback)</code> method allows you remove a task from the failed jobs queue.</p>
+<h3 id="Retry-a-Failed-Job"><a href="#Retry-a-Failed-Job" class="headerlink" title="Retry a Failed Job"></a>Retry a Failed Job</h3><p>The <code>api.tasks.retryAndRemoveFailed(failedJob, callback)</code> method allows you to retry failed task and remove that task from the failed jobs queue.</p>
 <ul>
-<li><strong><code>failedJob</code></strong>: nome da tarefa a voltar executar.</li>
+<li><strong><code>failedJob</code></strong>: Task name.</li>
 </ul>
+<h2 id="Failed-Job-Management"><a href="#Failed-Job-Management" class="headerlink" title="Failed Job Management"></a>Failed Job Management</h2><p>Periodic tasks cannot receive input parameters. Sometimes a worker crashes is a severe way, and it doesn’t have a chance to notify Redis that it is leaving the pool (this happens often on PaaS like Heroku). When this happens, you will not only need to extract the job from the now-dead worker’s “working on” status, but also remove the stuck worker. To aid you in these edge cases, <code>api.tasks.cleanOldWorkers(age, callback)</code> is available.</p>
+<p>Because there are no ‘heartbeats’ in resque, it is impossible for the application to know whether a worker has been working on a long job or it is dead.</p>
 
 
   
       <div class="guide-links">
         
-          <span>← <a href="/guide/actions.html">Ações</a></span>
+          <span>← <a href="/guide/actions.html">Actions</a></span>
         
         
           <span style="float:right"><a href="/guide/middleware.html">Middleware</a> →</span>
@@ -236,9 +261,9 @@
     
 
     <div class="footer">
-      Encontrou um erro ou quer contribuir para a documentação?
+      Caught a mistake or want to contribute to documentation?
       <a href="https://github.com/gil0mendes/pt.stellar-framework.com/tree/master/src/guide/tasks.md" target="_blank">
-        Edite esta página no Github!
+        Edit this page on Github!
       </a>
     </div>
 </div>

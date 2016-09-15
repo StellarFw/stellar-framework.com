@@ -1,8 +1,8 @@
 
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
   <head>
-    <title>Satélites - Stellar</title>
+    <title>Satellites - Stellar</title>
 
     <!-- charset -->
     <meta charset="utf-8">
@@ -50,9 +50,15 @@
         <span>Stellar</span>
     </a>
     <ul id="nav">
-        <li><a href="/guide/" class="nav-link current">Guia</a></li>
+        <li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
-
+<li class="nav-dropdown-container">
+  <a class="nav-link">Community</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://github.com/stellarFw/stellar" class="nav-link" target="_blank">GitHub</a></li>
+    <li><a href="https://twitter.com/gil0mendes" class="nav-link" target="_blank">Twitter</a></li>
+  </ul>
+</li>
     </ul>
 </div>
 
@@ -61,27 +67,41 @@
           
   <div class="sidebar">
   <ul class="main-menu">
-    <li><a href="/guide/" class="nav-link current">Guia</a></li>
+    <li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
-
+<li class="nav-dropdown-container">
+  <a class="nav-link">Community</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://github.com/stellarFw/stellar" class="nav-link" target="_blank">GitHub</a></li>
+    <li><a href="https://twitter.com/gil0mendes" class="nav-link" target="_blank">Twitter</a></li>
+  </ul>
+</li>
   </ul>
   <div class="list">
+    <div class="list">
+      <div id="donate" style="margin-bottom: 20px">
+        <span class="wrapper" style="width: 110px">
+          <img src="/images/patreon.png">
+          <a href="/support-stellar">Support Stellar</a>
+        </span>
+      </div>
+    </div>
     <ul class="menu-root">
       
         <li>
-          <a href="/guide/index.html" class="sidebar-link">Visão Geral</a>
+          <a href="/guide/index.html" class="sidebar-link">Overview</a>
         </li>
       
         <li>
-          <a href="/guide/installation.html" class="sidebar-link">Instalação</a>
+          <a href="/guide/installation.html" class="sidebar-link">Installation</a>
         </li>
       
         <li>
-          <a href="/guide/actions.html" class="sidebar-link">Ações</a>
+          <a href="/guide/actions.html" class="sidebar-link">Actions</a>
         </li>
       
         <li>
-          <a href="/guide/tasks.html" class="sidebar-link">Tarefas</a>
+          <a href="/guide/tasks.html" class="sidebar-link">Tasks</a>
         </li>
       
         <li>
@@ -89,7 +109,7 @@
         </li>
       
         <li>
-          <a href="/guide/satellites.html" class="sidebar-link current">Satélites</a>
+          <a href="/guide/satellites.html" class="sidebar-link current">Satellites</a>
         </li>
       
         <li>
@@ -105,11 +125,11 @@
         </li>
       
         <li>
-          <a href="/guide/development_mode.html" class="sidebar-link">Modo de Desenvolvimento</a>
+          <a href="/guide/development_mode.html" class="sidebar-link">Development Mode</a>
         </li>
       
         <li>
-          <a href="/guide/file_system.html" class="sidebar-link">Sistema de Ficheiros</a>
+          <a href="/guide/file_system.html" class="sidebar-link">File System</a>
         </li>
       
         <li>
@@ -117,7 +137,7 @@
         </li>
       
         <li>
-          <a href="/guide/events.html" class="sidebar-link">Eventos</a>
+          <a href="/guide/events.html" class="sidebar-link">Events</a>
         </li>
       
         <li>
@@ -133,7 +153,7 @@
         </li>
       
         <li>
-          <a href="/guide/security.html" class="sidebar-link">Segurança</a>
+          <a href="/guide/security.html" class="sidebar-link">Security</a>
         </li>
       
     </ul>
@@ -143,24 +163,24 @@
 
 
 <div class="content guide with-sidebar">
-  <h1>Satélites</h1>
-  <h2 id="O-que-e-um-Satellite"><a href="#O-que-e-um-Satellite" class="headerlink" title="O que é um Satellite?"></a>O que é um Satellite?</h2><p>O Engine por si só não faz absolutamente nada, a única lógica que este possui logo que a instância do Stellar é iniciada, é a de procurar pelos Satellites, estes é que irão ditar os próximos passos a serem dados.</p>
-<p>Os Satellites são o nome dado aos componentes que permitem estender e subscrever as funcionalidades do Stellar. Através deste mecanismo é possível isolar as funcionalidades por áreas, facilitando a manutenção do core, tornar a <em>Framework</em> extremamente extensível e permitindo aos desenvolvedores criar módulos que permitam estender as funcionalidades base do Stellar.</p>
-<p>Todo o core do Stellar é criado por satellites, estes carregam as funcionalidades básicas da <em>Framework</em>, mas o <em>core</em> não é o único local onde estes componentes podem existir. Os módulos também podem fazer uso deles para carregar novas funcionalidades, subescrever módulos existentes e até realizar tarefas assim que a <em>Framework</em> inicie ou termine a sua execução.</p>
-<h2 id="Lifecycle"><a href="#Lifecycle" class="headerlink" title="Lifecycle"></a>Lifecycle</h2><p>Todos os Satellites passam por uma série de fases de inicialização durante a execução de uma instância do Stellar. Abaixo é explicado esse processo e o que deve ser realizado em cada uma das três etapas.</p>
-<p><img src="/images/satellite_stages.png" alt="Fases de um Satellite"></p>
-<p>Como se pode verificar, a imagem acima mostra as três fazes de carregamento de um Satellite, são elas: <em>load</em>, <em>start</em> e <em>stop</em>. A etapa de carregamento é obrigatória, enquanto a inicialização e a paragem são opcionais. No caso de ser iniciada uma operação sem previsão de paragem, na etapa de inicialização, é recomendado efetuar a sua paragem na terceira etapa (<em>stop</em>), isto porque é possível reiniciar o servidor, sem que o processo de execução do Stellar tenha que ser terminado.</p>
-<p>Na fase de carregamento do Satellite, deve ser carregada toda a lógica no objeto da API de forma a tornar as funcionalidades públicas, nenhum tipo de operação complexa deve ser realizada nesta fase, o carregamento deve ser feito o mais rapidamente possível. Na fase de inicialização devem ser iniciadas todas as tarefas continuas, como por exemplo servidores ou algum outro tipo de <em>listener</em>. Por fim, na etapa de paragem todas as tarefas pendentes não concluídas devem ser terminadas, assim como todos os servidores.</p>
-<h2 id="Formato"><a href="#Formato" class="headerlink" title="Formato"></a>Formato</h2><p>Um Satellite deve ser uma classe escrita segundo o padrão <a href="http://www.ecma-international.org/ecma-262/6.0/index.html" target="_blank" rel="external">ES6</a>. O único requisito para o Satellite ser carregado pelo Stellar é conter um método <code>load(api, next)</code>. Existem outras propriedades, que se encontram descritas abaixo:</p>
+  <h1>Satellites</h1>
+  <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>The Stellar Engine itself does nothing.  The only logic it has is as follows: as soon as an instance of Stellar is started, the Engine looks for Satellites, loads them into memory, and executes them.</p>
+<p>Satellites are components that can extend and override Stellar’s features. This mechanism organizes Stellar’s functionality, facilitates maintenance of the core, makes the framework extremely extensible, and allows developers to create modules that can extend features not only from Stellar’s core but also from other modules.</p>
+<p>The entire Stellar core is created by Satellites - these load the basic features of the framework, but the core is not the only place where Satellites may exist. Modules can also make use of Satellites to load new features, override existing ones, and perform tasks as soon as the framework begins or ends its execution.</p>
+<h2 id="Lifecycle"><a href="#Lifecycle" class="headerlink" title="Lifecycle"></a>Lifecycle</h2><p>All Satellites go through a series of stages during the execution of Stellar. This process, and what occurs in each of the three stages, is explained below.</p>
+<p><img src="/images/satellite_stages.png" alt="Satellite Stages"></p>
+<p>The picture above shows the three phases of loading a Satellite: <em>load</em>, <em>start</em>, and <em>stop</em>. The loading stage is required, while the start and the stop are optional. If an operation is initiated in the start stage, it is recommended that the operation be stopped in the third stage (stop).</p>
+<p>In the Satellite load phase, all the logic of a Satellite must be loaded into the API object in order to make its features public; any complex operations should be carried out at this stage, and the load must be completed as soon as possible. In the start phase, all continuous tasks should begin, including servers or other types of listener. Finally, in the stop phase, all uncompleted pending tasks must be completed, and all servers must be stopped.</p>
+<h2 id="Format"><a href="#Format" class="headerlink" title="Format"></a>Format</h2><p>A Satellite should be a class written following the <a href="http://www.ecma-international.org/ecma-262/6.0/index.html" target="_blank" rel="external">ES6</a> standard. The only requirement for the Satellite is that it must contain a <code>load(api, next)</code> method. There are other properties which are described below:</p>
 <ul>
-<li><strong><code>loadPriority</code></strong>: Permite alterar a ordem de carregamento do Satellite, o valor por defeito é 100;</li>
-<li><strong><code>startPriority</code></strong>: Permite alterar a ordem de inicio do Satellite, o valor por defeito é 100;</li>
-<li><strong><code>stopPriority</code></strong>: Permite alterar a ordem de paragem, o valor por defeito é 100;</li>
-<li><strong><code>load(api, next)</code></strong>: Operação a ser executada aquando o carregamento do Satellite;</li>
-<li><strong><code>start(api, next)</code></strong>: Operação a ser executada aquando o inicio do Satellite;</li>
-<li><strong><code>stop(api, next)</code></strong>: Operação a ser executada quando o Satellite for terminado.</li>
+<li><strong><code>loadPriority</code></strong>: Allows you change the satellite load order, the default value is 100;</li>
+<li><strong><code>startPriority</code></strong>: Allows you change the satellite start order, the default value is 100;</li>
+<li><strong><code>stopPriority</code></strong>: Allows you change the satellite stop order,the default value is 100;</li>
+<li><strong><code>load(api, next)</code></strong>: Operation to be performed when loading the Satellite;</li>
+<li><strong><code>start(api, next)</code></strong>: Operation to be performed when staring the Satellite;</li>
+<li><strong><code>stop(api, next)</code></strong>: Operation to be performed when stopping the Satellite.</li>
 </ul>
-<h2 id="Exemplo"><a href="#Exemplo" class="headerlink" title="Exemplo"></a>Exemplo</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="meta">'use strict'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * Class do satellite.</span><br><span class="line"> *</span><br><span class="line"> * É recomendado usar esta classe apenas para especificar as funções do </span><br><span class="line"> * satellite, toda a outra lógica deve ser escrita numa classe à parte.</span><br><span class="line"> */</span></span><br><span class="line">exports.default = <span class="class"><span class="keyword">class</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Construtor.</span><br><span class="line">     *</span><br><span class="line">     * O densevolvedor deve definir a prioridade do sattelite nos suas </span><br><span class="line">     * diferentes etapas.</span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">constructor</span> () &#123;</span><br><span class="line">      <span class="comment">// define a prioridade de carregamento</span></span><br><span class="line">      <span class="keyword">this</span>.loadPriority = <span class="number">10</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Função de carregamento.</span><br><span class="line">     *</span><br><span class="line">     * @param  &#123;&#123;&#125;&#125;&#125;      api  Referencia para a API</span><br><span class="line">     * @param  &#123;Function&#125; next Função de callback</span><br><span class="line">     */</span></span><br><span class="line">    load (api, next) &#123;</span><br><span class="line">      <span class="comment">// regista uma mensagem</span></span><br><span class="line">      api.log(<span class="string">'This is awesome!'</span>, <span class="string">'info'</span>)</span><br><span class="line"></span><br><span class="line">      <span class="comment">// finaliza o carregamento do satellite</span></span><br><span class="line">      next()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="meta">'use strict'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * Satellite class.</span><br><span class="line"> *</span><br><span class="line"> * It is recommended to use this class only to specify the functions </span><br><span class="line"> * of the satellite, any other logic should be contained in a separate class.</span><br><span class="line"> */</span></span><br><span class="line">exports.default = <span class="class"><span class="keyword">class</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Constructor.</span><br><span class="line">     *</span><br><span class="line">     * The developer must define the Satellite priority for the </span><br><span class="line">     * different stages.</span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">constructor</span> () &#123;</span><br><span class="line">      <span class="comment">// define the priority for the loading stage</span></span><br><span class="line">      <span class="keyword">this</span>.loadPriority = <span class="number">10</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Loading function.</span><br><span class="line">     *</span><br><span class="line">     * @param  &#123;&#123;&#125;&#125;       api  Reference for the API object.</span><br><span class="line">     * @param  &#123;Function&#125; next Callback function.</span><br><span class="line">     */</span></span><br><span class="line">    load (api, next) &#123;</span><br><span class="line">      <span class="comment">// log a message</span></span><br><span class="line">      api.log(<span class="string">'This is awesome!'</span>, <span class="string">'info'</span>)</span><br><span class="line"></span><br><span class="line">      <span class="comment">// finalize the Satellite loading</span></span><br><span class="line">      next()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
   
@@ -175,9 +195,9 @@
     
 
     <div class="footer">
-      Encontrou um erro ou quer contribuir para a documentação?
+      Caught a mistake or want to contribute to documentation?
       <a href="https://github.com/gil0mendes/pt.stellar-framework.com/tree/master/src/guide/satellites.md" target="_blank">
-        Edite esta página no Github!
+        Edit this page on Github!
       </a>
     </div>
 </div>
