@@ -1,8 +1,29 @@
 (function () {
 
+  initSearch();
   initMobileMenu()
   if (PAGE_TYPE) {
     initSubHeaders()
+  }
+
+  /**
+   * Initialize the search system.
+   */
+  function initSearch () {
+    var searchFields = [
+      '#search-query-nav',
+      '#search-query-sidebar'
+    ]
+
+    searchFields.forEach(function (selector) {
+      if (!document.querySelector(selector)) { return }
+      
+      docsearch({
+        indexName: 'stellar-framework',
+        apiKey: 'bad84eec0f7354f56622e4bd7b4a5dd0',
+        inputSelector: selector
+      })
+    })
   }
 
   /**
