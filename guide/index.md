@@ -1,0 +1,106 @@
+---
+title: Overview
+type: guide
+order: 1
+---
+
+## What is Stellar?
+
+Stellar is an action based web framework that focuses on developing APIs. Each Stellar execution instance can respond to requests from multiple protocols simultaneously, making it possible to use the same API in different usage scenarios. The framework is written in JavaScript ES6 using [Node.JS](https://nodejs.org/en/). The objective of Stellar is to create an easy-to-use development environment that is reusable and scalable, making Stellar an excellent solution not only for small projects but also for enterprise-scale projects.
+
+Stellar uses a system based on actions. This means that all features are represented as actions; you can read more about actions in a [section](actions.html) dedicated to them.
+
+A Stellar execution instance is able to both respond to client requests and process tasks - operations that are performed concurrently in background (e.g., sending an email).
+
+
+## Supported Protocols
+
+- HTTP
+- WebSocket
+- TCP
+
+## Architecture
+
+The Stellar core is composed of the _Engine_, a set of _Satellites_, and three different types of servers. The _Engine_ is responsible for loading modules and providing mechanisms that allow _Satellites_ to expose their APIs to the rest of the platform so that their functionality can be used by other components.  The modular design allows features of a given area to be more easily ported to other projects or shared with the Open Source community.
+
+![Core Architecture](/images/core_arch.png)
+
+## How to Contribute
+
+Both the [documentation](https://github.com/StellarFw/stellar-framework.com) of this website and the [Stellar](https://github.com/StellarFw/stellar) source code are available on GitHub. You can submit pull requests for the `dev` branch, but first, please read the [contribution guide](https://github.com/StellarFw/stellar/blob/dev/CONTRIBUTING.md) carefully. All help is welcome! 😉
+
+You can also help using the [issue tracker](https://github.com/StellarFw/stellar/issues) to report bugs, make suggestions, or submit feature requests.
+
+## Structure of an Application
+
+The typical directory structure of a Stellar project is shown below. This example is a simple API that implements the functionality of a blog.
+
+```
+.
+├── config
+│   └── (project-level settings)
+├── manifest.json
+├── modules
+│   ├── private
+│   └── blog
+│       ├── actions
+│       │   ├── posts.js
+│       │   └── comments.js
+│       ├── config
+│       │   └── comments.js
+│       ├── listeners
+│       │   ├── del_post.js
+│       │   └── new_post.js
+│       ├── manifest.json
+│       ├── middleware
+│       │   └── edit_permission.js
+│       ├── models
+│       │   ├── post.js
+│       │   └── comment.js
+│       ├── satellites
+│       │   └── something.js
+│       └── tasks
+│           └── rss.js
+└── temp
+    └── (temporary files)
+```
+
+
+- **`config`**: Contains project-level settings. These settings override not only the system settings but also the settings configured in the project modules. This allows you to reuse modules from other projects and still configure the application for your usage scenario without having to modify the module code.
+
+- **`manifest.json`**: This file contains the project manifest, consisting of four properties: name, version, description, and active modules.
+
+- **`modules`**: Contains all the modules that compose the application, which may or may not be used, according to the `modules` property of the `manifest.json` file.
+
+  - **`actions`**: Contains files which implement the actions of a module. A file can implement a single action or a collection of actions.
+  
+  - **`config`**: Contains the module settings. These can include settings which are specific to this module, as well as core settings or even settings for other modules.  Configuration files are loaded in order according to module priority; higher-priority modules can override settings specified by modules of lower priority.
+  
+  - **`listeners`**: Contains listeners of events that can occur during execution.
+
+  - **`manifest.json`**: This file contains the module manifest, consisting of the following properties: `id`, `name`, `version`, `description`, and `npmDependencies`.
+
+  - **`middleware`**: Contains the `middleware` declaration, which can be used in other modules.
+
+  - **`models`**: Contains the data model declarations, using [Mongoose](http://mongoosejs.com) syntax.
+
+  - **`satellites`**: Contains [Satellites](satellites.html).
+
+  - **`tasks`**: Contains the task declarations.  These are jobs to be run in the background asynchronously.
+
+- **`temp`**: Finally, this folder contains temporary files and logs generated by Stellar.
+
+### manifest.json
+
+The **manifest.json** file defines the project's name, version, description, and active modules. Below is an example of the format of this file:
+
+```json
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "A simple blog system that supports authentication",
+  "modules": [
+    "authentication"
+  ]
+}
+```

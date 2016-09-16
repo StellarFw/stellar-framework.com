@@ -17,6 +17,9 @@
     <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Roboto Mono' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Dosis:300,500' rel='stylesheet' type='text/css'>
 
+    <!-- docsearch -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.css" />
+
     <!-- page type -->
     <script>
       window.PAGE_TYPE = 'guide'
@@ -50,7 +53,12 @@
         <span>Stellar</span>
     </a>
     <ul id="nav">
-        <li><a href="/guide/" class="nav-link current">Guide</a></li>
+        <li>
+  <form id="search-form">
+    <input type="text" id="search-query-nav" class="search-query st-default-search-input">
+  </form>
+</li>
+<li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
 <li class="nav-dropdown-container">
   <a class="nav-link">Community</a><span class="arrow"></span>
@@ -67,7 +75,12 @@
           
   <div class="sidebar">
   <ul class="main-menu">
-    <li><a href="/guide/" class="nav-link current">Guide</a></li>
+    <li>
+  <form id="search-form">
+    <input type="text" id="search-query-sidebar" class="search-query st-default-search-input">
+  </form>
+</li>
+<li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
 <li class="nav-dropdown-container">
   <a class="nav-link">Community</a><span class="arrow"></span>
@@ -167,12 +180,12 @@
   <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Stellar comes equipped with a cache system, which is allowed to use numbers, strings, arrays and objects. This is a key-value distributed system which makes use of a Redis server and can use any object that is supported by the <code>JSON.stringify</code> function.</p>
 <h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>In the cache system there are three basic methods to manage the cached objects. These are the methods <code>save</code>, <code>load</code> and <code>destroy</code>.</p>
 <h3 id="Add-a-New-Entry"><a href="#Add-a-New-Entry" class="headerlink" title="Add a New Entry"></a>Add a New Entry</h3><p>To add a new entry to the cache, you need to use <code>api.cache.save(key, value, msToExpire, callback)</code>; this method also allows you to update an existing entry. The <code>msToExpire</code> can be <code>null</code> if you don’t want the object to expire. The <code>callback</code> parameter is a function that takes two parameters - <code>callback(error, newObject)</code>; the first parameter contains an error if there is one and the second is the newly created object in the cache. If you are updating an existing object, the <code>newObject</code> will assume the <code>true</code> value.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// create a new cache entry</span></span><br><span class="line">api.cache.save(<span class="string">'websiteTitle'</span>, <span class="string">'XPTO Website'</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// create a new cache entry</span></div><div class="line">api.cache.save(<span class="string">'websiteTitle'</span>, <span class="string">'XPTO Website'</span>)</div></pre></td></tr></table></figure>
 <blockquote>
 <p>Warning: Once <code>msToExpire</code> is reached the entry will be removed from the system, but possibly not at that exact moment.</p>
 </blockquote>
 <h3 id="Get-an-Entry"><a href="#Get-an-Entry" class="headerlink" title="Get an Entry"></a>Get an Entry</h3><p>To retrieve an entry which is cached, use the method <code>api.cache.load(cache, callback)</code> or <code>api.cache.load(cache, options, callback)</code>; <code>options</code> must be an object which can contain the property <code>expireTimeMS</code> which will reset the expiration time of the cached value when it is read.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.load(<span class="string">'webSiteTitle'</span>, (error, value, expireTime, createdAt, readAt) =&gt; &#123;</span><br><span class="line">  <span class="comment">// do something with the value read...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">api.cache.load(<span class="string">'webSiteTitle'</span>, (error, value, expireTime, createdAt, readAt) =&gt; &#123;</div><div class="line">  <span class="comment">// do something with the value read...</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <p>The <code>callback</code> function receive the following parameters:</p>
 <ul>
 <li><strong><code>error</code></strong>: Takes the value <code>null</code> if there is no error.</li>
@@ -190,7 +203,7 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.destroy(<span class="string">'webSiteTitle'</span>, (error, destroyed) =&gt; &#123;</span><br><span class="line">  <span class="comment">// do something...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">api.cache.destroy(<span class="string">'webSiteTitle'</span>, (error, destroyed) =&gt; &#123;</div><div class="line">  <span class="comment">// do something...</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <h2 id="Lists"><a href="#Lists" class="headerlink" title="Lists"></a>Lists</h2><p>Cache lists have a similar behavior to a queue, the elements are inserted into the tail and removed from the head of the structure. These lists are a great way to store objects that need to be processed in order.</p>
 <h3 id="Insert"><a href="#Insert" class="headerlink" title="Insert"></a>Insert</h3><p>To insert a new element in the list we use the <code>api.cache.push(key, item, callback)</code> method. If the list already exists the new element will be inserted at the end of the list, otherwise a new list will be created.</p>
 <ul>
@@ -201,7 +214,7 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.push(<span class="string">'commands'</span>, &#123;player: <span class="string">'xpto'</span>, command: <span class="string">'exec:abc:param1'</span>&#125;, error =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (error) &#123;</span><br><span class="line">    <span class="comment">// An error occurs...</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// do something...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">api.cache.push(<span class="string">'commands'</span>, &#123;player: <span class="string">'xpto'</span>, command: <span class="string">'exec:abc:param1'</span>&#125;, error =&gt; &#123;</div><div class="line">  <span class="keyword">if</span> (error) &#123;</div><div class="line">    <span class="comment">// An error occurs...</span></div><div class="line">    <span class="keyword">return</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// do something...</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <blockquote>
 <p>Warning: you can only save objects which are supported by the <code>JSON.stringify</code> function.</p>
 </blockquote>
@@ -214,7 +227,7 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.pop(<span class="string">'commands'</span>, (error, item) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (error) &#123;</span><br><span class="line">    <span class="comment">// an error occurs...</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// do something with the item...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">api.cache.pop(<span class="string">'commands'</span>, (error, item) =&gt; &#123;</div><div class="line">  <span class="keyword">if</span> (error) &#123;</div><div class="line">    <span class="comment">// an error occurs...</span></div><div class="line">    <span class="keyword">return</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// do something with the item...</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <h3 id="Size"><a href="#Size" class="headerlink" title="Size"></a>Size</h3><p>Stellar also allows you to get the size of a list that is cached. If the list does not exist, the value returned is <code>0</code>. For the size you use the <code>api.cache.listLength(key, callback)</code> function.</p>
 <ul>
 <li><strong><code>key</code></strong>: Name of the list for which you want to obtain the size.</li>
@@ -224,7 +237,7 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.listLength(<span class="string">'commands'</span>, (error, size) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (error) &#123;</span><br><span class="line">    <span class="comment">// an error has occurred!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// do something with the list size</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">api.cache.listLength(<span class="string">'commands'</span>, (error, size) =&gt; &#123;</div><div class="line">  <span class="keyword">if</span> (error) &#123;</div><div class="line">    <span class="comment">// an error has occurred!</span></div><div class="line">    <span class="keyword">return</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// do something with the list size</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <h2 id="Locking-Methods"><a href="#Locking-Methods" class="headerlink" title="Locking Methods"></a>Locking Methods</h2><p>It is possible, optionally, to use methods to lock editing of objects that are in the cache. These methods are interesting for scenarios where Stellar is running on a cluster, correcting possible concurrency problems.</p>
 <h3 id="Lock"><a href="#Lock" class="headerlink" title="Lock"></a>Lock</h3><p>The <code>api.cache.lock(key, expireTimeMS, callback)</code> method allows you to lock an existing cached object. The list below describes the parameters of the <code>lock</code> method:</p>
 <ul>
@@ -236,7 +249,7 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.lock(<span class="string">'inTransaction'</span>, (error, lockOk) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!lockOk) &#123;</span><br><span class="line">    <span class="comment">// it was impossible to obtain the lock!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// do something after getting the lock!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">api.cache.lock(<span class="string">'inTransaction'</span>, (error, lockOk) =&gt; &#123;</div><div class="line">  <span class="keyword">if</span> (!lockOk) &#123;</div><div class="line">    <span class="comment">// it was impossible to obtain the lock!</span></div><div class="line">    <span class="keyword">return</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// do something after getting the lock!</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <h3 id="Unlock"><a href="#Unlock" class="headerlink" title="Unlock"></a>Unlock</h3><p>To unlock an object you just need use the <code>api.cache.unlock(key, callback)</code> method. The list below describes the parameters of the <code>unlock</code> method:</p>
 <ul>
 <li><strong><code>key</code></strong>: Object name to unlock.</li>
@@ -246,7 +259,7 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.unlock(<span class="string">'inTransaction'</span>, (error, lockOk’) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!lockOk) &#123;</span><br><span class="line">    <span class="comment">// it was impossible to remove the lock!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// the lock has been removed!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">api.cache.unlock(<span class="string">'inTransaction'</span>, (error, lockOk’) =&gt; &#123;</div><div class="line">  <span class="keyword">if</span> (!lockOk) &#123;</div><div class="line">    <span class="comment">// it was impossible to remove the lock!</span></div><div class="line">    <span class="keyword">return</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// the lock has been removed!</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <h3 id="Check-Lock"><a href="#Check-Lock" class="headerlink" title="Check Lock"></a>Check Lock</h3><p>There is also a method to obtain the lock status of a particular object, <code>api.cache.checkLock(key, retry, callback)</code>. The list below shows the description of the method parameters:</p>
 <ul>
 <li><strong><code>key</code></strong>: Object name for which you want check the lock.</li>
@@ -256,7 +269,7 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.checkLock(<span class="string">'inTransaction'</span>, (error, lockOk) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!lockOk) &#123;</span><br><span class="line">    <span class="comment">// the object does not contain a lock!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// the object is locked!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">api.cache.checkLock(<span class="string">'inTransaction'</span>, (error, lockOk) =&gt; &#123;</div><div class="line">  <span class="keyword">if</span> (!lockOk) &#123;</div><div class="line">    <span class="comment">// the object does not contain a lock!</span></div><div class="line">    <span class="keyword">return</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// the object is locked!</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <h3 id="List-of-Locks"><a href="#List-of-Locks" class="headerlink" title="List of Locks"></a>List of Locks</h3><p>The <code>api.cache.locks(callback)</code> method allows you get all active locks:</p>
 <ul>
 <li><strong><code>callback(error, locks)</code></strong>: Callback function:<ul>
@@ -265,7 +278,7 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.locks((error, locks) =&gt; &#123;</span><br><span class="line">  <span class="comment">// the variable `locks` is an array that contains </span></span><br><span class="line">  <span class="comment">// all active locks</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">api.cache.locks((error, locks) =&gt; &#123;</div><div class="line">  <span class="comment">// the variable `locks` is an array that contains </span></div><div class="line">  <span class="comment">// all active locks</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 
 
   
@@ -291,6 +304,7 @@
       </div>
 
       <script src="/js/smooth-scroll.min.js"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.js"></script>
       <script src="/js/common.js"></script>
     
 

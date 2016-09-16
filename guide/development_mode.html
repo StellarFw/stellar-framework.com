@@ -17,6 +17,9 @@
     <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Roboto Mono' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Dosis:300,500' rel='stylesheet' type='text/css'>
 
+    <!-- docsearch -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.css" />
+
     <!-- page type -->
     <script>
       window.PAGE_TYPE = 'guide'
@@ -50,7 +53,12 @@
         <span>Stellar</span>
     </a>
     <ul id="nav">
-        <li><a href="/guide/" class="nav-link current">Guide</a></li>
+        <li>
+  <form id="search-form">
+    <input type="text" id="search-query-nav" class="search-query st-default-search-input">
+  </form>
+</li>
+<li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
 <li class="nav-dropdown-container">
   <a class="nav-link">Community</a><span class="arrow"></span>
@@ -67,7 +75,12 @@
           
   <div class="sidebar">
   <ul class="main-menu">
-    <li><a href="/guide/" class="nav-link current">Guide</a></li>
+    <li>
+  <form id="search-form">
+    <input type="text" id="search-query-sidebar" class="search-query st-default-search-input">
+  </form>
+</li>
+<li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
 <li class="nav-dropdown-container">
   <a class="nav-link">Community</a><span class="arrow"></span>
@@ -166,7 +179,7 @@
   <h1>Development Mode</h1>
   <h2 id="What-is-Development-Mode"><a href="#What-is-Development-Mode" class="headerlink" title="What is Development Mode?"></a>What is Development Mode?</h2><p>Development mode, as the name implies, is a special way to facilitate the development of modules and applications in Stellar. When development mode is active, any change made to the files defining routes, tasks, actions, and models will cause the server to re-read the modified files automatically, eliminating the need to stop and restart the server for every change made. More substantial changes, such as changes to settings and <a href="satellites.html">Satellites</a>, will cause the server to restart completely, but this will also be done automatically in development mode.</p>
 <p>To enable development mode you just need create a file (if you do not have one) named <code>config/api.js</code> and set the <code>developmentMode</code> option to <code>true</code>:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="meta">'use strict'</span></span><br><span class="line"></span><br><span class="line">exports.default = &#123;</span><br><span class="line">  general: api =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      developmentMode: <span class="literal">true</span>,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="meta">'use strict'</span></div><div class="line"></div><div class="line">exports.default = &#123;</div><div class="line">  general: api =&gt; &#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">      developmentMode: <span class="literal">true</span>,</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <blockquote>
 <p>Warning: the <code>api.config.general.developmentMode</code> property is different from the <code>NODE_ENV</code> environment variable. The <code>NODE_ENV</code> value is considered as <code>development</code> by default, but this has no effect on <code>developmentMode</code>.</p>
 </blockquote>
@@ -203,6 +216,7 @@
       </div>
 
       <script src="/js/smooth-scroll.min.js"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.js"></script>
       <script src="/js/common.js"></script>
     
 

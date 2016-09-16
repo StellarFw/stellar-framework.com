@@ -17,6 +17,9 @@
     <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Roboto Mono' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Dosis:300,500' rel='stylesheet' type='text/css'>
 
+    <!-- docsearch -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.css" />
+
     <!-- page type -->
     <script>
       window.PAGE_TYPE = 'guide'
@@ -50,7 +53,12 @@
         <span>Stellar</span>
     </a>
     <ul id="nav">
-        <li><a href="/guide/" class="nav-link current">Guide</a></li>
+        <li>
+  <form id="search-form">
+    <input type="text" id="search-query-nav" class="search-query st-default-search-input">
+  </form>
+</li>
+<li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
 <li class="nav-dropdown-container">
   <a class="nav-link">Community</a><span class="arrow"></span>
@@ -67,7 +75,12 @@
           
   <div class="sidebar">
   <ul class="main-menu">
-    <li><a href="/guide/" class="nav-link current">Guide</a></li>
+    <li>
+  <form id="search-form">
+    <input type="text" id="search-query-sidebar" class="search-query st-default-search-input">
+  </form>
+</li>
+<li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
 <li class="nav-dropdown-container">
   <a class="nav-link">Community</a><span class="arrow"></span>
@@ -166,9 +179,9 @@
   <h1>Security</h1>
   <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Stellar comes equipped with a hashing system, which makes use of the <a href="https://www.npmjs.com/package/bcrypt" target="_blank" rel="external">bcrypt</a> library. This allows you to compute hashes and compare them with clear text data to validate them.</p>
 <h2 id="Compute-Hashes"><a href="#Compute-Hashes" class="headerlink" title="Compute Hashes"></a>Compute Hashes</h2><p>The <code>api.hash.hash</code> and <code>api.hash.hashSync</code> methods allow you to generate a hash from a string asynchronously and synchronously, respectively.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// generate a hash synchronously</span></span><br><span class="line"><span class="keyword">let</span> hash = api.hash.hashSync(plainData)</span><br><span class="line"></span><br><span class="line"><span class="comment">// generate a hash asynchronously</span></span><br><span class="line">api.hash.hash(plainData).then(hash =&gt; &#123;</span><br><span class="line">  <span class="comment">// do something, with the hash...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// generate a hash synchronously</span></div><div class="line"><span class="keyword">let</span> hash = api.hash.hashSync(plainData)</div><div class="line"></div><div class="line"><span class="comment">// generate a hash asynchronously</span></div><div class="line">api.hash.hash(plainData).then(hash =&gt; &#123;</div><div class="line">  <span class="comment">// do something, with the hash...</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <h2 id="Compare-Hashes"><a href="#Compare-Hashes" class="headerlink" title="Compare Hashes"></a>Compare Hashes</h2><p>The <code>api.hash.compare</code> and <code>api.hash.compareSync</code> methods allow you to compare a string with a hash to check whether they match.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// compare a hash synchronously</span></span><br><span class="line"><span class="keyword">let</span> result = api.hash.compare(plainData, hashToCompare)</span><br><span class="line"></span><br><span class="line"><span class="comment">// compare a hash asynchronously</span></span><br><span class="line">api.hash.compareSync(plainData, hashToCompare).then(isValid =&gt; &#123;</span><br><span class="line">  <span class="comment">// do something, with the result...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// compare a hash synchronously</span></div><div class="line"><span class="keyword">let</span> result = api.hash.compare(plainData, hashToCompare)</div><div class="line"></div><div class="line"><span class="comment">// compare a hash asynchronously</span></div><div class="line">api.hash.compareSync(plainData, hashToCompare).then(isValid =&gt; &#123;</div><div class="line">  <span class="comment">// do something, with the result...</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 
 
   
@@ -192,6 +205,7 @@
       </div>
 
       <script src="/js/smooth-scroll.min.js"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.js"></script>
       <script src="/js/common.js"></script>
     
 

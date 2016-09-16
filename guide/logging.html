@@ -17,6 +17,9 @@
     <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Roboto Mono' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Dosis:300,500' rel='stylesheet' type='text/css'>
 
+    <!-- docsearch -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.css" />
+
     <!-- page type -->
     <script>
       window.PAGE_TYPE = 'guide'
@@ -50,7 +53,12 @@
         <span>Stellar</span>
     </a>
     <ul id="nav">
-        <li><a href="/guide/" class="nav-link current">Guide</a></li>
+        <li>
+  <form id="search-form">
+    <input type="text" id="search-query-nav" class="search-query st-default-search-input">
+  </form>
+</li>
+<li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
 <li class="nav-dropdown-container">
   <a class="nav-link">Community</a><span class="arrow"></span>
@@ -67,7 +75,12 @@
           
   <div class="sidebar">
   <ul class="main-menu">
-    <li><a href="/guide/" class="nav-link current">Guide</a></li>
+    <li>
+  <form id="search-form">
+    <input type="text" id="search-query-sidebar" class="search-query st-default-search-input">
+  </form>
+</li>
+<li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
 <li class="nav-dropdown-container">
   <a class="nav-link">Community</a><span class="arrow"></span>
@@ -166,7 +179,7 @@
   <h1>Logging</h1>
   <p>Stellar makes use of the fantastic <a href="https://www.npmjs.com/package/winston" target="_blank" rel="external">Winston</a> package for log management. With Winston it is possible to customize log output according to the needs of your project.</p>
 <h2 id="Providers"><a href="#Providers" class="headerlink" title="Providers"></a>Providers</h2><p>In your <code>config/logger.js</code> file you can customize which <code>transports</code> you would like logger to use. If none are provided, a default logger which only will print to stdout will be used. See Winston’s documentation for a list of all logger types; these include console, file, S3, Riak, and more.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="meta">'use strict'</span></span><br><span class="line"></span><br><span class="line">exports.logger = &#123;</span><br><span class="line">  transports: [</span><br><span class="line">    api =&gt; &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> (winston.transports.Console)(&#123;</span><br><span class="line">        colorize: <span class="literal">true</span>,</span><br><span class="line">        level: <span class="string">'debug'</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    api =&gt; &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> (winston.transports.File)(&#123;</span><br><span class="line">        filename: <span class="string">`./log/<span class="subst">$&#123;api.pids.title&#125;</span>.log`</span>,</span><br><span class="line">        level: <span class="string">'info'</span>,</span><br><span class="line">        timestamp: <span class="literal">true</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="meta">'use strict'</span></div><div class="line"></div><div class="line">exports.logger = &#123;</div><div class="line">  transports: [</div><div class="line">    api =&gt; &#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">new</span> (winston.transports.Console)(&#123;</div><div class="line">        colorize: <span class="literal">true</span>,</div><div class="line">        level: <span class="string">'debug'</span>,</div><div class="line">      &#125;)</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    api =&gt; &#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">new</span> (winston.transports.File)(&#123;</div><div class="line">        filename: <span class="string">`./log/<span class="subst">$&#123;api.pids.title&#125;</span>.log`</span>,</div><div class="line">        level: <span class="string">'info'</span>,</div><div class="line">        timestamp: <span class="literal">true</span>,</div><div class="line">      &#125;)</div><div class="line">    &#125;</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="Levels"><a href="#Levels" class="headerlink" title="Levels"></a>Levels</h2><p>There are 8 levels of logging; each transport can have a different level. The levels are:</p>
 <ul>
 <li>0 = debug</li>
@@ -182,9 +195,9 @@
 <p>Note: you can customize the levels and colors in the <code>config/logger.js</code> file.</p>
 </blockquote>
 <p>For example, if the log level is set to notice, critical messages are visible, but informational and debug messages are not.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// will use the default 'info' level</span></span><br><span class="line">api.log(<span class="string">'hello!'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// will not show up unless you have configured your logger to be debug</span></span><br><span class="line">api.log(<span class="string">'debug message'</span>, <span class="string">'debug'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// will show up in all logger levels</span></span><br><span class="line">api.log(<span class="string">'Bad things happened :('</span>, <span class="string">'emerg'</span>) </span><br><span class="line"></span><br><span class="line"><span class="comment">// you can log objects too</span></span><br><span class="line">api.log(<span class="string">'the params were'</span>, <span class="string">'info'</span>, action.params)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// will use the default 'info' level</span></div><div class="line">api.log(<span class="string">'hello!'</span>)</div><div class="line"></div><div class="line"><span class="comment">// will not show up unless you have configured your logger to be debug</span></div><div class="line">api.log(<span class="string">'debug message'</span>, <span class="string">'debug'</span>)</div><div class="line"></div><div class="line"><span class="comment">// will show up in all logger levels</span></div><div class="line">api.log(<span class="string">'Bad things happened :('</span>, <span class="string">'emerg'</span>) </div><div class="line"></div><div class="line"><span class="comment">// you can log objects too</span></div><div class="line">api.log(<span class="string">'the params were'</span>, <span class="string">'info'</span>, action.params)</div></pre></td></tr></table></figure>
 <h2 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h2><p>The <code>api.logger.log</code> and <code>api.logger[severity]</code> methods are accessible via the <code>api</code> object and allow you to modify the Winston instance directly. The <code>api.log</code> method passes the message to all transports. Below are some examples of using the <code>api.log(message, severity, metadata)</code> method:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// the most basic use - will assume 'info' as the severity</span></span><br><span class="line">api.log(<span class="string">'hello'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// custom severity</span></span><br><span class="line">api.log(<span class="string">'Hmm...'</span>, <span class="string">'warning'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// custom severity with a metadata object</span></span><br><span class="line">api.log(<span class="string">'Red Alert xD'</span>, <span class="string">'emerg'</span>, &#123; error: <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Some additional information!'</span>) &#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// the most basic use - will assume 'info' as the severity</span></div><div class="line">api.log(<span class="string">'hello'</span>)</div><div class="line"></div><div class="line"><span class="comment">// custom severity</span></div><div class="line">api.log(<span class="string">'Hmm...'</span>, <span class="string">'warning'</span>)</div><div class="line"></div><div class="line"><span class="comment">// custom severity with a metadata object</span></div><div class="line">api.log(<span class="string">'Red Alert xD'</span>, <span class="string">'emerg'</span>, &#123; error: <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Some additional information!'</span>) &#125;)</div></pre></td></tr></table></figure>
 
 
   
@@ -210,6 +223,7 @@
       </div>
 
       <script src="/js/smooth-scroll.min.js"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.js"></script>
       <script src="/js/common.js"></script>
     
 

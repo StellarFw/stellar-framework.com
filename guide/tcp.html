@@ -17,6 +17,9 @@
     <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Roboto Mono' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Dosis:300,500' rel='stylesheet' type='text/css'>
 
+    <!-- docsearch -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.css" />
+
     <!-- page type -->
     <script>
       window.PAGE_TYPE = 'guide'
@@ -50,7 +53,12 @@
         <span>Stellar</span>
     </a>
     <ul id="nav">
-        <li><a href="/guide/" class="nav-link current">Guide</a></li>
+        <li>
+  <form id="search-form">
+    <input type="text" id="search-query-nav" class="search-query st-default-search-input">
+  </form>
+</li>
+<li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
 <li class="nav-dropdown-container">
   <a class="nav-link">Community</a><span class="arrow"></span>
@@ -67,7 +75,12 @@
           
   <div class="sidebar">
   <ul class="main-menu">
-    <li><a href="/guide/" class="nav-link current">Guide</a></li>
+    <li>
+  <form id="search-form">
+    <input type="text" id="search-query-sidebar" class="search-query st-default-search-input">
+  </form>
+</li>
+<li><a href="/guide/" class="nav-link current">Guide</a></li>
 <li><a href="/blog/" class="nav-link">Blog</a></li>
 <li class="nav-dropdown-container">
   <a class="nav-link">Community</a><span class="arrow"></span>
@@ -193,11 +206,11 @@
 <p><img src="/images/telnet_tcp.png" alt="Telnet TCP"></p>
 <p>One of the main advantages of using a TCP connection is the possibility to call several actions simultaneously. Stellar keeps a count of the calls, so you can keep track of the different calls in progress.</p>
 <h2 id="TLS"><a href="#TLS" class="headerlink" title="TLS"></a>TLS</h2><p>The TCP server supports encrypted connections via TLS, if desired. For this you need to configure some settings on the server:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="meta">'use strict'</span></span><br><span class="line"></span><br><span class="line">exports.default = &#123;</span><br><span class="line">  servers: &#123;</span><br><span class="line">    socket: api =&gt; &#123;</span><br><span class="line">      secure: <span class="literal">true</span>,</span><br><span class="line">      key: fs.readFileSync(<span class="string">'certs/server-key.pem'</span>),</span><br><span class="line">      cert: fs.readFileSync(<span class="string">'certs/server-cert.pem'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="meta">'use strict'</span></div><div class="line"></div><div class="line">exports.default = &#123;</div><div class="line">  servers: &#123;</div><div class="line">    socket: api =&gt; &#123;</div><div class="line">      secure: <span class="literal">true</span>,</div><div class="line">      key: fs.readFileSync(<span class="string">'certs/server-key.pem'</span>),</div><div class="line">      cert: fs.readFileSync(<span class="string">'certs/server-cert.pem'</span>)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>The secure connection can be tested using the following command:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ openssl s_client -connect 127.0.0.1:5000</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ openssl s_client -connect 127.0.0.1:5000</div></pre></td></tr></table></figure>
 <p>Or, you can use another node process:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"><span class="keyword">let</span> tls = <span class="built_in">require</span>(<span class="string">'tls'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> options = &#123;</span><br><span class="line">  key: fs.readFileSync(<span class="string">'certs/server-key.pem'</span>),</span><br><span class="line">  cert: fs.readFileSync(<span class="string">'certs/server-cert.pem'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> socket = tls.connect(<span class="number">5000</span>, options, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'client'</span>, socket.authorized ? <span class="string">'authorized'</span> : <span class="string">'not authorized'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">socket.setEnconding(<span class="string">'utf8'</span>)</span><br><span class="line">socket.on(<span class="string">'data'</span>, data =&gt; <span class="built_in">console</span>.log(data))</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">let</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</div><div class="line"><span class="keyword">let</span> tls = <span class="built_in">require</span>(<span class="string">'tls'</span>)</div><div class="line"></div><div class="line"><span class="keyword">let</span> options = &#123;</div><div class="line">  key: fs.readFileSync(<span class="string">'certs/server-key.pem'</span>),</div><div class="line">  cert: fs.readFileSync(<span class="string">'certs/server-cert.pem'</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> socket = tls.connect(<span class="number">5000</span>, options, () =&gt; &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'client'</span>, socket.authorized ? <span class="string">'authorized'</span> : <span class="string">'not authorized'</span>)</div><div class="line">&#125;)</div><div class="line"></div><div class="line">socket.setEnconding(<span class="string">'utf8'</span>)</div><div class="line">socket.on(<span class="string">'data'</span>, data =&gt; <span class="built_in">console</span>.log(data))</div></pre></td></tr></table></figure>
 <h2 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h2><p>The default way to execute actions on Stellar via a TCP connection is using the verbs available for persistent connections. However, it is also possible to use JSON to choose the action to execute and pass a list of parameters. For example, <code>{&quot;action&quot;: &quot;actionName&quot;, &quot;params&quot;: {&quot;key&quot;: &quot;some_value&quot;}}</code>.</p>
 
 
@@ -224,6 +237,7 @@
       </div>
 
       <script src="/js/smooth-scroll.min.js"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.js"></script>
       <script src="/js/common.js"></script>
     
 
