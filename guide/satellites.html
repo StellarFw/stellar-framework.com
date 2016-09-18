@@ -117,6 +117,10 @@
         </li>
       
         <li>
+          <a href="/guide/models.html" class="sidebar-link">Models</a>
+        </li>
+      
+        <li>
           <a href="/guide/tasks.html" class="sidebar-link">Tasks</a>
         </li>
       
@@ -149,11 +153,11 @@
         </li>
       
         <li>
-          <a href="/guide/logging.html" class="sidebar-link">Logging</a>
+          <a href="/guide/events.html" class="sidebar-link">Events</a>
         </li>
       
         <li>
-          <a href="/guide/events.html" class="sidebar-link">Events</a>
+          <a href="/guide/logging.html" class="sidebar-link">Logging</a>
         </li>
       
         <li>
@@ -196,7 +200,7 @@
 <li><strong><code>start(api, next)</code></strong>: Operation to be performed when staring the Satellite;</li>
 <li><strong><code>stop(api, next)</code></strong>: Operation to be performed when stopping the Satellite.</li>
 </ul>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="meta">'use strict'</span></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Satellite class.</div><div class="line"> *</div><div class="line"> * It is recommended to use this class only to specify the functions </div><div class="line"> * of the satellite, any other logic should be contained in a separate class.</div><div class="line"> */</div><div class="line">exports.default = <span class="class"><span class="keyword">class</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Constructor.</div><div class="line">     *</div><div class="line">     * The developer must define the Satellite priority for the </div><div class="line">     * different stages.</div><div class="line">     */</div><div class="line">    <span class="keyword">constructor</span> () &#123;</div><div class="line">      <span class="comment">// define the priority for the loading stage</span></div><div class="line">      <span class="keyword">this</span>.loadPriority = <span class="number">10</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Loading function.</div><div class="line">     *</div><div class="line">     * @param  &#123;&#123;&#125;&#125;       api  Reference for the API object.</div><div class="line">     * @param  &#123;Function&#125; next Callback function.</div><div class="line">     */</div><div class="line">    load (api, next) &#123;</div><div class="line">      <span class="comment">// log a message</span></div><div class="line">      api.log(<span class="string">'This is awesome!'</span>, <span class="string">'info'</span>)</div><div class="line"></div><div class="line">      <span class="comment">// finalize the Satellite loading</span></div><div class="line">      next()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="meta">'use strict'</span></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Satellite class.</div><div class="line"> *</div><div class="line"> * It is recommended to use this class only to specify the functions</div><div class="line"> * of the satellite, any other logic should be contained in a separate class.</div><div class="line"> */</div><div class="line">exports.default = <span class="class"><span class="keyword">class</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Constructor.</div><div class="line">     *</div><div class="line">     * The developer must define the Satellite priority for the</div><div class="line">     * different stages.</div><div class="line">     */</div><div class="line">    <span class="keyword">constructor</span> () &#123;</div><div class="line">      <span class="comment">// define the priority for the loading stage</span></div><div class="line">      <span class="keyword">this</span>.loadPriority = <span class="number">10</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Loading function.</div><div class="line">     *</div><div class="line">     * @param  &#123;&#123;&#125;&#125;       api  Reference for the API object.</div><div class="line">     * @param  &#123;Function&#125; next Callback function.</div><div class="line">     */</div><div class="line">    load (api, next) &#123;</div><div class="line">      <span class="comment">// log a message</span></div><div class="line">      api.log(<span class="string">'This is awesome!'</span>, <span class="string">'info'</span>)</div><div class="line"></div><div class="line">      <span class="comment">// finalize the Satellite loading</span></div><div class="line">      next()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
 
   

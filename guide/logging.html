@@ -117,6 +117,10 @@
         </li>
       
         <li>
+          <a href="/guide/models.html" class="sidebar-link">Models</a>
+        </li>
+      
+        <li>
           <a href="/guide/tasks.html" class="sidebar-link">Tasks</a>
         </li>
       
@@ -149,11 +153,11 @@
         </li>
       
         <li>
-          <a href="/guide/logging.html" class="sidebar-link current">Logging</a>
+          <a href="/guide/events.html" class="sidebar-link">Events</a>
         </li>
       
         <li>
-          <a href="/guide/events.html" class="sidebar-link">Events</a>
+          <a href="/guide/logging.html" class="sidebar-link current">Logging</a>
         </li>
       
         <li>
@@ -198,7 +202,7 @@
 <p>Note: you can customize the levels and colors in the <code>config/logger.js</code> file.</p>
 </blockquote>
 <p>For example, if the log level is set to notice, critical messages are visible, but informational and debug messages are not.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// will use the default 'info' level</span></div><div class="line">api.log(<span class="string">'hello!'</span>)</div><div class="line"></div><div class="line"><span class="comment">// will not show up unless you have configured your logger to be debug</span></div><div class="line">api.log(<span class="string">'debug message'</span>, <span class="string">'debug'</span>)</div><div class="line"></div><div class="line"><span class="comment">// will show up in all logger levels</span></div><div class="line">api.log(<span class="string">'Bad things happened :('</span>, <span class="string">'emerg'</span>) </div><div class="line"></div><div class="line"><span class="comment">// you can log objects too</span></div><div class="line">api.log(<span class="string">'the params were'</span>, <span class="string">'info'</span>, action.params)</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// will use the default 'info' level</span></div><div class="line">api.log(<span class="string">'hello!'</span>)</div><div class="line"></div><div class="line"><span class="comment">// will not show up unless you have configured your logger to be debug</span></div><div class="line">api.log(<span class="string">'debug message'</span>, <span class="string">'debug'</span>)</div><div class="line"></div><div class="line"><span class="comment">// will show up in all logger levels</span></div><div class="line">api.log(<span class="string">'Bad things happened :('</span>, <span class="string">'emerg'</span>)</div><div class="line"></div><div class="line"><span class="comment">// you can log objects too</span></div><div class="line">api.log(<span class="string">'the params were'</span>, <span class="string">'info'</span>, action.params)</div></pre></td></tr></table></figure>
 <h2 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h2><p>The <code>api.logger.log</code> and <code>api.logger[severity]</code> methods are accessible via the <code>api</code> object and allow you to modify the Winston instance directly. The <code>api.log</code> method passes the message to all transports. Below are some examples of using the <code>api.log(message, severity, metadata)</code> method:</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// the most basic use - will assume 'info' as the severity</span></div><div class="line">api.log(<span class="string">'hello'</span>)</div><div class="line"></div><div class="line"><span class="comment">// custom severity</span></div><div class="line">api.log(<span class="string">'Hmm...'</span>, <span class="string">'warning'</span>)</div><div class="line"></div><div class="line"><span class="comment">// custom severity with a metadata object</span></div><div class="line">api.log(<span class="string">'Red Alert xD'</span>, <span class="string">'emerg'</span>, &#123; error: <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Some additional information!'</span>) &#125;)</div></pre></td></tr></table></figure>
 
@@ -206,10 +210,8 @@
   
       <div class="guide-links">
         
-          <span>← <a href="/guide/file_system.html">File System</a></span>
         
-        
-          <span style="float:right"><a href="/guide/events.html">Events</a> →</span>
+          <span style="float:right"><a href="/guide/websocket.html">WebSocket</a> →</span>
         
       </div>
     
