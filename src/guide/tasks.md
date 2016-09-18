@@ -1,7 +1,7 @@
 ---
 title: Tasks
 type: guide
-order: 4
+order: 5
 ---
 
 ## Overview
@@ -98,7 +98,7 @@ Remove all tasks which match the given parameters - `api.tasks.del(queue, taskNa
 ### Remove a Task with Delay
 
 Remove all tasks with delay which match the given parameters - `api.tasks.delDelayed(queue, taskName, args, callback)`:
-  
+
 - **`queue`**: Name of the queue from which the task(s) must be removed.
 - **`taskName`**: Task name to be removed.
 - **`args`**: Search arguments (more information about this can be found in the `node-resque` documentation).

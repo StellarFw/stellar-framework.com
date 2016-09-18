@@ -1,7 +1,7 @@
 ---
 title: Cache
 type: guide
-order: 8
+order: 9
 ---
 
 ## Introduction
@@ -197,7 +197,7 @@ The `api.cache.locks(callback)` method allows you get all active locks:
 
 ```javascript
 api.cache.locks((error, locks) => {
-  // the variable `locks` is an array that contains 
+  // the variable `locks` is an array that contains
   // all active locks
 })
 ```

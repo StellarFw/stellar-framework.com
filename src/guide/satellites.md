@@ -1,7 +1,7 @@
 ---
 title: Satellites
 type: guide
-order: 6
+order: 7
 ---
 
 ## Overview
@@ -41,7 +41,7 @@ A Satellite should be a class written following the [ES6](http://www.ecma-intern
 /**
  * Satellite class.
  *
- * It is recommended to use this class only to specify the functions 
+ * It is recommended to use this class only to specify the functions
  * of the satellite, any other logic should be contained in a separate class.
  */
 exports.default = class {
@@ -49,7 +49,7 @@ exports.default = class {
     /**
      * Constructor.
      *
-     * The developer must define the Satellite priority for the 
+     * The developer must define the Satellite priority for the
      * different stages.
      */
     constructor () {

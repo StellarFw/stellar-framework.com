@@ -1,7 +1,7 @@
 ---
 title: Logging
 type: guide
-order: 12
+order: 14
 ---
 
 Stellar makes use of the fantastic [Winston](https://www.npmjs.com/package/winston) package for log management. With Winston it is possible to customize log output according to the needs of your project.
@@ -58,7 +58,7 @@ api.log('hello!')
 api.log('debug message', 'debug')
 
 // will show up in all logger levels
-api.log('Bad things happened :(', 'emerg') 
+api.log('Bad things happened :(', 'emerg')
 
 // you can log objects too
 api.log('the params were', 'info', action.params)

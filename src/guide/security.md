@@ -1,7 +1,7 @@
 ---
 title: Security
 type: guide
-order: 17
+order: 18
 ---
 
 # Introduction
@@ -33,5 +33,5 @@ let result = api.hash.compare(plainData, hashToCompare)
 // compare a hash asynchronously
 api.hash.compareSync(plainData, hashToCompare).then(isValid => {
   // do something, with the result...
-}) 
+})
 ```

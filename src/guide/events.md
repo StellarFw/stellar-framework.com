@@ -1,7 +1,7 @@
 ---
 title: Events
 type: guide
-order: 13
+order: 14
 ---
 
 ## Overview
@@ -30,7 +30,7 @@ exports.default = [{
   run: (api, params, next) {
     // enqueue a task to send a notification email for the new comment
     api.tasks.enqueue('sendNewCommentEmail', params)
-    
+
     // create a new property called `emailSent` and set it to `true`
     params.emailSent = true
 
