@@ -57,7 +57,8 @@ To register a listener manually the developer can use the following API:
 
 ```javascript
 api.events.listener('blog.newUser', (api, params, next) => {
-  // do something...
+  // pass a property to the response
+  params.someKey = 'someValue'
 
   // finish the listener execution
   next()
