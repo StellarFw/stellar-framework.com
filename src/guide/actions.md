@@ -81,6 +81,8 @@ The list below shows all available properties to use on the input fields:
 - **`default`**: Default value if the parameter is not present in the set of inputs provided by the client.
 - **`validator`**: Validates the parameter using one or more constraints.
 
+> Note: you can learn more about [Validators here](validation.html).
+
 ## Parameter Conversions
 
 To remove the need for developers to manually convert input parameters to their required type, Stellar provides a way to convert them automatically before performing the action. The `convertTo` property can be a string with the values (`string`, `integer` or `float`) or a function (`(api, value)`).
