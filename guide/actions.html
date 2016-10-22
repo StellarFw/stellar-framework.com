@@ -176,6 +176,10 @@
           <a href="/guide/security.html" class="sidebar-link">Security</a>
         </li>
       
+        <li>
+          <a href="/guide/validation.html" class="sidebar-link">Validation</a>
+        </li>
+      
     </ul>
   </div>
 </div>
@@ -222,6 +226,9 @@
 <li><strong><code>default</code></strong>: Default value if the parameter is not present in the set of inputs provided by the client.</li>
 <li><strong><code>validator</code></strong>: Validates the parameter using one or more constraints.</li>
 </ul>
+<blockquote>
+<p>Note: you can learn more about <a href="validation.html">Validators here</a>.</p>
+</blockquote>
 <h2 id="Parameter-Conversions"><a href="#Parameter-Conversions" class="headerlink" title="Parameter Conversions"></a>Parameter Conversions</h2><p>To remove the need for developers to manually convert input parameters to their required type, Stellar provides a way to convert them automatically before performing the action. The <code>convertTo</code> property can be a string with the values (<code>string</code>, <code>integer</code> or <code>float</code>) or a function (<code>(api, value)</code>).</p>
 <h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>The example below shows the conversion of a parameter to the integer type:</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">exports.giveAge = &#123;</div><div class="line">  name: <span class="string">'giveAge'</span>,</div><div class="line">  description: <span class="string">'Give the name and age based on the year of birth'</span>,</div><div class="line"></div><div class="line">  inputs: &#123;</div><div class="line">    name: &#123;</div><div class="line">      required: <span class="literal">true</span></div><div class="line">    &#125;,</div><div class="line">    birthYear: &#123;</div><div class="line">      required: <span class="literal">true</span>,</div><div class="line">      convertTo: ‘integer’</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  run: (api, action, next) =&gt; &#123;</div><div class="line">    <span class="comment">// calculate the person's age (action.params.birthYear is already a number)</span></div><div class="line">    <span class="keyword">let</span> age = <span class="keyword">new</span> <span class="built_in">Date</span>().getFullYear() - action.params.birthYear</div><div class="line"></div><div class="line">    <span class="comment">// return a phrase with the name and age</span></div><div class="line">    action.response.result = <span class="string">`<span class="subst">$&#123;action.params.name&#125;</span> is aged <span class="subst">$&#123;age&#125;</span> years`</span></div><div class="line"></div><div class="line">    <span class="comment">// finish the action execution</span></div><div class="line">    next()</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>

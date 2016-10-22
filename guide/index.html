@@ -176,6 +176,10 @@
           <a href="/guide/security.html" class="sidebar-link">Security</a>
         </li>
       
+        <li>
+          <a href="/guide/validation.html" class="sidebar-link">Validation</a>
+        </li>
+      
     </ul>
   </div>
 </div>
@@ -193,7 +197,7 @@
 <li>TCP</li>
 </ul>
 <h2 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h2><p>The Stellar core is composed of the <em>Engine</em>, a set of <em>Satellites</em>, and three different types of servers. The <em>Engine</em> is responsible for loading modules and providing mechanisms that allow <em>Satellites</em> to expose their APIs to the rest of the platform so that their functionality can be used by other components.  The modular design allows features of a given area to be more easily ported to other projects or shared with the Open Source community.</p>
-<p><img src="/images/core_arch.png" alt="Core Architecture"></p>
+<p><img src="/images/core_architecture.png" alt="Core Architecture"></p>
 <h2 id="How-to-Contribute"><a href="#How-to-Contribute" class="headerlink" title="How to Contribute"></a>How to Contribute</h2><p>Both the <a href="https://github.com/StellarFw/stellar-framework.com" target="_blank" rel="external">documentation</a> of this website and the <a href="https://github.com/StellarFw/stellar" target="_blank" rel="external">Stellar</a> source code are available on GitHub. You can submit pull requests for the <code>dev</code> branch, but first, please read the <a href="https://github.com/StellarFw/stellar/blob/dev/CONTRIBUTING.md" target="_blank" rel="external">contribution guide</a> carefully. All help is welcome! 😉</p>
 <p>You can also help using the <a href="https://github.com/StellarFw/stellar/issues" target="_blank" rel="external">issue tracker</a> to report bugs, make suggestions, or submit feature requests.</p>
 <h2 id="Structure-of-an-Application"><a href="#Structure-of-an-Application" class="headerlink" title="Structure of an Application"></a>Structure of an Application</h2><p>The typical directory structure of a Stellar project is shown below. This example is a simple API that implements the functionality of a blog.</p>
@@ -228,6 +232,9 @@
 </ul>
 <h3 id="manifest-json"><a href="#manifest-json" class="headerlink" title="manifest.json"></a>manifest.json</h3><p>The <strong>manifest.json</strong> file defines the project’s name, version, description, and active modules. Below is an example of the format of this file:</p>
 <figure class="highlight json"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"name"</span>: <span class="string">"blog"</span>,</div><div class="line">  <span class="attr">"version"</span>: <span class="string">"1.0.0"</span>,</div><div class="line">  <span class="attr">"description"</span>: <span class="string">"A simple blog system that supports authentication"</span>,</div><div class="line">  <span class="attr">"modules"</span>: [</div><div class="line">    <span class="string">"authentication"</span></div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Start-a-Server-Instance"><a href="#Start-a-Server-Instance" class="headerlink" title="Start a Server Instance"></a>Start a Server Instance</h2><p>One of the easy parts of using Stellar is that you don’t need any special configuration to start developing your app. To running an instance of your API you just need to execute a command on the root of your project:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">stellar run</div></pre></td></tr></table></figure>
+<p>Yap! It’s all you need to start build amazing APIs. 😉</p>
 
 
   
