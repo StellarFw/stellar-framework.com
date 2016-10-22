@@ -104,3 +104,13 @@ The **manifest.json** file defines the project's name, version, description, and
   ]
 }
 ```
+
+## Start a Server Instance
+
+One of the easy parts of using Stellar is that you don't need any special configuration to start developing your app. To running an instance of your API you just need to execute a command on the root of your project:
+
+```shell
+stellar run
+```
+
+Yap! It's all you need to start build amazing APIs. 😉
