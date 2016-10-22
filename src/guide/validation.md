@@ -208,3 +208,16 @@ exports.example = {
 ```
 
 The function must return an `Boolean` or a `String`, where `String` or `false` means that the validation failed. If a `String` is returned this will be used as the error message.
+
+## Automatic Error Response
+
+Stellar can generate automatic error responses when at least one input field don't match with the validation rules defined in the action. The error message is always a hash here the key is the field name and the value is the effective error for that field. The follow snippet shows an error response:
+
+```json
+{
+  "error": {
+    "email": "The email must be a valid email address.",
+    "password": "The password field is required."
+  }
+}
+```
