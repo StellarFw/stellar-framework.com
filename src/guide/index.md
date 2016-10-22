@@ -23,7 +23,7 @@ A Stellar execution instance is able to both respond to client requests and proc
 
 The Stellar core is composed of the _Engine_, a set of _Satellites_, and three different types of servers. The _Engine_ is responsible for loading modules and providing mechanisms that allow _Satellites_ to expose their APIs to the rest of the platform so that their functionality can be used by other components.  The modular design allows features of a given area to be more easily ported to other projects or shared with the Open Source community.
 
-![Core Architecture](/images/core_arch.png)
+![Core Architecture](/images/core_architecture.png)
 
 ## How to Contribute
 
@@ -73,9 +73,9 @@ The typical directory structure of a Stellar project is shown below. This exampl
 - **`modules`**: Contains all the modules that compose the application, which may or may not be used, according to the `modules` property of the `manifest.json` file.
 
   - **`actions`**: Contains files which implement the actions of a module. A file can implement a single action or a collection of actions.
-  
+
   - **`config`**: Contains the module settings. These can include settings which are specific to this module, as well as core settings or even settings for other modules.  Configuration files are loaded in order according to module priority; higher-priority modules can override settings specified by modules of lower priority.
-  
+
   - **`listeners`**: Contains listeners of events that can occur during execution.
 
   - **`manifest.json`**: This file contains the module manifest, consisting of the following properties: `id`, `name`, `version`, `description`, and `npmDependencies`.
@@ -104,3 +104,13 @@ The **manifest.json** file defines the project's name, version, description, and
   ]
 }
 ```
+
+## Start a Server Instance
+
+One of the easy parts of using Stellar is that you don't need any special configuration to start developing your app. To running an instance of your API you just need to execute a command on the root of your project:
+
+```shell
+stellar run
+```
+
+Yap! It's all you need to start build amazing APIs. 😉

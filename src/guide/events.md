@@ -42,12 +42,13 @@ exports.default = [{
 
 ## Trigger Events
 
-The code below shows how an event can be triggered. In this case the developer wants to fire the `social.newComment` event and give listeners a variable with the new comment data:
+The code below shows how an event can be triggered, the event system uses promises to get away from the callback-hell. In this case the developer wants to fire the `social.newComment` event and give listeners a variable with the new comment data:
 
 ```javascript
-api.events.fire('social.newComment', newComment, response => {
-  // do something with the modified data...
-})
+api.events.fire('social.newComment', newComment)
+  .then(response => {
+    // do something with the modified data...
+  })
 ```
 
 ## Register a Listener Manually
@@ -56,7 +57,8 @@ To register a listener manually the developer can use the following API:
 
 ```javascript
 api.events.listener('blog.newUser', (api, params, next) => {
-  // do something...
+  // pass a property to the response
+  params.someKey = 'someValue'
 
   // finish the listener execution
   next()
