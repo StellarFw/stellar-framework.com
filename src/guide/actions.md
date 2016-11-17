@@ -188,3 +188,19 @@ exports.getAllAccounts = {
   }
 }
 ```
+
+## Using Promises
+
+You can use Promises to finish actions instead using callbacks. This allows you to write even more clean code, but you can continue using the old callback way. The Promises only are useful in some specific use cases, like after read data from a model. The follow example shows one of that cases:
+
+```javascript
+exports.getAllPosts = {
+  name: 'getAllPosts',
+
+  run (api, action) {
+    return api.models.get('post')
+      .find({})
+      .then(posts => { action.response.posts = posts })
+  }
+}
+```
