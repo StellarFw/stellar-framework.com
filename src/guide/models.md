@@ -55,6 +55,8 @@ If you would like to generate a CRUD action when you generate the model, you may
 stellar makeModel User ---module=authentication --crud
 ```
 
+> NOTE: the generated code uses the function syntax. You can see more about that on the next subsection.
+
 All the models are loaded into memory when a new Stellar instance is started, so you have a global place where all the models living (`api.models`). Ahead will be able to see how to get a model an use it on your code.
 
 ## Model Conventions
