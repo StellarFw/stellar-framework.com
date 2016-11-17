@@ -188,3 +188,31 @@ To delete a model, call the delete method on a model instance:
 ```javascript
 QuestionModel.findByIdAndRemove('507f1f77bcf86cd799439011')
 ```
+
+## Extend Models
+
+For now, there is no way to replace or modify already created models. So, in order to manipulate (add, modify or remove) fields, Stellar provides custom events at the model insertion moment. The event name is `core.models.add.{name}`, the `name` is dynamic and is replaced with the model name. Using this naming convention we don't need to call all the listeners who modify models, instead of that we just call the right listeners for that specific model.
+
+The `core.models.add.{name}` event receives an instance of the Mongoose Schema (`schema`), who represents the model schema, and the Mongoose instance (`mongoose`) to access, for example, to the Mongoose custom data types. To manipulate the model you must use the [Mongoose Schema methods](http://mongoosejs.com/docs/api.html#schema_Schema-add).
+
+The follow example shows how to extend a model. In this case we are adding two new fields to the `user` model:
+
+```javascript
+exports.editUserModel = {
+  event: 'core.models.add.user',
+  description: 'This adds the address and the phone fields to the user model',
+
+  run (api, params, next) {
+    // add the new two fields
+    params.schema.add({
+      address: { type: String, default: null },
+      phone: { type: String, default: null }
+    })
+
+    // finish the event execution
+    next()
+  }
+}
+```
+
+> Note that the `user` model is owned by another module (for example, the [Authentication module](https://github.com/stellarFw/Identify)).
