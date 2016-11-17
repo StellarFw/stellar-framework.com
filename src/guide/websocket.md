@@ -12,80 +12,85 @@ When Stellar starts, a script is generated with some useful functions to make th
 
 ## Methods
 
-The following methods are provided to the client to interact with the server:
+The generated client script contains a set of methods to start a real-time communication with the server, make calls to actions, send messages to chat rooms, and lots of others useful features. All those methods uses [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) that means you can get rid of the callback hell.
+
+> Note: in older browsers you will need load a [polyfill](https://github.com/taylorhakes/promise-polyfill) in order to this work properly.
+
+The following methods are provided to the client interact with the server:
 
 ### Open Connection
 
-The `client.connect(callback)` method allows a client to open a connection with the server:
+The `client.connect()` method allows a client to open a connection with the server.
 
-- **`callback(error, detailsView)`**: Callback function:
-  - **`error`**: Object with the error that occurred during the call, if any.
-  - **`detailsView`**: The same as for the `detailsView` method (see below).
+- Return a Promise:
+  - **`reject`**: Object with the error that occurred during the call, if any.
+  - **`resolve`**: The same as for the `detailsView` method (see below).
 
 ### Call an Action
 
-The `client.action(action, params, callback)` method allows a client to invoke an action:
+The `client.action(action, params = {})` method allows a client to invoke an action:
 
 - **`action`**: Action name to be called, e.g., "auth.signin".
 - **`params`**: Object with the action parameters.
-- **`callback(response)`**: Callback function:
-  - **`response`**: Server response.
+- Returns a Promise:
+  - **`reject`**: Server response, when an error was occurred.
+  - **`resolve`**: Server response.
 
 > Note: When an open WebSocket connection does not exist, the client will fall back to HTTP.
 
 ### Send Messages
 
-The `client.say(room, message, callback)` method allows a client to send message to a chat room:
+The `client.say(room, message)` method allows a client to send message to a chat room:
 
 - **`room`**: Room where the message will be sent.
 - **`message`**: Message to be sent.
-- **`callback(error)`**: Callback function:
-  - **`error`**: Contains the error information, if an error occurred.
+- Returns a Promise:
+  - **`reject`**: Contains the error information, if an error occurred.
 
 > Note: you need use the `roomAdd` method before you can interact with a chat room.
 
 ### Details
 
-The `client.detailsView(callback)` method allows you to get details about the client connection.
+The `client.detailsView()` method allows you to get details about the client connection.
 
-- **`callback(error, response)`**: Callback function:
-  - **`error`**: May contain an instance of `Error`.
-  - **`response`**: Contains an object with the connection details.
+- Returns a Promise:
+  - **`reject`**: May contain an instance of `Error`.
+  - **`resolve`**: Contains an object with the connection details.
 
 > Note: the first response of the `detailsView` method is stored to be used in the future.
 
 ### Chat Room State
 
-The `client.roomView(room, callback)` method allows you to obtain metadata for the requested chat room.
+The `client.roomView(room)` method allows you to obtain metadata for the requested chat room.
 
 - **`room`**: Chat room name.
-- **`callback(response, error)`**: Callback function.
-  - **`response`**: Object with metadata for the requested chat room.
-  - **`error`**: Contains an instance of `Error`, if an error occurred.
+- Returns a Promise:
+  - **`resolve`**: Object with metadata for the requested chat room.
+  - **`reject`**: Contains an instance of `Error`, if an error occurred.
 
 ### Join a Chat Room
 
-The `client.roomAdd(room, callback)` method allows you to join to a chat room:
+The `client.roomAdd(room)` method allows you to join to a chat room:
 
 - **`room`**: Chat room name;
-- **`callback(error)`**: Callback function:
-  - **`error`**: Can contain an instance of `Error`.
+- Returns a Promise:
+  - **`reject`**: Can contain an instance of `Error`.
 
 ### Leave a Chat Room
 
-The `client.roomLeave(room, callback)` allows you to leave a chat room:
+The `client.roomLeave(room)` allows you to leave a chat room:
 
 - **`room`**: Chat room name;
-- **`callback(error)`**: Callback function:
-  - **`error`**: Can contain an instance of `Error`.
+- Returns a Promise:
+  - **`reject`**: Can contain an instance of `Error`.
 
 ### Request a File
 
-The `client.file(file, callback)` method allows you request a static file from the server:
+The `client.file(file)` method allows you request a static file from the server:
 
 - **`file`**: Path for the file to be requested.
-- **`callback(response, error)`**: Callback function.
-  - **response**: Object with the requested file.
+- Returns a Promise:
+  - **resolve**: Object with the requested file.
 
 The response object has the following structure:
 
