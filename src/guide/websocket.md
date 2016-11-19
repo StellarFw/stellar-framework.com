@@ -197,3 +197,43 @@ Finally, the `say` event occurs when the client receives a new message from anot
 client.on('say', message => { })
 ```
 > Note: the `message.room` property allows you to get the message origin.
+
+## Interceptors
+
+Interceptors can be used for pre- and post-processing a request. This is particularly useful for authentication and prevent unnecessary requests to the server, for some specific case. The follow examples shows different ways of using interceptors.
+
+This example shows how to append or modify request's parameters:
+
+```javascript
+client.interceptors.push((params, next) => {
+  params.token = LocalStorage.getItem('token')
+
+  next()
+})
+```
+
+Here we prevent the request to be send to the server returning an object as request's response:
+
+```javascript
+client.interceptors.push((params, next) => {
+  next({ someKey: 'someValue' })
+})
+```
+
+In this next case we also prevent the request to happen but this time we return an error:
+
+```javascript
+client.interceptors.push((params, next) => {
+  next(null, { message: 'Bad news! An error was occurred.' })
+})
+```
+
+Finally, we can also change the server response passing a function to the `next()`:
+
+```javascript
+client.interceptors.push((params, next) => {
+  next(response => {
+    response.additionalField = 'Awesome call...'
+  })
+})
+```
