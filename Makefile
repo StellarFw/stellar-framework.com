@@ -1,4 +1,4 @@
 all:
-	rm -f db.json
+	rm -rf public db.json
 	hexo generate
 	hexo deploy

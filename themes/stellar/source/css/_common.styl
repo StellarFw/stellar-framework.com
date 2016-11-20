@@ -8,6 +8,12 @@ body
     -moz-osx-font-smoothing grayscale
     color $medium
     margin 0
+    &.docs
+      padding-top: $header-height
+
+@media screen and (max-width: 900px)
+  body.docs
+    padding-top: 0
 
 a
     text-decoration none
@@ -39,31 +45,19 @@ em
 
 p
     word-spacing 0.05em
-    
-button()
+
+a.button
+    padding 0.75em 2em
+    border-radium 2em
     display inline-block
-    font-weight 700
     color #fff
     background-color lighten($stellarPrimaryColor, 8%)
     transition all .15s ease
-    &:hover
-        background-color lighten($stellarPrimaryColor, 15%)
-        -webkit-transform translate(0, -2px)
-        transform translate(0, -2px)
-
-a.button
-    button()
-    font-family $code-font
-    border-bottom 2px solid darken($stellarPrimaryColor, 12%)
-    padding 12px 14px
-    border-radius 4px
-        
-a.small-button
-    button()
-    padding 4px 8px 5px
-    border-radius 4px
-    width 140px
-    margin 0 5px
+    box-sizing border-box
+    border 1px solid lighten($stellarPrimaryColor, 8%)
+    &.white
+      background-color #fff
+      color $stellarPrimaryColor
 
 .highlight
     overflow-x auto
@@ -81,10 +75,13 @@ a.small-button
     .gutter
         width 1.5em
     .code
+        $code-line-height = 1.5em
         pre
             padding 1.2em 1.4em
-            line-height 1.5em
+            line-height $code-line-height
             margin 0
+        .line
+            min-height $code-line-height
     &.html, &.js, &.bash, &.css
         .code:after
             position absolute
@@ -150,6 +147,8 @@ a.small-button
         &:hover
             .nav-dropdown
                 display block
+        &.ecosystem
+            margin-left 20px
     .nav-dropdown
         display none
         position absolute
@@ -161,6 +160,7 @@ a.small-button
         border-bottom-color #ccc
         text-align left
         border-radius 4px
+        white-space nowrap
         li
             line-height 1.8em
             margin 0
@@ -169,7 +169,7 @@ a.small-button
             color $light
             font-size .9em
             display block
-            padding 0 30px 0 20px
+            padding 0 24px 0 20px
             &:hover
                 color $stellarPrimaryColor
     .arrow
@@ -183,34 +183,3 @@ a.small-button
         border-left 4px solid transparent
         border-right 4px solid transparent
         border-top 5px solid #ccc
-
-#donate
-    height 24px
-    .wrapper
-        vertical-align top
-        height 20px
-        border 1px solid #d4d4d4
-        display inline-block
-        box-sizing border-box
-        line-height 16px
-        border-radius 3px
-        cursor pointer
-        background-image linear-gradient(to bottom,#fcfcfc 0,#eee 100%)
-        position relative
-        width 72px
-        &:hover
-            border-color #ccc
-            background-image linear-gradient(to bottom,#eee 0,#ddd 100%)
-        img
-            width 14px
-            height 14px
-            position absolute
-            top 2px
-            left 5px
-        a
-            font 700 11px/14px 'Helvetica Neue', Helvetica, Arial, sans-serif
-            color #333333
-            text-shadow 0 1px 0 #fff
-            position absolute
-            top 2px
-            left 24px
