@@ -1,75 +1,82 @@
-<div id="hero">
-  <div class="inner">
-    <ul id="nav">
-      <li><a href="/guide/" class="nav-link">Guide</a></li>
-      <li><a href="/blog/" class="nav-link">Blog</a></li>
-      <%- partial('partials/community_dropdown') %>
-    </ul>
-
-    <div id="logo-wrap">
-      <img src="/images/logo.png" id="logo" />
-      <h1>Stellar</h1>
-    </div>
-
-    <p class="desc">An Action-Based Web Framework!</p>
-
-    <p class="buttons">
-      <a href="/guide/installation.html" class="small-button">Install v<%- theme.stellar_version %></a>
-      <a href="/guide/index.html" class="small-button">Get Started</a>
-    </p>
-
-    <ul id="social">
-      <li><a href="https://twitter.com/gil0mendes" class="twitter-follow-button" data-show-count="false" data-show-count="false" data-dnt="true">Follow @gil0mendes</a></li>
-      <li><iframe src="//ghbtns.com/github-btn.html?user=gil0mendes&repo=stellar&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20"></iframe></li>
-      <li id="donate">
-        <span class="wrapper" style="width: 108px">
-          <img src="/images/patreon.png">
-          <a href="/support-stellar">Support Stellar</a>
-        </span>
-      </li>
-    </ul>
-
-    <ul id="translations">
-      <li><a href="https://pt.stellar-framework.com" class="nav-link">Portuguese</a></li>
-    </ul>
-  </div>
-
-  <div class="down"><img src="/images/down.png" /></div>
-</div>
-
-<div id="example">
-  <h2>Fast Example</h2>
-  
-  <div class="block" style="margin-right: 5px;">
-    <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"># create a new project</span><br><span class="line">$ stellar init --name=<var>projectname</var></span><br></pre></td></tr></tbody></table></figure>
-  </div>
-
-  <div class="block" style="margin-right: 5px; margin-left: 5px">
-    <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"># create a new model</span><br><span class="line">$ stellar makeModel post --module=private --crud</span><br></pre></td></tr></tbody></table></figure>
-  </div>
-
-  <div class="block" style="margin-left: 5px">
-    <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"># start a cluster</span><br><span class="line">$ stellar startCluster</span><br></pre></td></tr></tbody></table></figure>
-  </div>
-</div>
-
-<div id="why">
-  <h2>You should try it out if you like:</h2>
-
-  <ul>
-    <li>A focus on business logic</li>
-    <li>APIs that make sense</li>
-    <li>Good division of functionality</li>
-    <li>Maximum reuse</li>
-    <li>Rapid prototyping</li>
+<div class="sidebar">
+  <ul class="main-menu">
+    <%- partial('partials/main_menu', { context: 'sidebar' }) %>
   </ul>
 </div>
 
-<div id="footer">
-  <a class="start" href="/guide/index.html">Get Started</a>
-  <p>Released under the <a href="http://opensource.org/licenses/MIT" target="_blank">MIT License</a></p>
-  <p>Copyright (c) <%- date(Date.now(), 'YYYY') %> <a href="http://gilmendes.wordpress.com" target="_blank">Gil Mendes</a></p>
+<div id="hero">
+  <div class="inner">
+    <div class="left">
+      <img class="hero-logo" src="/images/logo.png" />
+    </div><div class="right">
+      <h2 class="stellar">Stellar</h2>
+      <h1>A Modular Action-Based<br>Web Framework!</h1>
+
+      <p>
+        <a class="button" href="/guide/index.html">GET STARTED</a>
+        <a class="button white" href="https://github.com/StellarFw/stellar" target="_blank">GITHUB</a>
+      </p>
+    </div>
+  </div>
 </div>
 
-<!-- Twitter follow button script -->
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<div id="highlights">
+  <div class="inner">
+    <div class="point">
+      <h2>You know</h2>
+      <p>
+        You already know JavaScript? Read the guide and start building amazing APIs!
+      </p>
+    </div>
+
+    <div class="point">
+      <h2>Modular</h2>
+      <p>
+        Stellar was drawn to be extremely modular and extensive. From small to big apps.
+      </p>
+    </div>
+
+    <div class="point">
+      <h2>Rapid prototyping</h2>
+      <p>
+        Do not waste time imagining. With Stellar you do not dream, you realize.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div id="example">
+  <div class="inner">
+    <h2>Fast Example</h2>
+
+    <div class="block">
+      <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"># create a new project</span><br><span class="line">$ stellar init --name=<var>projectname</var></span><br></pre></td></tr></tbody></table></figure>
+    </div>
+
+    <div class="block">
+      <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"># create a new model</span><br><span class="line">$ stellar makeModel post --module=private --crud</span><br></pre></td></tr></tbody></table></figure>
+    </div>
+
+    <div class="block">
+      <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"># start a cluster</span><br><span class="line">$ stellar startCluster</span><br></pre></td></tr></tbody></table></figure>
+    </div>
+  </div>
+</div>
+
+<div id="footer">
+  Released under the <a href="http://opensource.org/licenses/MIT" target="_blank">MIT License</a><br>
+  Copyright (c) 2015-<%- new Date().getFullYear() %> <a href="https://twitter.com/gil0mendes" target="_blank">Gil Mendes</a>
+</div>
+
+<script type="text/javascript">
+  var topScrolled = false
+  window.addEventListener('scroll', function () {
+    if (window.pageYOffset > 165 && !topScrolled) {
+      topScrolled = true
+      document.getElementById('mobile-bar').classList.remove('top')
+    } else if (window.pageYOffset <= 165 && topScrolled) {
+      topScrolled = false
+      document.getElementById('mobile-bar').classList.add('top')
+    }
+  })
+</script>
