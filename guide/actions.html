@@ -3,54 +3,37 @@
 <html lang="en">
   <head>
     <title>Actions - Stellar</title>
-
-    <!-- charset -->
     <meta charset="utf-8">
-
-    <!-- description -->
     <meta name="description" content="Stellar is an action based web framework for creating Web APIs easily!">
-
-    <!-- favicon -->
-    <link rel="icon" href="/images/logo.png" type="image/x-icon">
-
-    <!-- viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    <!-- fonts -->
-    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Roboto Mono' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Dosis:300,500' rel='stylesheet' type='text/css'>
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Actions - Stellar">
+    <meta property="og:description" content="Stellar is an action based web framework for creating Web APIs easily!">
+    <meta property="og:image" content="https://stellar-framework.com/images/logo.png">
 
-    <!-- docsearch -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.css" />
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Actions - Stellar">
+    <meta name="twitter:description" content="Stellar is an action based web framework for creating Web APIs easily!">
+    <meta name="twitter:image" content="https://stellar-framework.com/images/logo.png">
 
-    <!-- page type -->
-    <script>
-      window.PAGE_TYPE = 'guide'
-    </script>
+    <link rel="icon" href="/images/logo.png" type="image/x-icon">
 
-    <!-- load page style -->
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Roboto Mono' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Dosis:500' rel='stylesheet' type='text/css'>
+
+    <!-- main page styles -->
     <link rel="stylesheet" href="/css/page.css">
 
-    <!-- load Google Analytics -->
-    <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-77611901-1', 'auto');
-  ga('send', 'pageview');
-</script>
-
+    <!-- this needs to be loaded before guide's inline scripts -->
+    <script>window.PAGE_TYPE = 'guide'</script>
   </head>
-  <body>
-    <div id="mobile-bar">
+  <body class="docs">    <div id="mobile-bar" >
       <a class="menu-button"></a>
       <a class="logo" href="/"></a>
     </div>
 
-    
-      <div id="header">
+    <div id="header">
     <a id="logo" href="/">
         <img src="/images/logo.png">
         <span>Stellar</span>
@@ -62,18 +45,28 @@
   </form>
 </li>
 <li><a href="/guide/" class="nav-link current">Guide</a></li>
-<li><a href="/blog/" class="nav-link">Blog</a></li>
 <li class="nav-dropdown-container">
   <a class="nav-link">Community</a><span class="arrow"></span>
   <ul class="nav-dropdown">
     <li><a href="https://github.com/stellarFw/stellar" class="nav-link" target="_blank">GitHub</a></li>
+    <li><a href="https://gitter.im/StellarFw/StellarFw" class="nav-link" target="_blank">Chat</a></li>
     <li><a href="https://twitter.com/gil0mendes" class="nav-link" target="_blank">Twitter</a></li>
   </ul>
 </li>
+
+<li class="nav-dropdown-container ecosystem">
+  <a class="nav-link">Ecosystem</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://github.com/StellarFw/Identify" class="nav-link" target="_blank">Identify</a></li>
+  </ul>
+</li>
+
+
     </ul>
 </div>
 
-      <div id="main">
+    
+      <div id="main" class="fix-sidebar">
         
           
   <div class="sidebar">
@@ -84,24 +77,30 @@
   </form>
 </li>
 <li><a href="/guide/" class="nav-link current">Guide</a></li>
-<li><a href="/blog/" class="nav-link">Blog</a></li>
 <li class="nav-dropdown-container">
   <a class="nav-link">Community</a><span class="arrow"></span>
   <ul class="nav-dropdown">
     <li><a href="https://github.com/stellarFw/stellar" class="nav-link" target="_blank">GitHub</a></li>
+    <li><a href="https://gitter.im/StellarFw/StellarFw" class="nav-link" target="_blank">Chat</a></li>
     <li><a href="https://twitter.com/gil0mendes" class="nav-link" target="_blank">Twitter</a></li>
   </ul>
 </li>
+
+<li class="nav-dropdown-container ecosystem">
+  <a class="nav-link">Ecosystem</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://github.com/StellarFw/Identify" class="nav-link" target="_blank">Identify</a></li>
+  </ul>
+</li>
+
+
   </ul>
   <div class="list">
-    <div class="list">
-      <div id="donate" style="margin-bottom: 20px">
-        <span class="wrapper" style="width: 110px">
-          <img src="/images/patreon.png">
-          <a href="/support-stellar">Support Stellar</a>
-        </span>
-      </div>
-    </div>
+    <div class="main-sponsor"></div>
+    <a class="become-backer" href="/support-stellar">
+      Become a Backer
+    </a>
+
     <ul class="menu-root">
       
         <li>
@@ -153,10 +152,6 @@
         </li>
       
         <li>
-          <a href="/guide/logging.html" class="sidebar-link">Logging</a>
-        </li>
-      
-        <li>
           <a href="/guide/events.html" class="sidebar-link">Events</a>
         </li>
       
@@ -180,14 +175,25 @@
           <a href="/guide/validation.html" class="sidebar-link">Validation</a>
         </li>
       
+        <li>
+          <a href="/guide/logging.html" class="sidebar-link">Logging</a>
+        </li>
+      
+        <li>
+          <a href="/guide/commands.html" class="sidebar-link">Commands</a>
+        </li>
+      
     </ul>
   </div>
 </div>
 
 
 
-<div class="content guide with-sidebar">
-  <h1>Actions</h1>
+<div class="content guide with-sidebar actions-guide">
+  
+    <h1>Actions</h1>
+  
+
   <h2 id="What-is-an-Action"><a href="#What-is-an-Action" class="headerlink" title="What is an Action?"></a>What is an Action?</h2><p>Actions are the building blocks of Stellar, the basic units of the framework. A Stellar project is a repository containing one or more actions. An action can be invoked directly by a client or internally by other actions. Actions can receive a set of inputs and return a set of outputs. Actions can be marked private so that they can only be called by other actions and not by the client. Actions can also be overridden by other modules, unless they are marked as protected.</p>
 <p>Developers can create their own actions by creating a new file in a module’s <code>actions</code> folder, or they can use the <code>stellar</code> command-line tool to generate the file and its contents automatically (<code>stellar makeAction &lt;name_of_action&gt; --module=&lt;module_which_contains_action&gt;</code>).</p>
 <p>The actions are loaded into the Stellar Engine when it starts. Actions can be invoked by other actions (including those in other modules).</p>
@@ -259,6 +265,8 @@
 <p>You can learn more about <a href="middleware.html">middleware here</a>.</p>
 <h3 id="Example-2"><a href="#Example-2" class="headerlink" title="Example"></a>Example</h3><p>The following example shows the declaration of an action that contains two middleware components:</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">exports.getAllAccounts = &#123;</div><div class="line">  name: <span class="string">'getAllAccounts'</span>,</div><div class="line">  description: <span class="string">'Get all registered accounts'</span>,</div><div class="line"></div><div class="line">  middleware: [<span class="string">'auth'</span>, <span class="string">'superResponse'</span>],</div><div class="line"></div><div class="line">  run: (api, action, next) =&gt; &#123;</div><div class="line">    <span class="comment">// perform some operation...</span></div><div class="line"></div><div class="line">    <span class="comment">// finish action execution</span></div><div class="line">    next()</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Using-Promises"><a href="#Using-Promises" class="headerlink" title="Using Promises"></a>Using Promises</h2><p>You can use Promises to finish actions instead using callbacks. This allows you to write even more clean code, but you can continue using the old callback way. The Promises only are useful in some specific use cases, like after read data from a model. The follow example shows one of that cases:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">exports.getAllPosts = &#123;</div><div class="line">  name: <span class="string">'getAllPosts'</span>,</div><div class="line"></div><div class="line">  run (api, action) &#123;</div><div class="line">    <span class="keyword">return</span> api.models.get(<span class="string">'post'</span>)</div><div class="line">      .find(&#123;&#125;)</div><div class="line">      .then(posts =&gt; &#123; action.response.posts = posts &#125;)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
 
   
@@ -274,7 +282,7 @@
 
     <div class="footer">
       Caught a mistake or want to contribute to documentation?
-      <a href="https://github.com/gil0mendes/pt.stellar-framework.com/tree/master/src/guide/actions.md" target="_blank">
+      <a href="https://github.com/StellarFw/stellar-framework.com/tree/master/src/guide/actions.md" target="_blank">
         Edit this page on Github!
       </a>
     </div>
@@ -282,13 +290,29 @@
 
         
       </div>
-
       <script src="/js/smooth-scroll.min.js"></script>
-      <script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.js"></script>
-      <script src="/js/common.js"></script>
     
 
-    <!-- enable FastClick  -->
+    <!-- search -->
+    <link href="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/search.css">
+    <script src="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.js" type="text/javascript"></script>
+
+    <!-- main custom script for sidebar and other cool things -->
+    <script src="/js/common.js"></script>
+
+    <!-- ga -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-77611901-1', 'stellar-framework.com');
+      ga('send', 'pageview');
+    </script>
+
+    <!-- fastclick  -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', function() {

@@ -3,54 +3,37 @@
 <html lang="en">
   <head>
     <title>WebSocket - Stellar</title>
-
-    <!-- charset -->
     <meta charset="utf-8">
-
-    <!-- description -->
     <meta name="description" content="Stellar is an action based web framework for creating Web APIs easily!">
-
-    <!-- favicon -->
-    <link rel="icon" href="/images/logo.png" type="image/x-icon">
-
-    <!-- viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    <!-- fonts -->
-    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Roboto Mono' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Dosis:300,500' rel='stylesheet' type='text/css'>
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="WebSocket - Stellar">
+    <meta property="og:description" content="Stellar is an action based web framework for creating Web APIs easily!">
+    <meta property="og:image" content="https://stellar-framework.com/images/logo.png">
 
-    <!-- docsearch -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.css" />
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="WebSocket - Stellar">
+    <meta name="twitter:description" content="Stellar is an action based web framework for creating Web APIs easily!">
+    <meta name="twitter:image" content="https://stellar-framework.com/images/logo.png">
 
-    <!-- page type -->
-    <script>
-      window.PAGE_TYPE = 'guide'
-    </script>
+    <link rel="icon" href="/images/logo.png" type="image/x-icon">
 
-    <!-- load page style -->
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Roboto Mono' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Dosis:500' rel='stylesheet' type='text/css'>
+
+    <!-- main page styles -->
     <link rel="stylesheet" href="/css/page.css">
 
-    <!-- load Google Analytics -->
-    <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-77611901-1', 'auto');
-  ga('send', 'pageview');
-</script>
-
+    <!-- this needs to be loaded before guide's inline scripts -->
+    <script>window.PAGE_TYPE = 'guide'</script>
   </head>
-  <body>
-    <div id="mobile-bar">
+  <body class="docs">    <div id="mobile-bar" >
       <a class="menu-button"></a>
       <a class="logo" href="/"></a>
     </div>
 
-    
-      <div id="header">
+    <div id="header">
     <a id="logo" href="/">
         <img src="/images/logo.png">
         <span>Stellar</span>
@@ -62,18 +45,28 @@
   </form>
 </li>
 <li><a href="/guide/" class="nav-link current">Guide</a></li>
-<li><a href="/blog/" class="nav-link">Blog</a></li>
 <li class="nav-dropdown-container">
   <a class="nav-link">Community</a><span class="arrow"></span>
   <ul class="nav-dropdown">
     <li><a href="https://github.com/stellarFw/stellar" class="nav-link" target="_blank">GitHub</a></li>
+    <li><a href="https://gitter.im/StellarFw/StellarFw" class="nav-link" target="_blank">Chat</a></li>
     <li><a href="https://twitter.com/gil0mendes" class="nav-link" target="_blank">Twitter</a></li>
   </ul>
 </li>
+
+<li class="nav-dropdown-container ecosystem">
+  <a class="nav-link">Ecosystem</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://github.com/StellarFw/Identify" class="nav-link" target="_blank">Identify</a></li>
+  </ul>
+</li>
+
+
     </ul>
 </div>
 
-      <div id="main">
+    
+      <div id="main" class="fix-sidebar">
         
           
   <div class="sidebar">
@@ -84,24 +77,30 @@
   </form>
 </li>
 <li><a href="/guide/" class="nav-link current">Guide</a></li>
-<li><a href="/blog/" class="nav-link">Blog</a></li>
 <li class="nav-dropdown-container">
   <a class="nav-link">Community</a><span class="arrow"></span>
   <ul class="nav-dropdown">
     <li><a href="https://github.com/stellarFw/stellar" class="nav-link" target="_blank">GitHub</a></li>
+    <li><a href="https://gitter.im/StellarFw/StellarFw" class="nav-link" target="_blank">Chat</a></li>
     <li><a href="https://twitter.com/gil0mendes" class="nav-link" target="_blank">Twitter</a></li>
   </ul>
 </li>
+
+<li class="nav-dropdown-container ecosystem">
+  <a class="nav-link">Ecosystem</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://github.com/StellarFw/Identify" class="nav-link" target="_blank">Identify</a></li>
+  </ul>
+</li>
+
+
   </ul>
   <div class="list">
-    <div class="list">
-      <div id="donate" style="margin-bottom: 20px">
-        <span class="wrapper" style="width: 110px">
-          <img src="/images/patreon.png">
-          <a href="/support-stellar">Support Stellar</a>
-        </span>
-      </div>
-    </div>
+    <div class="main-sponsor"></div>
+    <a class="become-backer" href="/support-stellar">
+      Become a Backer
+    </a>
+
     <ul class="menu-root">
       
         <li>
@@ -153,10 +152,6 @@
         </li>
       
         <li>
-          <a href="/guide/logging.html" class="sidebar-link">Logging</a>
-        </li>
-      
-        <li>
           <a href="/guide/events.html" class="sidebar-link">Events</a>
         </li>
       
@@ -180,90 +175,106 @@
           <a href="/guide/validation.html" class="sidebar-link">Validation</a>
         </li>
       
+        <li>
+          <a href="/guide/logging.html" class="sidebar-link">Logging</a>
+        </li>
+      
+        <li>
+          <a href="/guide/commands.html" class="sidebar-link">Commands</a>
+        </li>
+      
     </ul>
   </div>
 </div>
 
 
 
-<div class="content guide with-sidebar">
-  <h1>WebSocket</h1>
+<div class="content guide with-sidebar websocket-guide">
+  
+    <h1>WebSocket</h1>
+  
+
   <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>Stellar uses <a href="http://primus.io" target="_blank" rel="external">Primus</a> to work with WebSockets. Primus provides an abstraction layer over a WebSocket engine; it supports <code>ws</code>, <code>engine.io</code>, and <code>socket.io</code>, among others. WebSockets can use HTTP or HTTPS to connect to the server (HTTPS is recommended).</p>
 <p>When Stellar starts, a script is generated with some useful functions to make the connection between the client and the server. This script can be obtained by accessing the URL <code>http(s)://stellar_domain.com/stellar-client</code></p>
-<h2 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h2><p>The following methods are provided to the client to interact with the server:</p>
-<h3 id="Open-Connection"><a href="#Open-Connection" class="headerlink" title="Open Connection"></a>Open Connection</h3><p>The <code>client.connect(callback)</code> method allows a client to open a connection with the server:</p>
+<h2 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h2><p>The generated client script contains a set of methods to start a real-time communication with the server, make calls to actions, send messages to chat rooms, and lots of others useful features. All those methods uses <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank" rel="external">Promises</a> that means you can get rid of the callback hell.</p>
+<blockquote>
+<p>Note: in older browsers you will need load a <a href="https://github.com/taylorhakes/promise-polyfill" target="_blank" rel="external">polyfill</a> in order to this work properly.</p>
+</blockquote>
+<p>The following methods are provided to the client interact with the server:</p>
+<h3 id="Open-Connection"><a href="#Open-Connection" class="headerlink" title="Open Connection"></a>Open Connection</h3><p>The <code>client.connect()</code> method allows a client to open a connection with the server.</p>
 <ul>
-<li><strong><code>callback(error, detailsView)</code></strong>: Callback function:<ul>
-<li><strong><code>error</code></strong>: Object with the error that occurred during the call, if any.</li>
-<li><strong><code>detailsView</code></strong>: The same as for the <code>detailsView</code> method (see below).</li>
+<li>Return a Promise:<ul>
+<li><strong><code>reject</code></strong>: Object with the error that occurred during the call, if any.</li>
+<li><strong><code>resolve</code></strong>: The same as for the <code>detailsView</code> method (see below).</li>
 </ul>
 </li>
 </ul>
-<h3 id="Call-an-Action"><a href="#Call-an-Action" class="headerlink" title="Call an Action"></a>Call an Action</h3><p>The <code>client.action(action, params, callback)</code> method allows a client to invoke an action:</p>
+<h3 id="Call-an-Action"><a href="#Call-an-Action" class="headerlink" title="Call an Action"></a>Call an Action</h3><p>The <code>client.action(action, params = {})</code> method allows a client to invoke an action:</p>
 <ul>
 <li><strong><code>action</code></strong>: Action name to be called, e.g., “auth.signin”.</li>
 <li><strong><code>params</code></strong>: Object with the action parameters.</li>
-<li><strong><code>callback(response)</code></strong>: Callback function:<ul>
-<li><strong><code>response</code></strong>: Server response.</li>
+<li>Returns a Promise:<ul>
+<li><strong><code>reject</code></strong>: Server response, when an error was occurred.</li>
+<li><strong><code>resolve</code></strong>: Server response.</li>
 </ul>
 </li>
 </ul>
 <blockquote>
 <p>Note: When an open WebSocket connection does not exist, the client will fall back to HTTP.</p>
 </blockquote>
-<h3 id="Send-Messages"><a href="#Send-Messages" class="headerlink" title="Send Messages"></a>Send Messages</h3><p>The <code>client.say(room, message, callback)</code> method allows a client to send message to a chat room:</p>
+<h3 id="Send-Messages"><a href="#Send-Messages" class="headerlink" title="Send Messages"></a>Send Messages</h3><p>The <code>client.say(room, message)</code> method allows a client to send message to a chat room:</p>
 <ul>
 <li><strong><code>room</code></strong>: Room where the message will be sent.</li>
 <li><strong><code>message</code></strong>: Message to be sent.</li>
-<li><strong><code>callback(error)</code></strong>: Callback function:<ul>
-<li><strong><code>error</code></strong>: Contains the error information, if an error occurred.</li>
+<li>Returns a Promise:<ul>
+<li><strong><code>reject</code></strong>: Contains the error information, if an error occurred.</li>
 </ul>
 </li>
 </ul>
 <blockquote>
 <p>Note: you need use the <code>roomAdd</code> method before you can interact with a chat room.</p>
 </blockquote>
-<h3 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h3><p>The <code>client.detailsView(callback)</code> method allows you to get details about the client connection.</p>
+<h3 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h3><p>The <code>client.detailsView()</code> method allows you to get details about the client connection.</p>
 <ul>
-<li><strong><code>callback(error, response)</code></strong>: Callback function:<ul>
-<li><strong><code>error</code></strong>: May contain an instance of <code>Error</code>.</li>
-<li><strong><code>response</code></strong>: Contains an object with the connection details.</li>
+<li>Returns a Promise:<ul>
+<li><strong><code>reject</code></strong>: May contain an instance of <code>Error</code>.</li>
+<li><strong><code>resolve</code></strong>: Contains an object with the connection details.</li>
 </ul>
 </li>
 </ul>
 <blockquote>
 <p>Note: the first response of the <code>detailsView</code> method is stored to be used in the future.</p>
 </blockquote>
-<h3 id="Chat-Room-State"><a href="#Chat-Room-State" class="headerlink" title="Chat Room State"></a>Chat Room State</h3><p>The <code>client.roomView(room, callback)</code> method allows you to obtain metadata for the requested chat room.</p>
+<h3 id="Chat-Room-State"><a href="#Chat-Room-State" class="headerlink" title="Chat Room State"></a>Chat Room State</h3><p>The <code>client.roomView(room)</code> method allows you to obtain metadata for the requested chat room.</p>
 <ul>
 <li><strong><code>room</code></strong>: Chat room name.</li>
-<li><strong><code>callback(response, error)</code></strong>: Callback function.<ul>
-<li><strong><code>response</code></strong>: Object with metadata for the requested chat room.</li>
-<li><strong><code>error</code></strong>: Contains an instance of <code>Error</code>, if an error occurred.</li>
+<li>Returns a Promise:<ul>
+<li><strong><code>resolve</code></strong>: Object with metadata for the requested chat room.</li>
+<li><strong><code>reject</code></strong>: Contains an instance of <code>Error</code>, if an error occurred.</li>
 </ul>
 </li>
 </ul>
-<h3 id="Join-a-Chat-Room"><a href="#Join-a-Chat-Room" class="headerlink" title="Join a Chat Room"></a>Join a Chat Room</h3><p>The <code>client.roomAdd(room, callback)</code> method allows you to join to a chat room:</p>
+<h3 id="Join-a-Chat-Room"><a href="#Join-a-Chat-Room" class="headerlink" title="Join a Chat Room"></a>Join a Chat Room</h3><p>The <code>client.roomAdd(room)</code> method allows you to join to a chat room:</p>
 <ul>
 <li><strong><code>room</code></strong>: Chat room name;</li>
-<li><strong><code>callback(error)</code></strong>: Callback function:<ul>
-<li><strong><code>error</code></strong>: Can contain an instance of <code>Error</code>.</li>
+<li>Returns a Promise:<ul>
+<li><strong><code>reject</code></strong>: Can contain an instance of <code>Error</code>.</li>
 </ul>
 </li>
 </ul>
-<h3 id="Leave-a-Chat-Room"><a href="#Leave-a-Chat-Room" class="headerlink" title="Leave a Chat Room"></a>Leave a Chat Room</h3><p>The <code>client.roomLeave(room, callback)</code> allows you to leave a chat room:</p>
+<h3 id="Leave-a-Chat-Room"><a href="#Leave-a-Chat-Room" class="headerlink" title="Leave a Chat Room"></a>Leave a Chat Room</h3><p>The <code>client.roomLeave(room)</code> allows you to leave a chat room:</p>
 <ul>
 <li><strong><code>room</code></strong>: Chat room name;</li>
-<li><strong><code>callback(error)</code></strong>: Callback function:<ul>
-<li><strong><code>error</code></strong>: Can contain an instance of <code>Error</code>.</li>
+<li>Returns a Promise:<ul>
+<li><strong><code>reject</code></strong>: Can contain an instance of <code>Error</code>.</li>
 </ul>
 </li>
 </ul>
-<h3 id="Request-a-File"><a href="#Request-a-File" class="headerlink" title="Request a File"></a>Request a File</h3><p>The <code>client.file(file, callback)</code> method allows you request a static file from the server:</p>
+<h3 id="Request-a-File"><a href="#Request-a-File" class="headerlink" title="Request a File"></a>Request a File</h3><p>The <code>client.file(file)</code> method allows you request a static file from the server:</p>
 <ul>
 <li><strong><code>file</code></strong>: Path for the file to be requested.</li>
-<li><strong><code>callback(response, error)</code></strong>: Callback function.<ul>
-<li><strong>response</strong>: Object with the requested file.</li>
+<li>Returns a Promise:<ul>
+<li><strong>resolve</strong>: Object with the requested file.</li>
 </ul>
 </li>
 </ul>
@@ -300,14 +311,21 @@
 <blockquote>
 <p>Note: the <code>message.room</code> property allows you to get the message origin.</p>
 </blockquote>
+<h2 id="Interceptors"><a href="#Interceptors" class="headerlink" title="Interceptors"></a>Interceptors</h2><p>Interceptors can be used for pre- and post-processing a request. This is particularly useful for authentication and prevent unnecessary requests to the server, for some specific case. The follow examples shows different ways of using interceptors.</p>
+<p>This example shows how to append or modify request’s parameters:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">client.interceptors.push((params, next) =&gt; &#123;</div><div class="line">  params.token = LocalStorage.getItem(<span class="string">'token'</span>)</div><div class="line"></div><div class="line">  next()</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>Here we prevent the request to be send to the server returning an object as request’s response:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">client.interceptors.push((params, next) =&gt; &#123;</div><div class="line">  next(&#123; someKey: <span class="string">'someValue'</span> &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>In this next case we also prevent the request to happen but this time we return an error:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">client.interceptors.push((params, next) =&gt; &#123;</div><div class="line">  next(<span class="literal">null</span>, &#123; message: <span class="string">'Bad news! An error was occurred.'</span> &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>Finally, we can also change the server response passing a function to the <code>next()</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">client.interceptors.push((params, next) =&gt; &#123;</div><div class="line">  next(response =&gt; &#123;</div><div class="line">    response.additionalField = <span class="string">'Awesome call...'</span></div><div class="line">  &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 
 
   
       <div class="guide-links">
         
           <span>← <a href="/guide/events.html">Events</a></span>
-        
-          <span>← <a href="/guide/logging.html">Logging</a></span>
         
         
           <span style="float:right"><a href="/guide/tcp.html">TCP</a> →</span>
@@ -317,7 +335,7 @@
 
     <div class="footer">
       Caught a mistake or want to contribute to documentation?
-      <a href="https://github.com/gil0mendes/pt.stellar-framework.com/tree/master/src/guide/websocket.md" target="_blank">
+      <a href="https://github.com/StellarFw/stellar-framework.com/tree/master/src/guide/websocket.md" target="_blank">
         Edit this page on Github!
       </a>
     </div>
@@ -325,13 +343,29 @@
 
         
       </div>
-
       <script src="/js/smooth-scroll.min.js"></script>
-      <script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.js"></script>
-      <script src="/js/common.js"></script>
     
 
-    <!-- enable FastClick  -->
+    <!-- search -->
+    <link href="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/search.css">
+    <script src="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.js" type="text/javascript"></script>
+
+    <!-- main custom script for sidebar and other cool things -->
+    <script src="/js/common.js"></script>
+
+    <!-- ga -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-77611901-1', 'stellar-framework.com');
+      ga('send', 'pageview');
+    </script>
+
+    <!-- fastclick  -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
