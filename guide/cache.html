@@ -231,7 +231,7 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">api.cache.push(<span class="string">'commands'</span>, &#123;player: <span class="string">'xpto'</span>, command: <span class="string">'exec:abc:param1'</span>&#125;, error =&gt; &#123;</div><div class="line">  <span class="keyword">if</span> (error) &#123;</div><div class="line">    <span class="comment">// An error occurs...</span></div><div class="line">    <span class="keyword">return</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// do something...</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">api.cache.push(<span class="string">'commands'</span>, &#123;<span class="attr">player</span>: <span class="string">'xpto'</span>, <span class="attr">command</span>: <span class="string">'exec:abc:param1'</span>&#125;, error =&gt; &#123;</div><div class="line">  <span class="keyword">if</span> (error) &#123;</div><div class="line">    <span class="comment">// An error occurs...</span></div><div class="line">    <span class="keyword">return</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// do something...</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <blockquote>
 <p>Warning: you can only save objects which are supported by the <code>JSON.stringify</code> function.</p>
 </blockquote>
@@ -295,7 +295,7 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">api.cache.locks((error, locks) =&gt; &#123;</div><div class="line">  <span class="comment">// the variable `locks` is an array that contains</span></div><div class="line">  <span class="comment">// all active locks</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">api.cache.locks(<span class="function">(<span class="params">error, locks</span>) =&gt;</span> &#123;</div><div class="line">  <span class="comment">// the variable `locks` is an array that contains</span></div><div class="line">  <span class="comment">// all active locks</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 
 
   
