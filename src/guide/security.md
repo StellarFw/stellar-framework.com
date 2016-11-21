@@ -8,6 +8,8 @@ order: 18
 
 Stellar comes equipped with a hashing system, which makes use of the [bcrypt](https://www.npmjs.com/package/bcrypt) library. This allows you to compute hashes and compare them with clear text data to validate them.
 
+<p class="tip">It's important that you set the default salt on production environment in order to increase the security of your API. You can do that setting the `general.salt` config.</p>
+
 ## Compute Hashes
 
 The `api.hash.hash` and `api.hash.hashSync` methods allow you to generate a hash from a string asynchronously and synchronously, respectively.
@@ -20,6 +22,12 @@ let hash = api.hash.hashSync(plainData)
 api.hash.hash(plainData).then(hash => {
   // do something, with the hash...
 })
+```
+
+You can also use other salt with different resources, all you need is pass an extra hash with your special params who meets your needs:
+
+```javascript
+hash.hashSync(plainData, { salt: yourSuperSalt })
 ```
 
 ## Compare Hashes
