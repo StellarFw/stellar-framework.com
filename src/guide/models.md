@@ -52,7 +52,7 @@ stellar makeModel User --module=authentication
 If you would like to generate a CRUD action when you generate the model, you may use the --crud option:
 
 ```shell
-stellar makeModel User ---module=authentication --crud
+stellar makeModel User --module=authentication --crud
 ```
 
 > NOTE: the generated code uses the function syntax. You can see more about that on the next subsection.
