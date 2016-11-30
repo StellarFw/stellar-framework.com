@@ -76,12 +76,40 @@ In the action declaration you can specify the input fields using the `inputs` pr
 
 The list below shows all available properties to use on the input fields:
 
-- **`required`**: Indicates whether the parameter is required.
-- **`convertTo`**: Allows you to convert the parameter to a specific data type or format.
-- **`default`**: Default value if the parameter is not present in the set of inputs provided by the client.
-- **`validator`**: Validates the parameter using one or more constraints.
+- **`required`**: indicates whether the parameter is required.
+- **`convertTo`**: allows you to convert the parameter to a specific data type or format.
+- **`default`**: default value if the parameter is not present in the set of inputs provided by the client.
+- **`validator`**: validates the parameter using one or more constraints.
 
 > Note: you can learn more about [Validators here](validation.html).
+
+### Using a default value
+
+If your parameter is optional you may want use a default value for it. The follow snippet shows how you can do that, the first input field uses a static declaration and the seconds one uses a function:
+
+```javascript
+{
+  name: 'getCommissionsByRange',
+
+  inputs: {
+    start: {
+      default: new Date(2016, 1, 1)
+    },
+    end: {
+      default: api => {
+        const today = new Date()
+        return new Date(2016, today.getMonth(), 30)
+      }
+    }
+  },
+
+  run (api, action) {
+    // (...)
+  }
+}
+```
+
+When you use a function to define the default parameter value you get access to the API object, as you can see on the example above.
 
 ## Parameter Conversions
 
