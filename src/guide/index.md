@@ -113,4 +113,6 @@ One of the easy parts of using Stellar is that you don't need any special config
 stellar run
 ```
 
+> **Note**: to run Stellar as a daemon you need to use the `--daemon` option
+
 Yap! It's all you need to start build amazing APIs. 😉
