@@ -77,7 +77,7 @@ In the action declaration you can specify the input fields using the `inputs` pr
 The list below shows all available properties to use on the input fields:
 
 - **`required`**: indicates whether the parameter is required.
-- **`convertTo`**: allows you to convert the parameter to a specific data type or format.
+- **`format`**: allows you to format the parameter to a specific data type or string format.
 - **`default`**: default value if the parameter is not present in the set of inputs provided by the client.
 - **`validator`**: validates the parameter using one or more constraints.
 
@@ -113,7 +113,7 @@ When you use a function to define the default parameter value you get access to 
 
 ## Parameter Conversions
 
-To remove the need for developers to manually convert input parameters to their required type, Stellar provides a way to convert them automatically before performing the action. The `convertTo` property can be a string with the values (`string`, `integer` or `float`) or a function (`(api, value)`).
+To remove the need for developers to manually convert input parameters to their required type, Stellar provides a way to convert them automatically before performing the action. The `format` property can be a string with the values (`string`, `integer` or `float`) or a function (`(api, value)`).
 
 ### Example
 
@@ -130,7 +130,7 @@ exports.giveAge = {
     },
     birthYear: {
       required: true,
-      convertTo: ‘integer’
+      format: 'integer'
     }
   },
 
