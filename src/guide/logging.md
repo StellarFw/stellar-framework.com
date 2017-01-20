@@ -1,7 +1,7 @@
 ---
 title: Logging
 type: guide
-order: 20
+order: 18
 ---
 
 Stellar makes use of the fantastic [Winston](https://www.npmjs.com/package/winston) package for log management. With Winston it is possible to customize log output according to the needs of your project.

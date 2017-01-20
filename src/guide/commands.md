@@ -1,7 +1,7 @@
 ---
 title: Commands
 type: guide
-order: 21
+order: 19
 ---
 
 ## Introduction

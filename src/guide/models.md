@@ -1,47 +1,79 @@
 ---
-title: Models
+title: Introduction
 type: guide
-order: 4
+order: 21
 ---
 
-# Introduction
-
-The model system included with Stellar provides a straight-forward, schema-based solution to model your application data. It includes built-in type casting, validation, query building, business logic hooks and more, out of the box. All to work with you database.
+The model system included with Stellar provides a straight-forward, schema-based solution to model your application data. It includes built-in type casting, validation, query building, business logic hooks and more, out of the box. All to work with you database. This set of features that we provide are only possible because we chose [Waterline](https://github.com/balderdashy/waterline) to be our primary ORM.
 
 Each database collection has a corresponding "Model" which is used to interact with that collection. Models allow you to query for data in your collections, as well as insert new records into the collection.
 
 Before getting started, be sure to configure a database connection in `config/database.js`. For more information on configuring your database, check out the documentation.
 
-> Note: For now, Stellar only support MongoDB servers.
+## First steps
 
-## Configuration
+### Configuration
 
-The database configuration for your application is located at `config/database.js`, but you can choose some other name, we use this to better know what configs are inside the file. If you do not configure it an in-memory database will be used, this is done to provide to you a out of the box way to start developing your API without hurry about configurations and is a mock for testing environment.
+The database configuration for your application is located at `config/database.js`, but you can choose some other name, we use this to better know what configs are inside the file. If you do not configure it an in-memory database will be used, this is done to provide you a out of the box way to start developing your API without hurry about configurations and is a great way to mock or database on a testing environment.
 
-There is two parameter that you can configure:
+So, just for example we will create a connection with a MongoDB database.
 
-- **`connectionString`**: The connection string to be passed to connection package;
-- **`pkg`**: The connection package to use in the connection with the database. This can assume two values (`mongoose`, `mockgose`).
+First of all we need to add the database adapter as an dependency, for that you use the `npmDependencies` property on the `manifest.json` file of your package.
 
-The follow code show a example config to connect with a remote MongoDB server on the MLab servers, in the development environment:
+```json
+{
+    "id": "private",
+    "name": "Private Module",
+    "version": "1.0.0",
+    "description": "This module exists to store the private project actions and tasks",
+    "npmDependencies": {
+      "sails-mongo": "0.12.2"
+    }
+}
+```
+
+The next step is configure the connection on the `config/database.js`, or otehr filename that you want:
 
 ```javascript
-'use strict'
-
-// use a remote MongoDB server on development
-exports.development = {
+exports.production = {
   models: api => {
     return {
-      connectionString: 'mongodb://exampleUser:examplePass@dz010866.mlab.com:19876/myOpDatabase',
-      pkg: 'mongoose'
+      adapters: {
+        'mongodb': 'sails-mongo'
+      },
+
+      connections: {
+        mongodb: {
+          adapter: 'mongodb',
+          url: 'mongodb://jarvis:somepassword@example.com:27017/awesomeDb'
+        }
+      },
+
+      defaults: {
+        migrate: 'safe'
+      },
+
+      defaulConnection: 'mongodb'
     }
   }
 }
 ```
 
-## Defining Models
+So, let's stop for a while an check what we have done here. First of all, we specify a new adapter using the package name that we add before on the dependencies, we call our adapter of "mongodb", but you can give it some other name. Then we create a new connection using the standard connection string, which is already known for the mongo users.
 
-To get started, let's create an model. Models live in the `models` directory on the modules root.
+> NOTE: on the connection, with the exception of the `adapter`, the other key-value pairs are all configs related with the chosen adapter. You can see the adapter documentation to see what you need put here.
+
+Finally, we set the new connection as the default one, and done! No we are ready to go.
+
+Note that you need to install the adapter before run, for that you can start the server using the `--update` options like this:
+
+```shell
+stellar run --update
+```
+
+### Defining Models
+
+To get started, let's create an model. Models live in the `models` directory on the modules roots.
 
 The easiest way to create a model instance is using the `makeModel` command:
 
@@ -49,7 +81,7 @@ The easiest way to create a model instance is using the `makeModel` command:
 stellar makeModel User --module=authentication
 ```
 
-If you would like to generate a CRUD action when you generate the model, you may use the --crud option:
+If you would like to generate a CRUD action when you generate the model, you may use the `--crud` option:
 
 ```shell
 stellar makeModel User --module=authentication --crud
@@ -57,9 +89,9 @@ stellar makeModel User --module=authentication --crud
 
 > NOTE: the generated code uses the function syntax. You can see more about that on the next subsection.
 
-All the models are loaded into memory when a new Stellar instance is started, so you have a global place where all the models living (`api.models`). Ahead will be able to see how to get a model an use it on your code.
+All the models are loaded into memory when a new Stellar instance is started, so you have a global place where all the models lives (`api.models`). Ahead will be able to see how to get a model an use it on your code.
 
-## Model Conventions
+### Model Conventions
 
 Now, let's look at an example `Content` model, which we will use to retrieve and store information from our `contents` database collection:
 
@@ -67,137 +99,33 @@ Now, let's look at an example `Content` model, which we will use to retrieve and
 'use strict'
 
 exports.default = {
-  title:   String,
-  content: String,
-  source:  String,
-  tags:    [ String ]
+  title: 'string',
+  content: 'string',
+  source: 'string',
+  tags: 'array'
 }
 ```
 
-> Note: You must use the Mongoose syntax to define your models.
-
-For more advanced models you can use a function instead of an `Object`:
+Note that you can use a function instead of an `Object`, to define more advanced models.
 
 ```javascript
-'use strict'
-
-exports.default = (api, mongoose) => {
-  // get Schema type
-  let Schema = mongoose.Schema
-
-  // return the schema
-  return new Schema({
-    _creator: { type: Schema.Types.ObjectId, ref: 'question' },
-    content: String,
-    user: Schema.Types.Mixed
-  }, {
-    timestamps: true
-  })
-}
-```
-
-## Retrieving Models
-
-Once you created a model, you are ready to start retrieving data from your database. For example:
-
-```javascript
-api.models.get('question').find({}, (err, resources) => {
-  // so something...
-})
-```
-
-You can define some search parameters like this:
-
-```javascript
-api.models.get('question').find({ tile: new RegExp('^Node\s*', "i") }, (err, resources) => {
-  // so something...
-})
-```
-
-## Retrieving Single Models
-
-Of course, in addition to retrieving all of the records for a given collection, you may also retrieve single records using `findOne`, `findById`. Instead of returning a collection of models, these method return a single model instance.
-
-```javascript
-// retrieve a model by its id
-api.models.get('question').findById('507f1f77bcf86cd799439011', (err, resource) => {
-  // do something...
-})
-
-// retrieve the first model matching the query constraints...
-api.models.get('question').findOne({ active: true }, (err, resource) => {
-  // do something...
-})
-```
-
-When the model are not found the `resource` variable is `null`.
-
-## Inserting & Updating Models
-
-### Inserts
-
-To create a new record in the database, simple create a new model instance, set attributes on the model, then call the save method:
-
-```javascript
-exports.createQuestion = {
-  name: 'createQuestion',
-  description: 'Create a new question',
-
-  run: (api, action, next) => {
-    const QuestionModel = api.models.get('question')
-
-    let question = new QuestionModel()
-
-    question.title = action.params.title
-
-    question.save()
+exports.default = api => {
+  // create a new model
+  const newModel = {
+    attributes: {
+      // TODO: add fields to this model
+    }
   }
+
+  return newModel
 }
-```
-
-In this example, we simply assign the title parameter from the incoming request to the name attribute of the `Question` model instance. When we call the save method, a record will be inserted into the database.
-
-### Updates
-
-The save method may also be used to update models that already exist in the database. To update a model, you should retrieve it, set any attributes you wish to update, and then call the save method.
-
-```javascript
-let question = QuestionModel.findById('507f1f77bcf86cd799439011')
-
-question.content = 'New Question Content'
-
-question.save()
-```
-
-You can also rewrite the code above using the `findOneAndUpdate` method:
-
-```javascript
-QuestionModel.findOneAndUpdate({ _id: '507f1f77bcf86cd799439011' }, { content: 'New Question Content' })
-```
-
-#### Mass Update
-
-Updates can also be performed against any number of models that match a given query. In this example, all question that are `active` will be marked as inactive:
-
-```javascript
-QuestionModel.update({ active : true }, { active: false }, { multi: true })
-```
-
-## Deleting Models
-
-To delete a model, call the delete method on a model instance:
-
-```javascript
-QuestionModel.findByIdAndRemove('507f1f77bcf86cd799439011')
 ```
 
 ## Extend Models
 
 For now, there is no way to replace or modify already created models. So, in order to manipulate (add, modify or remove) fields, Stellar provides a custom event on the model insertion. The event name is `core.models.add.{name}`, `name` is dynamic and is replaced with the model name. Using this naming convention we don't need to call all the listeners who modify models, instead of that we just call the right listeners for that specific model.
 
-The `core.models.add.{name}` event receives an instance of the Mongoose Schema (`schema`), who represents the model schema, and the Mongoose instance (`mongoose`) to access, for example, to the Mongoose custom data types. To manipulate the model you must use the [Mongoose Schema methods](http://mongoosejs.com/docs/api.html#schema_Schema-add).
-
-The follow example shows how to extend a model. In this case we are adding two new fields to the `user` model:
+The `core.models.add.{name}` event receives an instance of the Model (`model`) as you can see bellow. The follow example shows how to extend a model. In this case we are adding two new fields to the `user` model:
 
 ```javascript
 exports.editUserModel = {
@@ -205,10 +133,13 @@ exports.editUserModel = {
   description: 'This adds the address and the phone fields to the user model',
 
   run (api, params, next) {
+    // get the user model
+    const User = params.model
+
     // add the new two fields
-    params.schema.add({
-      address: { type: String, default: null },
-      phone: { type: String, default: null }
+    User.attributes = Object.assign(User.attributes, {
+      address: { type: 'string', defaultsTo: null },
+      phone: { type: 'string', defaultsTo: null }
     })
 
     // finish the event execution

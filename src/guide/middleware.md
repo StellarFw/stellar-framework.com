@@ -1,7 +1,7 @@
 ---
 title: Middleware
 type: guide
-order: 6
+order: 5
 ---
 
 ## Overview

@@ -1,7 +1,7 @@
 ---
 title: Development Mode
 type: guide
-order: 11
+order: 10
 ---
 
 ## What is Development Mode?

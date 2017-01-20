@@ -1,7 +1,7 @@
 ---
 title: WebSocket
 type: guide
-order: 15
+order: 13
 ---
 
 ## Overview

@@ -1,7 +1,7 @@
 ---
 title: Events
 type: guide
-order: 14
+order: 12
 ---
 
 ## Overview

@@ -10,6 +10,13 @@
 
     <ul class="menu-root">
       <% type !== 'api' && site.pages.find({type: type}).sort('order').each(function (p) { %>
+        <% var fileName = p.path.replace(/^.+?\/([\w-]+)\.html/, '$1') %>
+        <% if (type  === 'guide') { %>
+          <% if (fileName === 'models') { %>
+            <li><h3>Models</h3></li>
+          <% } %>
+        <% } %>
+
         <li>
           <a href="/<%- p.path %>" class="sidebar-link<%- page.title === p.title ? ' current' : '' %><%- p.is_new ? ' new' : '' %>"><%- p.title %></a>
         </li>

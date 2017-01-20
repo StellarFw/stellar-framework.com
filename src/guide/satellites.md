@@ -1,7 +1,7 @@
 ---
 title: Satellites
 type: guide
-order: 7
+order: 6
 ---
 
 ## Overview

@@ -1,7 +1,7 @@
 ---
 title: Validation
 type: guide
-order: 19
+order: 17
 ---
 
 ## Introduction

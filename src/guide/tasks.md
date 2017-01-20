@@ -1,7 +1,7 @@
 ---
 title: Tasks
 type: guide
-order: 5
+order: 4
 ---
 
 ## Overview

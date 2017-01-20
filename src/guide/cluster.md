@@ -1,7 +1,7 @@
 ---
 title: Cluster
 type: guide
-order: 8
+order: 7
 ---
 
 ## Overview

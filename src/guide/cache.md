@@ -1,7 +1,7 @@
 ---
 title: Cache
 type: guide
-order: 9
+order: 8
 ---
 
 ## Introduction
