@@ -16,7 +16,7 @@ In the cache system there are three basic methods to manage the cached objects. 
 
 To add a new entry to the cache, you need to use `api.cache.save(key, value, msToExpire, callback)`; this method also allows you to update an existing entry. The `msToExpire` can be `null` if you don't want the object to expire. The `callback` parameter is a function that takes two parameters - `callback(error, newObject)`; the first parameter contains an error if there is one and the second is the newly created object in the cache. If you are updating an existing object, the `newObject` will assume the `true` value.
 
-```javascript
+```js
 // create a new cache entry
 api.cache.save('websiteTitle', 'XPTO Website')
 ```
@@ -27,7 +27,7 @@ api.cache.save('websiteTitle', 'XPTO Website')
 
 To retrieve an entry which is cached, use the method `api.cache.load(cache, callback)` or `api.cache.load(cache, options, callback)`; `options` must be an object which can contain the property `expireTimeMS` which will reset the expiration time of the cached value when it is read.
 
-```javascript
+```js
 api.cache.load('webSiteTitle', (error, value, expireTime, createdAt, readAt) => {
   // do something with the value read...
 })
@@ -51,7 +51,7 @@ To remove a cache entry is as easy as calling the `api.cache.destroy(key, callba
   - **`destroyed`**: `true` if the object has been destroyed, `false` if the object was not found.
 
 
-```javascript
+```js
 api.cache.destroy('webSiteTitle', (error, destroyed) => {
   // do something...
 })
@@ -70,7 +70,7 @@ To insert a new element in the list we use the `api.cache.push(key, item, callba
 - **`callback(error)`**: Callback function:
   - **`error`**: Takes the `null` value if no error occurred.
 
-```javascript
+```js
 api.cache.push('commands', {player: 'xpto', command: 'exec:abc:param1'}, error => {
   if (error) {
     // An error occurs...
@@ -91,7 +91,7 @@ To retrieve an element from the list, you can use the `api.cache.pop(key, callba
   - **`error`**: Takes the `null` value if there is no error in the request.
   - **`item`**: Item present at the head of the list or `null` if the list does not exist.
 
-```javascript
+```js
 api.cache.pop('commands', (error, item) => {
   if (error) {
     // an error occurs...
@@ -111,7 +111,7 @@ Stellar also allows you to get the size of a list that is cached. If the list do
   - **`error`**: `null` if there is no error with the request.
   - **`size`**: List size.
 
-```javascript
+```js
 api.cache.listLength('commands', (error, size) => {
   if (error) {
     // an error has occurred!
@@ -136,7 +136,7 @@ The `api.cache.lock(key, expireTimeMS, callback)` method allows you to lock an e
   - **`error`**: Object that contains the error information if an error occurred.
   - **`lockOK`**: Will take the value of `true` or `false`, depending on whether the lock was obtained.
 
-```javascript
+```js
 api.cache.lock('inTransaction', (error, lockOk) => {
   if (!lockOk) {
     // it was impossible to obtain the lock!
@@ -156,7 +156,7 @@ To unlock an object you just need use the `api.cache.unlock(key, callback)` meth
   * **`error`**: `null` if there has been no error, otherwise an object containing the error information.
   * **`lockOK`**: `true` if the lock has been removed, `false` otherwise.
 
-```javascript
+```js
 api.cache.unlock('inTransaction', (error, lockOk’) => {
   if (!lockOk) {
     // it was impossible to remove the lock!
@@ -176,7 +176,7 @@ There is also a method to obtain the lock status of a particular object, `api.ca
   * **`error`**: `null` unless an error occurred when connecting to the Redis server.
   * **`lockOk`**: `true` or `false` depending on the lock status.
 
-```javascript
+```js
 api.cache.checkLock('inTransaction', (error, lockOk) => {
   if (!lockOk) {
     // the object does not contain a lock!
@@ -195,7 +195,7 @@ The `api.cache.locks(callback)` method allows you get all active locks:
   * **`error`**: `null` or error information.
   * **`locks`**: Array of all active locks.
 
-```javascript
+```js
 api.cache.locks((error, locks) => {
   // the variable `locks` is an array that contains
   // all active locks

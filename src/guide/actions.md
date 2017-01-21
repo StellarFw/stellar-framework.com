@@ -12,7 +12,7 @@ Developers can create their own actions by creating a new file in a module's `ac
 
 The actions are loaded into the Stellar Engine when it starts. Actions can be invoked by other actions (including those in other modules).
 
-```javascript
+```js
 exports.randomNumber = {
   name: 'randomNumber',
   description: 'Generate a random number',
@@ -87,7 +87,7 @@ The list below shows all available properties to use on the input fields:
 
 If your parameter is optional you may want use a default value for it. The follow snippet shows how you can do that, the first input field uses a static declaration and the seconds one uses a function:
 
-```javascript
+```js
 {
   name: 'getCommissionsByRange',
 
@@ -119,7 +119,7 @@ To remove the need for developers to manually convert input parameters to their 
 
 The example below shows the conversion of a parameter to the integer type:
 
-```javascript
+```js
 exports.giveAge = {
   name: 'giveAge',
   description: 'Give the name and age based on the year of birth',
@@ -175,7 +175,7 @@ Sometimes you might create actions that you do not want to be called by clients,
 
 The example below shows an internal call to an action called `sumANumber`; after execution, the result is printed out to the console. The complete example can be found [here](https://github.com/StellarFw/stellar/blob/dev/example/modules/test/actions/internalCalls.js).
 
-```javascript
+```js
 api.actions.call('sumANumber', {a: 3, b: 3}, (error, response) => {
   console.log(`Result => ${response.formatted}`)
 })
@@ -201,7 +201,7 @@ You can learn more about [middleware here](middleware.html).
 
 The following example shows the declaration of an action that contains two middleware components:
 
-```javascript
+```js
 exports.getAllAccounts = {
   name: 'getAllAccounts',
   description: 'Get all registered accounts',
@@ -221,7 +221,7 @@ exports.getAllAccounts = {
 
 You can use Promises to finish actions instead using callbacks. This allows you to write even more clean code, but you can continue using the old callback way. The Promises only are useful in some specific use cases, like after read data from a model. The follow example shows one of that cases:
 
-```javascript
+```js
 exports.getAllPosts = {
   name: 'getAllPosts',
 

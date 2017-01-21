@@ -14,7 +14,7 @@ Stellar comes equipped with a hashing system, which makes use of the [bcrypt](ht
 
 The `api.hash.hash` and `api.hash.hashSync` methods allow you to generate a hash from a string asynchronously and synchronously, respectively.
 
-```javascript
+```js
 // generate a hash synchronously
 let hash = api.hash.hashSync(plainData)
 
@@ -26,7 +26,7 @@ api.hash.hash(plainData).then(hash => {
 
 You can also use other salt with different resources, all you need is pass an extra hash with your special params who meets your needs:
 
-```javascript
+```js
 hash.hashSync(plainData, { salt: yourSuperSalt })
 ```
 
@@ -34,7 +34,7 @@ hash.hashSync(plainData, { salt: yourSuperSalt })
 
 The `api.hash.compare` and `api.hash.compareSync` methods allow you to compare a string with a hash to check whether they match.
 
-```javascript
+```js
 // compare a hash synchronously
 let result = api.hash.compare(plainData, hashToCompare)
 

@@ -1,7 +1,7 @@
 ---
 title: Associations
 type: guide
-order: 24
+order: 23
 ---
 
 With our ORM you can associate models with other models across all datastores. This means that your users can live in PostgreSQL and their photos can live in MongoDB and you can interact with the data as if they lived together on the same database. You can also have associations that live on separate connections or in different databases within the same adapter.
@@ -20,7 +20,7 @@ A one-to-one association states that a model may only be associated with one oth
 
 The ORM uses the concept of a `model` attribute to indicate that a record should store a reference to another model. Whenever this attribute is found a `foreignKey` will be built up in the underlying schema to handle the association.
 
-```javascript
+```js
 // user.js - A user may only have a single pet
 {
   attributes: {
@@ -46,7 +46,7 @@ The ORM uses the concept of a `model` attribute to indicate that a record should
 
 In the above example we are associating a `Pet` with a `User`. The `User` may only have one `Pet` in this case but a `Pet` is not limited to a single `User`. Because we have only formed an association on one of the models, a `Pet` has no restrictions on the number of `User` models it can belong to. We can change this and associate the `Pet` with exactly one `User` and the `User` with exactly one `Pet`.
 
-```javascript
+```js
 // user.js - A user may only have a single pet
 {
   attributes: {
@@ -77,7 +77,7 @@ In the above example we are associating a `Pet` with a `User`. The `User` may on
 
 Now that both models know about each other you can query the association from both sides. To add an association to a model when creating a record you can use the named attribute you set in the model definition.
 
-```javascript
+```js
 Pet.create({
   breed: 'labrador',
   type: 'dog',
@@ -91,7 +91,7 @@ Pet.create({
 
 This will create a new `Pet` record with the `User` foreignKey set. It will allow you to query a `Pet` and retrieve their owners, but the `User` side of the association doesn't know about the `Pet`. To ensure you can query both ways the `User` record will need to be updated with the new `Pet` record. You can do this in many ways but a simple nested example may look like this:
 
-```javascript
+```js
 Pet.create({
   breed: 'labrador',
   type: 'dog',
@@ -109,7 +109,7 @@ Pet.create({
 
 Now that the associations are created you can query the records and include the associated data. To do this the `populate` option is used. This will add a key to each model returned that contains an object with the corresponding record. Because we set the association on both sides above you could use `populate` on either side.
 
-```javascript
+```js
 Pet.find()
 .populate('user')
 .exec((err, pets) => {
@@ -137,7 +137,7 @@ These one-to-one relationships will also work if you're using a legacy database.
 
 In this example, PetBiz prefixes all of their tables and fields with `pb_`. So the Pet model becomes:
 
-```javascript
+```js
 {
   tableName: 'pb_pets'
 
@@ -169,7 +169,7 @@ In this example, PetBiz prefixes all of their tables and fields with `pb_`. So t
 
 Meanwhile, the `User` would look something like this:
 
-```javascript
+```js
 {
   tableName: 'pb_user'
 
@@ -204,7 +204,7 @@ A one-to-many association states that a model can be associated with many other 
 
 Because you may want a model to have multiple one-to-many associations on another model, a `via` key is needed on the `collection` attribute. This states which `model` attribute on the one side of the association is used to populate the records.
 
-```javascript
+```js
 // user.js - A user may have many pets
 {
   attributes: {
@@ -236,7 +236,7 @@ Because you may want a model to have multiple one-to-many associations on anothe
 
 Now that the pets and users know about each other, they can be associated. To do this we can create or update a pet with the user's primary key for the `owner` value.
 
-```javascript
+```js
 Pet.create({
   breed: 'labrador',
   type: 'dog',
@@ -250,7 +250,7 @@ Pet.create({
 
 Now that the `Pet` is associated with the `User`, all the pets belonging to a specific user can be populated by using the `populate` method.
 
-```javascript
+```js
 User.find()
 .populate('pets')
 .then(users => {
@@ -283,7 +283,7 @@ You will also need to add a `dominant` property on one side of the association. 
 
 Using the `User` and `Pet` example, let's look at how to build a schema where a `User` may have many `Pet` records and a `Pet` may have multiple owners.
 
-```javascript
+```js
 // user.js - A user may have many pets
 {
   attributes: {
@@ -323,7 +323,7 @@ Both these methods are sync methods that will queue up a set of operations to be
 
 ### When Both Records Exist
 
-```javascript
+```js
 // Given a User with ID 2 and a Pet with ID 20
 
 User.findOne(2).then(user => {
@@ -337,7 +337,7 @@ User.findOne(2).then(user => {
 
 ### With A New Record
 
-```javascript
+```js
 User.findOne(2).then(user => {
   // Queue up a new pet to be added and a record to be created in the join table
   user.pets.add({ breed: 'labrador', type: 'dog', name: 'fido' })
@@ -349,7 +349,7 @@ User.findOne(2).then(user => {
 
 ### With An Array of New Record
 
-```javascript
+```js
 // Given a User with ID 2 and a Pet with ID 20, 24, 31
 
 User.findOne(2).then(user => {
@@ -363,7 +363,7 @@ User.findOne(2).then(user => {
 
 Removing associations is just as easy using the `remove` method. It works the same as the `add` method except it only accepts primary keys as a value. The two methods can be used together as well.
 
-```javascript
+```js
 User.findOne(2).then(user => {
   // Queue up a new pet to be added and a record to be created in the join table
   user.pets.add({ breed: 'labrador', type: 'dog', name: 'fido' })
@@ -381,7 +381,7 @@ User.findOne(2).then(user => {
 
 Take a look to the following ontology:
 
-```javascript
+```js
 // user.js
 {
   attributes: {
@@ -394,7 +394,7 @@ Take a look to the following ontology:
 }
 ```
 
-```javascript
+```js
 // product.js
 {
   connection: 'ourRedis',
@@ -426,7 +426,7 @@ We address this through the concept of "dominance."  In any cross-adapter model 
 
 Here's the ontology again, but this time we'll indicate the MySQL database as the "dominant".  This means that the "ProductUser" relationship "table" will be stored as a MySQL table.
 
-```javascript
+```js
 // user.js
 {
   connection: 'ourMySQL',
@@ -441,7 +441,7 @@ Here's the ontology again, but this time we'll indicate the MySQL database as th
 };
 ```
 
-```javascript
+```js
 // product.js
 module.exports = {
   connection: 'ourRedis',

@@ -1,7 +1,7 @@
 ---
 title: Validations
 type: guide
-order: 23
+order: 22
 ---
 
 Validations are handled by [Anchor](https://github.com/sailsjs/anchor) which is based off of [Node Validate](https://github.com/chriso/validator.js) and supports most of the properties in node-validate.
@@ -13,7 +13,7 @@ Validation rules may be defined as simple values or functions (both sync and asy
 
 Available validations are:
 
-```javascript
+```js
 attributes: {
   example: {
     empty: true,
@@ -73,7 +73,7 @@ attributes: {
 
 Validations can also be defined as functions, either sync or async.
 
-```javascript
+```js
 attributes: {
   website: {
     type: 'string',
@@ -86,7 +86,7 @@ attributes: {
 
 Validations can also be used against other attributes using the `this` context.
 
-```javascript
+```js
 attributes: {
   startDate: {
     type: 'date',
@@ -171,7 +171,7 @@ attributes: {
 
 You can define your own types and their validation with the `types` object. It's possible to access and compare values to other attributes. This allows you to move validation business logic into your models and out of your action logic.
 
-```javascript
+```js
 exports.default = {
   types: {
     point(latlng) {
@@ -223,7 +223,7 @@ Lifecycle callbacks are functions you can define to run at certain times in a qu
 
 If you want to encrypt a password before saving in the database you can use the `beforeCreate` lifecycle callback.
 
-```javascript
+```js
 exports.default = api => {
   const UserModel = {
 
@@ -267,7 +267,7 @@ exports.default = api => {
 
 You're the NSA and you need to update the record of a person who is a suspect! First though, you need to make sure that the record concerns a person of interest. You might want to use the `beforeValidation` lifecycle callback to see if the record's `citizen_id` exists in your `Probable_suspects` model.
 
-```javascript
+```js
 {
   attributes: {
     citizen_name: 'string',
@@ -301,7 +301,7 @@ You're the NSA and you need to update the record of a person who is a suspect! F
 
 You want to update a cache to remove a record after it has been destroyed. To do this you can use the `afterDestroy` lifecycle callback.
 
-```javascript
+```js
 {
   attributes: {
     name: 'string'

@@ -16,7 +16,7 @@ This subsection demonstrates the types of tasks that exist and how they can be u
 
 First, we have the `normal` tasks. Tasks of this type are added to a queue and processed in order of arrival as soon as there are free workers.
 
-```javascript
+```js
 // api.tasks.enqueue(taskName, args, queue, callback)
 api.tasks.enqueue('sendResetPasswordEmail', { to: 'gil00mendes@gmail.com' }, 'default', (error, toRun) => {
   // task enqueued!
@@ -25,7 +25,7 @@ api.tasks.enqueue('sendResetPasswordEmail', { to: 'gil00mendes@gmail.com' }, 'de
 
 Then we have the `delayed` tasks. These tasks are enqueued in a special 'delayed' queue to be processed at some time in the future (defined either by a timestamp or a number of milliseconds from the time the task is created):
 
-```javascript
+```js
 // api.tasks.enqueueAt(timestamp, taskName, args, queue, callback)
 api.tasks.enqueueAt(1591629508, 'sendNotificationEmail', { to: 'gil00mendes@gmail.com' }, 'default', (error, toRun) => {
   // task enqueued!
@@ -35,7 +35,7 @@ api.tasks.enqueueAt(1591629508, 'sendNotificationEmail', { to: 'gil00mendes@gmai
 Finally, `periodic` tasks are like `delayed` tasks, but they run on a set frequency (e.g., every 5 minutes):
 
 
-```javascript
+```js
 // api.tasks.enqueueIn(delay, taskName, args, queue, callback)
 api.tasks.enqueueIn(60000, 'sendNotificationEmail', { to: 'gil00mendes@gmail.com' }, 'default', (error, toRun) => {
   // task enqueued!
@@ -66,7 +66,7 @@ The list below are the properties supported by the tasks. The properties `name`,
 
 The example below shows the structure of a task which records a message "Hello!!!" every second:
 
-```javascript
+```js
 exports.sayHello = {
   name: 'sayHello',
   description: 'I say hello',

@@ -27,7 +27,7 @@ These methods can be used within your server. They are not exposed directly to c
 
 The `api.chatRoom.broadcast(connection, room, message, callback)` method allows you to send a message to all members in a room. The connection parameter can be a real connection (a message coming from a client), or a mockConnection. A mockConnection at the very least has the form `{room: 'someRoom'}`. When an ID is not specified the ID will be assigned to 0.
 
-```javascript
+```js
 api.chatRoom.broadcast({room: 'general'}, 'general', 'Hello!', error => {
   // do something after sending the message!
 })
@@ -37,7 +37,7 @@ api.chatRoom.broadcast({room: 'general'}, 'general', 'Hello!', error => {
 
 The `api.chatRoom.list(callback)` allows you to get a list of existing rooms. The following example code lists all rooms in the console (`stdout`):
 
-```javascript
+```js
 api.chatRoom.list((error, rooms) => {
   for (let k in rooms) { console.log(`${k} => ${rooms[k]}`) }
 })
@@ -47,7 +47,7 @@ api.chatRoom.list((error, rooms) => {
 
 To create a room you use the `api.chatRoom.add(room, callback)` method. The callback function receives a parameter that has a value of `0` when the room already exists and `1` if it has just been created. The following code shows the creation of a new room named "labs":
 
-```javascript
+```js
 api.chatRoom.add('labs', res => {
   if (res === 0) {
     // the room already exists!
@@ -62,7 +62,7 @@ api.chatRoom.add('labs', res => {
 
 Using the `api.chatRoom.destroy(room, callback)` method, you can remove a room. The callback function does not receive any parameters; the room is always removed. The following code shows how you can remove a room:
 
-```javascript
+```js
 api.chatRoom.destroy('labs', () => {
   // room removed!
 })
@@ -77,7 +77,7 @@ You can use the `api.chatRoom.exists(room, callback)` method to check if the roo
 
 The following code checks the existence of the chat room named "coffeeTable":
 
-```javascript
+```js
 api.chatRoom.exists('coffeeTable', (error, found) => {
   if (!found) {
     // the room does not exist!
@@ -97,13 +97,13 @@ With the `api.chatRoom.roomStatus(room, callback)` method you can get room statu
 
 The code below shows how this information can be obtained and then a possible result:
 
-```javascript
+```js
 api.chatRoom.roomStatus('Random', (error, status) => {
   // do something with the room information!
 })
 ```
 
-```javascript
+```js
 {
   room: 'Random',
   membersCount: 3,
@@ -122,7 +122,7 @@ To add a new member, use the `api.chatRoom.addMember(connectionId, room, callbac
 - **`error`**: `null` if no error occurs during the call.
 - **`wasAdded`**: Can be `true` or `false` depending on whether the member was added or not.
 
-```javascript
+```js
 api.chatRoom.addMember(connectionId, 'newUsers', (error, wasAdded) => {
   if (!wasAdded) {
     // could not add the new member!
@@ -142,7 +142,7 @@ The `api.chatRoom.removeMember(connectionId, room, callback)` method allows you 
 - **`error`**: `null` if no error occurs during the operation.
 - **`wasRemoved`**: `true` if the member has been removed, `false` otherwise.
 
-```javascript
+```js
 api.chatRoom.removeMember(connectionId, 'heaven', (error, wasRemoved) => {
   if (!wasRemoved) {
     // the member has not been removed!
@@ -162,7 +162,7 @@ There are 4 types of middleware you can install for the chat system: `say`, `onS
 
 Every connection object also has a `connection.sendMessage(message)` method which you can call directly from the server.
 
-```javascript
+```js
 connectionObj.sendMessage('Welcome to Stellar :)')
 ```
 

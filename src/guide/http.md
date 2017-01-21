@@ -35,7 +35,7 @@ The JSON below shows an example of a response from the server.
 
 Stellar also can serve files to the client. Stellar does not cache files; in each request files are read from disk. The following code is an example of how to send a file to the client from within an action:
 
-```javascript
+```js
 // specifies the file to send to the client
 action.connection.sendFile('/path/to/file.txt')
 
@@ -139,7 +139,7 @@ Although the Stellar client-side JavaScript library is mostly for WebSockets, it
 </head>
 ```
 
-```javascript
+```js
 'use strict'
 
 // create a new client

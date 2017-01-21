@@ -1,7 +1,7 @@
 ---
 title: Data Types and Attributes
 type: guide
-order: 22
+order: 21
 ---
 
 ## Data Types
@@ -31,7 +31,7 @@ These properties are also available on an attribute and can be used to enforce v
 Will set a default value on an attribute if one is not supplied when the record is created. The supplied value can also be a
 function that stellar will run while creating the record.
 
-```javascript
+```js
 attributes: {
   phoneNumber: {
     type: 'string',
@@ -53,7 +53,7 @@ attributes: {
 Will create a new auto-incrementing attribute. These should always be of type `integer` and will not be supported in all datastores. For example MySQL will not allow more than one auto-incrementing
 column per table.
 
-```javascript
+```js
 attributes: {
   placeInLine: {
     type: 'integer',
@@ -66,7 +66,7 @@ attributes: {
 
 Ensures no two records will be allowed with the same value. This is a database level constraint so in most cases a unique index will be created in the underlying datastore.
 
-```javascript
+```js
 attributes: {
   username: {
     type: 'string',
@@ -81,7 +81,7 @@ Will create a simple index in the underlying datastore for faster queries if ava
 
 There is currently an issue with adding indexes to string fields. Because the ORM performs its queries in a case insensitive manner we are unable to use the index on a string attribute. There are some workarounds being discussed, but nothing is implemented so far. This will be updated in the near future to fully support indexes on strings.
 
-```javascript
+```js
 attributes: {
   email: {
     type: 'string',
@@ -94,7 +94,7 @@ attributes: {
 
 Will set the primary key of the record. This should be used when `autoPK` is set to false.
 
-```javascript
+```js
 attributes: {
   uuid: {
     type: 'string',
@@ -108,7 +108,7 @@ attributes: {
 
 A special validation property which will only allow values that match a whitelisted set of values.
 
-```javascript
+```js
 attributes: {
   state: {
     type: 'string',
@@ -121,7 +121,7 @@ attributes: {
 
 If supported in the datastore, can be used to define the size of the attribute. For example, in MySQL size can be used with a string to create a column with data type: `varchar(n)`.
 
-```javascript
+```js
 attributes: {
   name: {
     type: 'string',
@@ -134,7 +134,7 @@ attributes: {
 
 Override the attribute name before sending to a datastore. This allows you to have a different interface for interacting with your data at the application layer and the data layer. It comes in handy when integrating with legacy databases. You can have a nice API for your data and still allow the data to be saved in legacy columns.
 
-```javascript
+```js
 attributes: {
   name: {
     type: 'string',

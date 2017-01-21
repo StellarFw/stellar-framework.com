@@ -1,14 +1,14 @@
 ---
 title: Instance and Class Methods
 type: guide
-order: 25
+order: 24
 ---
 
 ## Instance methods
 
 You can attach instance methods to a model which will be available on any record returned from a query. These are defined as functions in your model attributes.
 
-```javascript
+```js
 {
   attributes: {
     firstName: 'string',
@@ -28,7 +28,7 @@ However we provide an even easier way to filter values before returning to the c
 
 Example of filtering a password in your model definition:
 
-```javascript
+```js
 {
   attributes: {
     name: 'string',
@@ -50,7 +50,7 @@ Example of filtering a password in your model definition:
 
 These are useful if you would like to keep model logic in the model and have reusable functions available.
 
-```javascript
+```js
 // example.js - just an example model
 {
   attributes: { },

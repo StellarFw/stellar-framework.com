@@ -12,7 +12,7 @@ Stellar has an event system that allows you to subscribe to and listen for event
 
 Instead of manually creating a file for each listener, developers can use the `stellar` command line tool to do this automatically:
 
-```shell
+```bash
 $ stellar makeListener <eventName> --module=<moduleName>
 ```
 
@@ -20,7 +20,7 @@ $ stellar makeListener <eventName> --module=<moduleName>
 
 The code below shows the implementation of a listener.  In this example the listener will respond to the `social.newComment` event and will add a new task to the system to send an email every time a comment is made.
 
-```javascript
+```js
 // File: modules/social/listeners/comments.js
 
 'use strict'
@@ -44,7 +44,7 @@ exports.default = [{
 
 The code below shows how an event can be triggered, the event system uses promises to get away from the callback-hell. In this case the developer wants to fire the `social.newComment` event and give listeners a variable with the new comment data:
 
-```javascript
+```js
 api.events.fire('social.newComment', newComment)
   .then(response => {
     // do something with the modified data...
@@ -55,7 +55,7 @@ api.events.fire('social.newComment', newComment)
 
 To register a listener manually the developer can use the following API:
 
-```javascript
+```js
 api.events.listener('blog.newUser', (api, params, next) => {
   // pass a property to the response
   params.someKey = 'someValue'

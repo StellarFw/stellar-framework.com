@@ -33,7 +33,7 @@ One of the main advantages of using a TCP connection is the possibility to call 
 
 The TCP server supports encrypted connections via TLS, if desired. For this you need to configure some settings on the server:
 
-```javascript
+```js
 'use strict'
 
 exports.default = {
@@ -49,13 +49,13 @@ exports.default = {
 
 The secure connection can be tested using the following command:
 
-```shell
+```bash
 $ openssl s_client -connect 127.0.0.1:5000
 ```
 
 Or, you can use another node process:
 
-```javascript
+```js
 let fs = require('fs')
 let tls = require('tls')
 

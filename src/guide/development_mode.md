@@ -10,7 +10,7 @@ Development mode, as the name implies, is a special way to facilitate the develo
 
 To enable development mode you just need create a file (if you do not have one) named `config/api.js` and set the `developmentMode` option to `true`:
 
-```javascript
+```js
 'use strict'
 
 exports.default = {

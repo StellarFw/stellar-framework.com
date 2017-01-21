@@ -8,13 +8,13 @@ order: 19
 
 Stellar comes with a command-line interface. It provides a number of helpful commands that can assist you while you build your application. Yo view a list of all available commands, you may use the follow command:
 
-```shell
+```bash
 stellar
 ```
 
 Every command also includes a "help" screen which displays and describes the command's available arguments and options. To view a help screen, simply precede the name of the command with `help`:
 
-```shell
+```bash
 stellar help makeModel
 ```
 

@@ -35,7 +35,7 @@ You can also help using the [issue tracker](https://github.com/StellarFw/stellar
 
 The typical directory structure of a Stellar project is shown below. This example is a simple API that implements the functionality of a blog.
 
-```
+```text
 .
 ├── config
 │   └── (project-level settings)
@@ -109,7 +109,7 @@ The **manifest.json** file defines the project's name, version, description, and
 
 One of the easy parts of using Stellar is that you don't need any special configuration to start developing your app. To running an instance of your API you just need to execute a command on the root of your project:
 
-```shell
+```bash
 stellar run
 ```
 

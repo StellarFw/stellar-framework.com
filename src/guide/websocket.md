@@ -117,7 +117,7 @@ The following list shows the events which are available to the client.
 
 The `connected` event is triggered when the client connects to the server.
 
-```javascript
+```js
 client.on('connected', () => { })
 ```
 
@@ -125,7 +125,7 @@ client.on('connected', () => { })
 
 The `disconnected` event is triggered when the client disconnects from the server.
 
-```javascript
+```js
 client.on('disconnected', () => { })
 ```
 
@@ -133,7 +133,7 @@ client.on('disconnected', () => { })
 
 The `error` event is triggered when an error occurs during a verb execution.
 
-```javascript
+```js
 client.on('error', error => { })
 ```
 
@@ -141,7 +141,7 @@ client.on('error', error => { })
 
 The `reconnect` event occurs when the connection between the server and the client is temporarily interrupted.
 
-```javascript
+```js
 client.on('reconnect', () => { })
 ```
 
@@ -151,7 +151,7 @@ client.on('reconnect', () => { })
 
 The `reconnecting` event occurs when the client tries to reconnect with the server.
 
-```javascript
+```js
 client.on('reconnecting', () => { })
 ```
 
@@ -159,7 +159,7 @@ client.on('reconnecting', () => { })
 
 The `message` event occurs when the client receives a new message.
 
-```javascript
+```js
 client.on('message', message => { })
 ```
 
@@ -169,7 +169,7 @@ client.on('message', message => { })
 
 The `alert` event occurs when the client receives a new message from the server with the `alert` context.
 
-```javascript
+```js
 client.on('alert', message => { })
 ```
 
@@ -177,7 +177,7 @@ client.on('alert', message => { })
 
 The `api` event occurs when the client receives a new message with an unknown context.
 
-```javascript
+```js
 client.on('api', message => { })
 ```
 
@@ -185,7 +185,7 @@ client.on('api', message => { })
 
 The `welcome` event occurs when the server sends a welcome message to the new-connected client.
 
-```javascript
+```js
 client.on('welcome', message => { })
 ```
 
@@ -193,7 +193,7 @@ client.on('welcome', message => { })
 
 Finally, the `say` event occurs when the client receives a new message from another client in the same room.
 
-```javascript
+```js
 client.on('say', message => { })
 ```
 > Note: the `message.room` property allows you to get the message origin.
@@ -204,7 +204,7 @@ Interceptors can be used for pre- and post-processing a request. This is particu
 
 This example shows how to append or modify request's parameters:
 
-```javascript
+```js
 client.interceptors.push((params, next) => {
   params.token = LocalStorage.getItem('token')
 
@@ -214,7 +214,7 @@ client.interceptors.push((params, next) => {
 
 Here we prevent the request to be send to the server returning an object as request's response:
 
-```javascript
+```js
 client.interceptors.push((params, next) => {
   next({ someKey: 'someValue' })
 })
@@ -222,7 +222,7 @@ client.interceptors.push((params, next) => {
 
 In this next case we also prevent the request to happen but this time we return an error:
 
-```javascript
+```js
 client.interceptors.push((params, next) => {
   next(null, { message: 'Bad news! An error was occurred.' })
 })
@@ -230,7 +230,7 @@ client.interceptors.push((params, next) => {
 
 Finally, we can also change the server response passing a function to the `next()`:
 
-```javascript
+```js
 client.interceptors.push((params, next) => {
   next(response => {
     response.additionalField = 'Awesome call...'

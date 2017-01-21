@@ -1,7 +1,7 @@
 ---
 title: Introduction
 type: guide
-order: 21
+order: 20
 ---
 
 The model system included with Stellar provides a straight-forward, schema-based solution to model your application data. It includes built-in type casting, validation, query building, business logic hooks and more, out of the box. All to work with you database. This set of features that we provide are only possible because we chose [Waterline](https://github.com/balderdashy/waterline) to be our primary ORM.
@@ -34,7 +34,7 @@ First of all we need to add the database adapter as an dependency, for that you 
 
 The next step is configure the connection on the `config/database.js`, or otehr filename that you want:
 
-```javascript
+```js
 exports.production = {
   models: api => {
     return {
@@ -67,7 +67,7 @@ Finally, we set the new connection as the default one, and done! No we are ready
 
 Note that you need to install the adapter before run, for that you can start the server using the `--update` options like this:
 
-```shell
+```bash
 stellar run --update
 ```
 
@@ -77,13 +77,13 @@ To get started, let's create an model. Models live in the `models` directory on 
 
 The easiest way to create a model instance is using the `makeModel` command:
 
-```shell
+```bash
 stellar makeModel User --module=authentication
 ```
 
 If you would like to generate a CRUD action when you generate the model, you may use the `--crud` option:
 
-```shell
+```bash
 stellar makeModel User --module=authentication --crud
 ```
 
@@ -95,7 +95,7 @@ All the models are loaded into memory when a new Stellar instance is started, so
 
 Now, let's look at an example `Content` model, which we will use to retrieve and store information from our `contents` database collection:
 
-```javascript
+```js
 'use strict'
 
 exports.default = {
@@ -108,7 +108,7 @@ exports.default = {
 
 Note that you can use a function instead of an `Object`, to define more advanced models.
 
-```javascript
+```js
 exports.default = api => {
   // create a new model
   const newModel = {
@@ -127,7 +127,7 @@ For now, there is no way to replace or modify already created models. So, in ord
 
 The `core.models.add.{name}` event receives an instance of the Model (`model`) as you can see bellow. The follow example shows how to extend a model. In this case we are adding two new fields to the `user` model:
 
-```javascript
+```js
 exports.editUserModel = {
   event: 'core.models.add.user',
   description: 'This adds the address and the phone fields to the user model',

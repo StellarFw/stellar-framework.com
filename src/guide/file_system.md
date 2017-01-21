@@ -34,7 +34,7 @@ The file content is sent "raw," which can be binary or contain line breaks. The 
 
 You can send files from within actions using the `connection.sendFile()` method. Below is an example of a successful call:
 
-```javascript
+```js
 // success case
 action.connection.sendFile('/path/to/file.mkv')
 action.toRender = false
@@ -43,7 +43,7 @@ next()
 
 The following example shows a failure:
 
-```javascript
+```js
 // failure case
 action.connection.rawConnection.responseHttpCode = 404
 action.connection.sendFile('404.html')

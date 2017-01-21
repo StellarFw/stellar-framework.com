@@ -10,7 +10,7 @@ Stellar makes use of the fantastic [Winston](https://www.npmjs.com/package/winst
 
 In your `config/logger.js` file you can customize which `transports` you would like logger to use. If none are provided, a default logger which only will print to stdout will be used. See Winston's documentation for a list of all logger types; these include console, file, S3, Riak, and more.
 
-```javascript
+```js
 'use strict'
 
 exports.logger = {
@@ -50,7 +50,7 @@ There are 8 levels of logging; each transport can have a different level. The le
 
 For example, if the log level is set to notice, critical messages are visible, but informational and debug messages are not.
 
-```javascript
+```js
 // will use the default 'info' level
 api.log('hello!')
 
@@ -68,7 +68,7 @@ api.log('the params were', 'info', action.params)
 
 The `api.logger.log` and `api.logger[severity]` methods are accessible via the `api` object and allow you to modify the Winston instance directly. The `api.log` method passes the message to all transports. Below are some examples of using the `api.log(message, severity, metadata)` method:
 
-```javascript
+```js
 // the most basic use - will assume 'info' as the severity
 api.log('hello')
 

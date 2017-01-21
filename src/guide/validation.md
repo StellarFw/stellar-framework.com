@@ -14,7 +14,7 @@ To learn about Stellar's powerful validation features, let's look at a complete 
 
 To use the validation system directly in your actions' declarations to automatically validate the requests you just need specify the rules on your inputs. On the follow example there is an action to register an user, this action receives an email and a password who needs to be confirmed.
 
-```javascript
+```js
 exports.registerUser = {
   name: 'registerUser',
   description: 'This action registers a new user.'
@@ -193,7 +193,7 @@ The field under validation must be a valid URL.
 
 You can also use functions to validate your input. Please, don't use arrow functions otherwise Stellar will not be able to inject the `api` instance as the context (`this`). The function receives one parameter, who is the inputted value.
 
-```javascript
+```js
 exports.example = {
   name: 'example',
 

@@ -24,7 +24,7 @@ Stellar implements a Remote Procedure Call (RPC), which allows you to run a part
 
 The example bellow causes all nodes print their IDs to the log file:
 
-```javascript
+```js
 api.redis.doCluster('api.log', [`Hello from the node ${api.id}`])
 ```
 
@@ -42,7 +42,7 @@ There is also a publish/subscribe mechanism through Redis, which allows communic
 
 The following example shows how you can subscribe to a particular message type.
 
-```javascript
+```js
 api.redis.subscriptionHandlers['messageType'] = message => {
   // do something...
 }
@@ -50,7 +50,7 @@ api.redis.subscriptionHandlers['messageType'] = message => {
 
 To send a message you use a similar code like the following:
 
-```javascript
+```js
 // build the payload
 let payload = {
   messageType: 'messageType',

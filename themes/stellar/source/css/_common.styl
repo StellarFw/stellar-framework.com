@@ -82,7 +82,7 @@ a.button
             margin 0
         .line
             min-height $code-line-height
-    &.html, &.js, &.bash, &.css
+    &.html, &.js, &.bash, &.css, &.json, &.plain
         .code:after
             position absolute
             top 0
@@ -102,6 +102,10 @@ a.button
         content 'Shell'
     &.css .code:after
         content 'CSS'
+    &.plain .code:after
+        content 'Plain'
+    &.json .code:after
+        content: 'JSON'
 
 #main
     position relative

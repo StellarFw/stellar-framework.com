@@ -35,7 +35,7 @@ A Satellite should be a class written following the [ES6](http://www.ecma-intern
 
 ## Example
 
-```javascript
+```js
 'use strict'
 
 /**

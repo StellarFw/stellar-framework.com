@@ -1,7 +1,7 @@
 ---
 title: Queries
 type: guide
-order: 27
+order: 26
 ---
 
 The ORM Query Interface allows you to interact with your models the same way no matter which adapter they are using. This means you can use the same query language whether your data lives in MySQL, MongoDB, Redis, etc.
@@ -26,7 +26,7 @@ Each option will return an instance of the deferred object used to create the qu
 
 See [Query Language](#Query-Language) for more information on the options available in the query language.
 
-```javascript
+```js
 User.find()
 .where({ name: { contains: 'foo' }})
 .populate('animals', { type: 'dog', limit: 10 })
@@ -37,7 +37,7 @@ User.find()
 
 For convenience, promises are supported if you choose to use them. Promises use the [Bluebird library](http://bluebirdjs.com), so anything you do after the first `then` call (or `spread`, or `catch`), will be a complete Bluebird promise object. Remember, you must end the query somehow (by calling then or one of the other functions) in order to complete the database request.
 
-```javascript
+```js
 User.findOne()
 .where({ id: 2 })
 .then(user => {
@@ -62,7 +62,7 @@ User.findOne()
 |  Criteria Object    |      `{}`           | Yes        |
 
 
-```javascript
+```js
 User.find()
 .where({ name: { startsWith: 'w' }})
 .exec((err, results) => {})
@@ -77,14 +77,14 @@ User.find()
 |  Attribute Name     |      `string`       | Yes        |
 |  Criteria Object    |      `{}`           | No         |
 
-```javascript
+```js
 // Simple Population
 User.find()
 .populate('foo')
 .exec((err, users) => { })
 ```
 
-```javascript
+```js
 // Collection Filtering
 User.find()
 .populate('foo', { type: 'bar', limit: 20 })
@@ -99,7 +99,7 @@ User.find()
 |---------------------|---------------------|------------|
 |  Number to Return   |      `int`          | Yes        |
 
-```javascript
+```js
 User.find()
 .limit(10)
 .exec((err, users) => { })
@@ -113,7 +113,7 @@ User.find()
 |---------------------|---------------------|------------|
 |  Number to Skip     |      `int`          | Yes        |
 
-```javascript
+```js
 User.find()
 .skip(10)
 .exec((err, users) => { })
@@ -123,7 +123,7 @@ User.find()
 
 When `skip` and `limit` are put together, they create the ability to paginate through records as you would for pages. For example, if I wanted 'page 2' of a given record set, and I only want to see 10 records at a time, I know that I need to `skip(10)` and `limit(10)` like so:
 
-```javascript
+```js
 User.find()
 .skip(10)
 .limit(10)
@@ -132,7 +132,7 @@ User.find()
 
 But, while we are thinking in terms of pagination, or pages, it might be easier to use the paginate helper:
 
-```javascript
+```js
 User.find()
 .paginate({ page: 2, limit: 10 })
 .exec((err, users) => { })
@@ -149,7 +149,7 @@ Paginate has several options:
 
 `sort` will return a sorted set of values. Simply specify an attribute name for natural (ascending) sort, or specify an `asc` or `desc` flag for ascending or descending orders respectively.
 
-```javascript
+```js
 User.find()
 .sort('roleId asc')
 .sort({ createdAt: 'desc' })
@@ -164,7 +164,7 @@ User.find()
 |---------------------|---------------------|------------|
 |  Callback           |      `function`     | Yes        |
 
-```javascript
+```js
 User.find()
 .exec((err, users) => { })
 ```
@@ -175,7 +175,7 @@ The criteria objects are formed using one of four types of object keys. These ar
 
 Queries can be built using either a `where` key to specify attributes, which will allow you to also use query options such as `limit` and `skip` or if `where` is excluded the entire object will be treated as a `where` criteria.
 
-```javascript
+```js
 Model.find({ where: { name: 'foo' }, skip: 20, limit: 10, sort: 'name DESC' });
 
 // OR
@@ -187,13 +187,13 @@ Model.find({ name: 'foo' })
 
 A key pair can be used to search records for values matching exactly what is specified. This is the base of a criteria object where the key represents an attribute on a model and the value is a strict equality check of the records for matching values.
 
-```javascript
+```js
 Model.find({ name: 'walter' })
 ```
 
 They can be used together to search multiple attributes.
 
-```javascript
+```js
 Model.find({ name: 'walter', state: 'new mexico' })
 ```
 
@@ -201,7 +201,7 @@ Model.find({ name: 'walter', state: 'new mexico' })
 
 Modified pairs also have model attributes for keys but they also use any of the supported criteria modifiers to perform queries where a strict equality check wouldn't work.
 
-```javascript
+```js
 Model.find({
   name : {
     'contains' : 'alt'
@@ -215,7 +215,7 @@ Model.find({
 
 IN queries work similarly to MySQL 'in queries'. Each element in the array is treated as 'or'.
 
-```javascript
+```js
 Model.find({
   name : ['Walter', 'Skyler']
 });
@@ -225,7 +225,7 @@ Model.find({
 
 Not-In queries work similar to `in` queries, except for the nested object criteria.
 
-```javascript
+```js
 Model.find({
   name: { '!' : ['Walter', 'Skyler'] }
 });
@@ -235,7 +235,7 @@ Model.find({
 
 Performing `OR` queries is done by using an array of query pairs. Results will be returned that match any of the criteria objects inside the array.
 
-```javascript
+```js
 Model.find({
   or : [
     { name: 'walter' },
@@ -263,7 +263,7 @@ The following modifiers are available to use when building queries.
 
 Searches for records where the value is less than the value specified.
 
-```javascript
+```js
 Model.find({ age: { '<': 30 }})
 ```
 
@@ -271,7 +271,7 @@ Model.find({ age: { '<': 30 }})
 
 Searches for records where the value is less or equal to the value specified.
 
-```javascript
+```js
 Model.find({ age: { '<=': 21 }})
 ```
 
@@ -279,7 +279,7 @@ Model.find({ age: { '<=': 21 }})
 
 Searches for records where the value is more than the value specified.
 
-```javascript
+```js
 Model.find({ age: { '>': 18 }})
 ```
 
@@ -287,7 +287,7 @@ Model.find({ age: { '>': 18 }})
 
 Searches for records where the value is more or equal to the value specified.
 
-```javascript
+```js
 Model.find({ age: { '>=': 21 }})
 ```
 
@@ -295,7 +295,7 @@ Model.find({ age: { '>=': 21 }})
 
 Searches for records where the value is not equal to the value specified.
 
-```javascript
+```js
 Model.find({ name: { '!': 'foo' }})
 ```
 
@@ -303,7 +303,7 @@ Model.find({ name: { '!': 'foo' }})
 
 Searches for records using pattern matching with the `%` sign.
 
-```javascript
+```js
 Model.find({ food: { 'like': '%beans' }})
 ```
 
@@ -311,7 +311,7 @@ Model.find({ food: { 'like': '%beans' }})
 
 A shorthand for pattern matching both sides of a string. Will return records where the value contains the string anywhere inside of it.
 
-```javascript
+```js
 Model.find({ class: { 'contains': 'history' }})
 
 // The same as
@@ -324,7 +324,7 @@ Model.find({ class: { 'like': '%history%' }})
 A shorthand for pattern matching the right side of a string. Will return records where the value
 starts with the supplied string value.
 
-```javascript
+```js
 Model.find({ class: { 'startsWith': 'american' }})
 
 // The same as
@@ -337,7 +337,7 @@ Model.find({ class: { 'like': 'american%' }})
 A shorthand for pattern matching the left side of a string. Will return records where the value
 ends with the supplied string value.
 
-```javascript
+```js
 Model.find({ class: { 'endsWith': 'can' }})
 
 // The same as
@@ -349,7 +349,7 @@ Model.find({ class: { 'like': '%can' }})
 
 You can do date range queries using the comparison operators.
 
-```javascript
+```js
 Model.find({ date: { '>': new Date('2/4/2014'), '<': new Date('2/7/2014') } })
 ```
 
@@ -366,7 +366,7 @@ Query options allow you refine the results that are returned from a query. The c
 
 Limits the number of results returned from a query.
 
-```javascript
+```js
 Model.find({ where: { name: 'foo' }, limit: 20 })
 ```
 
@@ -374,7 +374,7 @@ Model.find({ where: { name: 'foo' }, limit: 20 })
 
 Returns all the results excluding the number of items to skip.
 
-```javascript
+```js
 Model.find({ where: { name: 'foo' }, skip: 10 })
 ```
 
@@ -382,7 +382,7 @@ Model.find({ where: { name: 'foo' }, skip: 10 })
 
 `skip` and `limit` can be used together to build up a pagination system.
 
-```javascript
+```js
 Model.find({ where: { name: 'foo' }, limit: 10, skip: 10 })
 ```
 
@@ -390,7 +390,7 @@ Model.find({ where: { name: 'foo' }, limit: 10, skip: 10 })
 
 Results can be sorted by attribute name. Simply specify an attribute name for natural (ascending) sort, or specify an `asc` or `desc` flag for ascending or descending orders respectively.
 
-```javascript
+```js
 // Sort by name in ascending order
 Model.find({ where: { name: 'foo' }, sort: 'name' })
 
@@ -426,7 +426,7 @@ There are also a special set of queries known as *dynamic queries*. These are sp
 |   Find Criteria    |   `{}`,`[{}]`, `string`, `int`  |   Yes      |
 |     Callback       |   `function`                    |   No       |
 
-```javascript
+```js
 User.find({ name: 'Walter Jr' })
 .exec((err, users) => { })
 ```
@@ -442,7 +442,7 @@ User.find({ name: 'Walter Jr' })
 |   Find Criteria    |   `{}`,`[{}]`, `string`, `int`  |   Yes      |
 |     Callback       |   `function`                    |   No       |
 
-```javascript
+```js
 User.findOne({ name: 'Walter Jr' })
 .exec((err, user) => { })
 ```
@@ -458,7 +458,7 @@ User.findOne({ name: 'Walter Jr' })
 |  Records to Create  |      `{}`, `[{}]`   | Yes        |
 |     Callback        | `function`          | No         |
 
-```javascript
+```js
 User.create({
   name: 'Walter Jr'
 })
@@ -475,7 +475,7 @@ User.create({
 |   Creation Values   |   `{}`,`[{}]`                   |   No      |
 |     Callback       |   `function`                    |   No       |
 
-```javascript
+```js
 User.findOrCreate({ name: 'Walter Jr' })
 .exec((err, users) => {
 //either user(s) with the name 'Walter Jr' get returned or
@@ -498,7 +498,7 @@ User.findOrCreate({ name: 'Walter Jr' })
 |   Updated Values   |   `{}`,`[{}]`                   |   Yes      |
 |     Callback       |   `function`                    | No         |
 
-```javascript
+```js
 User.update({ name: 'Walter Jr' }, { name: 'Flynn' })
 .exec((err, users) => { })
 ```
@@ -514,7 +514,7 @@ User.update({ name: 'Walter Jr' }, { name: 'Flynn' })
 |   Find Criteria    |   `{}`,`[{}]`, `string`, `int`  |   Yes      |
 |     Callback       |   `function`                    |   No       |
 
-```javascript
+```js
 User.destroy({ name: 'Flynn' })
 .exec(err => { })
 ```
@@ -531,7 +531,7 @@ Some adapters, such as [sails-mysql](https://github.com/balderdashy/sails-mysql)
 |     Data           |   `array`                       |   No       |
 |     Callback       |   `function`                    |   Yes      |
 
-```javascript
+```js
 const title = "The King's Speech";
 
 Movie.query('SELECT * FROM movie WHERE title = $1', [title], (err, results) => {
@@ -557,7 +557,7 @@ Some adapters (including [sails-mysql](https://github.com/balderdashy/sails-mysq
 |-----------------------|---------------------------------|------------|
 |Attribute or Expression|   `string`                      |   Yes      |
 
-```javascript
+```js
 // Find the highest grossing movie by genre.
 Movie.find()
 	.groupBy('genre')
@@ -590,7 +590,7 @@ Movie.find()
 |--------------------|---------------------------------|------------|
 |   Attribute        |   `string`                      |   Yes      |
 
-```javascript
+```js
 // Find the highest grossing movie by genre.
 Movie.find()
 	.groupBy('genre')
@@ -609,7 +609,7 @@ Movie.find()
 |--------------------|---------------------------------|------------|
 |   Attribute        |   `string`                      |   Yes      |
 
-```javascript
+```js
 // Find the lowest grossing movie by genre.
 Movie.find()
 	.groupBy('genre')
@@ -628,7 +628,7 @@ Movie.find()
 |--------------------|---------------------------------|------------|
 |   Attribute        |   `string`                      |   Yes      |
 
-```javascript
+```js
 // Find the movie revenue by genre.
 Movie.find()
 	.groupBy('genre')
@@ -647,7 +647,7 @@ Movie.find()
 |--------------------|---------------------------------|------------|
 |   Attribute        |   `string`                      |   Yes      |
 
-```javascript
+```js
 // Find the average movie revenue by genre.
 Movie.find()
 	.groupBy('genre')
