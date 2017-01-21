@@ -8,6 +8,8 @@ order: 12
 
 Stellar has an event system that allows you to subscribe to and listen for events in the application. This is useful to manipulate data during the execution or extend features by adding new behaviors to the existing logic. Listeners must be stored in a module's `listeners` folder.
 
+Since the version `1.2.0`, Stellar can live reload listeners without the need to restart the server. Now your development will be even more simpler.
+
 ## Generate Listeners
 
 Instead of manually creating a file for each listener, developers can use the `stellar` command line tool to do this automatically:
