@@ -8,7 +8,7 @@ order: 12
 
 Stellar has an event system that allows you to subscribe to and listen for events in the application. This is useful to manipulate data during the execution or extend features by adding new behaviors to the existing logic. Listeners must be stored in a module's `listeners` folder.
 
-Since the version `1.2.0`, Stellar can live reload listeners without the need to restart the server. Now your development will be even more simpler.
+Stellar can live reload listeners without the need to restart the server, with this your development will be even easier.
 
 ## Generate Listeners
 
@@ -29,7 +29,7 @@ The code below shows the implementation of a listener.  In this example the list
 
 exports.default = [{
   event: 'social.newComment',
-  run: (api, params, next) {
+  run (api, params, next) {
     // enqueue a task to send a notification email for the new comment
     api.tasks.enqueue('sendNewCommentEmail', params)
 
@@ -41,6 +41,8 @@ exports.default = [{
   }
 }]
 ```
+
+As you can see on the example above, you need define at least two properties (`event`, and `run`). The `event` is where you define the event that you want listening for, this property can be a simple `string` or an `array`, when you want apply the same listener for multiple events. The `run` property is where you put the listener's logic.
 
 ## Trigger Events
 
