@@ -232,3 +232,57 @@ exports.getAllPosts = {
   }
 }
 ```
+
+## Modification System
+
+Ok! Now we can divide our application into small components, named actions, that can be connected to others in order to create more complex ones. Besides that we can also group them into modules to increase the reusability of the features, so we can easily import them to other projects, saving time and extra lines of code. But sometimes this isn't enough.
+
+Imagine that you are using the ["identify"](https://github.com/stellarFw/identify) module, that is responsible to add all the basic features to manage your's applications authentication features. But, by default, this module expose all the actions to public, even the ones that allow create and get all the registered users. So, you need to protect the access to that actions. But who will you do that? Editing the code manually? No!
+
+Stellar comes withe a powerful modification mechanism that allows you define groups in order to apply modifications to your actions. The follow example shows a group, named "protections", that makes the `auth.getUsers`, `auth.getUser`, `auth.editUser`, and `auth.removeUser` all private.
+
+```js
+// This receives the API reference in case of you need it
+module.exports = api => {
+  // The function must return an hash, which the keys correspond to the
+  // modification section (in this case actions)
+  return {
+    // The keys of this hash correspond to the groups names.
+    //
+    // To define the actions that made part of the group, you can define it
+    // directly on the action or you can specify it here using the `actions`
+    // and/or `modules` keys, but you'll see it in a second.
+    actions: {
+      // this is the name of our group, in this case "protections"
+      protections: {
+        // Here we define all the actions that we want to be part of this group
+        actions: [ 'auth.getUsers', 'auth.getUser', 'auth.editUser', 'auth.removeUser' ],
+
+        // we can also add all the action of a module to a group, for that we
+        // define the `module` array
+
+        // We can also define modules (module slugs) if our intention is to
+        // include all actions that are part of a module
+        // modules: [ 'entrust' ],
+
+        // the `metadata` is an hash that contains the modifications to be
+        // applied to each action that are part of this group
+        //
+        // In each key we can prefix it with a `+`, that means "is to append to",
+        // we can use '-', that means "remove", or when you don't use nothing of
+        // this an replace operation will be performed.
+        //
+        // The value can also be an function, it will receive the action object,
+        // and the correspondent value that we are changing. The return will
+        // replace the property under work.
+        metadata: {
+          // in this case we only want make all the action private
+          private: true
+        }
+      }
+    }
+  }
+}
+```
+
+As you can see, we provide a set os mechanism and technics that allows you to apply changes on the original actions, from other modules, this order to maximize the reusability of your code.
