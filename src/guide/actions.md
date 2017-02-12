@@ -8,7 +8,13 @@ order: 3
 
 Actions are the building blocks of Stellar, the basic units of the framework. A Stellar project is a repository containing one or more actions. An action can be invoked directly by a client or internally by other actions. Actions can receive a set of inputs and return a set of outputs. Actions can be marked private so that they can only be called by other actions and not by the client. Actions can also be overridden by other modules, unless they are marked as protected.
 
-Developers can create their own actions by creating a new file in a module's `actions` folder, or they can use the `stellar` command-line tool to generate the file and its contents automatically (`stellar makeAction <name_of_action> --module=<module_which_contains_action>`).
+Developers can create their own actions by creating a new file in a module's `actions` folder, or they can use the `stellar` command-line tool to generate the file and its contents automatically:
+
+```bash
+stellar make action <name_of_action>
+```
+
+Optionally, you can use the `--module` option to define the module where the action must be created, by default the "private" module will be used.
 
 The actions are loaded into the Stellar Engine when it starts. Actions can be invoked by other actions (including those in other modules).
 
@@ -20,7 +26,7 @@ exports.randomNumber = {
     number: 0.40420848364010453
   },
 
-  run: (api, action, next) => {
+  run (api, action, next) {
     // generate a random number
     var number = Math.random()
 
@@ -36,11 +42,11 @@ exports.randomNumber = {
 }
 ```
 
-An action is composed of two mandatory properties: `name` identifies the action, and `run` is a function which implements the action logic.  Actions can contain other information such as a description, input value restrictions, middleware, and an output example.  Stellar can use this metadata to generate fully automatic documentation for all the actions in a project; this is especially useful for large projects with big development teams.
+An action is composed of two mandatory properties: `name` identifies the action, and `run` is a function which implements the action logic. Actions can contain other information such as a description, input value restrictions, middleware, and an output example. Stellar can use this metadata to generate fully automatic documentation for all the actions in a project; this is especially useful for large projects with big development teams.
 
 In the code snippet above you can see the structure of an action which generates a random number.
 
-Actions are asynchronous and receive a reference to an `api` object (providing access to shared functions of the Engine), an `action` object, and a `next` callback function. To complete the execution of an action, simply call the `next()` function. An instance of `Error` can be passed as an argument to the `next` function; in this case, an error message will be sent to the client.
+Actions are asynchronous and receive a reference to an `api` object (providing access to shared functions of the Engine), an `action` object, and a `next` callback function. To complete the execution of an action, simply call the `next()` function. An instance of `Error` can be passed as an argument to the `next` function; in this case, an error message will be sent to the client. In alternative, you can return an `Promise` and depending of the result will be sent a response to the client (an error in case of rejection).
 
 Actions can be invoked by other actions; this allows an action's code to be reused for different usage scenarios.
 
@@ -52,6 +58,7 @@ All properties that can appear in actions are listed below:
 - **`description`**: Describes the action.  This information is used in automatic documentation.
 - **`inputs`**: Enumerates the action's input parameters. You can also apply restrictions on input values.
 - **`middleware`**: Indicates the middleware to be applied before and after the execution of the action. Global middleware is automatically applied.
+- **`group`**: Group which this action is part.
 - **`outputExample`**: Contains an example of an action response. This example will be used in automatic documentation.
 - **`blockedConnectionTypes`**: Blocks certain types of connections.
 - **`logLevel`**: Defines how the action should be logged.
@@ -134,7 +141,7 @@ exports.giveAge = {
     }
   },
 
-  run: (api, action, next) => {
+  run (api, action, next) {
     // calculate the person's age (action.params.birthYear is already a number)
     let age = new Date().getFullYear() - action.params.birthYear
 
@@ -151,7 +158,9 @@ exports.giveAge = {
 
 The second parameter of the `run` function is the `action` object. This object captures the state of the connection at the time the action was started. Middleware preprocessors have already fired, and input formatting and validation has already occurred. The image below shows some of the properties of the `action` object:
 
-![Properties of the Action Object](/images/action_obj.png)
+<div style="max-width: 434px; margin-left: auto; margin-right: auto;">
+  ![Properties of the Action Object](/images/action_obj.png)
+</div>
 
 The goal of most actions is to perform a series of operations and change the `action.response` property, which will later be sent to the client. You can modify the connection properties by accessing `action.connection`, and change, for example, the HTTP headers. If you do not want the Engine to send a response to the client (for example, it has already sent a file), set the `action.toRender` property to `false`.
 
@@ -176,7 +185,15 @@ Sometimes you might create actions that you do not want to be called by clients,
 The example below shows an internal call to an action called `sumANumber`; after execution, the result is printed out to the console. The complete example can be found [here](https://github.com/StellarFw/stellar/blob/dev/example/modules/test/actions/internalCalls.js).
 
 ```js
-api.actions.call('sumANumber', {a: 3, b: 3}, (error, response) => {
+api.actions.call('sumANumber', { a: 3, b: 3 }, (error, response) => {
+  console.log(`Result => ${response.formatted}`)
+})
+```
+
+In alternative, you can use a Promise like style, as you can see here:
+
+```js
+api.actions.call('sumANumber', { a: 3, b: 3 }).then(response => {
   console.log(`Result => ${response.formatted}`)
 })
 ```
@@ -208,7 +225,7 @@ exports.getAllAccounts = {
 
   middleware: ['auth', 'superResponse'],
 
-  run: (api, action, next) => {
+  run (api, action, next) {
     // perform some operation...
 
     // finish action execution

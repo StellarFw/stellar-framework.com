@@ -10,7 +10,9 @@ Developers can create middleware that can be applied before and after the execut
 
 ### Lifecycle
 
-![Request Flow](/images/middleware_lifecycle.png)
+<div style="margin-left: auto; margin-right: auto; max-width: 80%;">
+  ![Request Flow](/images/middleware_lifecycle.png)
+</div>
 
 As can be seen in the image above, there are a number of different places where you can run middleware. The following list shows the different middleware available on Stellar:
 

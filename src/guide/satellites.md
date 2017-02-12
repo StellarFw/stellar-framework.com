@@ -16,7 +16,9 @@ The entire Stellar core is created by Satellites - these load the basic features
 
 All Satellites go through a series of stages during the execution of Stellar. This process, and what occurs in each of the three stages, is explained below.
 
-![Satellite Stages](/images/satellite_stages.png)
+<div style="margin-left: auto; margin-right: auto; max-width: 80%;">
+  ![Satellite Stages](/images/satellite_stages.png)
+</div>
 
 The picture above shows the three phases of loading a Satellite: _load_, _start_, and _stop_. The loading stage is required, while the start and the stop are optional. If an operation is initiated in the start stage, it is recommended that the operation be stopped in the third stage (stop).
 

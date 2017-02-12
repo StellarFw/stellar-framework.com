@@ -146,7 +146,10 @@ Although the Stellar client-side JavaScript library is mostly for WebSockets, it
 let stellar = new StellarClient({ url: 'server.example.com:8080' })
 
 // call an action
-stellar.action('createPost', { title: 'Example!', content: 'Some content...' }, (error, response) => {
+stellar.action('createPost', {
+  title: 'Example!',
+  content: 'Some content...'
+}).then(response => {
   // do something...
 })
 ```

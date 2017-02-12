@@ -6,7 +6,7 @@ order: 7
 
 ## Overview
 
-Stellar may be executed on a single server or as part of a cluster. The aim of the cluster is create a set of servers that share the same state between them in order to respond to a greater number of client requests and to perform more tasks. With this mechanism, you can add and remove nodes from the cluster with no loss of data or duplicate tasks. You can also run multiple instances of Stellar on the same machine using the `stellar startCluster` command.
+Stellar may be executed on a single server or as part of a cluster. The aim of the cluster is create a set of servers that share the same state between them in order to respond to a greater number of client requests and to perform more tasks. With this mechanism, you can add and remove nodes from the cluster with no loss of data or duplicate tasks. You can also run multiple instances of Stellar on the same machine using the `stellar run --cluster` command.
 
 The names of the cluster instances are sequential, starting with `stellar-worker-1`. The instance name can be obtained from the `api.id` property.
 

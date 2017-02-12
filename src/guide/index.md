@@ -52,6 +52,7 @@ The typical directory structure of a Stellar project is shown below. This exampl
 │       │   ├── del_post.js
 │       │   └── new_post.js
 │       ├── manifest.json
+│       ├── mod.js
 │       ├── middleware
 │       │   └── edit_permission.js
 │       ├── models

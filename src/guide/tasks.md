@@ -73,7 +73,7 @@ exports.sayHello = {
   queue: 'default',
   frequency: 1000,
 
-  run: (api, params, next) => {
+  run (api, params, next) {
     // log a new message
     api.log('Hello!!!')
 

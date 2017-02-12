@@ -15,7 +15,7 @@ Stellar can live reload listeners without the need to restart the server, with t
 Instead of manually creating a file for each listener, developers can use the `stellar` command line tool to do this automatically:
 
 ```bash
-$ stellar makeListener <eventName> --module=<moduleName>
+$ stellar make listener <event_name>
 ```
 
 ## Define a Listener
