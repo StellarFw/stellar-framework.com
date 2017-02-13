@@ -103,84 +103,249 @@
 
     <ul class="menu-root">
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/index.html" class="sidebar-link">Overview</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/installation.html" class="sidebar-link">Installation</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/actions.html" class="sidebar-link">Actions</a>
         </li>
       
-        <li>
-          <a href="/guide/models.html" class="sidebar-link">Models</a>
-        </li>
-      
+        
+        
+          
+        
+
         <li>
           <a href="/guide/tasks.html" class="sidebar-link">Tasks</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/middleware.html" class="sidebar-link">Middleware</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/satellites.html" class="sidebar-link">Satellites</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/cluster.html" class="sidebar-link">Cluster</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/cache.html" class="sidebar-link">Cache</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/chat.html" class="sidebar-link">Chat</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/development_mode.html" class="sidebar-link">Development Mode</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/file_system.html" class="sidebar-link">File System</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/events.html" class="sidebar-link">Events</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/websocket.html" class="sidebar-link">WebSocket</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/tcp.html" class="sidebar-link">TCP</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/http.html" class="sidebar-link">HTTP</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/security.html" class="sidebar-link">Security</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/validation.html" class="sidebar-link">Validation</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/logging.html" class="sidebar-link current">Logging</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/commands.html" class="sidebar-link">Commands</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/testing.html" class="sidebar-link">Testing</a>
+        </li>
+      
+        
+        
+          
+            <li><h3>Models</h3></li>
+          
+        
+
+        <li>
+          <a href="/guide/models.html" class="sidebar-link">Introduction</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-data_types.html" class="sidebar-link">Data Types and Attributes</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-validations.html" class="sidebar-link">Validations</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-instance.html" class="sidebar-link">Instance and Class Methods</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-associations.html" class="sidebar-link">Associations</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-configurations.html" class="sidebar-link">Model Configuration</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-queries.html" class="sidebar-link">Queries</a>
         </li>
       
     </ul>
@@ -196,7 +361,7 @@
 
   <p>Stellar makes use of the fantastic <a href="https://www.npmjs.com/package/winston" target="_blank" rel="external">Winston</a> package for log management. With Winston it is possible to customize log output according to the needs of your project.</p>
 <h2 id="Providers"><a href="#Providers" class="headerlink" title="Providers"></a>Providers</h2><p>In your <code>config/logger.js</code> file you can customize which <code>transports</code> you would like logger to use. If none are provided, a default logger which only will print to stdout will be used. See Winston’s documentation for a list of all logger types; these include console, file, S3, Riak, and more.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="meta">'use strict'</span></div><div class="line"></div><div class="line">exports.logger = &#123;</div><div class="line">  <span class="attr">transports</span>: [</div><div class="line">    <span class="function"><span class="params">api</span> =&gt;</span> &#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">new</span> (winston.transports.Console)(&#123;</div><div class="line">        <span class="attr">colorize</span>: <span class="literal">true</span>,</div><div class="line">        <span class="attr">level</span>: <span class="string">'debug'</span>,</div><div class="line">      &#125;)</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    api =&gt; &#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">new</span> (winston.transports.File)(&#123;</div><div class="line">        <span class="attr">filename</span>: <span class="string">`./log/<span class="subst">$&#123;api.pids.title&#125;</span>.log`</span>,</div><div class="line">        <span class="attr">level</span>: <span class="string">'info'</span>,</div><div class="line">        <span class="attr">timestamp</span>: <span class="literal">true</span>,</div><div class="line">      &#125;)</div><div class="line">    &#125;</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="meta">'use strict'</span></div><div class="line"></div><div class="line">exports.logger = &#123;</div><div class="line">  <span class="attr">transports</span>: [</div><div class="line">    <span class="function"><span class="params">api</span> =&gt;</span> &#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">new</span> (winston.transports.Console)(&#123;</div><div class="line">        <span class="attr">colorize</span>: <span class="literal">true</span>,</div><div class="line">        <span class="attr">level</span>: <span class="string">'debug'</span>,</div><div class="line">      &#125;)</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    api =&gt; &#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">new</span> (winston.transports.File)(&#123;</div><div class="line">        <span class="attr">filename</span>: <span class="string">`./log/<span class="subst">$&#123;api.pids.title&#125;</span>.log`</span>,</div><div class="line">        <span class="attr">level</span>: <span class="string">'info'</span>,</div><div class="line">        <span class="attr">timestamp</span>: <span class="literal">true</span>,</div><div class="line">      &#125;)</div><div class="line">    &#125;</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="Levels"><a href="#Levels" class="headerlink" title="Levels"></a>Levels</h2><p>There are 8 levels of logging; each transport can have a different level. The levels are:</p>
 <ul>
 <li>0 = debug</li>
@@ -212,9 +377,9 @@
 <p>Note: you can customize the levels and colors in the <code>config/logger.js</code> file.</p>
 </blockquote>
 <p>For example, if the log level is set to notice, critical messages are visible, but informational and debug messages are not.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// will use the default 'info' level</span></div><div class="line">api.log(<span class="string">'hello!'</span>)</div><div class="line"></div><div class="line"><span class="comment">// will not show up unless you have configured your logger to be debug</span></div><div class="line">api.log(<span class="string">'debug message'</span>, <span class="string">'debug'</span>)</div><div class="line"></div><div class="line"><span class="comment">// will show up in all logger levels</span></div><div class="line">api.log(<span class="string">'Bad things happened :('</span>, <span class="string">'emerg'</span>)</div><div class="line"></div><div class="line"><span class="comment">// you can log objects too</span></div><div class="line">api.log(<span class="string">'the params were'</span>, <span class="string">'info'</span>, action.params)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// will use the default 'info' level</span></div><div class="line">api.log(<span class="string">'hello!'</span>)</div><div class="line"></div><div class="line"><span class="comment">// will not show up unless you have configured your logger to be debug</span></div><div class="line">api.log(<span class="string">'debug message'</span>, <span class="string">'debug'</span>)</div><div class="line"></div><div class="line"><span class="comment">// will show up in all logger levels</span></div><div class="line">api.log(<span class="string">'Bad things happened :('</span>, <span class="string">'emerg'</span>)</div><div class="line"></div><div class="line"><span class="comment">// you can log objects too</span></div><div class="line">api.log(<span class="string">'the params were'</span>, <span class="string">'info'</span>, action.params)</div></pre></td></tr></table></figure>
 <h2 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h2><p>The <code>api.logger.log</code> and <code>api.logger[severity]</code> methods are accessible via the <code>api</code> object and allow you to modify the Winston instance directly. The <code>api.log</code> method passes the message to all transports. Below are some examples of using the <code>api.log(message, severity, metadata)</code> method:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// the most basic use - will assume 'info' as the severity</span></div><div class="line">api.log(<span class="string">'hello'</span>)</div><div class="line"></div><div class="line"><span class="comment">// custom severity</span></div><div class="line">api.log(<span class="string">'Hmm...'</span>, <span class="string">'warning'</span>)</div><div class="line"></div><div class="line"><span class="comment">// custom severity with a metadata object</span></div><div class="line">api.log(<span class="string">'Red Alert xD'</span>, <span class="string">'emerg'</span>, &#123; <span class="attr">error</span>: <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Some additional information!'</span>) &#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// the most basic use - will assume 'info' as the severity</span></div><div class="line">api.log(<span class="string">'hello'</span>)</div><div class="line"></div><div class="line"><span class="comment">// custom severity</span></div><div class="line">api.log(<span class="string">'Hmm...'</span>, <span class="string">'warning'</span>)</div><div class="line"></div><div class="line"><span class="comment">// custom severity with a metadata object</span></div><div class="line">api.log(<span class="string">'Red Alert xD'</span>, <span class="string">'emerg'</span>, &#123; <span class="attr">error</span>: <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Some additional information!'</span>) &#125;)</div></pre></td></tr></table></figure>
 
 
   

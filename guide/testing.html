@@ -2,18 +2,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Satellites - Stellar</title>
+    <title>Testing - Stellar</title>
     <meta charset="utf-8">
     <meta name="description" content="Stellar is an action based web framework for creating Web APIs easily!">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Satellites - Stellar">
+    <meta property="og:title" content="Testing - Stellar">
     <meta property="og:description" content="Stellar is an action based web framework for creating Web APIs easily!">
     <meta property="og:image" content="https://stellar-framework.com/images/logo.png">
 
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Satellites - Stellar">
+    <meta name="twitter:title" content="Testing - Stellar">
     <meta name="twitter:description" content="Stellar is an action based web framework for creating Web APIs easily!">
     <meta name="twitter:image" content="https://stellar-framework.com/images/logo.png">
 
@@ -154,7 +154,7 @@
         
 
         <li>
-          <a href="/guide/satellites.html" class="sidebar-link current">Satellites</a>
+          <a href="/guide/satellites.html" class="sidebar-link">Satellites</a>
         </li>
       
         
@@ -280,7 +280,7 @@
         
 
         <li>
-          <a href="/guide/testing.html" class="sidebar-link">Testing</a>
+          <a href="/guide/testing.html" class="sidebar-link current">Testing</a>
         </li>
       
         
@@ -354,45 +354,36 @@
 
 
 
-<div class="content guide with-sidebar satellites-guide">
+<div class="content guide with-sidebar testing-guide">
   
-    <h1>Satellites</h1>
+    <h1>Testing</h1>
   
 
-  <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>The Stellar Engine itself does nothing.  The only logic it has is as follows: as soon as an instance of Stellar is started, the Engine looks for Satellites, loads them into memory, and executes them.</p>
-<p>Satellites are components that can extend and override Stellar’s features. This mechanism organizes Stellar’s functionality, facilitates maintenance of the core, makes the framework extremely extensible, and allows developers to create modules that can extend features not only from Stellar’s core but also from other modules.</p>
-<p>The entire Stellar core is created by Satellites - these load the basic features of the framework, but the core is not the only place where Satellites may exist. Modules can also make use of Satellites to load new features, override existing ones, and perform tasks as soon as the framework begins or ends its execution.</p>
-<h2 id="Lifecycle"><a href="#Lifecycle" class="headerlink" title="Lifecycle"></a>Lifecycle</h2><p>All Satellites go through a series of stages during the execution of Stellar. This process, and what occurs in each of the three stages, is explained below.</p>
-<div style="margin-left: auto; margin-right: auto; max-width: 80%;"><br>  <img src="/images/satellite_stages.png" alt="Satellite Stages"><br></div>
-
-<p>The picture above shows the three phases of loading a Satellite: <em>load</em>, <em>start</em>, and <em>stop</em>. The loading stage is required, while the start and the stop are optional. If an operation is initiated in the start stage, it is recommended that the operation be stopped in the third stage (stop).</p>
-<p>In the Satellite load phase, all the logic of a Satellite must be loaded into the API object in order to make its features public; any complex operations should be carried out at this stage, and the load must be completed as soon as possible. In the start phase, all continuous tasks should begin, including servers or other types of listener. Finally, in the stop phase, all uncompleted pending tasks must be completed, and all servers must be stopped.</p>
-<h2 id="Format"><a href="#Format" class="headerlink" title="Format"></a>Format</h2><p>A Satellite should be a class written following the <a href="http://www.ecma-international.org/ecma-262/6.0/index.html" target="_blank" rel="external">ES6</a> standard. The only requirement for the Satellite is that it must contain a <code>load(api, next)</code> method. There are other properties which are described below:</p>
-<ul>
-<li><strong><code>loadPriority</code></strong>: Allows you change the satellite load order, the default value is 100;</li>
-<li><strong><code>startPriority</code></strong>: Allows you change the satellite start order, the default value is 100;</li>
-<li><strong><code>stopPriority</code></strong>: Allows you change the satellite stop order,the default value is 100;</li>
-<li><strong><code>load(api, next)</code></strong>: Operation to be performed when loading the Satellite;</li>
-<li><strong><code>start(api, next)</code></strong>: Operation to be performed when staring the Satellite;</li>
-<li><strong><code>stop(api, next)</code></strong>: Operation to be performed when stopping the Satellite.</li>
-</ul>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="meta">'use strict'</span></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Satellite class.</div><div class="line"> *</div><div class="line"> * It is recommended to use this class only to specify the functions</div><div class="line"> * of the satellite, any other logic should be contained in a separate class.</div><div class="line"> */</div><div class="line">exports.default = <span class="class"><span class="keyword">class</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Constructor.</div><div class="line">     *</div><div class="line">     * The developer must define the Satellite priority for the</div><div class="line">     * different stages.</div><div class="line">     */</div><div class="line">    <span class="keyword">constructor</span> () &#123;</div><div class="line">      <span class="comment">// define the priority for the loading stage</span></div><div class="line">      <span class="keyword">this</span>.loadPriority = <span class="number">10</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Loading function.</div><div class="line">     *</div><div class="line">     * @param  &#123;&#123;&#125;&#125;       api  Reference for the API object.</div><div class="line">     * @param  &#123;Function&#125; next Callback function.</div><div class="line">     */</div><div class="line">    load (api, next) &#123;</div><div class="line">      <span class="comment">// log a message</span></div><div class="line">      api.log(<span class="string">'This is awesome!'</span>, <span class="string">'info'</span>)</div><div class="line"></div><div class="line">      <span class="comment">// finalize the Satellite loading</span></div><div class="line">      next()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+  <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Stellar comes with a useful tool to improve the write of your unit testes, as well speed up their execution.</p>
+<p>Stellar is built with testing in mind. In fact, support for testing with <a href="https://mochajs.org" target="_blank" rel="external">Mocha JS</a> is included out of the box and the command line tool already contains a command to easily run your application tests. The actions and the framework it self was designed to improve the testing experience.</p>
+<h2 id="Environment"><a href="#Environment" class="headerlink" title="Environment"></a>Environment</h2><p>When running tests via <code>stellar test</code> command, Stellar will automatically set the configuration environment to testing. Stellar also automatically configures, by default, the cache to use an in memory system, as well the database system, meaning no cache or data entry will be persisted while testing. This also improves significantly the tests speed.</p>
+<p>You are free to define other testing environment configuration values as necessary. The testing environment variables may be configured in the <code>/config</code> folder of your module or application. For that you must use the <code>development</code> space, as you can see bellow:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="meta">'use strict'</span></div><div class="line"></div><div class="line">exports.development = &#123;</div><div class="line"></div><div class="line">  app (api) &#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">      <span class="comment">// your dev configs</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Creating-amp-Running-Tests"><a href="#Creating-amp-Running-Tests" class="headerlink" title="Creating &amp; Running Tests"></a>Creating &amp; Running Tests</h2><p>To create a new test case, use the <code>make test</code> command:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line"><span class="comment"># create a test in the tests directory</span></div><div class="line">stellar make <span class="built_in">test</span> user</div></pre></td></tr></table></figure>
+<p>Once the test has been generated, you may define test methods as you normally would using Mocha. To run your tests, simply execute the <code>stellar test</code> command from your terminal:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// var to store the Stellar's API object</span></div><div class="line"><span class="keyword">let</span> api = <span class="literal">null</span></div><div class="line"></div><div class="line">describe(<span class="string">'Your awesome feature'</span>, () =&gt; &#123;</div><div class="line"></div><div class="line">  before(<span class="function"><span class="params">done</span> =&gt;</span> &#123;</div><div class="line">    <span class="comment">// starts the stellar engine</span></div><div class="line">    engine.start(<span class="function">(<span class="params">_, a</span>) =&gt;</span> &#123;</div><div class="line">      api = a</div><div class="line">      done()</div><div class="line">    &#125;)</div><div class="line">  &#125;)</div><div class="line"></div><div class="line">  after(<span class="function"><span class="params">done</span> =&gt;</span> &#123;</div><div class="line">    <span class="comment">// stops the Stellar engine</span></div><div class="line">    engine.stop(<span class="function"><span class="params">()</span> =&gt;</span> &#123; done() &#125;)</div><div class="line">  &#125;)</div><div class="line"></div><div class="line">  it(<span class="string">'basic test'</span>, done =&gt; &#123;</div><div class="line">    (<span class="literal">true</span>).should.be.true</div><div class="line">    done()</div><div class="line">  &#125;)</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 
 
   
       <div class="guide-links">
         
-          <span>← <a href="/guide/middleware.html">Middleware</a></span>
+          <span>← <a href="/guide/commands.html">Commands</a></span>
         
         
-          <span style="float:right"><a href="/guide/cluster.html">Cluster</a> →</span>
+          <span style="float:right"><a href="/guide/models.html">Introduction</a> →</span>
         
       </div>
     
 
     <div class="footer">
       Caught a mistake or want to contribute to documentation?
-      <a href="https://github.com/StellarFw/stellar-framework.com/tree/master/src/guide/satellites.md" target="_blank">
+      <a href="https://github.com/StellarFw/stellar-framework.com/tree/master/src/guide/testing.md" target="_blank">
         Edit this page on Github!
       </a>
     </div>

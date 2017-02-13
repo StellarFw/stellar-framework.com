@@ -103,84 +103,249 @@
 
     <ul class="menu-root">
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/index.html" class="sidebar-link">Overview</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/installation.html" class="sidebar-link">Installation</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/actions.html" class="sidebar-link">Actions</a>
         </li>
       
-        <li>
-          <a href="/guide/models.html" class="sidebar-link">Models</a>
-        </li>
-      
+        
+        
+          
+        
+
         <li>
           <a href="/guide/tasks.html" class="sidebar-link">Tasks</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/middleware.html" class="sidebar-link">Middleware</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/satellites.html" class="sidebar-link">Satellites</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/cluster.html" class="sidebar-link">Cluster</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/cache.html" class="sidebar-link">Cache</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/chat.html" class="sidebar-link">Chat</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/development_mode.html" class="sidebar-link current">Development Mode</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/file_system.html" class="sidebar-link">File System</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/events.html" class="sidebar-link">Events</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/websocket.html" class="sidebar-link">WebSocket</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/tcp.html" class="sidebar-link">TCP</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/http.html" class="sidebar-link">HTTP</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/security.html" class="sidebar-link">Security</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/validation.html" class="sidebar-link">Validation</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/logging.html" class="sidebar-link">Logging</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/commands.html" class="sidebar-link">Commands</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/testing.html" class="sidebar-link">Testing</a>
+        </li>
+      
+        
+        
+          
+            <li><h3>Models</h3></li>
+          
+        
+
+        <li>
+          <a href="/guide/models.html" class="sidebar-link">Introduction</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-data_types.html" class="sidebar-link">Data Types and Attributes</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-validations.html" class="sidebar-link">Validations</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-instance.html" class="sidebar-link">Instance and Class Methods</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-associations.html" class="sidebar-link">Associations</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-configurations.html" class="sidebar-link">Model Configuration</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-queries.html" class="sidebar-link">Queries</a>
         </li>
       
     </ul>
@@ -196,7 +361,7 @@
 
   <h2 id="What-is-Development-Mode"><a href="#What-is-Development-Mode" class="headerlink" title="What is Development Mode?"></a>What is Development Mode?</h2><p>Development mode, as the name implies, is a special way to facilitate the development of modules and applications in Stellar. When development mode is active, any change made to the files defining routes, tasks, actions, and models will cause the server to re-read the modified files automatically, eliminating the need to stop and restart the server for every change made. More substantial changes, such as changes to settings and <a href="satellites.html">Satellites</a>, will cause the server to restart completely, but this will also be done automatically in development mode.</p>
 <p>To enable development mode you just need create a file (if you do not have one) named <code>config/api.js</code> and set the <code>developmentMode</code> option to <code>true</code>:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="meta">'use strict'</span></div><div class="line"></div><div class="line">exports.default = &#123;</div><div class="line">  <span class="attr">general</span>: <span class="function"><span class="params">api</span> =&gt;</span> &#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">      <span class="attr">developmentMode</span>: <span class="literal">true</span>,</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="meta">'use strict'</span></div><div class="line"></div><div class="line">exports.default = &#123;</div><div class="line">  <span class="attr">general</span>: <span class="function"><span class="params">api</span> =&gt;</span> &#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">      <span class="attr">developmentMode</span>: <span class="literal">true</span>,</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <blockquote>
 <p>Warning: the <code>api.config.general.developmentMode</code> property is different from the <code>NODE_ENV</code> environment variable. The <code>NODE_ENV</code> value is considered as <code>development</code> by default, but this has no effect on <code>developmentMode</code>.</p>
 </blockquote>

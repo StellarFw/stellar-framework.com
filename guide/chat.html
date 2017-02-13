@@ -103,84 +103,249 @@
 
     <ul class="menu-root">
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/index.html" class="sidebar-link">Overview</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/installation.html" class="sidebar-link">Installation</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/actions.html" class="sidebar-link">Actions</a>
         </li>
       
-        <li>
-          <a href="/guide/models.html" class="sidebar-link">Models</a>
-        </li>
-      
+        
+        
+          
+        
+
         <li>
           <a href="/guide/tasks.html" class="sidebar-link">Tasks</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/middleware.html" class="sidebar-link">Middleware</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/satellites.html" class="sidebar-link">Satellites</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/cluster.html" class="sidebar-link">Cluster</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/cache.html" class="sidebar-link">Cache</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/chat.html" class="sidebar-link current">Chat</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/development_mode.html" class="sidebar-link">Development Mode</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/file_system.html" class="sidebar-link">File System</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/events.html" class="sidebar-link">Events</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/websocket.html" class="sidebar-link">WebSocket</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/tcp.html" class="sidebar-link">TCP</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/http.html" class="sidebar-link">HTTP</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/security.html" class="sidebar-link">Security</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/validation.html" class="sidebar-link">Validation</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/logging.html" class="sidebar-link">Logging</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/commands.html" class="sidebar-link">Commands</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/testing.html" class="sidebar-link">Testing</a>
+        </li>
+      
+        
+        
+          
+            <li><h3>Models</h3></li>
+          
+        
+
+        <li>
+          <a href="/guide/models.html" class="sidebar-link">Introduction</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-data_types.html" class="sidebar-link">Data Types and Attributes</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-validations.html" class="sidebar-link">Validations</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-instance.html" class="sidebar-link">Instance and Class Methods</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-associations.html" class="sidebar-link">Associations</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-configurations.html" class="sidebar-link">Model Configuration</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-queries.html" class="sidebar-link">Queries</a>
         </li>
       
     </ul>
@@ -208,34 +373,34 @@
 </blockquote>
 <h2 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h2><p>These methods can be used within your server. They are not exposed directly to clients, but they can be used within an action or a satellite.</p>
 <h3 id="Broadcast"><a href="#Broadcast" class="headerlink" title="Broadcast"></a>Broadcast</h3><p>The <code>api.chatRoom.broadcast(connection, room, message, callback)</code> method allows you to send a message to all members in a room. The connection parameter can be a real connection (a message coming from a client), or a mockConnection. A mockConnection at the very least has the form <code>{room: &#39;someRoom&#39;}</code>. When an ID is not specified the ID will be assigned to 0.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">api.chatRoom.broadcast(&#123;<span class="attr">room</span>: <span class="string">'general'</span>&#125;, <span class="string">'general'</span>, <span class="string">'Hello!'</span>, error =&gt; &#123;</div><div class="line">  <span class="comment">// do something after sending the message!</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">api.chatRoom.broadcast(&#123;<span class="attr">room</span>: <span class="string">'general'</span>&#125;, <span class="string">'general'</span>, <span class="string">'Hello!'</span>, error =&gt; &#123;</div><div class="line">  <span class="comment">// do something after sending the message!</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <h3 id="List-of-Rooms"><a href="#List-of-Rooms" class="headerlink" title="List of Rooms"></a>List of Rooms</h3><p>The <code>api.chatRoom.list(callback)</code> allows you to get a list of existing rooms. The following example code lists all rooms in the console (<code>stdout</code>):</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">api.chatRoom.list(<span class="function">(<span class="params">error, rooms</span>) =&gt;</span> &#123;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> k <span class="keyword">in</span> rooms) &#123; <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;k&#125;</span> =&gt; <span class="subst">$&#123;rooms[k]&#125;</span>`</span>) &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">api.chatRoom.list(<span class="function">(<span class="params">error, rooms</span>) =&gt;</span> &#123;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> k <span class="keyword">in</span> rooms) &#123; <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;k&#125;</span> =&gt; <span class="subst">$&#123;rooms[k]&#125;</span>`</span>) &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <h3 id="Create-a-Room"><a href="#Create-a-Room" class="headerlink" title="Create a Room"></a>Create a Room</h3><p>To create a room you use the <code>api.chatRoom.add(room, callback)</code> method. The callback function receives a parameter that has a value of <code>0</code> when the room already exists and <code>1</code> if it has just been created. The following code shows the creation of a new room named “labs”:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">api.chatRoom.add(<span class="string">'labs'</span>, res =&gt; &#123;</div><div class="line">  <span class="keyword">if</span> (res === <span class="number">0</span>) &#123;</div><div class="line">    <span class="comment">// the room already exists!</span></div><div class="line">    <span class="keyword">return</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// the room has been created!</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">api.chatRoom.add(<span class="string">'labs'</span>, res =&gt; &#123;</div><div class="line">  <span class="keyword">if</span> (res === <span class="number">0</span>) &#123;</div><div class="line">    <span class="comment">// the room already exists!</span></div><div class="line">    <span class="keyword">return</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// the room has been created!</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <h3 id="Remove-a-Room"><a href="#Remove-a-Room" class="headerlink" title="Remove a Room"></a>Remove a Room</h3><p>Using the <code>api.chatRoom.destroy(room, callback)</code> method, you can remove a room. The callback function does not receive any parameters; the room is always removed. The following code shows how you can remove a room:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">api.chatRoom.destroy(<span class="string">'labs'</span>, () =&gt; &#123;</div><div class="line">  <span class="comment">// room removed!</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">api.chatRoom.destroy(<span class="string">'labs'</span>, () =&gt; &#123;</div><div class="line">  <span class="comment">// room removed!</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <h3 id="Check-if-the-Room-Exists"><a href="#Check-if-the-Room-Exists" class="headerlink" title="Check if the Room Exists"></a>Check if the Room Exists</h3><p>You can use the <code>api.chatRoom.exists(room, callback)</code> method to check if the room exists in the Stellar instance. The <code>callback(error, found)</code> receives two parameters:</p>
 <ul>
 <li><strong><code>error</code></strong>: Assumes the <code>null</code> value if there are no problems.</li>
 <li><strong><code>found</code></strong>: <code>true</code> if the room exists, <code>false</code> otherwise.</li>
 </ul>
 <p>The following code checks the existence of the chat room named “coffeeTable”:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">api.chatRoom.exists(<span class="string">'coffeeTable'</span>, (error, found) =&gt; &#123;</div><div class="line">  <span class="keyword">if</span> (!found) &#123;</div><div class="line">    <span class="comment">// the room does not exist!</span></div><div class="line">    <span class="keyword">return</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// the room exists!</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">api.chatRoom.exists(<span class="string">'coffeeTable'</span>, (error, found) =&gt; &#123;</div><div class="line">  <span class="keyword">if</span> (!found) &#123;</div><div class="line">    <span class="comment">// the room does not exist!</span></div><div class="line">    <span class="keyword">return</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// the room exists!</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <h3 id="Gets-the-Room-State"><a href="#Gets-the-Room-State" class="headerlink" title="Gets the Room State"></a>Gets the Room State</h3><p>With the <code>api.chatRoom.roomStatus(room, callback)</code> method you can get room status information. The <code>callback(error, state)</code> function takes two parameters:</p>
 <ul>
 <li><strong><code>error</code></strong>: <code>null</code> if no error occurs during the method call.</li>
 <li><strong><code>state</code></strong>: An object containing information about the room: name, number of registered members, and the list of such members.</li>
 </ul>
 <p>The code below shows how this information can be obtained and then a possible result:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">api.chatRoom.roomStatus(<span class="string">'Random'</span>, (error, status) =&gt; &#123;</div><div class="line">  <span class="comment">// do something with the room information!</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">room</span>: <span class="string">'Random'</span>,</div><div class="line">  <span class="attr">membersCount</span>: <span class="number">3</span>,</div><div class="line">  <span class="attr">members</span>: &#123;</div><div class="line">    <span class="attr">g0m</span>: &#123;<span class="attr">id</span>: <span class="string">'g0m'</span>, <span class="attr">joinedAt</span>: <span class="number">1465829955</span>&#125;,</div><div class="line">    <span class="attr">afls</span>: &#123;<span class="attr">id</span>: <span class="string">'afls'</span>, <span class="attr">joinedAt</span>: <span class="number">1465829985</span>&#125;,</div><div class="line">    <span class="attr">amg</span>: &#123;<span class="attr">id</span>: <span class="string">'amg'</span>, <span class="attr">joinedAt</span>: <span class="number">1465830011</span>&#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">api.chatRoom.roomStatus(<span class="string">'Random'</span>, (error, status) =&gt; &#123;</div><div class="line">  <span class="comment">// do something with the room information!</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">room</span>: <span class="string">'Random'</span>,</div><div class="line">  <span class="attr">membersCount</span>: <span class="number">3</span>,</div><div class="line">  <span class="attr">members</span>: &#123;</div><div class="line">    <span class="attr">g0m</span>: &#123;<span class="attr">id</span>: <span class="string">'g0m'</span>, <span class="attr">joinedAt</span>: <span class="number">1465829955</span>&#125;,</div><div class="line">    <span class="attr">afls</span>: &#123;<span class="attr">id</span>: <span class="string">'afls'</span>, <span class="attr">joinedAt</span>: <span class="number">1465829985</span>&#125;,</div><div class="line">    <span class="attr">amg</span>: &#123;<span class="attr">id</span>: <span class="string">'amg'</span>, <span class="attr">joinedAt</span>: <span class="number">1465830011</span>&#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="Add-a-Member"><a href="#Add-a-Member" class="headerlink" title="Add a Member"></a>Add a Member</h3><p>To add a new member, use the <code>api.chatRoom.addMember(connectionId, room, callback)</code> method.  The client connection ID and the name of the room are needed. The <code>callback(error, wasAdded)</code> function takes two parameters:</p>
 <ul>
 <li><strong><code>error</code></strong>: <code>null</code> if no error occurs during the call.</li>
 <li><strong><code>wasAdded</code></strong>: Can be <code>true</code> or <code>false</code> depending on whether the member was added or not.</li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">api.chatRoom.addMember(connectionId, <span class="string">'newUsers'</span>, (error, wasAdded) =&gt; &#123;</div><div class="line">  <span class="keyword">if</span> (!wasAdded) &#123;</div><div class="line">    <span class="comment">// could not add the new member!</span></div><div class="line">    <span class="keyword">return</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// client added as a new member!</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">api.chatRoom.addMember(connectionId, <span class="string">'newUsers'</span>, (error, wasAdded) =&gt; &#123;</div><div class="line">  <span class="keyword">if</span> (!wasAdded) &#123;</div><div class="line">    <span class="comment">// could not add the new member!</span></div><div class="line">    <span class="keyword">return</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// client added as a new member!</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <blockquote>
 <p>Note: you can add connections from the current server or any other server in the cluster.</p>
 </blockquote>
@@ -244,13 +409,13 @@
 <li><strong><code>error</code></strong>: <code>null</code> if no error occurs during the operation.</li>
 <li><strong><code>wasRemoved</code></strong>: <code>true</code> if the member has been removed, <code>false</code> otherwise.</li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">api.chatRoom.removeMember(connectionId, <span class="string">'heaven'</span>, (error, wasRemoved) =&gt; &#123;</div><div class="line">  <span class="keyword">if</span> (!wasRemoved) &#123;</div><div class="line">    <span class="comment">// the member has not been removed!</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// the member was removed from the room!</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">api.chatRoom.removeMember(connectionId, <span class="string">'heaven'</span>, (error, wasRemoved) =&gt; &#123;</div><div class="line">  <span class="keyword">if</span> (!wasRemoved) &#123;</div><div class="line">    <span class="comment">// the member has not been removed!</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// the member was removed from the room!</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <blockquote>
 <p>Note: you can remove connections from the current server or any other server in the cluster.</p>
 </blockquote>
 <h2 id="Middleware"><a href="#Middleware" class="headerlink" title="Middleware"></a>Middleware</h2><p>There are 4 types of middleware you can install for the chat system: <code>say</code>, <code>onSayReceive</code>, <code>join</code>, and <code>leave</code>. All documentation about <em>middleware</em> is available in the <a href="./middleware.html">middleware section</a>.</p>
 <h2 id="Chatting-to-Specific-Clients"><a href="#Chatting-to-Specific-Clients" class="headerlink" title="Chatting to Specific Clients"></a>Chatting to Specific Clients</h2><p>Every connection object also has a <code>connection.sendMessage(message)</code> method which you can call directly from the server.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">connectionObj.sendMessage(<span class="string">'Welcome to Stellar :)'</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">connectionObj.sendMessage(<span class="string">'Welcome to Stellar :)'</span>)</div></pre></td></tr></table></figure>
 <h2 id="Client-Functions"><a href="#Client-Functions" class="headerlink" title="Client Functions"></a>Client Functions</h2><p>The ways it is possible to communicate with the client are described in the sections documenting the types of bidirectional servers, <a href="websocket.html">websocket</a> and <a href="tcp.html">TCP</a>.</p>
 
 

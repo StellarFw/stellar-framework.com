@@ -2,18 +2,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Satellites - Stellar</title>
+    <title>Data Types and Attributes - Stellar</title>
     <meta charset="utf-8">
     <meta name="description" content="Stellar is an action based web framework for creating Web APIs easily!">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Satellites - Stellar">
+    <meta property="og:title" content="Data Types and Attributes - Stellar">
     <meta property="og:description" content="Stellar is an action based web framework for creating Web APIs easily!">
     <meta property="og:image" content="https://stellar-framework.com/images/logo.png">
 
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Satellites - Stellar">
+    <meta name="twitter:title" content="Data Types and Attributes - Stellar">
     <meta name="twitter:description" content="Stellar is an action based web framework for creating Web APIs easily!">
     <meta name="twitter:image" content="https://stellar-framework.com/images/logo.png">
 
@@ -154,7 +154,7 @@
         
 
         <li>
-          <a href="/guide/satellites.html" class="sidebar-link current">Satellites</a>
+          <a href="/guide/satellites.html" class="sidebar-link">Satellites</a>
         </li>
       
         
@@ -300,7 +300,7 @@
         
 
         <li>
-          <a href="/guide/models-data_types.html" class="sidebar-link">Data Types and Attributes</a>
+          <a href="/guide/models-data_types.html" class="sidebar-link current">Data Types and Attributes</a>
         </li>
       
         
@@ -354,45 +354,62 @@
 
 
 
-<div class="content guide with-sidebar satellites-guide">
+<div class="content guide with-sidebar models-data_types-guide">
   
-    <h1>Satellites</h1>
+    <h1>Data Types and Attributes</h1>
   
 
-  <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>The Stellar Engine itself does nothing.  The only logic it has is as follows: as soon as an instance of Stellar is started, the Engine looks for Satellites, loads them into memory, and executes them.</p>
-<p>Satellites are components that can extend and override Stellar’s features. This mechanism organizes Stellar’s functionality, facilitates maintenance of the core, makes the framework extremely extensible, and allows developers to create modules that can extend features not only from Stellar’s core but also from other modules.</p>
-<p>The entire Stellar core is created by Satellites - these load the basic features of the framework, but the core is not the only place where Satellites may exist. Modules can also make use of Satellites to load new features, override existing ones, and perform tasks as soon as the framework begins or ends its execution.</p>
-<h2 id="Lifecycle"><a href="#Lifecycle" class="headerlink" title="Lifecycle"></a>Lifecycle</h2><p>All Satellites go through a series of stages during the execution of Stellar. This process, and what occurs in each of the three stages, is explained below.</p>
-<div style="margin-left: auto; margin-right: auto; max-width: 80%;"><br>  <img src="/images/satellite_stages.png" alt="Satellite Stages"><br></div>
-
-<p>The picture above shows the three phases of loading a Satellite: <em>load</em>, <em>start</em>, and <em>stop</em>. The loading stage is required, while the start and the stop are optional. If an operation is initiated in the start stage, it is recommended that the operation be stopped in the third stage (stop).</p>
-<p>In the Satellite load phase, all the logic of a Satellite must be loaded into the API object in order to make its features public; any complex operations should be carried out at this stage, and the load must be completed as soon as possible. In the start phase, all continuous tasks should begin, including servers or other types of listener. Finally, in the stop phase, all uncompleted pending tasks must be completed, and all servers must be stopped.</p>
-<h2 id="Format"><a href="#Format" class="headerlink" title="Format"></a>Format</h2><p>A Satellite should be a class written following the <a href="http://www.ecma-international.org/ecma-262/6.0/index.html" target="_blank" rel="external">ES6</a> standard. The only requirement for the Satellite is that it must contain a <code>load(api, next)</code> method. There are other properties which are described below:</p>
+  <h2 id="Data-Types"><a href="#Data-Types" class="headerlink" title="Data Types"></a>Data Types</h2><p>The following data types are currently available:</p>
 <ul>
-<li><strong><code>loadPriority</code></strong>: Allows you change the satellite load order, the default value is 100;</li>
-<li><strong><code>startPriority</code></strong>: Allows you change the satellite start order, the default value is 100;</li>
-<li><strong><code>stopPriority</code></strong>: Allows you change the satellite stop order,the default value is 100;</li>
-<li><strong><code>load(api, next)</code></strong>: Operation to be performed when loading the Satellite;</li>
-<li><strong><code>start(api, next)</code></strong>: Operation to be performed when staring the Satellite;</li>
-<li><strong><code>stop(api, next)</code></strong>: Operation to be performed when stopping the Satellite.</li>
+<li>string</li>
+<li>text</li>
+<li>integer</li>
+<li>float</li>
+<li>date</li>
+<li>time</li>
+<li>datetime</li>
+<li>boolean</li>
+<li>binary</li>
+<li>array</li>
+<li>json</li>
 </ul>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="meta">'use strict'</span></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Satellite class.</div><div class="line"> *</div><div class="line"> * It is recommended to use this class only to specify the functions</div><div class="line"> * of the satellite, any other logic should be contained in a separate class.</div><div class="line"> */</div><div class="line">exports.default = <span class="class"><span class="keyword">class</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Constructor.</div><div class="line">     *</div><div class="line">     * The developer must define the Satellite priority for the</div><div class="line">     * different stages.</div><div class="line">     */</div><div class="line">    <span class="keyword">constructor</span> () &#123;</div><div class="line">      <span class="comment">// define the priority for the loading stage</span></div><div class="line">      <span class="keyword">this</span>.loadPriority = <span class="number">10</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Loading function.</div><div class="line">     *</div><div class="line">     * @param  &#123;&#123;&#125;&#125;       api  Reference for the API object.</div><div class="line">     * @param  &#123;Function&#125; next Callback function.</div><div class="line">     */</div><div class="line">    load (api, next) &#123;</div><div class="line">      <span class="comment">// log a message</span></div><div class="line">      api.log(<span class="string">'This is awesome!'</span>, <span class="string">'info'</span>)</div><div class="line"></div><div class="line">      <span class="comment">// finalize the Satellite loading</span></div><div class="line">      next()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>These will map to the underlying database type if available. If a database doesn’t support a type a polyfill will be used. For example when using an array or json type in MySQL the values will be stringified before being saved.</p>
+<h2 id="Attribute-Properties"><a href="#Attribute-Properties" class="headerlink" title="Attribute Properties"></a>Attribute Properties</h2><p>These properties are also available on an attribute and can be used to enforce various constraints on the data.</p>
+<h3 id="defaultsTo"><a href="#defaultsTo" class="headerlink" title="defaultsTo"></a>defaultsTo</h3><p>Will set a default value on an attribute if one is not supplied when the record is created. The supplied value can also be a<br>function that stellar will run while creating the record.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">attributes: &#123;</div><div class="line">  <span class="attr">phoneNumber</span>: &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">'string'</span>,</div><div class="line">    <span class="attr">defaultsTo</span>: <span class="string">'111-222-3333'</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">id</span>: &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">'text'</span>,</div><div class="line">    <span class="attr">primaryKey</span>: <span class="literal">true</span>,</div><div class="line">    <span class="attr">unique</span>: <span class="literal">true</span>,</div><div class="line">    defaultsTo() &#123;</div><div class="line">      <span class="keyword">return</span> uuid.v4()</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="autoIncrement"><a href="#autoIncrement" class="headerlink" title="autoIncrement"></a>autoIncrement</h3><p>Will create a new auto-incrementing attribute. These should always be of type <code>integer</code> and will not be supported in all datastores. For example MySQL will not allow more than one auto-incrementing<br>column per table.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">attributes: &#123;</div><div class="line">  <span class="attr">placeInLine</span>: &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">'integer'</span>,</div><div class="line">    <span class="attr">autoIncrement</span>: <span class="literal">true</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="unique"><a href="#unique" class="headerlink" title="unique"></a>unique</h3><p>Ensures no two records will be allowed with the same value. This is a database level constraint so in most cases a unique index will be created in the underlying datastore.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">attributes: &#123;</div><div class="line">  <span class="attr">username</span>: &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">'string'</span>,</div><div class="line">    <span class="attr">unique</span>: <span class="literal">true</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="index"><a href="#index" class="headerlink" title="index"></a>index</h3><p>Will create a simple index in the underlying datastore for faster queries if available. This is only for simple indexes and currently doens’t support compound indexes. For these you will need to create them yourself.</p>
+<p>There is currently an issue with adding indexes to string fields. Because the ORM performs its queries in a case insensitive manner we are unable to use the index on a string attribute. There are some workarounds being discussed, but nothing is implemented so far. This will be updated in the near future to fully support indexes on strings.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">attributes: &#123;</div><div class="line">  <span class="attr">email</span>: &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">'string'</span>,</div><div class="line">    <span class="attr">index</span>: <span class="literal">true</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="primaryKey"><a href="#primaryKey" class="headerlink" title="primaryKey"></a>primaryKey</h3><p>Will set the primary key of the record. This should be used when <code>autoPK</code> is set to false.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">attributes: &#123;</div><div class="line">  <span class="attr">uuid</span>: &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">'string'</span>,</div><div class="line">    <span class="attr">primaryKey</span>: <span class="literal">true</span>,</div><div class="line">    <span class="attr">required</span>: <span class="literal">true</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="enum"><a href="#enum" class="headerlink" title="enum"></a>enum</h3><p>A special validation property which will only allow values that match a whitelisted set of values.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">attributes: &#123;</div><div class="line">  <span class="attr">state</span>: &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">'string'</span>,</div><div class="line">    <span class="attr">enum</span>: [ <span class="string">'pending'</span>, <span class="string">'approved'</span>, <span class="string">'denied'</span> ]</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="size"><a href="#size" class="headerlink" title="size"></a>size</h3><p>If supported in the datastore, can be used to define the size of the attribute. For example, in MySQL size can be used with a string to create a column with data type: <code>varchar(n)</code>.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">attributes: &#123;</div><div class="line">  <span class="attr">name</span>: &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">'string'</span>,</div><div class="line">    <span class="attr">size</span>: <span class="number">24</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="columnName"><a href="#columnName" class="headerlink" title="columnName"></a>columnName</h3><p>Override the attribute name before sending to a datastore. This allows you to have a different interface for interacting with your data at the application layer and the data layer. It comes in handy when integrating with legacy databases. You can have a nice API for your data and still allow the data to be saved in legacy columns.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">attributes: &#123;</div><div class="line">  <span class="attr">name</span>: &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">'string'</span>,</div><div class="line">    <span class="attr">columnName</span>: <span class="string">'legacy_data_user_name'</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
 
   
       <div class="guide-links">
         
-          <span>← <a href="/guide/middleware.html">Middleware</a></span>
+          <span>← <a href="/guide/models.html">Introduction</a></span>
         
         
-          <span style="float:right"><a href="/guide/cluster.html">Cluster</a> →</span>
+          <span style="float:right"><a href="/guide/models-instance.html">Instance and Class Methods</a> →</span>
+        
+          <span style="float:right"><a href="/guide/models-validations.html">Validations</a> →</span>
         
       </div>
     
 
     <div class="footer">
       Caught a mistake or want to contribute to documentation?
-      <a href="https://github.com/StellarFw/stellar-framework.com/tree/master/src/guide/satellites.md" target="_blank">
+      <a href="https://github.com/StellarFw/stellar-framework.com/tree/master/src/guide/models-data_types.md" target="_blank">
         Edit this page on Github!
       </a>
     </div>

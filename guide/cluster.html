@@ -103,84 +103,249 @@
 
     <ul class="menu-root">
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/index.html" class="sidebar-link">Overview</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/installation.html" class="sidebar-link">Installation</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/actions.html" class="sidebar-link">Actions</a>
         </li>
       
-        <li>
-          <a href="/guide/models.html" class="sidebar-link">Models</a>
-        </li>
-      
+        
+        
+          
+        
+
         <li>
           <a href="/guide/tasks.html" class="sidebar-link">Tasks</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/middleware.html" class="sidebar-link">Middleware</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/satellites.html" class="sidebar-link">Satellites</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/cluster.html" class="sidebar-link current">Cluster</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/cache.html" class="sidebar-link">Cache</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/chat.html" class="sidebar-link">Chat</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/development_mode.html" class="sidebar-link">Development Mode</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/file_system.html" class="sidebar-link">File System</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/events.html" class="sidebar-link">Events</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/websocket.html" class="sidebar-link">WebSocket</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/tcp.html" class="sidebar-link">TCP</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/http.html" class="sidebar-link">HTTP</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/security.html" class="sidebar-link">Security</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/validation.html" class="sidebar-link">Validation</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/logging.html" class="sidebar-link">Logging</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/commands.html" class="sidebar-link">Commands</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/testing.html" class="sidebar-link">Testing</a>
+        </li>
+      
+        
+        
+          
+            <li><h3>Models</h3></li>
+          
+        
+
+        <li>
+          <a href="/guide/models.html" class="sidebar-link">Introduction</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-data_types.html" class="sidebar-link">Data Types and Attributes</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-validations.html" class="sidebar-link">Validations</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-instance.html" class="sidebar-link">Instance and Class Methods</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-associations.html" class="sidebar-link">Associations</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-configurations.html" class="sidebar-link">Model Configuration</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-queries.html" class="sidebar-link">Queries</a>
         </li>
       
     </ul>
@@ -194,7 +359,7 @@
     <h1>Cluster</h1>
   
 
-  <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>Stellar may be executed on a single server or as part of a cluster. The aim of the cluster is create a set of servers that share the same state between them in order to respond to a greater number of client requests and to perform more tasks. With this mechanism, you can add and remove nodes from the cluster with no loss of data or duplicate tasks. You can also run multiple instances of Stellar on the same machine using the <code>stellar startCluster</code> command.</p>
+  <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>Stellar may be executed on a single server or as part of a cluster. The aim of the cluster is create a set of servers that share the same state between them in order to respond to a greater number of client requests and to perform more tasks. With this mechanism, you can add and remove nodes from the cluster with no loss of data or duplicate tasks. You can also run multiple instances of Stellar on the same machine using the <code>stellar run --cluster</code> command.</p>
 <p>The names of the cluster instances are sequential, starting with <code>stellar-worker-1</code>. The instance name can be obtained from the <code>api.id</code> property.</p>
 <h2 id="Cache"><a href="#Cache" class="headerlink" title="Cache"></a>Cache</h2><p>Once Stellar uses a Redis backend to retain information of tasks to be executed and cached objects, the cluster takes advantage of that same system to share information across all nodes. Thus, it should be unnecessary to make any changes in the code to be able to deploy the application in a cluster.</p>
 <blockquote>
@@ -202,7 +367,7 @@
 </blockquote>
 <h2 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h2><p>Stellar implements a Remote Procedure Call (RPC), which allows you to run a particular command on all cluster nodes or on a specific node identified by the <code>connectionId</code> object. To make use of this feature, use the <code>api.redis.doCluster(method, arguments, connectionId, callback)</code> method.  When you specify a callback, it will receive the first response from the cluster (or a timeout error).</p>
 <h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>The example bellow causes all nodes print their IDs to the log file:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">api.redis.doCluster(<span class="string">'api.log'</span>, [<span class="string">`Hello from the node <span class="subst">$&#123;api.id&#125;</span>`</span>])</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">api.redis.doCluster(<span class="string">'api.log'</span>, [<span class="string">`Hello from the node <span class="subst">$&#123;api.id&#125;</span>`</span>])</div></pre></td></tr></table></figure>
 <blockquote>
 <p>Note: This mechanism allows you to run any method of the API, including the <code>stop()</code> function.</p>
 </blockquote>
@@ -213,9 +378,9 @@
 <li><strong><code>serverToken</code></strong>: The server token, given by <code>api.config.general.serverToken</code>.</li>
 </ul>
 <h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example"></a>Example</h3><p>The following example shows how you can subscribe to a particular message type.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">api.redis.subscriptionHandlers[<span class="string">'messageType'</span>] = <span class="function"><span class="params">message</span> =&gt;</span> &#123;</div><div class="line">  <span class="comment">// do something...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">api.redis.subscriptionHandlers[<span class="string">'messageType'</span>] = <span class="function"><span class="params">message</span> =&gt;</span> &#123;</div><div class="line">  <span class="comment">// do something...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>To send a message you use a similar code like the following:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// build the payload</span></div><div class="line"><span class="keyword">let</span> payload = &#123;</div><div class="line">  <span class="attr">messageType</span>: <span class="string">'messageType'</span>,</div><div class="line">  <span class="attr">serverId</span>: api.id,</div><div class="line">  <span class="attr">serverToken</span>: api.config.general.serverToken,</div><div class="line">  <span class="attr">message</span>: <span class="string">'Message content!'</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// publish the message on Redis server</span></div><div class="line">api.redis.publish(payload)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// build the payload</span></div><div class="line"><span class="keyword">let</span> payload = &#123;</div><div class="line">  <span class="attr">messageType</span>: <span class="string">'messageType'</span>,</div><div class="line">  <span class="attr">serverId</span>: api.id,</div><div class="line">  <span class="attr">serverToken</span>: api.config.general.serverToken,</div><div class="line">  <span class="attr">message</span>: <span class="string">'Message content!'</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// publish the message on Redis server</span></div><div class="line">api.redis.publish(payload)</div></pre></td></tr></table></figure>
 <blockquote>
 <p>Note: The <code>api.config.general.serverToken</code> setting authenticates the message in the cluster.</p>
 </blockquote>

@@ -2,18 +2,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Models - Stellar</title>
+    <title>Introduction - Stellar</title>
     <meta charset="utf-8">
     <meta name="description" content="Stellar is an action based web framework for creating Web APIs easily!">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Models - Stellar">
+    <meta property="og:title" content="Introduction - Stellar">
     <meta property="og:description" content="Stellar is an action based web framework for creating Web APIs easily!">
     <meta property="og:image" content="https://stellar-framework.com/images/logo.png">
 
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Models - Stellar">
+    <meta name="twitter:title" content="Introduction - Stellar">
     <meta name="twitter:description" content="Stellar is an action based web framework for creating Web APIs easily!">
     <meta name="twitter:image" content="https://stellar-framework.com/images/logo.png">
 
@@ -103,84 +103,249 @@
 
     <ul class="menu-root">
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/index.html" class="sidebar-link">Overview</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/installation.html" class="sidebar-link">Installation</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/actions.html" class="sidebar-link">Actions</a>
         </li>
       
-        <li>
-          <a href="/guide/models.html" class="sidebar-link current">Models</a>
-        </li>
-      
+        
+        
+          
+        
+
         <li>
           <a href="/guide/tasks.html" class="sidebar-link">Tasks</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/middleware.html" class="sidebar-link">Middleware</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/satellites.html" class="sidebar-link">Satellites</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/cluster.html" class="sidebar-link">Cluster</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/cache.html" class="sidebar-link">Cache</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/chat.html" class="sidebar-link">Chat</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/development_mode.html" class="sidebar-link">Development Mode</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/file_system.html" class="sidebar-link">File System</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/events.html" class="sidebar-link">Events</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/websocket.html" class="sidebar-link">WebSocket</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/tcp.html" class="sidebar-link">TCP</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/http.html" class="sidebar-link">HTTP</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/security.html" class="sidebar-link">Security</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/validation.html" class="sidebar-link">Validation</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/logging.html" class="sidebar-link">Logging</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/commands.html" class="sidebar-link">Commands</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/testing.html" class="sidebar-link">Testing</a>
+        </li>
+      
+        
+        
+          
+            <li><h3>Models</h3></li>
+          
+        
+
+        <li>
+          <a href="/guide/models.html" class="sidebar-link current">Introduction</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-data_types.html" class="sidebar-link">Data Types and Attributes</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-validations.html" class="sidebar-link">Validations</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-instance.html" class="sidebar-link">Instance and Class Methods</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-associations.html" class="sidebar-link">Associations</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-configurations.html" class="sidebar-link">Model Configuration</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-queries.html" class="sidebar-link">Queries</a>
         </li>
       
     </ul>
@@ -191,61 +356,41 @@
 
 <div class="content guide with-sidebar models-guide">
   
-    <h1>Models</h1>
+    <h1>Introduction</h1>
   
 
-  <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>The model system included with Stellar provides a straight-forward, schema-based solution to model your application data. It includes built-in type casting, validation, query building, business logic hooks and more, out of the box. All to work with you database.</p>
+  <p>The model system included with Stellar provides a straight-forward, schema-based solution to model your application data. It includes built-in type casting, validation, query building, business logic hooks and more, out of the box. All to work with you database. This set of features that we provide are only possible because we chose <a href="https://github.com/balderdashy/waterline" target="_blank" rel="external">Waterline</a> to be our primary ORM.</p>
 <p>Each database collection has a corresponding “Model” which is used to interact with that collection. Models allow you to query for data in your collections, as well as insert new records into the collection.</p>
 <p>Before getting started, be sure to configure a database connection in <code>config/database.js</code>. For more information on configuring your database, check out the documentation.</p>
+<h2 id="First-steps"><a href="#First-steps" class="headerlink" title="First steps"></a>First steps</h2><h3 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h3><p>The database configuration for your application is located at <code>config/database.js</code>, but you can choose some other name, we use this to better know what configs are inside the file. If you do not configure it an in-memory database will be used, this is done to provide you a out of the box way to start developing your API without hurry about configurations and is a great way to mock or database on a testing environment.</p>
+<p>So, just for example we will create a connection with a MongoDB database.</p>
+<p>First of all we need to add the database adapter as an dependency, for that you use the <code>npmDependencies</code> property on the <code>manifest.json</code> file of your package.</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"id"</span>: <span class="string">"private"</span>,</div><div class="line">    <span class="attr">"name"</span>: <span class="string">"Private Module"</span>,</div><div class="line">    <span class="attr">"version"</span>: <span class="string">"1.0.0"</span>,</div><div class="line">    <span class="attr">"description"</span>: <span class="string">"This module exists to store the private project actions and tasks"</span>,</div><div class="line">    <span class="attr">"npmDependencies"</span>: &#123;</div><div class="line">      <span class="attr">"sails-mongo"</span>: <span class="string">"0.12.2"</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>The next step is configure the connection on the <code>config/database.js</code>, or otehr filename that you want:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">exports.production = &#123;</div><div class="line">  <span class="attr">models</span>: <span class="function"><span class="params">api</span> =&gt;</span> &#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">      <span class="attr">adapters</span>: &#123;</div><div class="line">        <span class="string">'mongodb'</span>: <span class="string">'sails-mongo'</span></div><div class="line">      &#125;,</div><div class="line"></div><div class="line">      <span class="attr">connections</span>: &#123;</div><div class="line">        <span class="attr">mongodb</span>: &#123;</div><div class="line">          <span class="attr">adapter</span>: <span class="string">'mongodb'</span>,</div><div class="line">          <span class="attr">url</span>: <span class="string">'mongodb://jarvis:somepassword@example.com:27017/awesomeDb'</span></div><div class="line">        &#125;</div><div class="line">      &#125;,</div><div class="line"></div><div class="line">      <span class="attr">defaults</span>: &#123;</div><div class="line">        <span class="attr">migrate</span>: <span class="string">'safe'</span></div><div class="line">      &#125;,</div><div class="line"></div><div class="line">      <span class="attr">defaulConnection</span>: <span class="string">'mongodb'</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>So, let’s stop for a while an check what we have done here. First of all, we specify a new adapter using the package name that we add before on the dependencies, we call our adapter of “mongodb”, but you can give it some other name. Then we create a new connection using the standard connection string, which is already known for the mongo users.</p>
 <blockquote>
-<p>Note: For now, Stellar only support MongoDB servers.</p>
+<p>NOTE: on the connection, with the exception of the <code>adapter</code>, the other key-value pairs are all configs related with the chosen adapter. You can see the adapter documentation to see what you need put here.</p>
 </blockquote>
-<h2 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h2><p>The database configuration for your application is located at <code>config/database.js</code>, but you can choose some other name, we use this to better know what configs are inside the file. If you do not configure it an in-memory database will be used, this is done to provide to you a out of the box way to start developing your API without hurry about configurations and is a mock for testing environment.</p>
-<p>There is two parameter that you can configure:</p>
-<ul>
-<li><strong><code>connectionString</code></strong>: The connection string to be passed to connection package;</li>
-<li><strong><code>pkg</code></strong>: The connection package to use in the connection with the database. This can assume two values (<code>mongoose</code>, <code>mockgose</code>).</li>
-</ul>
-<p>The follow code show a example config to connect with a remote MongoDB server on the MLab servers, in the development environment:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="meta">'use strict'</span></div><div class="line"></div><div class="line"><span class="comment">// use a remote MongoDB server on development</span></div><div class="line">exports.development = &#123;</div><div class="line">  <span class="attr">models</span>: <span class="function"><span class="params">api</span> =&gt;</span> &#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">      <span class="attr">connectionString</span>: <span class="string">'mongodb://exampleUser:examplePass@dz010866.mlab.com:19876/myOpDatabase'</span>,</div><div class="line">      <span class="attr">pkg</span>: <span class="string">'mongoose'</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="Defining-Models"><a href="#Defining-Models" class="headerlink" title="Defining Models"></a>Defining Models</h2><p>To get started, let’s create an model. Models live in the <code>models</code> directory on the modules root.</p>
+<p>Finally, we set the new connection as the default one, and done! No we are ready to go.</p>
+<p>Note that you need to install the adapter before run, for that you can start the server using the <code>--update</code> options like this:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">stellar run --update</div></pre></td></tr></table></figure>
+<h3 id="Defining-Models"><a href="#Defining-Models" class="headerlink" title="Defining Models"></a>Defining Models</h3><p>To get started, let’s create an model. Models live in the <code>models</code> directory on the modules roots.</p>
 <p>The easiest way to create a model instance is using the <code>makeModel</code> command:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">stellar makeModel User --module=authentication</div></pre></td></tr></table></figure>
-<p>If you would like to generate a CRUD action when you generate the model, you may use the –crud option:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">stellar makeModel User --module=authentication --crud</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">stellar makeModel User --module=authentication</div></pre></td></tr></table></figure>
+<p>If you would like to generate a CRUD action when you generate the model, you may use the <code>--crud</code> option:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">stellar makeModel User --module=authentication --crud</div></pre></td></tr></table></figure>
 <blockquote>
 <p>NOTE: the generated code uses the function syntax. You can see more about that on the next subsection.</p>
 </blockquote>
-<p>All the models are loaded into memory when a new Stellar instance is started, so you have a global place where all the models living (<code>api.models</code>). Ahead will be able to see how to get a model an use it on your code.</p>
-<h2 id="Model-Conventions"><a href="#Model-Conventions" class="headerlink" title="Model Conventions"></a>Model Conventions</h2><p>Now, let’s look at an example <code>Content</code> model, which we will use to retrieve and store information from our <code>contents</code> database collection:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="meta">'use strict'</span></div><div class="line"></div><div class="line">exports.default = &#123;</div><div class="line">  <span class="attr">title</span>:   <span class="built_in">String</span>,</div><div class="line">  <span class="attr">content</span>: <span class="built_in">String</span>,</div><div class="line">  <span class="attr">source</span>:  <span class="built_in">String</span>,</div><div class="line">  <span class="attr">tags</span>:    [ <span class="built_in">String</span> ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>Note: You must use the Mongoose syntax to define your models.</p>
-</blockquote>
-<p>For more advanced models you can use a function instead of an <code>Object</code>:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="meta">'use strict'</span></div><div class="line"></div><div class="line">exports.default = <span class="function">(<span class="params">api, mongoose</span>) =&gt;</span> &#123;</div><div class="line">  <span class="comment">// get Schema type</span></div><div class="line">  <span class="keyword">let</span> Schema = mongoose.Schema</div><div class="line"></div><div class="line">  <span class="comment">// return the schema</span></div><div class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Schema(&#123;</div><div class="line">    <span class="attr">_creator</span>: &#123; <span class="attr">type</span>: Schema.Types.ObjectId, <span class="attr">ref</span>: <span class="string">'question'</span> &#125;,</div><div class="line">    <span class="attr">content</span>: <span class="built_in">String</span>,</div><div class="line">    <span class="attr">user</span>: Schema.Types.Mixed</div><div class="line">  &#125;, &#123;</div><div class="line">    <span class="attr">timestamps</span>: <span class="literal">true</span></div><div class="line">  &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="Retrieving-Models"><a href="#Retrieving-Models" class="headerlink" title="Retrieving Models"></a>Retrieving Models</h2><p>Once you created a model, you are ready to start retrieving data from your database. For example:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">api.models.get(<span class="string">'question'</span>).find(&#123;&#125;, (err, resources) =&gt; &#123;</div><div class="line">  <span class="comment">// so something...</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>You can define some search parameters like this:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">api.models.get(<span class="string">'question'</span>).find(&#123; <span class="attr">tile</span>: <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'^Node\s*'</span>, <span class="string">"i"</span>) &#125;, (err, resources) =&gt; &#123;</div><div class="line">  <span class="comment">// so something...</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h2 id="Retrieving-Single-Models"><a href="#Retrieving-Single-Models" class="headerlink" title="Retrieving Single Models"></a>Retrieving Single Models</h2><p>Of course, in addition to retrieving all of the records for a given collection, you may also retrieve single records using <code>findOne</code>, <code>findById</code>. Instead of returning a collection of models, these method return a single model instance.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// retrieve a model by its id</span></div><div class="line">api.models.get(<span class="string">'question'</span>).findById(<span class="string">'507f1f77bcf86cd799439011'</span>, (err, resource) =&gt; &#123;</div><div class="line">  <span class="comment">// do something...</span></div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="comment">// retrieve the first model matching the query constraints...</span></div><div class="line">api.models.get(<span class="string">'question'</span>).findOne(&#123; <span class="attr">active</span>: <span class="literal">true</span> &#125;, (err, resource) =&gt; &#123;</div><div class="line">  <span class="comment">// do something...</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>When the model are not found the <code>resource</code> variable is <code>null</code>.</p>
-<h2 id="Inserting-amp-Updating-Models"><a href="#Inserting-amp-Updating-Models" class="headerlink" title="Inserting &amp; Updating Models"></a>Inserting &amp; Updating Models</h2><h3 id="Inserts"><a href="#Inserts" class="headerlink" title="Inserts"></a>Inserts</h3><p>To create a new record in the database, simple create a new model instance, set attributes on the model, then call the save method:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">exports.createQuestion = &#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'createQuestion'</span>,</div><div class="line">  <span class="attr">description</span>: <span class="string">'Create a new question'</span>,</div><div class="line"></div><div class="line">  <span class="attr">run</span>: <span class="function">(<span class="params">api, action, next</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">const</span> QuestionModel = api.models.get(<span class="string">'question'</span>)</div><div class="line"></div><div class="line">    <span class="keyword">let</span> question = <span class="keyword">new</span> QuestionModel()</div><div class="line"></div><div class="line">    question.title = action.params.title</div><div class="line"></div><div class="line">    question.save()</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>In this example, we simply assign the title parameter from the incoming request to the name attribute of the <code>Question</code> model instance. When we call the save method, a record will be inserted into the database.</p>
-<h3 id="Updates"><a href="#Updates" class="headerlink" title="Updates"></a>Updates</h3><p>The save method may also be used to update models that already exist in the database. To update a model, you should retrieve it, set any attributes you wish to update, and then call the save method.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">let</span> question = QuestionModel.findById(<span class="string">'507f1f77bcf86cd799439011'</span>)</div><div class="line"></div><div class="line">question.content = <span class="string">'New Question Content'</span></div><div class="line"></div><div class="line">question.save()</div></pre></td></tr></table></figure>
-<p>You can also rewrite the code above using the <code>findOneAndUpdate</code> method:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">QuestionModel.findOneAndUpdate(&#123; <span class="attr">_id</span>: <span class="string">'507f1f77bcf86cd799439011'</span> &#125;, &#123; <span class="attr">content</span>: <span class="string">'New Question Content'</span> &#125;)</div></pre></td></tr></table></figure>
-<h4 id="Mass-Update"><a href="#Mass-Update" class="headerlink" title="Mass Update"></a>Mass Update</h4><p>Updates can also be performed against any number of models that match a given query. In this example, all question that are <code>active</code> will be marked as inactive:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">QuestionModel.update(&#123; <span class="attr">active</span> : <span class="literal">true</span> &#125;, &#123; <span class="attr">active</span>: <span class="literal">false</span> &#125;, &#123; <span class="attr">multi</span>: <span class="literal">true</span> &#125;)</div></pre></td></tr></table></figure>
-<h2 id="Deleting-Models"><a href="#Deleting-Models" class="headerlink" title="Deleting Models"></a>Deleting Models</h2><p>To delete a model, call the delete method on a model instance:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">QuestionModel.findByIdAndRemove(<span class="string">'507f1f77bcf86cd799439011'</span>)</div></pre></td></tr></table></figure>
+<p>All the models are loaded into memory when a new Stellar instance is started, so you have a global place where all the models lives (<code>api.models</code>). Ahead will be able to see how to get a model an use it on your code.</p>
+<h3 id="Model-Conventions"><a href="#Model-Conventions" class="headerlink" title="Model Conventions"></a>Model Conventions</h3><p>Now, let’s look at an example <code>Content</code> model, which we will use to retrieve and store information from our <code>contents</code> database collection:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="meta">'use strict'</span></div><div class="line"></div><div class="line">exports.default = &#123;</div><div class="line">  <span class="attr">title</span>: <span class="string">'string'</span>,</div><div class="line">  <span class="attr">content</span>: <span class="string">'string'</span>,</div><div class="line">  <span class="attr">source</span>: <span class="string">'string'</span>,</div><div class="line">  <span class="attr">tags</span>: <span class="string">'array'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Note that you can use a function instead of an <code>Object</code>, to define more advanced models.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">exports.default = <span class="function"><span class="params">api</span> =&gt;</span> &#123;</div><div class="line">  <span class="comment">// create a new model</span></div><div class="line">  <span class="keyword">const</span> newModel = &#123;</div><div class="line">    <span class="attr">attributes</span>: &#123;</div><div class="line">      <span class="comment">// <span class="doctag">TODO:</span> add fields to this model</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">return</span> newModel</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="Extend-Models"><a href="#Extend-Models" class="headerlink" title="Extend Models"></a>Extend Models</h2><p>For now, there is no way to replace or modify already created models. So, in order to manipulate (add, modify or remove) fields, Stellar provides a custom event on the model insertion. The event name is <code>core.models.add.{name}</code>, <code>name</code> is dynamic and is replaced with the model name. Using this naming convention we don’t need to call all the listeners who modify models, instead of that we just call the right listeners for that specific model.</p>
-<p>The <code>core.models.add.{name}</code> event receives an instance of the Mongoose Schema (<code>schema</code>), who represents the model schema, and the Mongoose instance (<code>mongoose</code>) to access, for example, to the Mongoose custom data types. To manipulate the model you must use the <a href="http://mongoosejs.com/docs/api.html#schema_Schema-add" target="_blank" rel="external">Mongoose Schema methods</a>.</p>
-<p>The follow example shows how to extend a model. In this case we are adding two new fields to the <code>user</code> model:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">exports.editUserModel = &#123;</div><div class="line">  <span class="attr">event</span>: <span class="string">'core.models.add.user'</span>,</div><div class="line">  <span class="attr">description</span>: <span class="string">'This adds the address and the phone fields to the user model'</span>,</div><div class="line"></div><div class="line">  run (api, params, next) &#123;</div><div class="line">    <span class="comment">// add the new two fields</span></div><div class="line">    params.schema.add(&#123;</div><div class="line">      <span class="attr">address</span>: &#123; <span class="attr">type</span>: <span class="built_in">String</span>, <span class="attr">default</span>: <span class="literal">null</span> &#125;,</div><div class="line">      <span class="attr">phone</span>: &#123; <span class="attr">type</span>: <span class="built_in">String</span>, <span class="attr">default</span>: <span class="literal">null</span> &#125;</div><div class="line">    &#125;)</div><div class="line"></div><div class="line">    <span class="comment">// finish the event execution</span></div><div class="line">    next()</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>The <code>core.models.add.{name}</code> event receives an instance of the Model (<code>model</code>) as you can see bellow. The follow example shows how to extend a model. In this case we are adding two new fields to the <code>user</code> model:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">exports.editUserModel = &#123;</div><div class="line">  <span class="attr">event</span>: <span class="string">'core.models.add.user'</span>,</div><div class="line">  <span class="attr">description</span>: <span class="string">'This adds the address and the phone fields to the user model'</span>,</div><div class="line"></div><div class="line">  run (api, params, next) &#123;</div><div class="line">    <span class="comment">// get the user model</span></div><div class="line">    <span class="keyword">const</span> User = params.model</div><div class="line"></div><div class="line">    <span class="comment">// add the new two fields</span></div><div class="line">    User.attributes = <span class="built_in">Object</span>.assign(User.attributes, &#123;</div><div class="line">      <span class="attr">address</span>: &#123; <span class="attr">type</span>: <span class="string">'string'</span>, <span class="attr">defaultsTo</span>: <span class="literal">null</span> &#125;,</div><div class="line">      <span class="attr">phone</span>: &#123; <span class="attr">type</span>: <span class="string">'string'</span>, <span class="attr">defaultsTo</span>: <span class="literal">null</span> &#125;</div><div class="line">    &#125;)</div><div class="line"></div><div class="line">    <span class="comment">// finish the event execution</span></div><div class="line">    next()</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <blockquote>
 <p>Note that the <code>user</code> model is owned by another module (for example, the <a href="https://github.com/stellarFw/Identify" target="_blank" rel="external">Authentication module</a>).</p>
 </blockquote>
@@ -254,10 +399,10 @@
   
       <div class="guide-links">
         
-          <span>← <a href="/guide/actions.html">Actions</a></span>
+          <span>← <a href="/guide/testing.html">Testing</a></span>
         
         
-          <span style="float:right"><a href="/guide/tasks.html">Tasks</a> →</span>
+          <span style="float:right"><a href="/guide/models-data_types.html">Data Types and Attributes</a> →</span>
         
       </div>
     

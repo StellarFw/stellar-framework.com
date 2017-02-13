@@ -2,18 +2,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Satellites - Stellar</title>
+    <title>Instance and Class Methods - Stellar</title>
     <meta charset="utf-8">
     <meta name="description" content="Stellar is an action based web framework for creating Web APIs easily!">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Satellites - Stellar">
+    <meta property="og:title" content="Instance and Class Methods - Stellar">
     <meta property="og:description" content="Stellar is an action based web framework for creating Web APIs easily!">
     <meta property="og:image" content="https://stellar-framework.com/images/logo.png">
 
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Satellites - Stellar">
+    <meta name="twitter:title" content="Instance and Class Methods - Stellar">
     <meta name="twitter:description" content="Stellar is an action based web framework for creating Web APIs easily!">
     <meta name="twitter:image" content="https://stellar-framework.com/images/logo.png">
 
@@ -154,7 +154,7 @@
         
 
         <li>
-          <a href="/guide/satellites.html" class="sidebar-link current">Satellites</a>
+          <a href="/guide/satellites.html" class="sidebar-link">Satellites</a>
         </li>
       
         
@@ -318,7 +318,7 @@
         
 
         <li>
-          <a href="/guide/models-instance.html" class="sidebar-link">Instance and Class Methods</a>
+          <a href="/guide/models-instance.html" class="sidebar-link current">Instance and Class Methods</a>
         </li>
       
         
@@ -354,45 +354,36 @@
 
 
 
-<div class="content guide with-sidebar satellites-guide">
+<div class="content guide with-sidebar models-instance-guide">
   
-    <h1>Satellites</h1>
+    <h1>Instance and Class Methods</h1>
   
 
-  <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>The Stellar Engine itself does nothing.  The only logic it has is as follows: as soon as an instance of Stellar is started, the Engine looks for Satellites, loads them into memory, and executes them.</p>
-<p>Satellites are components that can extend and override Stellar’s features. This mechanism organizes Stellar’s functionality, facilitates maintenance of the core, makes the framework extremely extensible, and allows developers to create modules that can extend features not only from Stellar’s core but also from other modules.</p>
-<p>The entire Stellar core is created by Satellites - these load the basic features of the framework, but the core is not the only place where Satellites may exist. Modules can also make use of Satellites to load new features, override existing ones, and perform tasks as soon as the framework begins or ends its execution.</p>
-<h2 id="Lifecycle"><a href="#Lifecycle" class="headerlink" title="Lifecycle"></a>Lifecycle</h2><p>All Satellites go through a series of stages during the execution of Stellar. This process, and what occurs in each of the three stages, is explained below.</p>
-<div style="margin-left: auto; margin-right: auto; max-width: 80%;"><br>  <img src="/images/satellite_stages.png" alt="Satellite Stages"><br></div>
-
-<p>The picture above shows the three phases of loading a Satellite: <em>load</em>, <em>start</em>, and <em>stop</em>. The loading stage is required, while the start and the stop are optional. If an operation is initiated in the start stage, it is recommended that the operation be stopped in the third stage (stop).</p>
-<p>In the Satellite load phase, all the logic of a Satellite must be loaded into the API object in order to make its features public; any complex operations should be carried out at this stage, and the load must be completed as soon as possible. In the start phase, all continuous tasks should begin, including servers or other types of listener. Finally, in the stop phase, all uncompleted pending tasks must be completed, and all servers must be stopped.</p>
-<h2 id="Format"><a href="#Format" class="headerlink" title="Format"></a>Format</h2><p>A Satellite should be a class written following the <a href="http://www.ecma-international.org/ecma-262/6.0/index.html" target="_blank" rel="external">ES6</a> standard. The only requirement for the Satellite is that it must contain a <code>load(api, next)</code> method. There are other properties which are described below:</p>
-<ul>
-<li><strong><code>loadPriority</code></strong>: Allows you change the satellite load order, the default value is 100;</li>
-<li><strong><code>startPriority</code></strong>: Allows you change the satellite start order, the default value is 100;</li>
-<li><strong><code>stopPriority</code></strong>: Allows you change the satellite stop order,the default value is 100;</li>
-<li><strong><code>load(api, next)</code></strong>: Operation to be performed when loading the Satellite;</li>
-<li><strong><code>start(api, next)</code></strong>: Operation to be performed when staring the Satellite;</li>
-<li><strong><code>stop(api, next)</code></strong>: Operation to be performed when stopping the Satellite.</li>
-</ul>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="meta">'use strict'</span></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Satellite class.</div><div class="line"> *</div><div class="line"> * It is recommended to use this class only to specify the functions</div><div class="line"> * of the satellite, any other logic should be contained in a separate class.</div><div class="line"> */</div><div class="line">exports.default = <span class="class"><span class="keyword">class</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Constructor.</div><div class="line">     *</div><div class="line">     * The developer must define the Satellite priority for the</div><div class="line">     * different stages.</div><div class="line">     */</div><div class="line">    <span class="keyword">constructor</span> () &#123;</div><div class="line">      <span class="comment">// define the priority for the loading stage</span></div><div class="line">      <span class="keyword">this</span>.loadPriority = <span class="number">10</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Loading function.</div><div class="line">     *</div><div class="line">     * @param  &#123;&#123;&#125;&#125;       api  Reference for the API object.</div><div class="line">     * @param  &#123;Function&#125; next Callback function.</div><div class="line">     */</div><div class="line">    load (api, next) &#123;</div><div class="line">      <span class="comment">// log a message</span></div><div class="line">      api.log(<span class="string">'This is awesome!'</span>, <span class="string">'info'</span>)</div><div class="line"></div><div class="line">      <span class="comment">// finalize the Satellite loading</span></div><div class="line">      next()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+  <h2 id="Instance-methods"><a href="#Instance-methods" class="headerlink" title="Instance methods"></a>Instance methods</h2><p>You can attach instance methods to a model which will be available on any record returned from a query. These are defined as functions in your model attributes.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">attributes</span>: &#123;</div><div class="line">    <span class="attr">firstName</span>: <span class="string">'string'</span>,</div><div class="line">    <span class="attr">lastName</span>: <span class="string">'string'</span>,</div><div class="line">    fullName () &#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.firstName + <span class="string">' '</span> + <span class="keyword">this</span>.lastName</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="toObject-toJSON"><a href="#toObject-toJSON" class="headerlink" title="toObject/toJSON"></a>toObject/toJSON</h3><p>The <code>toObject()</code> method will return the currently set model values only, without any of the instance methods attached. Useful if you want to change or remove values before sending to the client.</p>
+<p>However we provide an even easier way to filter values before returning to the client by allowing you to override the <code>toJSON()</code> method in your model.</p>
+<p>Example of filtering a password in your model definition:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">attributes</span>: &#123;</div><div class="line">    <span class="attr">name</span>: <span class="string">'string'</span>,</div><div class="line">    <span class="attr">password</span>: <span class="string">'string'</span>,</div><div class="line"></div><div class="line">    <span class="comment">// Override toJSON instance method to remove password value</span></div><div class="line">    toJSON () &#123;</div><div class="line">      <span class="keyword">let</span> obj = <span class="keyword">this</span>.toObject()</div><div class="line">      <span class="keyword">delete</span> obj.password</div><div class="line">      <span class="keyword">return</span> obj</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Class-Methods"><a href="#Class-Methods" class="headerlink" title="Class Methods"></a>Class Methods</h2><p>“Class” methods are functions available at the top level of a model. They can be called anytime after you get a model instance.</p>
+<p>These are useful if you would like to keep model logic in the model and have reusable functions available.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// example.js - just an example model</span></div><div class="line">&#123;</div><div class="line">  <span class="attr">attributes</span>: &#123; &#125;,</div><div class="line"></div><div class="line">  <span class="comment">// A "class" method</span></div><div class="line">  method1 () &#123; &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// example of a call</span></div><div class="line">Foo.method1()</div></pre></td></tr></table></figure>
 
 
   
       <div class="guide-links">
         
-          <span>← <a href="/guide/middleware.html">Middleware</a></span>
+          <span>← <a href="/guide/models-data_types.html">Data Types and Attributes</a></span>
         
         
-          <span style="float:right"><a href="/guide/cluster.html">Cluster</a> →</span>
+          <span style="float:right"><a href="/guide/models-associations.html">Associations</a> →</span>
         
       </div>
     
 
     <div class="footer">
       Caught a mistake or want to contribute to documentation?
-      <a href="https://github.com/StellarFw/stellar-framework.com/tree/master/src/guide/satellites.md" target="_blank">
+      <a href="https://github.com/StellarFw/stellar-framework.com/tree/master/src/guide/models-instance.md" target="_blank">
         Edit this page on Github!
       </a>
     </div>

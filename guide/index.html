@@ -103,84 +103,249 @@
 
     <ul class="menu-root">
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/index.html" class="sidebar-link current">Overview</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/installation.html" class="sidebar-link">Installation</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/actions.html" class="sidebar-link">Actions</a>
         </li>
       
-        <li>
-          <a href="/guide/models.html" class="sidebar-link">Models</a>
-        </li>
-      
+        
+        
+          
+        
+
         <li>
           <a href="/guide/tasks.html" class="sidebar-link">Tasks</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/middleware.html" class="sidebar-link">Middleware</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/satellites.html" class="sidebar-link">Satellites</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/cluster.html" class="sidebar-link">Cluster</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/cache.html" class="sidebar-link">Cache</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/chat.html" class="sidebar-link">Chat</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/development_mode.html" class="sidebar-link">Development Mode</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/file_system.html" class="sidebar-link">File System</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/events.html" class="sidebar-link">Events</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/websocket.html" class="sidebar-link">WebSocket</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/tcp.html" class="sidebar-link">TCP</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/http.html" class="sidebar-link">HTTP</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/security.html" class="sidebar-link">Security</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/validation.html" class="sidebar-link">Validation</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/logging.html" class="sidebar-link">Logging</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/commands.html" class="sidebar-link">Commands</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/testing.html" class="sidebar-link">Testing</a>
+        </li>
+      
+        
+        
+          
+            <li><h3>Models</h3></li>
+          
+        
+
+        <li>
+          <a href="/guide/models.html" class="sidebar-link">Introduction</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-data_types.html" class="sidebar-link">Data Types and Attributes</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-validations.html" class="sidebar-link">Validations</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-instance.html" class="sidebar-link">Instance and Class Methods</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-associations.html" class="sidebar-link">Associations</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-configurations.html" class="sidebar-link">Model Configuration</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-queries.html" class="sidebar-link">Queries</a>
         </li>
       
     </ul>
@@ -207,7 +372,7 @@
 <h2 id="How-to-Contribute"><a href="#How-to-Contribute" class="headerlink" title="How to Contribute"></a>How to Contribute</h2><p>Both the <a href="https://github.com/StellarFw/stellar-framework.com" target="_blank" rel="external">documentation</a> of this website and the <a href="https://github.com/StellarFw/stellar" target="_blank" rel="external">Stellar</a> source code are available on GitHub. You can submit pull requests for the <code>dev</code> branch, but first, please read the <a href="https://github.com/StellarFw/stellar/blob/dev/CONTRIBUTING.md" target="_blank" rel="external">contribution guide</a> carefully. All help is welcome! 😉</p>
 <p>You can also help using the <a href="https://github.com/StellarFw/stellar/issues" target="_blank" rel="external">issue tracker</a> to report bugs, make suggestions, or submit feature requests.</p>
 <h2 id="Structure-of-an-Application"><a href="#Structure-of-an-Application" class="headerlink" title="Structure of an Application"></a>Structure of an Application</h2><p>The typical directory structure of a Stellar project is shown below. This example is a simple API that implements the functionality of a blog.</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">.</div><div class="line">├── config</div><div class="line">│   └── (project-level settings)</div><div class="line">├── manifest.json</div><div class="line">├── modules</div><div class="line">│   ├── private</div><div class="line">│   └── blog</div><div class="line">│       ├── actions</div><div class="line">│       │   ├── posts.js</div><div class="line">│       │   └── comments.js</div><div class="line">│       ├── config</div><div class="line">│       │   └── comments.js</div><div class="line">│       ├── listeners</div><div class="line">│       │   ├── del_post.js</div><div class="line">│       │   └── new_post.js</div><div class="line">│       ├── manifest.json</div><div class="line">│       ├── middleware</div><div class="line">│       │   └── edit_permission.js</div><div class="line">│       ├── models</div><div class="line">│       │   ├── post.js</div><div class="line">│       │   └── comment.js</div><div class="line">│       ├── satellites</div><div class="line">│       │   └── something.js</div><div class="line">│       └── tasks</div><div class="line">│           └── rss.js</div><div class="line">└── temp</div><div class="line">    └── (temporary files)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">.</div><div class="line">├── config</div><div class="line">│   └── (project-level settings)</div><div class="line">├── manifest.json</div><div class="line">├── modules</div><div class="line">│   ├── private</div><div class="line">│   └── blog</div><div class="line">│       ├── actions</div><div class="line">│       │   ├── posts.js</div><div class="line">│       │   └── comments.js</div><div class="line">│       ├── config</div><div class="line">│       │   └── comments.js</div><div class="line">│       ├── listeners</div><div class="line">│       │   ├── del_post.js</div><div class="line">│       │   └── new_post.js</div><div class="line">│       ├── manifest.json</div><div class="line">│       ├── mod.js</div><div class="line">│       ├── middleware</div><div class="line">│       │   └── edit_permission.js</div><div class="line">│       ├── models</div><div class="line">│       │   ├── post.js</div><div class="line">│       │   └── comment.js</div><div class="line">│       ├── satellites</div><div class="line">│       │   └── something.js</div><div class="line">│       └── tasks</div><div class="line">│           └── rss.js</div><div class="line">└── temp</div><div class="line">    └── (temporary files)</div></pre></td></tr></table></figure>
 <ul>
 <li><p><strong><code>config</code></strong>: Contains project-level settings. These settings override not only the system settings but also the settings configured in the project modules. This allows you to reuse modules from other projects and still configure the application for your usage scenario without having to modify the module code.</p>
 </li>
@@ -239,7 +404,10 @@
 <h3 id="manifest-json"><a href="#manifest-json" class="headerlink" title="manifest.json"></a>manifest.json</h3><p>The <strong>manifest.json</strong> file defines the project’s name, version, description, and active modules. Below is an example of the format of this file:</p>
 <figure class="highlight json"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"name"</span>: <span class="string">"blog"</span>,</div><div class="line">  <span class="attr">"version"</span>: <span class="string">"1.0.0"</span>,</div><div class="line">  <span class="attr">"description"</span>: <span class="string">"A simple blog system that supports authentication"</span>,</div><div class="line">  <span class="attr">"modules"</span>: [</div><div class="line">    <span class="string">"authentication"</span></div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="Start-a-Server-Instance"><a href="#Start-a-Server-Instance" class="headerlink" title="Start a Server Instance"></a>Start a Server Instance</h2><p>One of the easy parts of using Stellar is that you don’t need any special configuration to start developing your app. To running an instance of your API you just need to execute a command on the root of your project:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">stellar run</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">stellar run</div></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>Note</strong>: to run Stellar as a daemon you need to use the <code>--daemon</code> option</p>
+</blockquote>
 <p>Yap! It’s all you need to start build amazing APIs. 😉</p>
 
 

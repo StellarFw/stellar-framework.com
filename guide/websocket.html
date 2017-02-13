@@ -103,84 +103,249 @@
 
     <ul class="menu-root">
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/index.html" class="sidebar-link">Overview</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/installation.html" class="sidebar-link">Installation</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/actions.html" class="sidebar-link">Actions</a>
         </li>
       
-        <li>
-          <a href="/guide/models.html" class="sidebar-link">Models</a>
-        </li>
-      
+        
+        
+          
+        
+
         <li>
           <a href="/guide/tasks.html" class="sidebar-link">Tasks</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/middleware.html" class="sidebar-link">Middleware</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/satellites.html" class="sidebar-link">Satellites</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/cluster.html" class="sidebar-link">Cluster</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/cache.html" class="sidebar-link">Cache</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/chat.html" class="sidebar-link">Chat</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/development_mode.html" class="sidebar-link">Development Mode</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/file_system.html" class="sidebar-link">File System</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/events.html" class="sidebar-link">Events</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/websocket.html" class="sidebar-link current">WebSocket</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/tcp.html" class="sidebar-link">TCP</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/http.html" class="sidebar-link">HTTP</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/security.html" class="sidebar-link">Security</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/validation.html" class="sidebar-link">Validation</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/logging.html" class="sidebar-link">Logging</a>
         </li>
       
+        
+        
+          
+        
+
         <li>
           <a href="/guide/commands.html" class="sidebar-link">Commands</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/testing.html" class="sidebar-link">Testing</a>
+        </li>
+      
+        
+        
+          
+            <li><h3>Models</h3></li>
+          
+        
+
+        <li>
+          <a href="/guide/models.html" class="sidebar-link">Introduction</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-data_types.html" class="sidebar-link">Data Types and Attributes</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-validations.html" class="sidebar-link">Validations</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-instance.html" class="sidebar-link">Instance and Class Methods</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-associations.html" class="sidebar-link">Associations</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-configurations.html" class="sidebar-link">Model Configuration</a>
+        </li>
+      
+        
+        
+          
+        
+
+        <li>
+          <a href="/guide/models-queries.html" class="sidebar-link">Queries</a>
         </li>
       
     </ul>
@@ -283,43 +448,43 @@
 <h3 id="Disconnect"><a href="#Disconnect" class="headerlink" title="Disconnect"></a>Disconnect</h3><p>The <code>client.disconnect()</code> method allows you to disconnect the client from the server.</p>
 <h2 id="Events"><a href="#Events" class="headerlink" title="Events"></a>Events</h2><p>The following list shows the events which are available to the client.</p>
 <h3 id="Connected"><a href="#Connected" class="headerlink" title="Connected"></a>Connected</h3><p>The <code>connected</code> event is triggered when the client connects to the server.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">client.on(<span class="string">'connected'</span>, () =&gt; &#123; &#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">client.on(<span class="string">'connected'</span>, () =&gt; &#123; &#125;)</div></pre></td></tr></table></figure>
 <h3 id="Disconnected"><a href="#Disconnected" class="headerlink" title="Disconnected"></a>Disconnected</h3><p>The <code>disconnected</code> event is triggered when the client disconnects from the server.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">client.on(<span class="string">'disconnected'</span>, () =&gt; &#123; &#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">client.on(<span class="string">'disconnected'</span>, () =&gt; &#123; &#125;)</div></pre></td></tr></table></figure>
 <h3 id="Error"><a href="#Error" class="headerlink" title="Error"></a>Error</h3><p>The <code>error</code> event is triggered when an error occurs during a verb execution.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">client.on(<span class="string">'error'</span>, error =&gt; &#123; &#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">client.on(<span class="string">'error'</span>, error =&gt; &#123; &#125;)</div></pre></td></tr></table></figure>
 <h3 id="Reconnect"><a href="#Reconnect" class="headerlink" title="Reconnect"></a>Reconnect</h3><p>The <code>reconnect</code> event occurs when the connection between the server and the client is temporarily interrupted.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">client.on(<span class="string">'reconnect'</span>, () =&gt; &#123; &#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">client.on(<span class="string">'reconnect'</span>, () =&gt; &#123; &#125;)</div></pre></td></tr></table></figure>
 <blockquote>
 <p>Note: the connection details can be changed when a reconnect occurs.</p>
 </blockquote>
 <h3 id="Reconnecting"><a href="#Reconnecting" class="headerlink" title="Reconnecting"></a>Reconnecting</h3><p>The <code>reconnecting</code> event occurs when the client tries to reconnect with the server.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">client.on(<span class="string">'reconnecting'</span>, () =&gt; &#123; &#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">client.on(<span class="string">'reconnecting'</span>, () =&gt; &#123; &#125;)</div></pre></td></tr></table></figure>
 <h3 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h3><p>The <code>message</code> event occurs when the client receives a new message.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">client.on(<span class="string">'message'</span>, message =&gt; &#123; &#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">client.on(<span class="string">'message'</span>, message =&gt; &#123; &#125;)</div></pre></td></tr></table></figure>
 <blockquote>
 <p>Warning: this event occurs every time the client receives a new message - this is a very noisy event.</p>
 </blockquote>
 <h3 id="Alert"><a href="#Alert" class="headerlink" title="Alert"></a>Alert</h3><p>The <code>alert</code> event occurs when the client receives a new message from the server with the <code>alert</code> context.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">client.on(<span class="string">'alert'</span>, message =&gt; &#123; &#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">client.on(<span class="string">'alert'</span>, message =&gt; &#123; &#125;)</div></pre></td></tr></table></figure>
 <h3 id="API"><a href="#API" class="headerlink" title="API"></a>API</h3><p>The <code>api</code> event occurs when the client receives a new message with an unknown context.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">client.on(<span class="string">'api'</span>, message =&gt; &#123; &#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">client.on(<span class="string">'api'</span>, message =&gt; &#123; &#125;)</div></pre></td></tr></table></figure>
 <h3 id="Welcome"><a href="#Welcome" class="headerlink" title="Welcome"></a>Welcome</h3><p>The <code>welcome</code> event occurs when the server sends a welcome message to the new-connected client.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">client.on(<span class="string">'welcome'</span>, message =&gt; &#123; &#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">client.on(<span class="string">'welcome'</span>, message =&gt; &#123; &#125;)</div></pre></td></tr></table></figure>
 <h3 id="Say"><a href="#Say" class="headerlink" title="Say"></a>Say</h3><p>Finally, the <code>say</code> event occurs when the client receives a new message from another client in the same room.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">client.on(<span class="string">'say'</span>, message =&gt; &#123; &#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">client.on(<span class="string">'say'</span>, message =&gt; &#123; &#125;)</div></pre></td></tr></table></figure>
 <blockquote>
 <p>Note: the <code>message.room</code> property allows you to get the message origin.</p>
 </blockquote>
 <h2 id="Interceptors"><a href="#Interceptors" class="headerlink" title="Interceptors"></a>Interceptors</h2><p>Interceptors can be used for pre- and post-processing a request. This is particularly useful for authentication and prevent unnecessary requests to the server, for some specific case. The follow examples shows different ways of using interceptors.</p>
 <p>This example shows how to append or modify request’s parameters:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">client.interceptors.push(<span class="function">(<span class="params">params, next</span>) =&gt;</span> &#123;</div><div class="line">  params.token = LocalStorage.getItem(<span class="string">'token'</span>)</div><div class="line"></div><div class="line">  next()</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">client.interceptors.push(<span class="function">(<span class="params">params, next</span>) =&gt;</span> &#123;</div><div class="line">  params.token = LocalStorage.getItem(<span class="string">'token'</span>)</div><div class="line"></div><div class="line">  next()</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <p>Here we prevent the request to be send to the server returning an object as request’s response:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">client.interceptors.push(<span class="function">(<span class="params">params, next</span>) =&gt;</span> &#123;</div><div class="line">  next(&#123; <span class="attr">someKey</span>: <span class="string">'someValue'</span> &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">client.interceptors.push(<span class="function">(<span class="params">params, next</span>) =&gt;</span> &#123;</div><div class="line">  next(&#123; <span class="attr">someKey</span>: <span class="string">'someValue'</span> &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <p>In this next case we also prevent the request to happen but this time we return an error:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">client.interceptors.push(<span class="function">(<span class="params">params, next</span>) =&gt;</span> &#123;</div><div class="line">  next(<span class="literal">null</span>, &#123; <span class="attr">message</span>: <span class="string">'Bad news! An error was occurred.'</span> &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">client.interceptors.push(<span class="function">(<span class="params">params, next</span>) =&gt;</span> &#123;</div><div class="line">  next(<span class="literal">null</span>, &#123; <span class="attr">message</span>: <span class="string">'Bad news! An error was occurred.'</span> &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <p>Finally, we can also change the server response passing a function to the <code>next()</code>:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">client.interceptors.push(<span class="function">(<span class="params">params, next</span>) =&gt;</span> &#123;</div><div class="line">  next(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</div><div class="line">    response.additionalField = <span class="string">'Awesome call...'</span></div><div class="line">  &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">client.interceptors.push(<span class="function">(<span class="params">params, next</span>) =&gt;</span> &#123;</div><div class="line">  next(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</div><div class="line">    response.additionalField = <span class="string">'Awesome call...'</span></div><div class="line">  &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 
 
   
