@@ -1,7 +1,7 @@
 ---
 title: Validations
 type: guide
-order: 22
+order: 23
 ---
 
 Validations are handled by [Anchor](https://github.com/sailsjs/anchor) which is based off of [Node Validate](https://github.com/chriso/validator.js) and supports most of the properties in node-validate.

@@ -1,7 +1,7 @@
 ---
 title: Data Types and Attributes
 type: guide
-order: 21
+order: 22
 ---
 
 ## Data Types

@@ -1,7 +1,7 @@
 ---
 title: Queries
 type: guide
-order: 26
+order: 27
 ---
 
 The ORM Query Interface allows you to interact with your models the same way no matter which adapter they are using. This means you can use the same query language whether your data lives in MySQL, MongoDB, Redis, etc.

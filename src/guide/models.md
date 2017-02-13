@@ -1,7 +1,7 @@
 ---
 title: Introduction
 type: guide
-order: 20
+order: 21
 ---
 
 The model system included with Stellar provides a straight-forward, schema-based solution to model your application data. It includes built-in type casting, validation, query building, business logic hooks and more, out of the box. All to work with you database. This set of features that we provide are only possible because we chose [Waterline](https://github.com/balderdashy/waterline) to be our primary ORM.

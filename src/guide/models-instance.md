@@ -1,7 +1,7 @@
 ---
 title: Instance and Class Methods
 type: guide
-order: 24
+order: 23
 ---
 
 ## Instance methods

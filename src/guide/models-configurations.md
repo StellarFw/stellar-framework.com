@@ -1,7 +1,7 @@
 ---
 title: Model Configuration
 type: guide
-order: 25
+order: 26
 ---
 
 ## Configuration
