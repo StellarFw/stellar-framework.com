@@ -10,6 +10,8 @@ Stellar uses [Primus](http://primus.io) to work with WebSockets. Primus provides
 
 When Stellar starts, a script is generated with some useful functions to make the connection between the client and the server. This script can be obtained by accessing the URL `http(s)://stellar_domain.com/stellar-client`
 
+> Note: The newest versions of Stellar uses the new [Fetch API](https://developer.mozilla.org/en/docs/Web/API/Fetch_API) to make HTTP requests to the server. This API isn't supported by some old browsers, so in order to add support for then, you need to use a [Polyfill](https://github.com/github/fetch).
+
 ## Methods
 
 The generated client script contains a set of methods to start a real-time communication with the server, make calls to actions, send messages to chat rooms, and lots of others useful features. All those methods uses [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) that means you can get rid of the callback hell.
