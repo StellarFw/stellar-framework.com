@@ -10,7 +10,7 @@
   <input type="hidden" name="hosted_button_id" value="QXLQ9W59J3XXJ">
   <input type="image" style="width:120px" src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-200px.png" border="0" name="submit">
   <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-  <a href="#"><span>Donate via PayPal (one time)</span></a>
+  <a href="https://www.paypal.me/gil0mendes"><span>Donate via PayPal (one time)</span></a>
 </form>
 
 
