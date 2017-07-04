@@ -23,84 +23,68 @@ This feature can be used out-of-the-box without any additional packages, configu
 
 These methods can be used within your server. They are not exposed directly to clients, but they can be used within an action or a satellite.
 
-### Broadcast
+### Emit an Event
 
-The `api.chatRoom.broadcast(connection, room, message, callback)` method allows you to send a message to all members in a room. The connection parameter can be a real connection (a message coming from a client), or a mockConnection. A mockConnection at the very least has the form `{room: 'someRoom'}`. When an ID is not specified the ID will be assigned to 0.
+The `emit(room, event, data, connection = {})` method allows us to send an event to a specific chat room. All the parameters are required, with the exception of the last one (`connection`). This returns a `Promise` and throw an error when something wrong happens.
 
 ```js
-api.chatRoom.broadcast({room: 'general'}, 'general', 'Hello!', error => {
-  // do something after sending the message!
-})
+await api.chatRoom.emit('players', 'positionUpdate', { id: 123, pos })
+```
+
+The `connection` parameter can be used to identifier the message originator.
+
+### Broadcast
+
+The `broadcast(connection, room, message)` method allows you to send a generic message to all members in a room. The connection parameter can be a real connection (a message coming from a client), or a mockConnection. A mockConnection at the very least has the form `{room: 'someRoom'}`. When an ID is not specified the ID will be assigned to 0. As return this method give us a `Promise`.
+
+```js
+await api.chatRoom.broadcast({room: 'general'}, 'general', 'Hello!')
 ```
 
 ### List of Rooms
 
-The `api.chatRoom.list(callback)` allows you to get a list of existing rooms. The following example code lists all rooms in the console (`stdout`):
+The `list()` allows you to get a list of existing rooms. The following example code lists all rooms in the console (`stdout`):
 
 ```js
-api.chatRoom.list((error, rooms) => {
-  for (let k in rooms) { console.log(`${k} => ${rooms[k]}`) }
-})
+const rooms = await api.chatRoom.list()
+
+rooms.forEach((room, index) => console.log(`${index} => ${room}`))
 ```
 
 ### Create a Room
 
-To create a room you use the `api.chatRoom.add(room, callback)` method. The callback function receives a parameter that has a value of `0` when the room already exists and `1` if it has just been created. The following code shows the creation of a new room named "labs":
+To create a room you use the `create(room)` method. The methods returns a `Promise`. The following code shows the creation of a new room named "labs":
 
 ```js
-api.chatRoom.add('labs', res => {
-  if (res === 0) {
-    // the room already exists!
-    return
-  }
-
-  // the room has been created!
-})
+await api.chatRoom.create('labs')
 ```
 
-###  Remove a Room
+###  Destroy a Room
 
-Using the `api.chatRoom.destroy(room, callback)` method, you can remove a room. The callback function does not receive any parameters; the room is always removed. The following code shows how you can remove a room:
+Using the `destroy(room)` method, you can remove a room. The method returns a `Promise`; the room is always removed. The following code shows how you can remove a room:
 
 ```js
-api.chatRoom.destroy('labs', () => {
-  // room removed!
-})
+await api.chatRoom.destroy('labs')
 ```
 
 ### Check if the Room Exists
 
-You can use the `api.chatRoom.exists(room, callback)` method to check if the room exists in the Stellar instance. The `callback(error, found)` receives two parameters:
-
-- **`error`**: Assumes the `null` value if there are no problems.
-- **`found`**: `true` if the room exists, `false` otherwise.
+You can use the `exists(room)` method to check if a given room exists in the Stellar instance. The method returns a `Promise`, that resolves with `true` if the room exists, and `false` otherwise.
 
 The following code checks the existence of the chat room named "coffeeTable":
 
 ```js
-api.chatRoom.exists('coffeeTable', (error, found) => {
-  if (!found) {
-    // the room does not exist!
-    return
-  }
-
-  // the room exists!
-})
+const found = await api.chatRoom.exists('coffeeTable')
 ```
 
 ### Gets the Room State
 
-With the `api.chatRoom.roomStatus(room, callback)` method you can get room status information. The `callback(error, state)` function takes two parameters:
-
-- **`error`**: `null` if no error occurs during the method call.
-- **`state`**: An object containing information about the room: name, number of registered members, and the list of such members.
+With the `roomStatus(room)` method you can get room status information. The method returns a `Promise`, as response is given an object containing information about the room: name, number of registered members, and the list of such members.
 
 The code below shows how this information can be obtained and then a possible result:
 
 ```js
-api.chatRoom.roomStatus('Random', (error, status) => {
-  // do something with the room information!
-})
+const status = await api.chatRoom.status('Random')
 ```
 
 ```js
@@ -117,39 +101,20 @@ api.chatRoom.roomStatus('Random', (error, status) => {
 
 ### Add a Member
 
-To add a new member, use the `api.chatRoom.addMember(connectionId, room, callback)` method.  The client connection ID and the name of the room are needed. The `callback(error, wasAdded)` function takes two parameters:
-
-- **`error`**: `null` if no error occurs during the call.
-- **`wasAdded`**: Can be `true` or `false` depending on whether the member was added or not.
+To add a new member to a room, use the `join(connectionId, room)` method. The client connection ID and the name of the room are needed. The method returns a `Promise` that resolves of rejects depending on whether the member was added or not.
 
 ```js
-api.chatRoom.addMember(connectionId, 'newUsers', (error, wasAdded) => {
-  if (!wasAdded) {
-    // could not add the new member!
-    return
-  }
-
-  // client added as a new member!
-})
+const wasAdded = await api.chatRoom.join(connectionId, 'newUsers')
 ```
 
 > Note: you can add connections from the current server or any other server in the cluster.
 
 ### Remove a Member
 
-The `api.chatRoom.removeMember(connectionId, room, callback)` method allows you to remove a member of a given room. This requires the member's connection ID and the name of the room. The `callback(error wasRemoved)` function takes two parameters:
-
-- **`error`**: `null` if no error occurs during the operation.
-- **`wasRemoved`**: `true` if the member has been removed, `false` otherwise.
+The `leave(connectionId, room)` method allows you to remove a member from a given room. This requires the member's connection ID and the name of the room. As return this will give us a `Promise`.
 
 ```js
-api.chatRoom.removeMember(connectionId, 'heaven', (error, wasRemoved) => {
-  if (!wasRemoved) {
-    // the member has not been removed!
-  }
-
-  // the member was removed from the room!
-})
+const wasRemoved = await api.chatRoom.leave(connectionId, 'heaven')
 ```
 
 > Note: you can remove connections from the current server or any other server in the cluster.
@@ -165,6 +130,12 @@ Every connection object also has a `connection.sendMessage(message)` method whic
 ```js
 connectionObj.sendMessage('Welcome to Stellar :)')
 ```
+
+## Catching the Event
+
+In order to catch an event send by a client you can use the Stellar's [event system](./events.html). When a event is received two events are fired, one with the generic event, and another also with the event, but specific to a room.
+
+For example, if you want to catch the `newItem` event on the room `world1` you must use the `event.world1.newItem`. But if you just want to catch the event, independent of the room you just need to catch the `event.newItem` event.
 
 ## Client Functions
 
