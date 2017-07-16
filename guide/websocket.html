@@ -19,6 +19,9 @@
 
     <link rel="icon" href="/images/logo.png" type="image/x-icon">
 
+    <!-- color to use by the browsers -->
+    <meta name="theme-color" content="#98588C">
+
     <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Roboto Mono' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Dosis:500' rel='stylesheet' type='text/css'>
 
@@ -361,6 +364,13 @@
 
   <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>Stellar uses <a href="http://primus.io" target="_blank" rel="external">Primus</a> to work with WebSockets. Primus provides an abstraction layer over a WebSocket engine; it supports <code>ws</code>, <code>engine.io</code>, and <code>socket.io</code>, among others. WebSockets can use HTTP or HTTPS to connect to the server (HTTPS is recommended).</p>
 <p>When Stellar starts, a script is generated with some useful functions to make the connection between the client and the server. This script can be obtained by accessing the URL <code>http(s)://stellar_domain.com/stellar-client</code></p>
+<blockquote>
+<p>Note: The newest versions of Stellar uses the new <a href="https://developer.mozilla.org/en/docs/Web/API/Fetch_API" target="_blank" rel="external">Fetch API</a> to make HTTP requests to the server. This API isn’t supported by some old browsers, so in order to add support for then, you need to use a <a href="https://github.com/github/fetch" target="_blank" rel="external">Polyfill</a>.</p>
+</blockquote>
+<h2 id="Chat-System"><a href="#Chat-System" class="headerlink" title="Chat System"></a>Chat System</h2><p>The client library already contains methods that make your file easier when you want to use the Stellar’s chat room system. This system works by events, so, each message has an event name and can also, optionally, contains extra data. This is excellent for games, dashboard or another kind of real-time feature. Down below you can see the structure of an event:</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"event"</span>: <span class="string">"event_name"</span>,</div><div class="line">  <span class="attr">"data"</span>: &#123; <span class="attr">"some"</span>: <span class="string">"data sent by the server"</span> &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>There is always a default room defined, this room is used when there is no room specified during a method call. You can define it using a parameter (<code>defaultRoom</code>), when constructing the StellarClient instance, calling the <code>.setDefaultRoom(roomName)</code> on the client, or on the server side, changind the <code>servers.websocket.client.defaultRoom</code> config value.</p>
+<p>You can see all the available methods on the next section.</p>
 <h2 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h2><p>The generated client script contains a set of methods to start a real-time communication with the server, make calls to actions, send messages to chat rooms, and lots of others useful features. All those methods uses <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank" rel="external">Promises</a> that means you can get rid of the callback hell.</p>
 <blockquote>
 <p>Note: in older browsers you will need load a <a href="https://github.com/taylorhakes/promise-polyfill" target="_blank" rel="external">polyfill</a> in order to this work properly.</p>
@@ -387,7 +397,9 @@
 <blockquote>
 <p>Note: When an open WebSocket connection does not exist, the client will fall back to HTTP.</p>
 </blockquote>
-<h3 id="Send-Messages"><a href="#Send-Messages" class="headerlink" title="Send Messages"></a>Send Messages</h3><p>The <code>client.say(room, message)</code> method allows a client to send message to a chat room:</p>
+<p>The following example shows how do you can use the async/await syntax to perform an action call to make login:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">try</span> &#123;</div><div class="line">  <span class="comment">// try make login</span></div><div class="line">  <span class="keyword">const</span> &#123; user &#125; = <span class="keyword">await</span> client.action(<span class="string">'auth.signin'</span>, &#123; email, password &#125;)</div><div class="line"></div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'Logged in with'</span>, user)</div><div class="line">&#125; <span class="keyword">catch</span> (e) &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'Wrong credentials'</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Send-Messages"><a href="#Send-Messages" class="headerlink" title="Send Messages"></a>Send Messages</h3><p>The <code>.say(room, message)</code> method allows a client to send a message to a chat room. This method is just an alias to send a <code>message</code> event.</p>
 <ul>
 <li><strong><code>room</code></strong>: Room where the message will be sent.</li>
 <li><strong><code>message</code></strong>: Message to be sent.</li>
@@ -399,7 +411,8 @@
 <blockquote>
 <p>Note: you need use the <code>roomAdd</code> method before you can interact with a chat room.</p>
 </blockquote>
-<h3 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h3><p>The <code>client.detailsView()</code> method allows you to get details about the client connection.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// send a message to the default room</span></div><div class="line">stellar.say([ <span class="string">'can'</span>, <span class="string">'be'</span>, <span class="string">'any'</span>, <span class="string">'type'</span> ])</div><div class="line"></div><div class="line"><span class="comment">// send a message to a specific room</span></div><div class="line">stellar.say(<span class="string">'room_name'</span>, [ <span class="string">'can'</span>, <span class="string">'be'</span>, <span class="string">'any'</span>, <span class="string">'type'</span> ])</div></pre></td></tr></table></figure>
+<h3 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h3><p>The <code>.detailsView()</code> method allows you to get details about the client connection.</p>
 <ul>
 <li>Returns a Promise:<ul>
 <li><strong><code>reject</code></strong>: May contain an instance of <code>Error</code>.</li>
@@ -410,7 +423,29 @@
 <blockquote>
 <p>Note: the first response of the <code>detailsView</code> method is stored to be used in the future.</p>
 </blockquote>
-<h3 id="Chat-Room-State"><a href="#Chat-Room-State" class="headerlink" title="Chat Room State"></a>Chat Room State</h3><p>The <code>client.roomView(room)</code> method allows you to obtain metadata for the requested chat room.</p>
+<h3 id="Emit-Event"><a href="#Emit-Event" class="headerlink" title="Emit Event"></a>Emit Event</h3><p>In order to emit an event into a chat room you must use the <code>.emit(eventName, data)</code>. When this method is executed alone the event is sent to the default room.</p>
+<ul>
+<li><strong><code>eventName</code></strong> - Event that must be emitted on the room.</li>
+<li><strong><code>data</code></strong> - The data isn’t mandatory, you can use this to send more information with the event.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// send an event to the default room</span></div><div class="line">client.emit(<span class="string">'performAction'</span>, &#123; <span class="attr">action</span>: <span class="string">'attack1'</span>, position &#125;)</div></pre></td></tr></table></figure>
+<p>To complement this you can specify here the event must be emitted using the <code>.for(roomName)</code> method. This method can be chained together as many times as you want in order to apply more filters to the event, or you can simply pass an array as an argument.</p>
+<ul>
+<li><strong><code>roomName</code></strong>: Specify the rooms where the event must be emitted.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// send an event to a specific room</span></div><div class="line">client.for(<span class="string">'world01'</span>).emit(<span class="string">'performAction'</span>, &#123; <span class="attr">action</span>: <span class="string">'attack1'</span>, position &#125;)</div></pre></td></tr></table></figure>
+<h3 id="Handle-Events"><a href="#Handle-Events" class="headerlink" title="Handle Events"></a>Handle Events</h3><p>The <code>.on(eventName, handler)</code> method allows you to catch and event and do something with it.</p>
+<ul>
+<li><strong><code>eventName</code></strong>: Event name to handle;</li>
+<li><strong><code>handler(data, rawDetails)</code></strong>: A function that will be used to handle the event.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// this catch the `newPosition` event, that can be emitted in any room</span></div><div class="line">client.on(<span class="string">'newPosition'</span>, data =&gt; &#123; &#125;)</div></pre></td></tr></table></figure>
+<p>To catch an event on a specific room to can use the <code>.to(roomName)</code> method. This method can be chained together as many times as you want in order to apply more filters to the event, or you can simply pass an array as an argument.</p>
+<ul>
+<li><strong><code>roomName</code></strong>: Apply a filter to only catch events on this room.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// this catch the `newPlayer` event but only if this one was emitted on</span></div><div class="line"><span class="comment">// the `world01` room.</span></div><div class="line">client.to(<span class="string">'world01'</span>).on(<span class="string">'newPlayer'</span>, data =&gt; &#123; &#125;)</div></pre></td></tr></table></figure>
+<h3 id="Chat-Room-State"><a href="#Chat-Room-State" class="headerlink" title="Chat Room State"></a>Chat Room State</h3><p>The <code>.roomView(room)</code> method allows you to obtain metadata for the requested chat room.</p>
 <ul>
 <li><strong><code>room</code></strong>: Chat room name.</li>
 <li>Returns a Promise:<ul>
@@ -419,7 +454,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="Join-a-Chat-Room"><a href="#Join-a-Chat-Room" class="headerlink" title="Join a Chat Room"></a>Join a Chat Room</h3><p>The <code>client.roomAdd(room)</code> method allows you to join to a chat room:</p>
+<h3 id="Join-a-Chat-Room"><a href="#Join-a-Chat-Room" class="headerlink" title="Join a Chat Room"></a>Join a Chat Room</h3><p>The <code>.join(room)</code> method allows you to join to a chat room:</p>
 <ul>
 <li><strong><code>room</code></strong>: Chat room name;</li>
 <li>Returns a Promise:<ul>
@@ -427,12 +462,15 @@
 </ul>
 </li>
 </ul>
-<h3 id="Leave-a-Chat-Room"><a href="#Leave-a-Chat-Room" class="headerlink" title="Leave a Chat Room"></a>Leave a Chat Room</h3><p>The <code>client.roomLeave(room)</code> allows you to leave a chat room:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">await</span> client.join(<span class="string">'awesomeRoom'</span>)</div></pre></td></tr></table></figure>
+<h3 id="Leave-a-Chat-Room"><a href="#Leave-a-Chat-Room" class="headerlink" title="Leave a Chat Room"></a>Leave a Chat Room</h3><p>The <code>.leave(room)</code> allows you to leave a chat room:</p>
 <ul>
 <li><strong><code>room</code></strong>: Chat room name;</li>
-<li>Returns a Promise:<ul>
+<li><p>Returns a Promise:</p>
+<ul>
 <li><strong><code>reject</code></strong>: Can contain an instance of <code>Error</code>.</li>
 </ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">await</span> client.leave(<span class="string">'darkRoom'</span>)</div></pre></td></tr></table></figure>
 </li>
 </ul>
 <h3 id="Request-a-File"><a href="#Request-a-File" class="headerlink" title="Request a File"></a>Request a File</h3><p>The <code>client.file(file)</code> method allows you request a static file from the server:</p>
