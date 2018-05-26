@@ -30,8 +30,21 @@
 
     <!-- this needs to be loaded before guide's inline scripts -->
     <script>window.PAGE_TYPE = 'guide'</script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NSK9WJ6');</script>
+    <!-- End Google Tag Manager -->
   </head>
-  <body class="docs">    <div id="mobile-bar" >
+  <body class="docs">    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSK9WJ6"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="mobile-bar" >
       <a class="menu-button"></a>
       <a class="logo" href="/"></a>
     </div>
@@ -363,14 +376,14 @@
   
 
   <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Stellar comes with a useful tool to improve the write of your unit testes, as well speed up their execution.</p>
-<p>Stellar is built with testing in mind. In fact, support for testing with <a href="https://mochajs.org" target="_blank" rel="external">Mocha JS</a> is included out of the box and the command line tool already contains a command to easily run your application tests. The actions and the framework it self was designed to improve the testing experience.</p>
+<p>Stellar is built with testing in mind. In fact, support for testing with <a href="https://mochajs.org" target="_blank" rel="noopener">Mocha JS</a> is included out of the box and the command line tool already contains a command to easily run your application tests. The actions and the framework it self was designed to improve the testing experience.</p>
 <h2 id="Environment"><a href="#Environment" class="headerlink" title="Environment"></a>Environment</h2><p>When running tests via <code>stellar test</code> command, Stellar will automatically set the configuration environment to testing. Stellar also automatically configures, by default, the cache to use an in memory system, as well the database system, meaning no cache or data entry will be persisted while testing. This also improves significantly the tests speed.</p>
 <p>You are free to define other testing environment configuration values as necessary. The testing environment variables may be configured in the <code>/config</code> folder of your module or application. For that you must use the <code>development</code> space, as you can see bellow:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="meta">'use strict'</span></div><div class="line"></div><div class="line">exports.development = &#123;</div><div class="line"></div><div class="line">  app (api) &#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">      <span class="comment">// your dev configs</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="meta">'use strict'</span></span><br><span class="line"></span><br><span class="line">exports.development = &#123;</span><br><span class="line"></span><br><span class="line">  app (api) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="comment">// your dev configs</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="Creating-amp-Running-Tests"><a href="#Creating-amp-Running-Tests" class="headerlink" title="Creating &amp; Running Tests"></a>Creating &amp; Running Tests</h2><p>To create a new test case, use the <code>make test</code> command:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line"><span class="comment"># create a test in the tests directory</span></div><div class="line">stellar make <span class="built_in">test</span> user</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># create a test in the tests directory</span></span><br><span class="line">stellar make <span class="built_in">test</span> user</span><br></pre></td></tr></table></figure>
 <p>Once the test has been generated, you may define test methods as you normally would using Mocha. To run your tests, simply execute the <code>stellar test</code> command from your terminal:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// var to store the Stellar's API object</span></div><div class="line"><span class="keyword">let</span> api = <span class="literal">null</span></div><div class="line"></div><div class="line">describe(<span class="string">'Your awesome feature'</span>, () =&gt; &#123;</div><div class="line"></div><div class="line">  before(<span class="function"><span class="params">done</span> =&gt;</span> &#123;</div><div class="line">    <span class="comment">// starts the stellar engine</span></div><div class="line">    engine.start(<span class="function">(<span class="params">_, a</span>) =&gt;</span> &#123;</div><div class="line">      api = a</div><div class="line">      done()</div><div class="line">    &#125;)</div><div class="line">  &#125;)</div><div class="line"></div><div class="line">  after(<span class="function"><span class="params">done</span> =&gt;</span> &#123;</div><div class="line">    <span class="comment">// stops the Stellar engine</span></div><div class="line">    engine.stop(<span class="function"><span class="params">()</span> =&gt;</span> &#123; done() &#125;)</div><div class="line">  &#125;)</div><div class="line"></div><div class="line">  it(<span class="string">'basic test'</span>, done =&gt; &#123;</div><div class="line">    (<span class="literal">true</span>).should.be.true</div><div class="line">    done()</div><div class="line">  &#125;)</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// var to store the Stellar's API object</span></span><br><span class="line"><span class="keyword">let</span> api = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">describe(<span class="string">'Your awesome feature'</span>, () =&gt; &#123;</span><br><span class="line"></span><br><span class="line">  before(<span class="function"><span class="params">done</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// starts the stellar engine</span></span><br><span class="line">    engine.start(<span class="function">(<span class="params">_, a</span>) =&gt;</span> &#123;</span><br><span class="line">      api = a</span><br><span class="line">      done()</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  after(<span class="function"><span class="params">done</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// stops the Stellar engine</span></span><br><span class="line">    engine.stop(<span class="function"><span class="params">()</span> =&gt;</span> &#123; done() &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  it(<span class="string">'basic test'</span>, done =&gt; &#123;</span><br><span class="line">    (<span class="literal">true</span>).should.be.true</span><br><span class="line">    done()</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 
   
@@ -404,17 +417,6 @@
 
     <!-- main custom script for sidebar and other cool things -->
     <script src="/js/common.js"></script>
-
-    <!-- ga -->
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-77611901-1', 'stellar-framework.com');
-      ga('send', 'pageview');
-    </script>
 
     <!-- fastclick  -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>

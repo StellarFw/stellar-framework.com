@@ -30,8 +30,21 @@
 
     <!-- this needs to be loaded before guide's inline scripts -->
     <script>window.PAGE_TYPE = 'guide'</script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NSK9WJ6');</script>
+    <!-- End Google Tag Manager -->
   </head>
-  <body class="docs">    <div id="mobile-bar" >
+  <body class="docs">    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSK9WJ6"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="mobile-bar" >
       <a class="menu-button"></a>
       <a class="logo" href="/"></a>
     </div>
@@ -365,9 +378,9 @@
   <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Stellar comes with a powerful command-line interface. It provides a number of helpful commands that can assist you while you build your application. Each command comes with countless options to customize the command.</p>
 <p><img src="/images/cli.png" alt="CLI Tool"></p>
 <p>To view a list of all available commands, you may use the follow command:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">stellar</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">stellar</span><br></pre></td></tr></table></figure>
 <p>Every command also includes help information which describes the main propose of the command and all available arguments and options. To view a help screen, simply precede the name of the command with <code>help</code>, as you can see bellow:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">stellar <span class="built_in">help</span> run</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">stellar <span class="built_in">help</span> run</span><br></pre></td></tr></table></figure>
 <h2 id="List-of-Available-Commands"><a href="#List-of-Available-Commands" class="headerlink" title="List of Available Commands"></a>List of Available Commands</h2><p>The list below shows all currently available command on Stellar. You can find more information about them on each correspondent page, or simply use the <code>help</code> command.</p>
 <ul>
 <li><strong>completion</strong>: Generate bash completion script</li>
@@ -418,17 +431,6 @@
 
     <!-- main custom script for sidebar and other cool things -->
     <script src="/js/common.js"></script>
-
-    <!-- ga -->
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-77611901-1', 'stellar-framework.com');
-      ga('send', 'pageview');
-    </script>
 
     <!-- fastclick  -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>

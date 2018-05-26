@@ -30,8 +30,21 @@
 
     <!-- this needs to be loaded before guide's inline scripts -->
     <script>window.PAGE_TYPE = 'guide'</script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NSK9WJ6');</script>
+    <!-- End Google Tag Manager -->
   </head>
-  <body class="docs">    <div id="mobile-bar" >
+  <body class="docs">    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSK9WJ6"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="mobile-bar" >
       <a class="menu-button"></a>
       <a class="logo" href="/"></a>
     </div>
@@ -364,7 +377,7 @@
 
   <h2 id="What-is-Development-Mode"><a href="#What-is-Development-Mode" class="headerlink" title="What is Development Mode?"></a>What is Development Mode?</h2><p>Development mode, as the name implies, is a special way to facilitate the development of modules and applications in Stellar. When development mode is active, any change made to the files defining routes, tasks, actions, and models will cause the server to re-read the modified files automatically, eliminating the need to stop and restart the server for every change made. More substantial changes, such as changes to settings and <a href="satellites.html">Satellites</a>, will cause the server to restart completely, but this will also be done automatically in development mode.</p>
 <p>To enable development mode you just need create a file (if you do not have one) named <code>config/api.js</code> and set the <code>developmentMode</code> option to <code>true</code>:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="meta">'use strict'</span></div><div class="line"></div><div class="line">exports.default = &#123;</div><div class="line">  <span class="attr">general</span>: <span class="function"><span class="params">api</span> =&gt;</span> &#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">      <span class="attr">developmentMode</span>: <span class="literal">true</span>,</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="meta">'use strict'</span></span><br><span class="line"></span><br><span class="line">exports.default = &#123;</span><br><span class="line">  general: <span class="function"><span class="params">api</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      developmentMode: <span class="literal">true</span>,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>Warning: the <code>api.config.general.developmentMode</code> property is different from the <code>NODE_ENV</code> environment variable. The <code>NODE_ENV</code> value is considered as <code>development</code> by default, but this has no effect on <code>developmentMode</code>.</p>
 </blockquote>
@@ -409,17 +422,6 @@
 
     <!-- main custom script for sidebar and other cool things -->
     <script src="/js/common.js"></script>
-
-    <!-- ga -->
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-77611901-1', 'stellar-framework.com');
-      ga('send', 'pageview');
-    </script>
 
     <!-- fastclick  -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>

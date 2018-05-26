@@ -30,8 +30,21 @@
 
     <!-- this needs to be loaded before guide's inline scripts -->
     <script>window.PAGE_TYPE = 'guide'</script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NSK9WJ6');</script>
+    <!-- End Google Tag Manager -->
   </head>
-  <body class="docs">    <div id="mobile-bar" >
+  <body class="docs">    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSK9WJ6"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="mobile-bar" >
       <a class="menu-button"></a>
       <a class="logo" href="/"></a>
     </div>
@@ -362,15 +375,15 @@
     <h1>Security</h1>
   
 
-  <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Stellar comes equipped with a hashing system, which makes use of the <a href="https://www.npmjs.com/package/bcrypt" target="_blank" rel="external">bcrypt</a> library. This allows you to compute hashes and compare them with clear text data to validate them.</p>
+  <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Stellar comes equipped with a hashing system, which makes use of the <a href="https://www.npmjs.com/package/bcrypt" target="_blank" rel="noopener">bcrypt</a> library. This allows you to compute hashes and compare them with clear text data to validate them.</p>
 <p class="tip">It’s important that you set the default salt on production environment in order to increase the security of your API. You can do that setting the <code>general.salt</code> config.</p>
 
 <h2 id="Compute-Hashes"><a href="#Compute-Hashes" class="headerlink" title="Compute Hashes"></a>Compute Hashes</h2><p>The <code>api.hash.hash</code> and <code>api.hash.hashSync</code> methods allow you to generate a hash from a string asynchronously and synchronously, respectively.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// generate a hash synchronously</span></div><div class="line"><span class="keyword">let</span> hash = api.hash.hashSync(plainData)</div><div class="line"></div><div class="line"><span class="comment">// generate a hash asynchronously</span></div><div class="line">api.hash.hash(plainData).then(<span class="function"><span class="params">hash</span> =&gt;</span> &#123;</div><div class="line">  <span class="comment">// do something, with the hash...</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// generate a hash synchronously</span></span><br><span class="line"><span class="keyword">let</span> hash = api.hash.hashSync(plainData)</span><br><span class="line"></span><br><span class="line"><span class="comment">// generate a hash asynchronously</span></span><br><span class="line">api.hash.hash(plainData).then(<span class="function"><span class="params">hash</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// do something, with the hash...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>You can also use other salt with different resources, all you need is pass an extra hash with your special params who meets your needs:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">hash.hashSync(plainData, &#123; <span class="attr">salt</span>: yourSuperSalt &#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">hash.hashSync(plainData, &#123; <span class="attr">salt</span>: yourSuperSalt &#125;)</span><br></pre></td></tr></table></figure>
 <h2 id="Compare-Hashes"><a href="#Compare-Hashes" class="headerlink" title="Compare Hashes"></a>Compare Hashes</h2><p>The <code>api.hash.compare</code> and <code>api.hash.compareSync</code> methods allow you to compare a string with a hash to check whether they match.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// compare a hash synchronously</span></div><div class="line"><span class="keyword">let</span> result = api.hash.compare(plainData, hashToCompare)</div><div class="line"></div><div class="line"><span class="comment">// compare a hash asynchronously</span></div><div class="line">api.hash.compareSync(plainData, hashToCompare).then(<span class="function"><span class="params">isValid</span> =&gt;</span> &#123;</div><div class="line">  <span class="comment">// do something, with the result...</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// compare a hash synchronously</span></span><br><span class="line"><span class="keyword">let</span> result = api.hash.compare(plainData, hashToCompare)</span><br><span class="line"></span><br><span class="line"><span class="comment">// compare a hash asynchronously</span></span><br><span class="line">api.hash.compareSync(plainData, hashToCompare).then(<span class="function"><span class="params">isValid</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// do something, with the result...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 
   
@@ -404,17 +417,6 @@
 
     <!-- main custom script for sidebar and other cool things -->
     <script src="/js/common.js"></script>
-
-    <!-- ga -->
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-77611901-1', 'stellar-framework.com');
-      ga('send', 'pageview');
-    </script>
 
     <!-- fastclick  -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>

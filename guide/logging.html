@@ -30,8 +30,21 @@
 
     <!-- this needs to be loaded before guide's inline scripts -->
     <script>window.PAGE_TYPE = 'guide'</script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NSK9WJ6');</script>
+    <!-- End Google Tag Manager -->
   </head>
-  <body class="docs">    <div id="mobile-bar" >
+  <body class="docs">    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSK9WJ6"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="mobile-bar" >
       <a class="menu-button"></a>
       <a class="logo" href="/"></a>
     </div>
@@ -362,9 +375,9 @@
     <h1>Logging</h1>
   
 
-  <p>Stellar makes use of the fantastic <a href="https://www.npmjs.com/package/winston" target="_blank" rel="external">Winston</a> package for log management. With Winston it is possible to customize log output according to the needs of your project.</p>
+  <p>Stellar makes use of the fantastic <a href="https://www.npmjs.com/package/winston" target="_blank" rel="noopener">Winston</a> package for log management. With Winston it is possible to customize log output according to the needs of your project.</p>
 <h2 id="Providers"><a href="#Providers" class="headerlink" title="Providers"></a>Providers</h2><p>In your <code>config/logger.js</code> file you can customize which <code>transports</code> you would like logger to use. If none are provided, a default logger which only will print to stdout will be used. See Winston’s documentation for a list of all logger types; these include console, file, S3, Riak, and more.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="meta">'use strict'</span></div><div class="line"></div><div class="line">exports.logger = &#123;</div><div class="line">  <span class="attr">transports</span>: [</div><div class="line">    <span class="function"><span class="params">api</span> =&gt;</span> &#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">new</span> (winston.transports.Console)(&#123;</div><div class="line">        <span class="attr">colorize</span>: <span class="literal">true</span>,</div><div class="line">        <span class="attr">level</span>: <span class="string">'debug'</span>,</div><div class="line">      &#125;)</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    api =&gt; &#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">new</span> (winston.transports.File)(&#123;</div><div class="line">        <span class="attr">filename</span>: <span class="string">`./log/<span class="subst">$&#123;api.pids.title&#125;</span>.log`</span>,</div><div class="line">        <span class="attr">level</span>: <span class="string">'info'</span>,</div><div class="line">        <span class="attr">timestamp</span>: <span class="literal">true</span>,</div><div class="line">      &#125;)</div><div class="line">    &#125;</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="meta">'use strict'</span></span><br><span class="line"></span><br><span class="line">exports.logger = &#123;</span><br><span class="line">  transports: [</span><br><span class="line">    api =&gt; &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> (winston.transports.Console)(&#123;</span><br><span class="line">        colorize: <span class="literal">true</span>,</span><br><span class="line">        level: <span class="string">'debug'</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    api =&gt; &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> (winston.transports.File)(&#123;</span><br><span class="line">        filename: <span class="string">`./log/<span class="subst">$&#123;api.pids.title&#125;</span>.log`</span>,</span><br><span class="line">        level: <span class="string">'info'</span>,</span><br><span class="line">        timestamp: <span class="literal">true</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="Levels"><a href="#Levels" class="headerlink" title="Levels"></a>Levels</h2><p>There are 8 levels of logging; each transport can have a different level. The levels are:</p>
 <ul>
 <li>0 = debug</li>
@@ -380,9 +393,9 @@
 <p>Note: you can customize the levels and colors in the <code>config/logger.js</code> file.</p>
 </blockquote>
 <p>For example, if the log level is set to notice, critical messages are visible, but informational and debug messages are not.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// will use the default 'info' level</span></div><div class="line">api.log(<span class="string">'hello!'</span>)</div><div class="line"></div><div class="line"><span class="comment">// will not show up unless you have configured your logger to be debug</span></div><div class="line">api.log(<span class="string">'debug message'</span>, <span class="string">'debug'</span>)</div><div class="line"></div><div class="line"><span class="comment">// will show up in all logger levels</span></div><div class="line">api.log(<span class="string">'Bad things happened :('</span>, <span class="string">'emerg'</span>)</div><div class="line"></div><div class="line"><span class="comment">// you can log objects too</span></div><div class="line">api.log(<span class="string">'the params were'</span>, <span class="string">'info'</span>, action.params)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// will use the default 'info' level</span></span><br><span class="line">api.log(<span class="string">'hello!'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// will not show up unless you have configured your logger to be debug</span></span><br><span class="line">api.log(<span class="string">'debug message'</span>, <span class="string">'debug'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// will show up in all logger levels</span></span><br><span class="line">api.log(<span class="string">'Bad things happened :('</span>, <span class="string">'emerg'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// you can log objects too</span></span><br><span class="line">api.log(<span class="string">'the params were'</span>, <span class="string">'info'</span>, action.params)</span><br></pre></td></tr></table></figure>
 <h2 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h2><p>The <code>api.logger.log</code> and <code>api.logger[severity]</code> methods are accessible via the <code>api</code> object and allow you to modify the Winston instance directly. The <code>api.log</code> method passes the message to all transports. Below are some examples of using the <code>api.log(message, severity, metadata)</code> method:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// the most basic use - will assume 'info' as the severity</span></div><div class="line">api.log(<span class="string">'hello'</span>)</div><div class="line"></div><div class="line"><span class="comment">// custom severity</span></div><div class="line">api.log(<span class="string">'Hmm...'</span>, <span class="string">'warning'</span>)</div><div class="line"></div><div class="line"><span class="comment">// custom severity with a metadata object</span></div><div class="line">api.log(<span class="string">'Red Alert xD'</span>, <span class="string">'emerg'</span>, &#123; <span class="attr">error</span>: <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Some additional information!'</span>) &#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// the most basic use - will assume 'info' as the severity</span></span><br><span class="line">api.log(<span class="string">'hello'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// custom severity</span></span><br><span class="line">api.log(<span class="string">'Hmm...'</span>, <span class="string">'warning'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// custom severity with a metadata object</span></span><br><span class="line">api.log(<span class="string">'Red Alert xD'</span>, <span class="string">'emerg'</span>, &#123; <span class="attr">error</span>: <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Some additional information!'</span>) &#125;)</span><br></pre></td></tr></table></figure>
 
 
   
@@ -416,17 +429,6 @@
 
     <!-- main custom script for sidebar and other cool things -->
     <script src="/js/common.js"></script>
-
-    <!-- ga -->
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-77611901-1', 'stellar-framework.com');
-      ga('send', 'pageview');
-    </script>
 
     <!-- fastclick  -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>

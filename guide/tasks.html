@@ -30,8 +30,21 @@
 
     <!-- this needs to be loaded before guide's inline scripts -->
     <script>window.PAGE_TYPE = 'guide'</script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NSK9WJ6');</script>
+    <!-- End Google Tag Manager -->
   </head>
-  <body class="docs">    <div id="mobile-bar" >
+  <body class="docs">    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSK9WJ6"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="mobile-bar" >
       <a class="menu-button"></a>
       <a class="logo" href="/"></a>
     </div>
@@ -368,11 +381,11 @@
 </blockquote>
 <h2 id="Types-of-Tasks"><a href="#Types-of-Tasks" class="headerlink" title="Types of Tasks"></a>Types of Tasks</h2><p>This subsection demonstrates the types of tasks that exist and how they can be used.</p>
 <p>First, we have the <code>normal</code> tasks. Tasks of this type are added to a queue and processed in order of arrival as soon as there are free workers.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// api.tasks.enqueue(taskName, args, queue, callback)</span></div><div class="line">api.tasks.enqueue(<span class="string">'sendResetPasswordEmail'</span>, &#123; <span class="attr">to</span>: <span class="string">'gil00mendes@gmail.com'</span> &#125;, <span class="string">'default'</span>, (error, toRun) =&gt; &#123;</div><div class="line">  <span class="comment">// task enqueued!</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// api.tasks.enqueue(taskName, args, queue, callback)</span></span><br><span class="line">api.tasks.enqueue(<span class="string">'sendResetPasswordEmail'</span>, &#123; <span class="attr">to</span>: <span class="string">'gil00mendes@gmail.com'</span> &#125;, <span class="string">'default'</span>, (error, toRun) =&gt; &#123;</span><br><span class="line">  <span class="comment">// task enqueued!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>Then we have the <code>delayed</code> tasks. These tasks are enqueued in a special ‘delayed’ queue to be processed at some time in the future (defined either by a timestamp or a number of milliseconds from the time the task is created):</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// api.tasks.enqueueAt(timestamp, taskName, args, queue, callback)</span></div><div class="line">api.tasks.enqueueAt(<span class="number">1591629508</span>, <span class="string">'sendNotificationEmail'</span>, &#123; <span class="attr">to</span>: <span class="string">'gil00mendes@gmail.com'</span> &#125;, <span class="string">'default'</span>, (error, toRun) =&gt; &#123;</div><div class="line">  <span class="comment">// task enqueued!</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// api.tasks.enqueueAt(timestamp, taskName, args, queue, callback)</span></span><br><span class="line">api.tasks.enqueueAt(<span class="number">1591629508</span>, <span class="string">'sendNotificationEmail'</span>, &#123; <span class="attr">to</span>: <span class="string">'gil00mendes@gmail.com'</span> &#125;, <span class="string">'default'</span>, (error, toRun) =&gt; &#123;</span><br><span class="line">  <span class="comment">// task enqueued!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>Finally, <code>periodic</code> tasks are like <code>delayed</code> tasks, but they run on a set frequency (e.g., every 5 minutes):</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// api.tasks.enqueueIn(delay, taskName, args, queue, callback)</span></div><div class="line">api.tasks.enqueueIn(<span class="number">60000</span>, <span class="string">'sendNotificationEmail'</span>, &#123; <span class="attr">to</span>: <span class="string">'gil00mendes@gmail.com'</span> &#125;, <span class="string">'default'</span>, (error, toRun) =&gt; &#123;</div><div class="line">  <span class="comment">// task enqueued!</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// api.tasks.enqueueIn(delay, taskName, args, queue, callback)</span></span><br><span class="line">api.tasks.enqueueIn(<span class="number">60000</span>, <span class="string">'sendNotificationEmail'</span>, &#123; <span class="attr">to</span>: <span class="string">'gil00mendes@gmail.com'</span> &#125;, <span class="string">'default'</span>, (error, toRun) =&gt; &#123;</span><br><span class="line">  <span class="comment">// task enqueued!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>Note: Periodic tasks can take no input parameters.</p>
 </blockquote>
@@ -383,7 +396,7 @@
 <li><strong><code>description</code></strong>: Must contain a short description of the purpose of the task.</li>
 <li><strong><code>queue</code></strong>: <code>Queue</code> which will run the task, by default this property is set to <code>default</code>. This value can be replaced when using the <code>api.tasks.enqueue</code> methods.</li>
 <li><strong><code>frequency</code></strong>: If the value is greater than zero, the task will be considered a periodic task and will run once every interval specified by the number of milliseconds defined in this property.</li>
-<li><strong><code>plugins</code></strong>: In this property you can define an array of resque plugins; these plugins modify how tasks are inserted in the queue. You can read more about this in the <a href="https://github.com/taskrabbit/node-resque" target="_blank" rel="external">node-resque</a> docs.</li>
+<li><strong><code>plugins</code></strong>: In this property you can define an array of resque plugins; these plugins modify how tasks are inserted in the queue. You can read more about this in the <a href="https://github.com/taskrabbit/node-resque" target="_blank" rel="noopener">node-resque</a> docs.</li>
 <li><strong><code>pluginOptions</code></strong>: This is an object with options for plugins.</li>
 <li><strong><code>run(api, params, next)</code></strong>: A function that implements the operations to be performed by the task.</li>
 </ul>
@@ -391,7 +404,7 @@
 <p>Note: for the task name it is recommended to use a namespace; e.g., <code>auth.sessionValidation</code>.</p>
 </blockquote>
 <h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>The example below shows the structure of a task which records a message “Hello!!!” every second:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">exports.sayHello = &#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'sayHello'</span>,</div><div class="line">  <span class="attr">description</span>: <span class="string">'I say hello'</span>,</div><div class="line">  <span class="attr">queue</span>: <span class="string">'default'</span>,</div><div class="line">  <span class="attr">frequency</span>: <span class="number">1000</span>,</div><div class="line"></div><div class="line">  run (api, params, next) &#123;</div><div class="line">    <span class="comment">// log a new message</span></div><div class="line">    api.log(<span class="string">'Hello!!!'</span>)</div><div class="line"></div><div class="line">    <span class="comment">// finish the task execution</span></div><div class="line">    next()</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">exports.sayHello = &#123;</span><br><span class="line">  name: <span class="string">'sayHello'</span>,</span><br><span class="line">  description: <span class="string">'I say hello'</span>,</span><br><span class="line">  queue: <span class="string">'default'</span>,</span><br><span class="line">  frequency: <span class="number">1000</span>,</span><br><span class="line"></span><br><span class="line">  run (api, params, next) &#123;</span><br><span class="line">    <span class="comment">// log a new message</span></span><br><span class="line">    api.log(<span class="string">'Hello!!!'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// finish the task execution</span></span><br><span class="line">    next()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="Task-Management"><a href="#Task-Management" class="headerlink" title="Task Management"></a>Task Management</h2><p>Stellar has a number methods which allow you to manage and query the state of the task queues.</p>
 <h3 id="Remove-a-Task"><a href="#Remove-a-Task" class="headerlink" title="Remove a Task"></a>Remove a Task</h3><p>Remove all tasks which match the given parameters - <code>api.tasks.del(queue, taskName, args, count, callback)</code>:</p>
 <ul>
@@ -478,17 +491,6 @@
 
     <!-- main custom script for sidebar and other cool things -->
     <script src="/js/common.js"></script>
-
-    <!-- ga -->
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-77611901-1', 'stellar-framework.com');
-      ga('send', 'pageview');
-    </script>
 
     <!-- fastclick  -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>

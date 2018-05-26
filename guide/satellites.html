@@ -30,8 +30,21 @@
 
     <!-- this needs to be loaded before guide's inline scripts -->
     <script>window.PAGE_TYPE = 'guide'</script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NSK9WJ6');</script>
+    <!-- End Google Tag Manager -->
   </head>
-  <body class="docs">    <div id="mobile-bar" >
+  <body class="docs">    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSK9WJ6"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="mobile-bar" >
       <a class="menu-button"></a>
       <a class="logo" href="/"></a>
     </div>
@@ -370,7 +383,7 @@
 
 <p>The picture above shows the three phases of loading a Satellite: <em>load</em>, <em>start</em>, and <em>stop</em>. The loading stage is required, while the start and the stop are optional. If an operation is initiated in the start stage, it is recommended that the operation be stopped in the third stage (stop).</p>
 <p>In the Satellite load phase, all the logic of a Satellite must be loaded into the API object in order to make its features public; any complex operations should be carried out at this stage, and the load must be completed as soon as possible. In the start phase, all continuous tasks should begin, including servers or other types of listener. Finally, in the stop phase, all uncompleted pending tasks must be completed, and all servers must be stopped.</p>
-<h2 id="Format"><a href="#Format" class="headerlink" title="Format"></a>Format</h2><p>A Satellite should be a class written following the <a href="http://www.ecma-international.org/ecma-262/6.0/index.html" target="_blank" rel="external">ES6</a> standard. The only requirement for the Satellite is that it must contain a <code>load(api, next)</code> method. There are other properties which are described below:</p>
+<h2 id="Format"><a href="#Format" class="headerlink" title="Format"></a>Format</h2><p>A Satellite should be a class written following the <a href="http://www.ecma-international.org/ecma-262/6.0/index.html" target="_blank" rel="noopener">ES6</a> standard. The only requirement for the Satellite is that it must contain a <code>load(api, next)</code> method. There are other properties which are described below:</p>
 <ul>
 <li><strong><code>loadPriority</code></strong>: Allows you change the satellite load order, the default value is 100;</li>
 <li><strong><code>startPriority</code></strong>: Allows you change the satellite start order, the default value is 100;</li>
@@ -379,7 +392,7 @@
 <li><strong><code>start(api, next)</code></strong>: Operation to be performed when staring the Satellite;</li>
 <li><strong><code>stop(api, next)</code></strong>: Operation to be performed when stopping the Satellite.</li>
 </ul>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="meta">'use strict'</span></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Satellite class.</div><div class="line"> *</div><div class="line"> * It is recommended to use this class only to specify the functions</div><div class="line"> * of the satellite, any other logic should be contained in a separate class.</div><div class="line"> */</div><div class="line">exports.default = <span class="class"><span class="keyword">class</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Constructor.</div><div class="line">     *</div><div class="line">     * The developer must define the Satellite priority for the</div><div class="line">     * different stages.</div><div class="line">     */</div><div class="line">    <span class="keyword">constructor</span> () &#123;</div><div class="line">      <span class="comment">// define the priority for the loading stage</span></div><div class="line">      <span class="keyword">this</span>.loadPriority = <span class="number">10</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Loading function.</div><div class="line">     *</div><div class="line">     * @param  &#123;&#123;&#125;&#125;       api  Reference for the API object.</div><div class="line">     * @param  &#123;Function&#125; next Callback function.</div><div class="line">     */</div><div class="line">    load (api, next) &#123;</div><div class="line">      <span class="comment">// log a message</span></div><div class="line">      api.log(<span class="string">'This is awesome!'</span>, <span class="string">'info'</span>)</div><div class="line"></div><div class="line">      <span class="comment">// finalize the Satellite loading</span></div><div class="line">      next()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="meta">'use strict'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Satellite class.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * It is recommended to use this class only to specify the functions</span></span><br><span class="line"><span class="comment"> * of the satellite, any other logic should be contained in a separate class.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">exports.default = <span class="class"><span class="keyword">class</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Constructor.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * The developer must define the Satellite priority for the</span></span><br><span class="line"><span class="comment">     * different stages.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">constructor</span> () &#123;</span><br><span class="line">      <span class="comment">// define the priority for the loading stage</span></span><br><span class="line">      <span class="keyword">this</span>.loadPriority = <span class="number">10</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Loading function.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * @param  &#123;&#123;&#125;&#125;       api  Reference for the API object.</span></span><br><span class="line"><span class="comment">     * @param  &#123;Function&#125; next Callback function.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    load (api, next) &#123;</span><br><span class="line">      <span class="comment">// log a message</span></span><br><span class="line">      api.log(<span class="string">'This is awesome!'</span>, <span class="string">'info'</span>)</span><br><span class="line"></span><br><span class="line">      <span class="comment">// finalize the Satellite loading</span></span><br><span class="line">      next()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
   
@@ -413,17 +426,6 @@
 
     <!-- main custom script for sidebar and other cool things -->
     <script src="/js/common.js"></script>
-
-    <!-- ga -->
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-77611901-1', 'stellar-framework.com');
-      ga('send', 'pageview');
-    </script>
 
     <!-- fastclick  -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>

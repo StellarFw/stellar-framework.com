@@ -30,8 +30,21 @@
 
     <!-- this needs to be loaded before guide's inline scripts -->
     <script>window.PAGE_TYPE = 'guide'</script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NSK9WJ6');</script>
+    <!-- End Google Tag Manager -->
   </head>
-  <body class="docs">    <div id="mobile-bar" >
+  <body class="docs">    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSK9WJ6"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="mobile-bar" >
       <a class="menu-button"></a>
       <a class="logo" href="/"></a>
     </div>
@@ -363,14 +376,14 @@
   
 
   <h2 id="Instance-methods"><a href="#Instance-methods" class="headerlink" title="Instance methods"></a>Instance methods</h2><p>You can attach instance methods to a model which will be available on any record returned from a query. These are defined as functions in your model attributes.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">attributes</span>: &#123;</div><div class="line">    <span class="attr">firstName</span>: <span class="string">'string'</span>,</div><div class="line">    <span class="attr">lastName</span>: <span class="string">'string'</span>,</div><div class="line">    fullName () &#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.firstName + <span class="string">' '</span> + <span class="keyword">this</span>.lastName</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  attributes: &#123;</span><br><span class="line">    firstName: <span class="string">'string'</span>,</span><br><span class="line">    lastName: <span class="string">'string'</span>,</span><br><span class="line">    fullName () &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.firstName + <span class="string">' '</span> + <span class="keyword">this</span>.lastName</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="toObject-toJSON"><a href="#toObject-toJSON" class="headerlink" title="toObject/toJSON"></a>toObject/toJSON</h3><p>The <code>toObject()</code> method will return the currently set model values only, without any of the instance methods attached. Useful if you want to change or remove values before sending to the client.</p>
 <p>However we provide an even easier way to filter values before returning to the client by allowing you to override the <code>toJSON()</code> method in your model.</p>
 <p>Example of filtering a password in your model definition:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">attributes</span>: &#123;</div><div class="line">    <span class="attr">name</span>: <span class="string">'string'</span>,</div><div class="line">    <span class="attr">password</span>: <span class="string">'string'</span>,</div><div class="line"></div><div class="line">    <span class="comment">// Override toJSON instance method to remove password value</span></div><div class="line">    toJSON () &#123;</div><div class="line">      <span class="keyword">let</span> obj = <span class="keyword">this</span>.toObject()</div><div class="line">      <span class="keyword">delete</span> obj.password</div><div class="line">      <span class="keyword">return</span> obj</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  attributes: &#123;</span><br><span class="line">    name: <span class="string">'string'</span>,</span><br><span class="line">    password: <span class="string">'string'</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Override toJSON instance method to remove password value</span></span><br><span class="line">    toJSON () &#123;</span><br><span class="line">      <span class="keyword">let</span> obj = <span class="keyword">this</span>.toObject()</span><br><span class="line">      <span class="keyword">delete</span> obj.password</span><br><span class="line">      <span class="keyword">return</span> obj</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="Class-Methods"><a href="#Class-Methods" class="headerlink" title="Class Methods"></a>Class Methods</h2><p>“Class” methods are functions available at the top level of a model. They can be called anytime after you get a model instance.</p>
 <p>These are useful if you would like to keep model logic in the model and have reusable functions available.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// example.js - just an example model</span></div><div class="line">&#123;</div><div class="line">  <span class="attr">attributes</span>: &#123; &#125;,</div><div class="line"></div><div class="line">  <span class="comment">// A "class" method</span></div><div class="line">  method1 () &#123; &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// example of a call</span></div><div class="line">Foo.method1()</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// example.js - just an example model</span></span><br><span class="line">&#123;</span><br><span class="line">  attributes: &#123; &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// A "class" method</span></span><br><span class="line">  method1 () &#123; &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// example of a call</span></span><br><span class="line">Foo.method1()</span><br></pre></td></tr></table></figure>
 
 
   
@@ -404,17 +417,6 @@
 
     <!-- main custom script for sidebar and other cool things -->
     <script src="/js/common.js"></script>
-
-    <!-- ga -->
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-77611901-1', 'stellar-framework.com');
-      ga('send', 'pageview');
-    </script>
 
     <!-- fastclick  -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>

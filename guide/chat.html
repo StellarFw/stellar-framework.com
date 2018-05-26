@@ -30,8 +30,21 @@
 
     <!-- this needs to be loaded before guide's inline scripts -->
     <script>window.PAGE_TYPE = 'guide'</script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NSK9WJ6');</script>
+    <!-- End Google Tag Manager -->
   </head>
-  <body class="docs">    <div id="mobile-bar" >
+  <body class="docs">    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSK9WJ6"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="mobile-bar" >
       <a class="menu-button"></a>
       <a class="logo" href="/"></a>
     </div>
@@ -376,36 +389,36 @@
 </blockquote>
 <h2 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h2><p>These methods can be used within your server. They are not exposed directly to clients, but they can be used within an action or a satellite.</p>
 <h3 id="Emit-an-Event"><a href="#Emit-an-Event" class="headerlink" title="Emit an Event"></a>Emit an Event</h3><p>The <code>emit(room, event, data, connection = {})</code> method allows us to send an event to a specific chat room. All the parameters are required, with the exception of the last one (<code>connection</code>). This returns a <code>Promise</code> and throw an error when something wrong happens.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">await</span> api.chatRoom.emit(<span class="string">'players'</span>, <span class="string">'positionUpdate'</span>, &#123; <span class="attr">id</span>: <span class="number">123</span>, pos &#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">await</span> api.chatRoom.emit(<span class="string">'players'</span>, <span class="string">'positionUpdate'</span>, &#123; <span class="attr">id</span>: <span class="number">123</span>, pos &#125;)</span><br></pre></td></tr></table></figure>
 <p>The <code>connection</code> parameter can be used to identifier the message originator.</p>
 <h3 id="Broadcast"><a href="#Broadcast" class="headerlink" title="Broadcast"></a>Broadcast</h3><p>The <code>broadcast(connection, room, message)</code> method allows you to send a generic message to all members in a room. The connection parameter can be a real connection (a message coming from a client), or a mockConnection. A mockConnection at the very least has the form <code>{room: &#39;someRoom&#39;}</code>. When an ID is not specified the ID will be assigned to 0. As return this method give us a <code>Promise</code>.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">await</span> api.chatRoom.broadcast(&#123;<span class="attr">room</span>: <span class="string">'general'</span>&#125;, <span class="string">'general'</span>, <span class="string">'Hello!'</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">await</span> api.chatRoom.broadcast(&#123;<span class="attr">room</span>: <span class="string">'general'</span>&#125;, <span class="string">'general'</span>, <span class="string">'Hello!'</span>)</span><br></pre></td></tr></table></figure>
 <h3 id="List-of-Rooms"><a href="#List-of-Rooms" class="headerlink" title="List of Rooms"></a>List of Rooms</h3><p>The <code>list()</code> allows you to get a list of existing rooms. The following example code lists all rooms in the console (<code>stdout</code>):</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> rooms = <span class="keyword">await</span> api.chatRoom.list()</div><div class="line"></div><div class="line">rooms.forEach(<span class="function">(<span class="params">room, index</span>) =&gt;</span> <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;index&#125;</span> =&gt; <span class="subst">$&#123;room&#125;</span>`</span>))</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> rooms = <span class="keyword">await</span> api.chatRoom.list()</span><br><span class="line"></span><br><span class="line">rooms.forEach(<span class="function">(<span class="params">room, index</span>) =&gt;</span> <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;index&#125;</span> =&gt; <span class="subst">$&#123;room&#125;</span>`</span>))</span><br></pre></td></tr></table></figure>
 <h3 id="Create-a-Room"><a href="#Create-a-Room" class="headerlink" title="Create a Room"></a>Create a Room</h3><p>To create a room you use the <code>create(room)</code> method. The methods returns a <code>Promise</code>. The following code shows the creation of a new room named “labs”:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">await</span> api.chatRoom.create(<span class="string">'labs'</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">await</span> api.chatRoom.create(<span class="string">'labs'</span>)</span><br></pre></td></tr></table></figure>
 <h3 id="Destroy-a-Room"><a href="#Destroy-a-Room" class="headerlink" title="Destroy a Room"></a>Destroy a Room</h3><p>Using the <code>destroy(room)</code> method, you can remove a room. The method returns a <code>Promise</code>; the room is always removed. The following code shows how you can remove a room:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">await</span> api.chatRoom.destroy(<span class="string">'labs'</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">await</span> api.chatRoom.destroy(<span class="string">'labs'</span>)</span><br></pre></td></tr></table></figure>
 <h3 id="Check-if-the-Room-Exists"><a href="#Check-if-the-Room-Exists" class="headerlink" title="Check if the Room Exists"></a>Check if the Room Exists</h3><p>You can use the <code>exists(room)</code> method to check if a given room exists in the Stellar instance. The method returns a <code>Promise</code>, that resolves with <code>true</code> if the room exists, and <code>false</code> otherwise.</p>
 <p>The following code checks the existence of the chat room named “coffeeTable”:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> found = <span class="keyword">await</span> api.chatRoom.exists(<span class="string">'coffeeTable'</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> found = <span class="keyword">await</span> api.chatRoom.exists(<span class="string">'coffeeTable'</span>)</span><br></pre></td></tr></table></figure>
 <h3 id="Gets-the-Room-State"><a href="#Gets-the-Room-State" class="headerlink" title="Gets the Room State"></a>Gets the Room State</h3><p>With the <code>roomStatus(room)</code> method you can get room status information. The method returns a <code>Promise</code>, as response is given an object containing information about the room: name, number of registered members, and the list of such members.</p>
 <p>The code below shows how this information can be obtained and then a possible result:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> status = <span class="keyword">await</span> api.chatRoom.status(<span class="string">'Random'</span>)</div></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">room</span>: <span class="string">'Random'</span>,</div><div class="line">  <span class="attr">membersCount</span>: <span class="number">3</span>,</div><div class="line">  <span class="attr">members</span>: &#123;</div><div class="line">    <span class="attr">g0m</span>: &#123;<span class="attr">id</span>: <span class="string">'g0m'</span>, <span class="attr">joinedAt</span>: <span class="number">1465829955</span>&#125;,</div><div class="line">    <span class="attr">afls</span>: &#123;<span class="attr">id</span>: <span class="string">'afls'</span>, <span class="attr">joinedAt</span>: <span class="number">1465829985</span>&#125;,</div><div class="line">    <span class="attr">amg</span>: &#123;<span class="attr">id</span>: <span class="string">'amg'</span>, <span class="attr">joinedAt</span>: <span class="number">1465830011</span>&#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> status = <span class="keyword">await</span> api.chatRoom.status(<span class="string">'Random'</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  room: <span class="string">'Random'</span>,</span><br><span class="line">  membersCount: <span class="number">3</span>,</span><br><span class="line">  members: &#123;</span><br><span class="line">    g0m: &#123;<span class="attr">id</span>: <span class="string">'g0m'</span>, <span class="attr">joinedAt</span>: <span class="number">1465829955</span>&#125;,</span><br><span class="line">    afls: &#123;<span class="attr">id</span>: <span class="string">'afls'</span>, <span class="attr">joinedAt</span>: <span class="number">1465829985</span>&#125;,</span><br><span class="line">    amg: &#123;<span class="attr">id</span>: <span class="string">'amg'</span>, <span class="attr">joinedAt</span>: <span class="number">1465830011</span>&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="Add-a-Member"><a href="#Add-a-Member" class="headerlink" title="Add a Member"></a>Add a Member</h3><p>To add a new member to a room, use the <code>join(connectionId, room)</code> method. The client connection ID and the name of the room are needed. The method returns a <code>Promise</code> that resolves of rejects depending on whether the member was added or not.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> wasAdded = <span class="keyword">await</span> api.chatRoom.join(connectionId, <span class="string">'newUsers'</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> wasAdded = <span class="keyword">await</span> api.chatRoom.join(connectionId, <span class="string">'newUsers'</span>)</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>Note: you can add connections from the current server or any other server in the cluster.</p>
 </blockquote>
 <h3 id="Remove-a-Member"><a href="#Remove-a-Member" class="headerlink" title="Remove a Member"></a>Remove a Member</h3><p>The <code>leave(connectionId, room)</code> method allows you to remove a member from a given room. This requires the member’s connection ID and the name of the room. As return this will give us a <code>Promise</code>.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> wasRemoved = <span class="keyword">await</span> api.chatRoom.leave(connectionId, <span class="string">'heaven'</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> wasRemoved = <span class="keyword">await</span> api.chatRoom.leave(connectionId, <span class="string">'heaven'</span>)</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>Note: you can remove connections from the current server or any other server in the cluster.</p>
 </blockquote>
 <h2 id="Middleware"><a href="#Middleware" class="headerlink" title="Middleware"></a>Middleware</h2><p>There are 4 types of middleware you can install for the chat system: <code>say</code>, <code>onSayReceive</code>, <code>join</code>, and <code>leave</code>. All documentation about <em>middleware</em> is available in the <a href="./middleware.html">middleware section</a>.</p>
 <h2 id="Chatting-to-Specific-Clients"><a href="#Chatting-to-Specific-Clients" class="headerlink" title="Chatting to Specific Clients"></a>Chatting to Specific Clients</h2><p>Every connection object also has a <code>connection.sendMessage(message)</code> method which you can call directly from the server.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">connectionObj.sendMessage(<span class="string">'Welcome to Stellar :)'</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">connectionObj.sendMessage(<span class="string">'Welcome to Stellar :)'</span>)</span><br></pre></td></tr></table></figure>
 <h2 id="Catching-the-Event"><a href="#Catching-the-Event" class="headerlink" title="Catching the Event"></a>Catching the Event</h2><p>In order to catch an event send by a client you can use the Stellar’s <a href="./events.html">event system</a>. When a event is received two events are fired, one with the generic event, and another also with the event, but specific to a room.</p>
 <p>For example, if you want to catch the <code>newItem</code> event on the room <code>world1</code> you must use the <code>event.world1.newItem</code>. But if you just want to catch the event, independent of the room you just need to catch the <code>event.newItem</code> event.</p>
 <h2 id="Client-Functions"><a href="#Client-Functions" class="headerlink" title="Client Functions"></a>Client Functions</h2><p>The ways it is possible to communicate with the client are described in the sections documenting the types of bidirectional servers, <a href="websocket.html">websocket</a> and <a href="tcp.html">TCP</a>.</p>
@@ -442,17 +455,6 @@
 
     <!-- main custom script for sidebar and other cool things -->
     <script src="/js/common.js"></script>
-
-    <!-- ga -->
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-77611901-1', 'stellar-framework.com');
-      ga('send', 'pageview');
-    </script>
 
     <!-- fastclick  -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>

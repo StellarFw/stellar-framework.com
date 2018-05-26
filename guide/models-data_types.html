@@ -30,8 +30,21 @@
 
     <!-- this needs to be loaded before guide's inline scripts -->
     <script>window.PAGE_TYPE = 'guide'</script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NSK9WJ6');</script>
+    <!-- End Google Tag Manager -->
   </head>
-  <body class="docs">    <div id="mobile-bar" >
+  <body class="docs">    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSK9WJ6"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="mobile-bar" >
       <a class="menu-button"></a>
       <a class="logo" href="/"></a>
     </div>
@@ -379,22 +392,22 @@
 <p>These will map to the underlying database type if available. If a database doesn’t support a type a polyfill will be used. For example when using an array or json type in MySQL the values will be stringified before being saved.</p>
 <h2 id="Attribute-Properties"><a href="#Attribute-Properties" class="headerlink" title="Attribute Properties"></a>Attribute Properties</h2><p>These properties are also available on an attribute and can be used to enforce various constraints on the data.</p>
 <h3 id="defaultsTo"><a href="#defaultsTo" class="headerlink" title="defaultsTo"></a>defaultsTo</h3><p>Will set a default value on an attribute if one is not supplied when the record is created. The supplied value can also be a<br>function that stellar will run while creating the record.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">attributes: &#123;</div><div class="line">  <span class="attr">phoneNumber</span>: &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">'string'</span>,</div><div class="line">    <span class="attr">defaultsTo</span>: <span class="string">'111-222-3333'</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">id</span>: &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">'text'</span>,</div><div class="line">    <span class="attr">primaryKey</span>: <span class="literal">true</span>,</div><div class="line">    <span class="attr">unique</span>: <span class="literal">true</span>,</div><div class="line">    defaultsTo() &#123;</div><div class="line">      <span class="keyword">return</span> uuid.v4()</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">attributes: &#123;</span><br><span class="line">  phoneNumber: &#123;</span><br><span class="line">    type: <span class="string">'string'</span>,</span><br><span class="line">    defaultsTo: <span class="string">'111-222-3333'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  id: &#123;</span><br><span class="line">    type: <span class="string">'text'</span>,</span><br><span class="line">    primaryKey: <span class="literal">true</span>,</span><br><span class="line">    unique: <span class="literal">true</span>,</span><br><span class="line">    defaultsTo() &#123;</span><br><span class="line">      <span class="keyword">return</span> uuid.v4()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="autoIncrement"><a href="#autoIncrement" class="headerlink" title="autoIncrement"></a>autoIncrement</h3><p>Will create a new auto-incrementing attribute. These should always be of type <code>integer</code> and will not be supported in all datastores. For example MySQL will not allow more than one auto-incrementing<br>column per table.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">attributes: &#123;</div><div class="line">  <span class="attr">placeInLine</span>: &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">'integer'</span>,</div><div class="line">    <span class="attr">autoIncrement</span>: <span class="literal">true</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">attributes: &#123;</span><br><span class="line">  placeInLine: &#123;</span><br><span class="line">    type: <span class="string">'integer'</span>,</span><br><span class="line">    autoIncrement: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="unique"><a href="#unique" class="headerlink" title="unique"></a>unique</h3><p>Ensures no two records will be allowed with the same value. This is a database level constraint so in most cases a unique index will be created in the underlying datastore.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">attributes: &#123;</div><div class="line">  <span class="attr">username</span>: &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">'string'</span>,</div><div class="line">    <span class="attr">unique</span>: <span class="literal">true</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">attributes: &#123;</span><br><span class="line">  username: &#123;</span><br><span class="line">    type: <span class="string">'string'</span>,</span><br><span class="line">    unique: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="index"><a href="#index" class="headerlink" title="index"></a>index</h3><p>Will create a simple index in the underlying datastore for faster queries if available. This is only for simple indexes and currently doens’t support compound indexes. For these you will need to create them yourself.</p>
 <p>There is currently an issue with adding indexes to string fields. Because the ORM performs its queries in a case insensitive manner we are unable to use the index on a string attribute. There are some workarounds being discussed, but nothing is implemented so far. This will be updated in the near future to fully support indexes on strings.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">attributes: &#123;</div><div class="line">  <span class="attr">email</span>: &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">'string'</span>,</div><div class="line">    <span class="attr">index</span>: <span class="literal">true</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">attributes: &#123;</span><br><span class="line">  email: &#123;</span><br><span class="line">    type: <span class="string">'string'</span>,</span><br><span class="line">    index: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="primaryKey"><a href="#primaryKey" class="headerlink" title="primaryKey"></a>primaryKey</h3><p>Will set the primary key of the record. This should be used when <code>autoPK</code> is set to false.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">attributes: &#123;</div><div class="line">  <span class="attr">uuid</span>: &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">'string'</span>,</div><div class="line">    <span class="attr">primaryKey</span>: <span class="literal">true</span>,</div><div class="line">    <span class="attr">required</span>: <span class="literal">true</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">attributes: &#123;</span><br><span class="line">  uuid: &#123;</span><br><span class="line">    type: <span class="string">'string'</span>,</span><br><span class="line">    primaryKey: <span class="literal">true</span>,</span><br><span class="line">    required: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="enum"><a href="#enum" class="headerlink" title="enum"></a>enum</h3><p>A special validation property which will only allow values that match a whitelisted set of values.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">attributes: &#123;</div><div class="line">  <span class="attr">state</span>: &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">'string'</span>,</div><div class="line">    <span class="attr">enum</span>: [ <span class="string">'pending'</span>, <span class="string">'approved'</span>, <span class="string">'denied'</span> ]</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">attributes: &#123;</span><br><span class="line">  state: &#123;</span><br><span class="line">    type: <span class="string">'string'</span>,</span><br><span class="line">    enum: [ <span class="string">'pending'</span>, <span class="string">'approved'</span>, <span class="string">'denied'</span> ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="size"><a href="#size" class="headerlink" title="size"></a>size</h3><p>If supported in the datastore, can be used to define the size of the attribute. For example, in MySQL size can be used with a string to create a column with data type: <code>varchar(n)</code>.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">attributes: &#123;</div><div class="line">  <span class="attr">name</span>: &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">'string'</span>,</div><div class="line">    <span class="attr">size</span>: <span class="number">24</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">attributes: &#123;</span><br><span class="line">  name: &#123;</span><br><span class="line">    type: <span class="string">'string'</span>,</span><br><span class="line">    size: <span class="number">24</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="columnName"><a href="#columnName" class="headerlink" title="columnName"></a>columnName</h3><p>Override the attribute name before sending to a datastore. This allows you to have a different interface for interacting with your data at the application layer and the data layer. It comes in handy when integrating with legacy databases. You can have a nice API for your data and still allow the data to be saved in legacy columns.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">attributes: &#123;</div><div class="line">  <span class="attr">name</span>: &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">'string'</span>,</div><div class="line">    <span class="attr">columnName</span>: <span class="string">'legacy_data_user_name'</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">attributes: &#123;</span><br><span class="line">  name: &#123;</span><br><span class="line">    type: <span class="string">'string'</span>,</span><br><span class="line">    columnName: <span class="string">'legacy_data_user_name'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
   
@@ -430,17 +443,6 @@
 
     <!-- main custom script for sidebar and other cool things -->
     <script src="/js/common.js"></script>
-
-    <!-- ga -->
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-77611901-1', 'stellar-framework.com');
-      ga('send', 'pageview');
-    </script>
 
     <!-- fastclick  -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>

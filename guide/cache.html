@@ -30,8 +30,21 @@
 
     <!-- this needs to be loaded before guide's inline scripts -->
     <script>window.PAGE_TYPE = 'guide'</script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NSK9WJ6');</script>
+    <!-- End Google Tag Manager -->
   </head>
-  <body class="docs">    <div id="mobile-bar" >
+  <body class="docs">    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSK9WJ6"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="mobile-bar" >
       <a class="menu-button"></a>
       <a class="logo" href="/"></a>
     </div>
@@ -365,12 +378,12 @@
   <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Stellar comes equipped with a cache system, which is allowed to use numbers, strings, arrays and objects. This is a key-value distributed system which makes use of a Redis server and can use any object that is supported by the <code>JSON.stringify</code> function.</p>
 <h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>In the cache system there are three basic methods to manage the cached objects. These are the methods <code>save</code>, <code>load</code> and <code>destroy</code>.</p>
 <h3 id="Add-a-New-Entry"><a href="#Add-a-New-Entry" class="headerlink" title="Add a New Entry"></a>Add a New Entry</h3><p>To add a new entry to the cache, you need to use <code>api.cache.save(key, value, msToExpire)</code>; this method also allows you to update an existing entry. The <code>msToExpire</code> can be <code>null</code> if you don’t want the object to expire. As return this method give us a <code>Promise</code> with the newly created object in the cache. If you are updating an existing object, the value will assume the <code>true</code> value.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// create a new cache entry</span></div><div class="line"><span class="keyword">await</span> api.cache.save(<span class="string">'websiteTitle'</span>, <span class="string">'XPTO Website'</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// create a new cache entry</span></span><br><span class="line"><span class="keyword">await</span> api.cache.save(<span class="string">'websiteTitle'</span>, <span class="string">'XPTO Website'</span>)</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>Warning: Once <code>msToExpire</code> is reached the entry will be removed from the system, but possibly not at that exact moment.</p>
 </blockquote>
 <h3 id="Get-an-Entry"><a href="#Get-an-Entry" class="headerlink" title="Get an Entry"></a>Get an Entry</h3><p>To retrieve an entry which is cached, use the method <code>api.cache.load(cache)</code> or <code>api.cache.load(cache, options)</code>; <code>options</code> must be an object which can contain the property <code>expireTimeMS</code> which will reset the expiration time of the cached value when it is read.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// try get the `webSiteTitle` entry from the cache.</span></div><div class="line"><span class="keyword">const</span> data = <span class="keyword">await</span> api.cache.load(<span class="string">'webSiteTitle'</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// try get the `webSiteTitle` entry from the cache.</span></span><br><span class="line"><span class="keyword">const</span> data = <span class="keyword">await</span> api.cache.load(<span class="string">'webSiteTitle'</span>)</span><br></pre></td></tr></table></figure>
 <p>When the <code>Promise</code> is resolved it give an object with the following parameters:</p>
 <ul>
 <li><strong><code>value</code></strong>: Contains the value corresponding to the requested key, or <code>null</code> if the record does not exist in the cache or has expired.</li>
@@ -382,14 +395,14 @@
 <ul>
 <li><strong><code>key</code></strong>: Object name to be destroyed.</li>
 </ul>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">await</span> api.cache.destroy(<span class="string">'webSiteTitle'</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">await</span> api.cache.destroy(<span class="string">'webSiteTitle'</span>)</span><br></pre></td></tr></table></figure>
 <h2 id="Lists"><a href="#Lists" class="headerlink" title="Lists"></a>Lists</h2><p>Cache lists have a similar behavior to a queue, the elements are inserted into the tail and removed from the head of the structure. These lists are a great way to store objects that need to be processed in order.</p>
 <h3 id="Insert"><a href="#Insert" class="headerlink" title="Insert"></a>Insert</h3><p>To insert a new element in the list we use the <code>api.cache.push(key, item)</code> method. If the list already exists the new element will be inserted at the end of the list, otherwise a new list will be created.</p>
 <ul>
 <li><strong><code>key</code></strong>: Name of the list where you want to insert the new element.</li>
 <li><strong><code>item</code></strong>: Item you want save on the list.</li>
 </ul>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// add a new element on the `commands` list</span></div><div class="line"><span class="keyword">await</span> api.cache.push(<span class="string">'commands'</span>, &#123;<span class="attr">player</span>: <span class="string">'xpto'</span>, <span class="attr">command</span>: <span class="string">'exec:abc:param1'</span>&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// add a new element on the `commands` list</span></span><br><span class="line"><span class="keyword">await</span> api.cache.push(<span class="string">'commands'</span>, &#123;<span class="attr">player</span>: <span class="string">'xpto'</span>, <span class="attr">command</span>: <span class="string">'exec:abc:param1'</span>&#125;)</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>Warning: you can only save objects which are supported by the <code>JSON.stringify</code> function.</p>
 </blockquote>
@@ -398,12 +411,12 @@
 <li><strong><code>key</code></strong>: Name of the list from which to get the element.</li>
 </ul>
 <p>The following example shows how to pop a element from a list. When the <code>Promise</code> resolves it give us the item present at the head of the list or <code>null</code> if the list does not exist.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// pop an element from the list and save it on the `item` const</span></div><div class="line"><span class="keyword">const</span> item = <span class="keyword">await</span> api.cache.pop(<span class="string">'commands'</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// pop an element from the list and save it on the `item` const</span></span><br><span class="line"><span class="keyword">const</span> item = <span class="keyword">await</span> api.cache.pop(<span class="string">'commands'</span>)</span><br></pre></td></tr></table></figure>
 <h3 id="Size"><a href="#Size" class="headerlink" title="Size"></a>Size</h3><p>Stellar also allows you to get the size of a list that is cached. If the list does not exist, the value returned is <code>0</code>. For the size you use the <code>api.cache.listLength(key)</code> function.</p>
 <ul>
 <li><strong><code>key</code></strong>: Name of the list for which you want to obtain the size.</li>
 </ul>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// get the `commands` list size and store it on a constant</span></div><div class="line"><span class="keyword">const</span> size = <span class="keyword">await</span> api.cache.listLength(<span class="string">'commands'</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// get the `commands` list size and store it on a constant</span></span><br><span class="line"><span class="keyword">const</span> size = <span class="keyword">await</span> api.cache.listLength(<span class="string">'commands'</span>)</span><br></pre></td></tr></table></figure>
 <h2 id="Locking-Methods"><a href="#Locking-Methods" class="headerlink" title="Locking Methods"></a>Locking Methods</h2><p>It is possible, optionally, to use methods to lock editing of objects that are in the cache. These methods are interesting for scenarios where Stellar is running on a cluster, correcting possible concurrency problems.</p>
 <h3 id="Lock"><a href="#Lock" class="headerlink" title="Lock"></a>Lock</h3><p>The <code>api.cache.lock(key, expireTimeMS)</code> method allows you to lock an existing cached object. The list below describes the parameters of the <code>lock</code> method:</p>
 <ul>
@@ -411,21 +424,21 @@
 <li><strong><code>expireTimeMS</code></strong>: This parameter is optional; by default the value set in the configuration setting <code>api.config.general.lockDuration</code> will be used.</li>
 </ul>
 <p>The returned promise after resolved give us a boolean value informing whether the lock was obtained.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> lockOk = <span class="keyword">await</span> api.cache.lock(<span class="string">'inTransaction'</span>)</div><div class="line"></div><div class="line"><span class="keyword">if</span> (!lockOk) &#123;</div><div class="line">  <span class="comment">// it was impossible to obtain the lock!</span></div><div class="line">  <span class="keyword">return</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// do something after getting the lock!</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> lockOk = <span class="keyword">await</span> api.cache.lock(<span class="string">'inTransaction'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!lockOk) &#123;</span><br><span class="line">  <span class="comment">// it was impossible to obtain the lock!</span></span><br><span class="line">  <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// do something after getting the lock!</span></span><br></pre></td></tr></table></figure>
 <h3 id="Unlock"><a href="#Unlock" class="headerlink" title="Unlock"></a>Unlock</h3><p>To unlock an object you just need use the <code>api.cache.unlock(key)</code> method. The list below describes the parameters of the <code>unlock</code> method:</p>
 <ul>
 <li><strong><code>key</code></strong>: Object name to unlock.</li>
 </ul>
 <p>The returned promise after be resolved give us a boolean value, <code>true</code> if the lock has been removed, <code>false</code> otherwise.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> lockOk = <span class="keyword">await</span> api.cache.unlock(<span class="string">'inTransaction'</span>)</div><div class="line"></div><div class="line"><span class="keyword">if</span> (!lockOk) &#123;</div><div class="line">  <span class="comment">// it was impossible to remove the lock!</span></div><div class="line">  <span class="keyword">return</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// the lock has been removed!</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> lockOk = <span class="keyword">await</span> api.cache.unlock(<span class="string">'inTransaction'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!lockOk) &#123;</span><br><span class="line">  <span class="comment">// it was impossible to remove the lock!</span></span><br><span class="line">  <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// the lock has been removed!</span></span><br></pre></td></tr></table></figure>
 <h3 id="Check-Lock"><a href="#Check-Lock" class="headerlink" title="Check Lock"></a>Check Lock</h3><p>There is also a method to obtain the lock status of a particular object, <code>api.cache.checkLock(key, retry)</code>. The list below shows the description of the method parameters:</p>
 <ul>
 <li><strong><code>key</code></strong>: Object name for which you want check the lock.</li>
 </ul>
 <p>The returned promise after be resolved give us a boolean value, <code>true</code> or <code>false</code> depending on the lock status.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> lockOk = <span class="keyword">await</span> api.cache.checkLock(<span class="string">'inTransaction'</span>)</div><div class="line"></div><div class="line"><span class="keyword">if</span> (!lockOk) &#123;</div><div class="line">  <span class="comment">// the object does not contain a lock!</span></div><div class="line">  <span class="keyword">return</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// the object is locked!</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> lockOk = <span class="keyword">await</span> api.cache.checkLock(<span class="string">'inTransaction'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!lockOk) &#123;</span><br><span class="line">  <span class="comment">// the object does not contain a lock!</span></span><br><span class="line">  <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// the object is locked!</span></span><br></pre></td></tr></table></figure>
 <h3 id="List-of-Locks"><a href="#List-of-Locks" class="headerlink" title="List of Locks"></a>List of Locks</h3><p>The <code>api.cache.locks()</code> method allows you get all active locks.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// with this lock we can obtain the list of all locks currently in the system</span></div><div class="line"><span class="keyword">const</span> locks = <span class="keyword">await</span> api.cache.locks()</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// with this lock we can obtain the list of all locks currently in the system</span></span><br><span class="line"><span class="keyword">const</span> locks = <span class="keyword">await</span> api.cache.locks()</span><br></pre></td></tr></table></figure>
 
 
   
@@ -459,17 +472,6 @@
 
     <!-- main custom script for sidebar and other cool things -->
     <script src="/js/common.js"></script>
-
-    <!-- ga -->
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-77611901-1', 'stellar-framework.com');
-      ga('send', 'pageview');
-    </script>
 
     <!-- fastclick  -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>

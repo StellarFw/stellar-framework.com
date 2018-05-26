@@ -30,8 +30,21 @@
 
     <!-- this needs to be loaded before guide's inline scripts -->
     <script>window.PAGE_TYPE = 'guide'</script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NSK9WJ6');</script>
+    <!-- End Google Tag Manager -->
   </head>
-  <body class="docs">    <div id="mobile-bar" >
+  <body class="docs">    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSK9WJ6"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="mobile-bar" >
       <a class="menu-button"></a>
       <a class="logo" href="/"></a>
     </div>
@@ -362,12 +375,12 @@
     <h1>Installation</h1>
   
 
-  <h3 id="Compatibility"><a href="#Compatibility" class="headerlink" title="Compatibility"></a>Compatibility</h3><p>Stellar makes use of the full potential of <a href="http://es6-features.org/" target="_blank" rel="external">ECMAScript 6</a>, so Node.js versions lower than 6 are not supported.</p>
-<h3 id="Release-Notes"><a href="#Release-Notes" class="headerlink" title="Release Notes"></a>Release Notes</h3><p>Details of releases for each version are available on GitHub in the <a href="https://github.com/StellarFw/stellar/releases" target="_blank" rel="external">Releases</a> tab and in the <a href="https://github.com/StellarFw/stellar/blob/dev/CHANGELOG.md" target="_blank" rel="external">Changelog</a> file.</p>
+  <h3 id="Compatibility"><a href="#Compatibility" class="headerlink" title="Compatibility"></a>Compatibility</h3><p>Stellar makes use of the full potential of <a href="http://es6-features.org/" target="_blank" rel="noopener">ECMAScript 6</a>, so Node.js versions lower than 6 are not supported.</p>
+<h3 id="Release-Notes"><a href="#Release-Notes" class="headerlink" title="Release Notes"></a>Release Notes</h3><p>Details of releases for each version are available on GitHub in the <a href="https://github.com/StellarFw/stellar/releases" target="_blank" rel="noopener">Releases</a> tab and in the <a href="https://github.com/StellarFw/stellar/blob/dev/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a> file.</p>
 <h2 id="NPM"><a href="#NPM" class="headerlink" title="NPM"></a>NPM</h2><p>NPM is the recommended method for installing Stellar and all dependencies.</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line"><span class="comment"># latest stable release</span></div><div class="line">$ npm install -g stellar-fw</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># latest stable release</span></span><br><span class="line">$ npm install -g stellar-fw</span><br></pre></td></tr></table></figure>
 <h2 id="Development-Versions"><a href="#Development-Versions" class="headerlink" title="Development Versions"></a>Development Versions</h2><p>To use the development version of Stellar you just have to clone the GitHub repository. The <code>master</code> branch contains the latest stable release of the framework; the development version is found in the <code>dev</code> branch.</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line"><span class="comment"># clones the repository and creates the stellar folder</span></div><div class="line">$ git <span class="built_in">clone</span> https://github.com/StellarFw/stellar stellar</div><div class="line"></div><div class="line"><span class="comment"># enters the stellar folder and installs the dependencies</span></div><div class="line">$ <span class="built_in">cd</span> stellar &amp;&amp; npm install</div><div class="line"></div><div class="line"><span class="comment"># transpiles the ES6 code from the `/src` folder to ES5 code (in the `/dist` folder)</span></div><div class="line">$ npm run build</div><div class="line"></div><div class="line"><span class="comment"># adds a symlink in the system npm folder to the stellar command-line tool</span></div><div class="line">$ npm link</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># clones the repository and creates the stellar folder</span></span><br><span class="line">$ git <span class="built_in">clone</span> https://github.com/StellarFw/stellar stellar</span><br><span class="line"></span><br><span class="line"><span class="comment"># enters the stellar folder and installs the dependencies</span></span><br><span class="line">$ <span class="built_in">cd</span> stellar &amp;&amp; npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># transpiles the ES6 code from the `/src` folder to ES5 code (in the `/dist` folder)</span></span><br><span class="line">$ npm run build</span><br><span class="line"></span><br><span class="line"><span class="comment"># adds a symlink in the system npm folder to the stellar command-line tool</span></span><br><span class="line">$ npm link</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>Note: the <code>npm link</code> command may require admin permissions.</p>
 </blockquote>
@@ -404,17 +417,6 @@
 
     <!-- main custom script for sidebar and other cool things -->
     <script src="/js/common.js"></script>
-
-    <!-- ga -->
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-77611901-1', 'stellar-framework.com');
-      ga('send', 'pageview');
-    </script>
 
     <!-- fastclick  -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>

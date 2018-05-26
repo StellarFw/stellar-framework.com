@@ -30,8 +30,21 @@
 
     <!-- this needs to be loaded before guide's inline scripts -->
     <script>window.PAGE_TYPE = 'guide'</script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NSK9WJ6');</script>
+    <!-- End Google Tag Manager -->
   </head>
-  <body class="docs">    <div id="mobile-bar" >
+  <body class="docs">    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSK9WJ6"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="mobile-bar" >
       <a class="menu-button"></a>
       <a class="logo" href="/"></a>
     </div>
@@ -369,15 +382,15 @@
 <p>Note: In *NIX operating systems symbolic links to folders and files are allowed.</p>
 </blockquote>
 <h2 id="Web-Clients"><a href="#Web-Clients" class="headerlink" title="Web Clients"></a>Web Clients</h2><p>For Web clients, the <code>Cache-Control</code> and <code>Expires</code> headers are sent; the value of these is determined by the <code>api.config.general.flatFileCacheDuration</code> configuration setting.</p>
-<p>For the <code>Content-Type</code> header, the <a href="https://npmjs.org/package/mime" target="_blank" rel="external">mime</a> package is used to determine the file type.</p>
+<p>For the <code>Content-Type</code> header, the <a href="https://npmjs.org/package/mime" target="_blank" rel="noopener">mime</a> package is used to determine the file type.</p>
 <p>An action which makes use of the <code>api.sendFile</code> method can use <code>connection.params.file</code> to find out which file was requested by the client.  If the request falls under the <code>api.config.servers.web.urlPathForFiles</code> route, the file will be looked up within the <code>/public</code> folder.</p>
 <p>You can also send the contents of a file to a client by calling <code>server.sendFile(connection, null, fileStream, &#39;text/html&#39;, length)</code>.</p>
 <h2 id="Other-Clients"><a href="#Other-Clients" class="headerlink" title="Other Clients"></a>Other Clients</h2><p>A client using a non-HTTP connection must use the <code>file</code> parameter to request a file.</p>
 <p>The file content is sent “raw,” which can be binary or contain line breaks. The file must be parsed according to the type of request made.</p>
 <h2 id="Send-Files-by-Actions"><a href="#Send-Files-by-Actions" class="headerlink" title="Send Files by Actions"></a>Send Files by Actions</h2><p>You can send files from within actions using the <code>connection.sendFile()</code> method. Below is an example of a successful call:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// success case</span></div><div class="line">action.connection.sendFile(<span class="string">'/path/to/file.mkv'</span>)</div><div class="line">action.toRender = <span class="literal">false</span></div><div class="line">next()</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// success case</span></span><br><span class="line">action.connection.sendFile(<span class="string">'/path/to/file.mkv'</span>)</span><br><span class="line">action.toRender = <span class="literal">false</span></span><br><span class="line">next()</span><br></pre></td></tr></table></figure>
 <p>The following example shows a failure:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// failure case</span></div><div class="line">action.connection.rawConnection.responseHttpCode = <span class="number">404</span></div><div class="line">action.connection.sendFile(<span class="string">'404.html'</span>)</div><div class="line">action.toRender = <span class="literal">false</span></div><div class="line">next()</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// failure case</span></span><br><span class="line">action.connection.rawConnection.responseHttpCode = <span class="number">404</span></span><br><span class="line">action.connection.sendFile(<span class="string">'404.html'</span>)</span><br><span class="line">action.toRender = <span class="literal">false</span></span><br><span class="line">next()</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>Note: You must set the property <code>action.toRender = false</code> after sending a file to prevent Stellar from automatically generating a response, since the response has already been sent to the client.</p>
 </blockquote>
@@ -414,17 +427,6 @@
 
     <!-- main custom script for sidebar and other cool things -->
     <script src="/js/common.js"></script>
-
-    <!-- ga -->
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-77611901-1', 'stellar-framework.com');
-      ga('send', 'pageview');
-    </script>
 
     <!-- fastclick  -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
