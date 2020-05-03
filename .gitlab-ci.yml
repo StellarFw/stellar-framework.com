@@ -1,0 +1,76 @@
+image: node:10.9.0
+
+stages:
+  - prep
+  - build
+  - build_docker
+  - deploy
+
+cache:
+  paths:
+    - node_modules/
+
+prep:
+  stage: prep
+  script:
+    - yarn install
+  artifacts:
+    paths:
+    - node_modules
+  only:
+    - master
+
+build:
+  stage: build
+  dependencies:
+    - prep
+  script:
+    - yarn run build
+  artifacts:
+    paths:
+      - public/
+  only:
+    - master
+
+build_docker:
+  stage: build_docker
+  image: docker:stable
+  dependencies:
+    - build
+  services:
+    - docker:dind
+  script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker build --pull -t $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME .
+    - docker push $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME
+    - docker tag $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME $CI_REGISTRY_IMAGE:latest
+    - docker push $CI_REGISTRY_IMAGE:latest
+  only:
+    - master
+
+deploy_production:
+  stage: deploy
+  dependencies:
+    - build_docker
+  image: docker:latest
+  variables:
+    DOCKER_HOST: tcp://radon.elementarium.xyz:2376
+    DOCKER_TLS_VERIFY: 1
+    SERVICE_NAME: stellar
+  artifacts:
+    paths:
+      - dist/
+  script:
+    - mkdir -p ~/.docker
+    - echo "$TLSCACERT" > ~/.docker/ca.pem
+    - echo "$TLSCERT" > ~/.docker/cert.pem
+    - echo "$TLSKEY" > ~/.docker/key.pem
+    - docker login -u gitlab-ci-token -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
+    - docker stack deploy --with-registry-auth --compose-file=docker/production-stack.yml ${CI_PROJECT_NAMESPACE}-${CI_PROJECT_NAME}-${SERVICE_NAME}
+
+  environment:
+    name: prod
+    url: https://stellar-framework.com
+  only:
+    - master
+

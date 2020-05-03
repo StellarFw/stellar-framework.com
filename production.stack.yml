@@ -1,0 +1,28 @@
+version: '3.1'
+
+networks:
+  proxy:
+    external: true
+
+services:
+  web:
+    image: "${CI_REGISTRY_IMAGE}:${CI_BUILD_REF_NAME}"
+    networks:
+      - proxy
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.stellar.rule=Host(`stellar-framework.com`)"
+        - "traefik.http.services.stellar.loadbalancer.server.port=80"
+        - "traefik.http.routers.stellar.entrypoints=websecure"
+        - "traefik.http.routers.stellar.tls.certresolver=le"
+        - "traefik.http.routers.stellar.service=stellar"
