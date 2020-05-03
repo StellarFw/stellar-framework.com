@@ -1,4 +1,4 @@
-FROM node:13 as build
+FROM node:1q as build
 ADD package.json /tmp
 ADD yarn.lock /tmp
 RUN cd /tmp && yarn install
